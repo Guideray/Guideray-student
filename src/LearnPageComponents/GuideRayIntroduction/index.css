@@ -1,0 +1,167 @@
+/* GuideRayIntroduction.css */
+.guideray-introduction-container {
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.guideray-introduction-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.guideray-introduction-icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.guideray-introduction-title {
+  font-size: 1.75rem;
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.3;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.guideray-introduction-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.guideray-introduction-content {
+  margin-bottom: 1.5rem;
+}
+
+.guideray-introduction-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin: 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid;
+  transition: all 0.3s ease;
+}
+
+.guideray-introduction-technical-container {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed;
+  transition: all 0.3s ease;
+}
+
+/* Light Theme */
+.guideray-introduction-container.light {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 
+              0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(224, 229, 242, 0.8);
+}
+
+.guideray-introduction-container.light:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.08), 
+              0 5px 8px -2px rgba(0, 0, 0, 0.03);
+  border-color: rgba(224, 229, 242, 1);
+}
+
+.guideray-introduction-icon.light {
+  color: #3b82f6;
+}
+
+.guideray-introduction-title.light {
+  color: #1e40af;
+}
+
+.guideray-introduction-title.light::after {
+  background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%);
+}
+
+.guideray-introduction-description.light {
+  color: #4b5563;
+  border-left-color: rgba(59, 130, 246, 0.3);
+}
+
+.guideray-introduction-technical-container.light {
+  border-top-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Dark Theme */
+.guideray-introduction-container.dark {
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15), 
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.guideray-introduction-container.dark:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.2), 
+              0 5px 8px -2px rgba(0, 0, 0, 0.1);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.guideray-introduction-icon.dark {
+  color: #60a5fa;
+}
+
+.guideray-introduction-title.dark {
+  color: #93c5fd;
+}
+
+.guideray-introduction-title.dark::after {
+  background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 100%);
+}
+
+.guideray-introduction-description.dark {
+  color: #cbd5e1;
+  border-left-color: rgba(96, 165, 250, 0.4);
+}
+
+.guideray-introduction-technical-container.dark {
+  border-top-color: rgba(96, 165, 250, 0.4);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.guideray-introduction-container {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guideray-introduction-container {
+    padding: 1.75rem;
+  }
+  
+  .guideray-introduction-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .guideray-introduction-title {
+    font-size: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .guideray-introduction-description {
+    padding-left: 1rem;
+    font-size: 1rem;
+  }
+}

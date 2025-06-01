@@ -36,3 +36,40 @@
     transform: rotate(360deg);
   }
 }
+
+/* Prevent text selection */
+.secure-content {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide content when trying to print screen with software (limited effectiveness) */
+@media screen {
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999999;
+  
+  }
+}
+
+/* Allow print */
+@media print {
+  body::after {
+    display: none;
+  }
+
+  .secure-content {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+}

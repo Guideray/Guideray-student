@@ -1,0 +1,188 @@
+/* Naming Rules Styles */
+.guideray-naming-rules-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.guideray-naming-rules-container.light {
+  background: rgba(245, 247, 255, 0.6);
+  border: 1px solid rgba(224, 229, 242, 0.8);
+}
+
+.guideray-naming-rules-container.dark {
+  background: rgba(26, 32, 51, 0.6);
+  border: 1px solid rgba(67, 97, 238, 0.2);
+}
+
+.guideray-naming-rules-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.guideray-naming-rules-title.light {
+  color: #2d3748;
+}
+
+.guideray-naming-rules-title.dark {
+  color: #e2e8f0;
+}
+
+.guideray-naming-rules-icon {
+  margin-right: 0.75rem;
+  font-size: 1.5rem;
+}
+
+.guideray-naming-rules-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.guideray-naming-rules-description.light {
+  color: #4a5568;
+}
+
+.guideray-naming-rules-description.dark {
+  color: #cbd5e1;
+}
+
+.guideray-naming-rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.guideray-naming-rules-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.guideray-naming-rules-subtitle.light {
+  color: #3c4a5d;
+}
+
+.guideray-naming-rules-subtitle.dark {
+  color: #a0aec0;
+}
+
+.guideray-naming-rules-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.guideray-naming-rules-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.guideray-naming-rules-item.light {
+  color: #4a5568;
+}
+
+.guideray-naming-rules-item.dark {
+  color: #cbd5e1;
+}
+
+.guideray-naming-rules-check {
+  margin-right: 0.75rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  color: #48bb78;
+}
+
+.guideray-naming-rules-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.guideray-naming-rules-example-title {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.guideray-naming-rules-example-title.light {
+  color: #3c4a5d;
+}
+
+.guideray-naming-rules-example-title.dark {
+  color: #a0aec0;
+}
+
+.guideray-naming-rules-valid-list,
+.guideray-naming-rules-invalid-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.guideray-naming-rules-valid-item,
+.guideray-naming-rules-invalid-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.guideray-naming-rules-valid-icon {
+  margin-right: 0.5rem;
+  color: #48bb78;
+}
+
+.guideray-naming-rules-invalid-icon {
+  margin-right: 0.5rem;
+  color: #f56565;
+}
+
+.guideray-naming-rules-valid-item code,
+.guideray-naming-rules-invalid-item code {
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+.guideray-naming-rules-valid-item.light code {
+  background: rgba(72, 187, 120, 0.1);
+  color: #2f855a;
+}
+
+.guideray-naming-rules-valid-item.dark code {
+  background: rgba(72, 187, 120, 0.15);
+  color: #9ae6b4;
+}
+
+.guideray-naming-rules-invalid-item.light code {
+  background: rgba(245, 101, 101, 0.1);
+  color: #c53030;
+}
+
+.guideray-naming-rules-invalid-item.dark code {
+  background: rgba(245, 101, 101, 0.15);
+  color: #feb2b2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guideray-naming-rules-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .guideray-naming-rules-container {
+    padding: 1rem;
+  }
+  
+  .guideray-naming-rules-title {
+    font-size: 1.2rem;
+  }
+}

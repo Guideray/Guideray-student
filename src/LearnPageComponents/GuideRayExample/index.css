@@ -1,0 +1,211 @@
+/* src/components/GuideRayExample.css */
+.guideray-example-container {
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.guideray-example-container:hover {
+  transform: translateY(-2px);
+}
+
+.guideray-example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.guideray-example-header-content {
+  flex: 1;
+}
+
+.guideray-example-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.4;
+}
+
+.guideray-example-subtitle {
+  font-size: 0.95rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.guideray-example-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.guideray-example-description {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+
+.guideray-example-code-container {
+  border-radius: 8px;
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.guideray-example-code-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.guideray-example-code-language {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.guideray-example-copy-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.guideray-example-copy-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Light Theme */
+.guideray-example-container.light {
+  background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.guideray-example-container.light:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  border-color: #d1d5db;
+}
+
+.guideray-example-title.light {
+  color: #111827;
+}
+
+.guideray-example-subtitle.light {
+  color: #4b5563;
+}
+
+.guideray-example-badge.light {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+  color: #4f46e5;
+}
+
+.guideray-example-description.light {
+  color: #374151;
+}
+
+.guideray-example-code-toolbar.light {
+  background: #f3f4f6;
+  color: #4b5563;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.guideray-example-copy-button.light {
+  color: #4b5563;
+}
+
+.guideray-example-copy-button.light:hover {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+/* Dark Theme */
+.guideray-example-container.dark {
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.guideray-example-container.dark:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border-color: #475569;
+}
+
+.guideray-example-title.dark {
+  color: #f8fafc;
+}
+
+.guideray-example-subtitle.dark {
+  color: #94a3b8;
+}
+
+.guideray-example-badge.dark {
+  background: linear-gradient(135deg, #4338ca 0%, #3730a3 100%);
+  color: #e0e7ff;
+}
+
+.guideray-example-description.dark {
+  color: #cbd5e1;
+}
+
+.guideray-example-code-toolbar.dark {
+  background: #1e293b;
+  color: #94a3b8;
+  border-bottom: 1px solid #334155;
+}
+
+.guideray-example-copy-button.dark {
+  color: #94a3b8;
+}
+
+.guideray-example-copy-button.dark:hover {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guideray-example-container {
+    padding: 1.5rem;
+  }
+  
+  .guideray-example-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .guideray-example-badge {
+    margin-top: 0.75rem;
+  }
+  
+  .guideray-example-title {
+    font-size: 1.3rem;
+  }
+  
+  .guideray-example-description {
+    font-size: 1rem;
+  }
+}
+
+/* Animation */
+@keyframes guideray-example-fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.guideray-example-container {
+  animation: guideray-example-fadeIn 0.5s ease-out forwards;
+}

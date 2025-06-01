@@ -1,0 +1,204 @@
+/* GuideRayApplications.css */
+
+/* Base Styles */
+.guideray_applications_container {
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.guideray_applications_title {
+  font-size: 2.25rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  position: relative;
+  display: inline-block;
+}
+
+.guideray_applications_title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  height: 4px;
+  border-radius: 2px;
+  width: 60px;
+}
+
+.guideray_applications_description {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.guideray_applications_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.guideray_applications_card {
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.guideray_applications_card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.guideray_applications_card:hover {
+  transform: translateY(-8px);
+}
+
+.guideray_applications_card_content {
+  font-size: 1rem;
+  line-height: 1.7;
+  position: relative;
+  z-index: 2;
+}
+
+/* Light Theme */
+.guideray_applications_container.light {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.05), 
+              0 8px 16px -4px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(224, 229, 242, 0.8);
+}
+
+.guideray_applications_title.light {
+  color: #1a1a2e;
+}
+
+.guideray_applications_title.light::after {
+  background: linear-gradient(90deg, #4361ee 0%, #3a0ca3 100%);
+}
+
+.guideray_applications_description.light {
+  color: #4a5568;
+}
+
+.guideray_applications_card.light {
+  background: white;
+  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(224, 229, 242, 0.8);
+}
+
+.guideray_applications_card.light::before {
+  background: linear-gradient(to bottom, #4361ee, #3a0ca3);
+}
+
+.guideray_applications_card.light:hover {
+  box-shadow: 0 16px 32px -8px rgba(67, 97, 238, 0.15);
+}
+
+.guideray_applications_card_content.light {
+  color: #4a5568;
+}
+
+/* Dark Theme */
+.guideray_applications_container.dark {
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15), 
+              0 8px 16px -4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(67, 97, 238, 0.2);
+}
+
+.guideray_applications_title.dark {
+  color: #f8f9fa;
+}
+
+.guideray_applications_title.dark::after {
+  background: linear-gradient(90deg, #3a0ca3 0%, #4361ee 100%);
+}
+
+.guideray_applications_description.dark {
+  color: #cbd5e1;
+}
+
+.guideray_applications_card.dark {
+  background: rgba(30, 41, 59, 0.5);
+  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(67, 97, 238, 0.2);
+}
+
+.guideray_applications_card.dark::before {
+  background: linear-gradient(to bottom, #3a0ca3, #4361ee);
+}
+
+.guideray_applications_card.dark:hover {
+  box-shadow: 0 16px 32px -8px rgba(67, 97, 238, 0.25);
+}
+
+.guideray_applications_card_content.dark {
+  color: #e2e8f0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .guideray_applications_grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .guideray_applications_container {
+    padding: 2rem 1.5rem;
+  }
+  
+  .guideray_applications_title {
+    font-size: 1.8rem;
+  }
+  
+  .guideray_applications_description {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .guideray_applications_grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .guideray_applications_card {
+    padding: 1.75rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.guideray_applications_container {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.guideray_applications_card {
+  animation: fadeInUp 0.6s ease-out forwards;
+  animation-delay: 0.1s;
+}

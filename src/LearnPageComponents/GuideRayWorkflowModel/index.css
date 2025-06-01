@@ -1,0 +1,746 @@
+/* FlowChart.css */
+.guideray-workflow-container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.guideray-workflow-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.guideray-workflow-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.guideray-workflow-description-text {
+  font-size: 0.9rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.guideray-workflow-controls {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.guideray-workflow-start-button {
+  color: white;
+  border: none;
+  padding: 0.7rem 1.8rem;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 15px rgba(110, 69, 226, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  font-weight: 500;
+}
+
+.guideray-workflow-start-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.guideray-workflow-start-button:hover:not(.guideray-workflow-disabled)::before {
+  opacity: 1;
+}
+
+.guideray-workflow-start-button.guideray-workflow-disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.guideray-workflow-button-icon {
+  font-size: 0.8rem;
+}
+
+.guideray-workflow-button-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.guideray-workflow-loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: guideray-workflow-loading-bounce 1.4s infinite ease-in-out;
+}
+
+.guideray-workflow-loading-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.guideray-workflow-loading-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes guideray-workflow-loading-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+.guideray-workflow-chart {
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  border: 1px solid;
+}
+
+.guideray-workflow-task-card {
+  border-radius: 10px;
+  width: 180px;
+  padding: 0.8rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transform: translateY(0);
+  border: 1px solid;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.guideray-workflow-task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.guideray-workflow-task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.guideray-workflow-task-card:hover::before {
+  opacity: 1;
+}
+
+.guideray-workflow-task-card.guideray-workflow-active {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(110, 69, 226, 0.2);
+  animation: guideray-workflow-pulse-glow 2s infinite ease-in-out;
+}
+
+.guideray-workflow-task-card.guideray-workflow-active::before {
+  opacity: 1;
+}
+
+.guideray-workflow-task-header {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.guideray-workflow-task-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 2px;
+  transition: all 0.3s ease;
+}
+
+.guideray-workflow-task-card.guideray-workflow-active .guideray-workflow-task-header::after {
+  width: 50px;
+}
+
+.guideray-workflow-task-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
+  margin-bottom: 0.3rem;
+}
+
+.guideray-workflow-task-desc {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid;
+  color: inherit;
+}
+
+.guideray-workflow-task-status {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.guideray-workflow-status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guideray-workflow-status-icon.guideray-workflow-completed {
+  color: #388e3c;
+}
+
+.guideray-workflow-status-icon.guideray-workflow-active {
+  color: #00acc1;
+  animation: guideray-workflow-pulse 1.5s infinite;
+}
+
+.guideray-workflow-status-icon.guideray-workflow-pending {
+  color: #6c757d;
+}
+
+.guideray-workflow-series-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.guideray-workflow-series-arrow {
+  width: 2px;
+  height: 30px;
+  position: relative;
+  margin: 6px 0;
+  transition: all 0.3s ease;
+}
+
+.guideray-workflow-series-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(135deg);
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid;
+  border-top: 2px solid;
+  transition: all 0.3s ease;
+}
+
+.guideray-workflow-series-arrow.guideray-workflow-active {
+  animation: guideray-workflow-line-draw 0.4s ease-out forwards;
+}
+
+.guideray-workflow-parallel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+  position: relative;
+  width: 100%;
+}
+
+.guideray-workflow-parallel-connector {
+  width: 100%;
+  height: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.guideray-workflow-parallel-connector.guideray-workflow-top {
+  margin-bottom: 15px;
+}
+
+.guideray-workflow-parallel-connector.guideray-workflow-bottom {
+  margin-top: 15px;
+}
+
+.guideray-workflow-parallel-connector.guideray-workflow-active {
+  animation: guideray-workflow-line-draw-horizontal 0.4s ease-out forwards;
+}
+
+.guideray-workflow-parallel-branches {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.guideray-workflow-parallel-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 0 15px;
+}
+
+.guideray-workflow-parallel-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.guideray-workflow-parallel-step::before,
+.guideray-workflow-parallel-step::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 15px;
+  transition: all 0.3s ease;
+}
+
+.guideray-workflow-parallel-step::before {
+  top: -15px;
+}
+
+.guideray-workflow-parallel-step::after {
+  bottom: -15px;
+}
+
+@keyframes guideray-workflow-pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(110, 69, 226, 0.3); }
+  50% { box-shadow: 0 0 0 10px rgba(110, 69, 226, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(110, 69, 226, 0); }
+}
+
+@keyframes guideray-workflow-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes guideray-workflow-line-draw {
+  from { height: 0; }
+  to { height: 30px; }
+}
+
+@keyframes guideray-workflow-line-draw-horizontal {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.guideray-workflow-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.guideray-workflow-modal-content {
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: guideray-workflow-modal-enter 0.3s ease-out;
+}
+
+@keyframes guideray-workflow-modal-enter {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.guideray-workflow-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0.2rem;
+}
+
+.guideray-workflow-modal-content h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.guideray-workflow-modal-description h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.guideray-workflow-modal-description h3::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+}
+
+.guideray-workflow-modal-description p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.guideray-workflow-status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.8rem;
+}
+
+.guideray-workflow-status-badge.guideray-workflow-pending {
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+}
+
+.guideray-workflow-status-badge.guideray-workflow-active {
+  background: #e0f7fa;
+  color: #00acc1;
+  border: 1px solid #b2ebf2;
+}
+
+.guideray-workflow-status-badge.guideray-workflow-completed {
+  background: #e8f5e9;
+  color: #388e3c;
+  border: 1px solid #c8e6c9;
+}
+
+@media (max-width: 768px) {
+  .guideray-workflow-parallel-branches {
+    flex-direction: column;
+  }
+  
+  .guideray-workflow-parallel-branch {
+    padding: 8px 0;
+  }
+  
+  .guideray-workflow-series-arrow {
+    height: 25px;
+  }
+  
+  .guideray-workflow-task-card {
+    width: 160px;
+    padding: 0.7rem;
+  }
+  
+  .guideray-workflow-chart {
+    padding: 1rem;
+  }
+}
+
+/* Light Theme */
+.guideray-workflow-container.light {
+  --guideray-primary-color: #6e45e2;
+  --guideray-secondary-color: #88d3ce;
+  --guideray-bg-color: #f9f9ff;
+  --guideray-card-bg: white;
+  --guideray-text-color: #343a40;
+  --guideray-text-secondary: #6c757d;
+  --guideray-border-color: rgba(224, 229, 242, 0.8);
+  --guideray-shadow-color: rgba(0, 0, 0, 0.05);
+  --guideray-active-glow: rgba(110, 69, 226, 0.25);
+}
+
+.guideray-workflow-start-button.light {
+  background: linear-gradient(135deg, var(--guideray-primary-color), var(--guideray-secondary-color));
+}
+
+.guideray-workflow-start-button.light::before {
+  background: linear-gradient(135deg, var(--guideray-secondary-color), var(--guideray-primary-color));
+}
+
+.guideray-workflow-start-button.light.guideray-workflow-disabled {
+  background: #e0e0e0;
+}
+
+.guideray-workflow-loading-dot.light {
+  background: #888;
+}
+
+.guideray-workflow-title.light {
+  color: var(--guideray-primary-color);
+}
+
+.guideray-workflow-description-text.light {
+  color: var(--guideray-text-secondary);
+}
+
+.guideray-workflow-chart.light {
+  background: linear-gradient(135deg, #f9f9ff, #f0f4ff);
+  box-shadow: 0 8px 20px var(--guideray-shadow-color);
+  border-color: rgba(110, 69, 226, 0.1);
+}
+
+.guideray-workflow-task-card.light {
+  background: var(--guideray-card-bg);
+  box-shadow: 0 4px 12px var(--guideray-shadow-color);
+  border-color: #eef2f7;
+}
+
+.guideray-workflow-task-card.light::before {
+  background: linear-gradient(135deg, rgba(110, 69, 226, 0.1), rgba(136, 211, 206, 0.1));
+}
+
+.guideray-workflow-task-card.light:hover {
+  box-shadow: 0 6px 16px rgba(110, 69, 226, 0.12);
+}
+
+.guideray-workflow-task-header.light::after {
+  background: rgba(110, 69, 226, 0.2);
+}
+
+.guideray-workflow-task-card.light.guideray-workflow-active .guideray-workflow-task-header::after {
+  background: rgba(110, 69, 226, 0.4);
+}
+
+.guideray-workflow-task-name.light {
+  color: var(--guideray-text-color);
+}
+
+.guideray-workflow-task-desc.light {
+  color: #495057;
+  border-top-color: rgba(110, 69, 226, 0.2);
+}
+
+.guideray-workflow-series-arrow.light {
+  background: #e0e0e0;
+}
+
+.guideray-workflow-series-arrow.light::after {
+  border-color: #e0e0e0;
+}
+
+.guideray-workflow-series-arrow.light.guideray-workflow-active,
+.guideray-workflow-series-arrow.light.guideray-workflow-completed {
+  background: var(--guideray-primary-color);
+}
+
+.guideray-workflow-series-arrow.light.guideray-workflow-active::after,
+.guideray-workflow-series-arrow.light.guideray-workflow-completed::after {
+  border-color: var(--guideray-primary-color);
+}
+
+.guideray-workflow-parallel-connector.light {
+  background: #e0e0e0;
+}
+
+.guideray-workflow-parallel-connector.light.guideray-workflow-active,
+.guideray-workflow-parallel-connector.light.guideray-workflow-completed {
+  background: var(--guideray-primary-color);
+}
+
+.guideray-workflow-parallel-step.light::before,
+.guideray-workflow-parallel-step.light::after {
+  background: #e0e0e0;
+}
+
+.guideray-workflow-parallel-step.light.guideray-workflow-active::before,
+.guideray-workflow-parallel-step.light.guideray-workflow-active::after,
+.guideray-workflow-parallel-step.light.guideray-workflow-completed::before,
+.guideray-workflow-parallel-step.light.guideray-workflow-completed::after {
+  background: var(--guideray-primary-color);
+}
+
+.guideray-workflow-modal-content.light {
+  background: white;
+}
+
+.guideray-workflow-modal-close.light {
+  color: #6c757d;
+}
+
+.guideray-workflow-modal-close.light:hover {
+  color: #343a40;
+}
+
+.guideray-workflow-modal-content.light h2 {
+  color: #343a40;
+}
+
+.guideray-workflow-modal-description.light h3 {
+  color: #343a40;
+}
+
+.guideray-workflow-modal-description.light h3::after {
+  background: var(--guideray-primary-color);
+}
+
+.guideray-workflow-modal-description.light p {
+  color: #495057;
+}
+
+/* Dark Theme */
+.guideray-workflow-container.dark {
+  --guideray-primary-color: #8a63e8;
+  --guideray-secondary-color: #6dd5d1;
+  --guideray-bg-color: #1a1a2e;
+  --guideray-card-bg: rgba(30, 41, 59, 0.8);
+  --guideray-text-color: #f8f9fa;
+  --guideray-text-secondary: #adb5bd;
+  --guideray-border-color: rgba(67, 97, 238, 0.2);
+  --guideray-shadow-color: rgba(0, 0, 0, 0.15);
+  --guideray-active-glow: rgba(138, 99, 232, 0.3);
+}
+
+.guideray-workflow-start-button.dark {
+  background: linear-gradient(135deg, var(--guideray-primary-color), var(--guideray-secondary-color));
+}
+
+.guideray-workflow-start-button.dark::before {
+  background: linear-gradient(135deg, var(--guideray-secondary-color), var(--guideray-primary-color));
+}
+
+.guideray-workflow-start-button.dark.guideray-workflow-disabled {
+  background: #495057;
+}
+
+.guideray-workflow-loading-dot.dark {
+  background: #adb5bd;
+}
+
+.guideray-workflow-title.dark {
+  color: var(--guideray-primary-color);
+}
+
+.guideray-workflow-description-text.dark {
+  color: var(--guideray-text-secondary);
+}
+
+.guideray-workflow-chart.dark {
+  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  box-shadow: 0 8px 20px var(--guideray-shadow-color);
+  border-color: var(--guideray-border-color);
+}
+
+.guideray-workflow-task-card.dark {
+  background: var(--guideray-card-bg);
+  box-shadow: 0 4px 12px var(--guideray-shadow-color);
+  border-color: rgba(67, 97, 238, 0.2);
+}
+
+.guideray-workflow-task-card.dark::before {
+  background: linear-gradient(135deg, rgba(138, 99, 232, 0.1), rgba(109, 213, 209, 0.1));
+}
+
+.guideray-workflow-task-card.dark:hover {
+  box-shadow: 0 6px 16px rgba(138, 99, 232, 0.2);
+}
+
+.guideray-workflow-task-header.dark::after {
+  background: rgba(138, 99, 232, 0.3);
+}
+
+.guideray-workflow-task-card.dark.guideray-workflow-active .guideray-workflow-task-header::after {
+  background: rgba(138, 99, 232, 0.5);
+}
+
+.guideray-workflow-task-name.dark {
+  color: var(--guideray-text-color);
+}
+
+.guideray-workflow-task-desc.dark {
+  color: #cbd5e1;
+  border-top-color: rgba(138, 99, 232, 0.3);
+}
+
+.guideray-workflow-series-arrow.dark {
+  background: #495057;
+}
+
+.guideray-workflow-series-arrow.dark::after {
+  border-color: #495057;
+}
+
+.guideray-workflow-series-arrow.dark.guideray-workflow-active,
+.guideray-workflow-series-arrow.dark.guideray-workflow-completed {
+  background: var(--guideray-primary-color);
+}
+
+.guideray-workflow-series-arrow.dark.guideray-workflow-active::after,
+.guideray-workflow-series-arrow.dark.guideray-workflow-completed::after {
+  border-color: var(--guideray-primary-color);
+}
+
+.guideray-workflow-parallel-connector.dark {
+  background: #495057;
+}
+
+.guideray-workflow-parallel-connector.dark.guideray-workflow-active,
+.guideray-workflow-parallel-connector.dark.guideray-workflow-completed {
+  background: var(--guideray-primary-color);
+}
+
+.guideray-workflow-parallel-step.dark::before,
+.guideray-workflow-parallel-step.dark::after {
+  background: #495057;
+}
+
+.guideray-workflow-parallel-step.dark.guideray-workflow-active::before,
+.guideray-workflow-parallel-step.dark.guideray-workflow-active::after,
+.guideray-workflow-parallel-step.dark.guideray-workflow-completed::before,
+.guideray-workflow-parallel-step.dark.guideray-workflow-completed::after {
+  background: var(--guideray-primary-color);
+}
+
+.guideray-workflow-modal-content.dark {
+  background: #212529;
+}
+
+.guideray-workflow-modal-close.dark {
+  color: #adb5bd;
+}
+
+.guideray-workflow-modal-close.dark:hover {
+  color: #f8f9fa;
+}
+
+.guideray-workflow-modal-content.dark h2 {
+  color: #f8f9fa;
+}
+
+.guideray-workflow-modal-description.dark h3 {
+  color: #f8f9fa;
+}
+
+.guideray-workflow-modal-description.dark h3::after {
+  background: var(--guideray-primary-color);
+}
+
+.guideray-workflow-modal-description.dark p {
+  color: #dee2e6;
+}

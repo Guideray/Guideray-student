@@ -1,0 +1,203 @@
+/* GuideRayTechnicalWords.css */
+.guideray-technical-words-container {
+  margin: 2.5rem 0;
+  transition: all 0.3s ease;
+}
+
+/* Header Styles */
+.guideray-technical-words-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.guideray-technical-words-icon {
+  font-size: 1.25rem;
+}
+
+.guideray-technical-words-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* List Styles */
+.guideray-technical-words-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 0.875rem;
+}
+
+.guideray-technical-words-item {
+  position: relative;
+  padding: 1rem 1.25rem 1rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left-width: 4px;
+  border-left-style: solid;
+    list-style: none;
+
+}
+
+.guideray-technical-words-item:hover {
+  transform: translateX(4px);
+}
+
+.guideray-technical-words-bullet {
+  position: absolute;
+  left: 0.75rem;
+  top: 1.25rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.guideray-technical-words-term {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.guideray-technical-words-meaning {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Light Theme */
+.guideray-technical-words-container.light {
+  --primary-color: #1e40af;
+  --secondary-color: #3b82f6;
+  --background-color: #f8fafc;
+  --text-color: #334155;
+  --border-color: #e2e8f0;
+  --highlight-color: #eff6ff;
+}
+
+.guideray-technical-words-header.light {
+  border-bottom-color: rgba(59, 130, 246, 0.2);
+}
+
+.guideray-technical-words-icon.light {
+  color: var(--primary-color);
+}
+
+.guideray-technical-words-title.light {
+  color: var(--primary-color);
+}
+
+.guideray-technical-words-item.light {
+  background-color: var(--highlight-color);
+  border-left-color: var(--secondary-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.guideray-technical-words-item.light:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.guideray-technical-words-bullet.light {
+  background-color: var(--secondary-color);
+}
+
+.guideray-technical-words-term.light {
+  color: var(--primary-color);
+}
+
+.guideray-technical-words-meaning.light {
+  color: var(--text-color);
+}
+
+/* Dark Theme */
+.guideray-technical-words-container.dark {
+  --primary-color: #60a5fa;
+  --secondary-color: #3b82f6;
+  --background-color: #1e293b;
+  --text-color: #e2e8f0;
+  --border-color: #334155;
+  --highlight-color: rgba(30, 41, 59, 0.7);
+}
+
+.guideray-technical-words-header.dark {
+  border-bottom-color: rgba(96, 165, 250, 0.2);
+}
+
+.guideray-technical-words-icon.dark {
+  color: var(--primary-color);
+}
+
+.guideray-technical-words-title.dark {
+  color: var(--primary-color);
+}
+
+.guideray-technical-words-item.dark {
+  background-color: var(--highlight-color);
+  border-left-color: var(--primary-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.guideray-technical-words-item.dark:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.guideray-technical-words-bullet.dark {
+  background-color: var(--primary-color);
+}
+
+.guideray-technical-words-term.dark {
+  color: var(--primary-color);
+}
+
+.guideray-technical-words-meaning.dark {
+  color: var(--text-color);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.guideray-technical-words-item {
+  animation: fadeInUp 0.4s ease-out forwards;
+  animation-delay: calc(var(--index) * 0.05s);
+  opacity: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guideray-technical-words-container {
+    margin: 1.5rem 0;
+  }
+  
+  .guideray-technical-words-title {
+    font-size: 1.1rem;
+  }
+  
+  .guideray-technical-words-item {
+    padding: 0.875rem 1rem 0.875rem 1.5rem;
+  }
+  
+  .guideray-technical-words-term {
+    font-size: 0.9rem;
+  }
+  
+  .guideray-technical-words-meaning {
+    font-size: 0.825rem;
+  }
+}
