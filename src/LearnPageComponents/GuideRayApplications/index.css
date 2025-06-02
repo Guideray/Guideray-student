@@ -1,56 +1,101 @@
-/* GuideRayApplications.css */
+/* GuideRayApplications.css - Ultra Beautiful & Mobile Optimized */
 
-/* Base Styles */
+/* Base Styles with Smooth Transitions */
 .guideray_applications_container {
-  border-radius: 20px;
-  padding: 2.5rem;
-  margin-bottom: 3rem;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 24px;
+  padding: 3rem;
+  margin: 2rem auto;
+  max-width: 1400px;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(8px);
 }
 
+/* Floating Decorative Elements */
+.guideray_applications_container::before,
+.guideray_applications_container::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.15;
+  z-index: -1;
+  transition: all 0.8s ease;
+}
+
+.guideray_applications_container::before {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  right: -50px;
+}
+
+.guideray_applications_container::after {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  left: -100px;
+}
+
+/* Title with Beautiful Underline Animation */
 .guideray_applications_title {
-  font-size: 2.25rem;
-  margin-bottom: 1.25rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
   line-height: 1.2;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.03em;
   position: relative;
   display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
 .guideray_applications_title::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: 0;
   left: 0;
-  height: 4px;
-  border-radius: 2px;
-  width: 60px;
+  height: 5px;
+  border-radius: 3px;
+  width: 80px;
+  transform-origin: left;
+  transition: transform 0.4s ease;
 }
 
+.guideray_applications_title:hover::after {
+  transform: scaleX(1.5);
+}
+
+/* Description with Beautiful Typography */
 .guideray_applications_description {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.9;
+  margin-bottom: 3rem;
+  max-width: 800px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
+/* Grid Layout with Staggered Animation */
 .guideray_applications_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
   margin-bottom: 2rem;
 }
 
+/* Cards with 3D Depth Effect */
 .guideray_applications_card {
-  border-radius: 16px;
-  padding: 2rem;
-  transition: all 0.3s ease;
+  border-radius: 20px;
+  padding: 2.5rem;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform, box-shadow;
 }
 
 .guideray_applications_card::before {
@@ -58,36 +103,64 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
+  width: 5px;
   height: 100%;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
+}
+
+.guideray_applications_card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .guideray_applications_card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-10px) scale(1.02) rotateX(2deg);
 }
 
+.guideray_applications_card:hover::after {
+  opacity: 1;
+}
+
+/* Card Content with Beautiful Typography */
 .guideray_applications_card_content {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.1rem;
+  line-height: 1.8;
   position: relative;
   z-index: 2;
+  font-weight: 400;
 }
 
-/* Light Theme */
+/* Light Theme - Soft & Elegant */
 .guideray_applications_container.light {
-  background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
-  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.05), 
-              0 8px 16px -4px rgba(0, 0, 0, 0.02);
-  border: 1px solid rgba(224, 229, 242, 0.8);
+  background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.95) 100%);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 
+              0 10px 20px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(224, 229, 242, 0.6);
+}
+
+.guideray_applications_container.light::before {
+  background: #4361ee;
+}
+
+.guideray_applications_container.light::after {
+  background: #3a0ca3;
 }
 
 .guideray_applications_title.light {
   color: #1a1a2e;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.03);
 }
 
 .guideray_applications_title.light::after {
   background: linear-gradient(90deg, #4361ee 0%, #3a0ca3 100%);
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
 }
 
 .guideray_applications_description.light {
@@ -95,98 +168,192 @@
 }
 
 .guideray_applications_card.light {
-  background: white;
-  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(224, 229, 242, 0.8);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(224, 229, 242, 0.5);
 }
 
 .guideray_applications_card.light::before {
   background: linear-gradient(to bottom, #4361ee, #3a0ca3);
+  box-shadow: 0 0 20px rgba(67, 97, 238, 0.3);
 }
 
 .guideray_applications_card.light:hover {
-  box-shadow: 0 16px 32px -8px rgba(67, 97, 238, 0.15);
+  box-shadow: 0 24px 48px -12px rgba(67, 97, 238, 0.2);
 }
 
 .guideray_applications_card_content.light {
   color: #4a5568;
 }
 
-/* Dark Theme */
+/* Dark Theme - Futuristic & Sleek */
 .guideray_applications_container.dark {
-  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
-  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15), 
-              0 8px 16px -4px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(67, 97, 238, 0.2);
+  background: linear-gradient(145deg, rgba(26,26,46,0.95) 0%, rgba(22,33,62,0.95) 100%);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2), 
+              0 10px 20px -5px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(67, 97, 238, 0.15);
+}
+
+.guideray_applications_container.dark::before {
+  background: #3a0ca3;
+}
+
+.guideray_applications_container.dark::after {
+  background: #4361ee;
 }
 
 .guideray_applications_title.dark {
   color: #f8f9fa;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .guideray_applications_title.dark::after {
   background: linear-gradient(90deg, #3a0ca3 0%, #4361ee 100%);
+  box-shadow: 0 4px 16px rgba(67, 97, 238, 0.4);
 }
 
 .guideray_applications_description.dark {
-  color: #cbd5e1;
+  color: rgba(203, 213, 225, 0.9);
 }
 
 .guideray_applications_card.dark {
-  background: rgba(30, 41, 59, 0.5);
-  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(67, 97, 238, 0.2);
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(67, 97, 238, 0.15);
 }
 
 .guideray_applications_card.dark::before {
   background: linear-gradient(to bottom, #3a0ca3, #4361ee);
+  box-shadow: 0 0 20px rgba(67, 97, 238, 0.4);
 }
 
 .guideray_applications_card.dark:hover {
-  box-shadow: 0 16px 32px -8px rgba(67, 97, 238, 0.25);
+  box-shadow: 0 24px 48px -12px rgba(67, 97, 238, 0.3);
 }
 
 .guideray_applications_card_content.dark {
-  color: #e2e8f0;
+  color: rgba(226, 232, 240, 0.9);
 }
 
-/* Responsive Design */
+/* Ultra Beautiful Mobile Responsiveness */
 @media (max-width: 1024px) {
   .guideray_applications_grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .guideray_applications_card {
+    padding: 2.25rem;
   }
 }
 
 @media (max-width: 768px) {
   .guideray_applications_container {
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    margin: 1.5rem auto;
   }
   
   .guideray_applications_title {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
+    margin-bottom: 1.25rem;
   }
   
   .guideray_applications_description {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .guideray_applications_grid {
+    gap: 1.75rem;
+  }
+  
+  .guideray_applications_container::before,
+  .guideray_applications_container::after {
+    filter: blur(30px);
   }
 }
 
+/* Stunning Mobile View (Under 480px) */
 @media (max-width: 480px) {
+  .guideray_applications_container {
+    padding: 2rem 1.5rem;
+    border-radius: 18px;
+    margin: 1rem auto;
+    backdrop-filter: blur(6px);
+  }
+  
+  .guideray_applications_title {
+    font-size: 1.9rem;
+    padding-bottom: 0.4rem;
+  }
+  
+  .guideray_applications_title::after {
+    height: 4px;
+    width: 60px;
+  }
+  
+  .guideray_applications_description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  
   .guideray_applications_grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
   .guideray_applications_card {
-    padding: 1.75rem;
+    padding: 2rem;
+    border-radius: 16px;
+  }
+  
+  .guideray_applications_card:hover {
+    transform: translateY(-8px) scale(1.01);
+  }
+  
+  .guideray_applications_card_content {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  
+  /* Special Mobile-Only Effects */
+  .guideray_applications_container::before {
+    width: 150px;
+    height: 150px;
+    top: -30px;
+    right: -30px;
+  }
+  
+  .guideray_applications_container::after {
+    width: 200px;
+    height: 200px;
+    bottom: -70px;
+    left: -70px;
   }
 }
 
-/* Animation */
+/* Micro-Interactions for Ultra Beauty */
+@media (hover: hover) {
+  .guideray_applications_card {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+                box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .guideray_applications_card:hover {
+    transform: translateY(-12px) scale(1.03) rotateX(3deg);
+    box-shadow: 0 30px 60px -15px rgba(67, 97, 238, 0.25) !important;
+  }
+}
+
+/* Beautiful Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -194,11 +361,35 @@
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 .guideray_applications_container {
-  animation: fadeInUp 0.6s ease-out forwards;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
 }
 
 .guideray_applications_card {
-  animation: fadeInUp 0.6s ease-out forwards;
-  animation-delay: 0.1s;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* Staggered Card Animations */
+.guideray_applications_card:nth-child(1) { animation-delay: 0.1s; }
+.guideray_applications_card:nth-child(2) { animation-delay: 0.2s; }
+.guideray_applications_card:nth-child(3) { animation-delay: 0.3s; }
+.guideray_applications_card:nth-child(4) { animation-delay: 0.4s; }
+.guideray_applications_card:nth-child(5) { animation-delay: 0.5s; }
+.guideray_applications_card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Special Hover Effects for Cards */
+.guideray_applications_card:hover .guideray_applications_card_content {
+  transform: translateX(5px);
+  transition: transform 0.3s ease;
 }

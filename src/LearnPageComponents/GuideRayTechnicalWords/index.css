@@ -1,7 +1,7 @@
 /* GuideRayTechnicalWords.css */
 .guideray-technical-words-container {
-  margin: 2.5rem 0;
-  transition: all 0.3s ease;
+  margin: 2rem 0;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Header Styles */
@@ -9,82 +9,151 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
   border-bottom-width: 1px;
   border-bottom-style: solid;
+  position: relative;
+}
+
+.guideray-technical-words-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  transition: width 0.4s ease;
+}
+
+.guideray-technical-words-header:hover::after {
+  width: 80px;
 }
 
 .guideray-technical-words-icon {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
+  transition: transform 0.3s ease;
+}
+
+.guideray-technical-words-header:hover .guideray-technical-words-icon {
+  transform: rotate(15deg);
 }
 
 .guideray-technical-words-title {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.25px;
+  transition: all 0.3s ease;
 }
 
 /* List Styles */
 .guideray-technical-words-list {
   display: flex;
   flex-direction: column;
-  list-style: none;
   gap: 0.875rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .guideray-technical-words-item {
   position: relative;
-  padding: 1rem 1.25rem 1rem 2rem;
-  border-radius: 0.5rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1.25rem 1.5rem 1.25rem 2.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   border-left-width: 4px;
   border-left-style: solid;
-    list-style: none;
+  overflow: hidden;
+  cursor: default;
+}
 
+.guideray-technical-words-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .guideray-technical-words-item:hover {
-  transform: translateX(4px);
+  transform: translateX(6px);
 }
 
-.guideray-technical-words-bullet {
+.guideray-technical-words-item:hover::before {
+  opacity: 1;
+}
+
+.guideray-technical-words-item::after {
+  content: '';
   position: absolute;
-  left: 0.75rem;
-  top: 1.25rem;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  transition: all 0.4s ease;
+}
+
+.guideray-technical-words-item:hover::after {
+  height: 100%;
 }
 
 .guideray-technical-words-term {
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
-  line-height: 1.4;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
 }
 
 .guideray-technical-words-meaning {
   margin: 0;
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: 1.7;
   opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+
+/* Bullet Point */
+.guideray-technical-words-item::before {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  top: 1.75rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.guideray-technical-words-item:hover::before {
+  transform: scale(1.3);
 }
 
 /* Light Theme */
 .guideray-technical-words-container.light {
-  --primary-color: #1e40af;
+  --primary-color: #2563eb;
   --secondary-color: #3b82f6;
-  --background-color: #f8fafc;
+  --background-color: #ffffff;
   --text-color: #334155;
   --border-color: #e2e8f0;
-  --highlight-color: #eff6ff;
+  --highlight-color: #f8fafc;
+  --accent-gradient: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
 }
 
 .guideray-technical-words-header.light {
-  border-bottom-color: rgba(59, 130, 246, 0.2);
+  border-bottom-color: rgba(59, 130, 246, 0.15);
+}
+
+.guideray-technical-words-header.light::after {
+  background: var(--accent-gradient);
 }
 
 .guideray-technical-words-icon.light {
@@ -98,14 +167,14 @@
 .guideray-technical-words-item.light {
   background-color: var(--highlight-color);
   border-left-color: var(--secondary-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.05);
 }
 
 .guideray-technical-words-item.light:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(30, 64, 175, 0.1);
 }
 
-.guideray-technical-words-bullet.light {
+.guideray-technical-words-item.light::before {
   background-color: var(--secondary-color);
 }
 
@@ -125,10 +194,15 @@
   --text-color: #e2e8f0;
   --border-color: #334155;
   --highlight-color: rgba(30, 41, 59, 0.7);
+  --accent-gradient: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
 }
 
 .guideray-technical-words-header.dark {
-  border-bottom-color: rgba(96, 165, 250, 0.2);
+  border-bottom-color: rgba(96, 165, 250, 0.15);
+}
+
+.guideray-technical-words-header.dark::after {
+  background: var(--accent-gradient);
 }
 
 .guideray-technical-words-icon.dark {
@@ -142,14 +216,14 @@
 .guideray-technical-words-item.dark {
   background-color: var(--highlight-color);
   border-left-color: var(--primary-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .guideray-technical-words-item.dark:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
-.guideray-technical-words-bullet.dark {
+.guideray-technical-words-item.dark::before {
   background-color: var(--primary-color);
 }
 
@@ -161,43 +235,107 @@
   color: var(--text-color);
 }
 
-/* Animation */
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
 .guideray-technical-words-item {
-  animation: fadeInUp 0.4s ease-out forwards;
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: calc(var(--index) * 0.05s);
   opacity: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+.guideray-technical-words-header {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Mobile-Specific Enhancements */
+@media (max-width: 640px) {
   .guideray-technical-words-container {
-    margin: 1.5rem 0;
+    margin: 1.75rem 0;
+  }
+  
+  .guideray-technical-words-header {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .guideray-technical-words-icon {
+    font-size: 1.2rem;
   }
   
   .guideray-technical-words-title {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
   }
   
   .guideray-technical-words-item {
-    padding: 0.875rem 1rem 0.875rem 1.5rem;
+    padding: 1rem 1.25rem 1rem 2rem;
+    border-radius: 0.65rem;
   }
   
   .guideray-technical-words-term {
-    font-size: 0.9rem;
+    font-size: 0.925rem;
   }
   
   .guideray-technical-words-meaning {
-    font-size: 0.825rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Mobile-specific interactions */
+  .guideray-technical-words-item:active {
+    transform: translateX(4px) scale(0.99);
+    transition: transform 0.2s ease;
+  }
+  
+  .guideray-technical-words-header:active .guideray-technical-words-icon {
+    transform: rotate(10deg) scale(0.95);
+  }
+  
+  /* Optimize animations for mobile */
+  .guideray-technical-words-item {
+    animation-duration: 0.4s;
+    animation-delay: calc(var(--index) * 0.03s);
+  }
+  
+  /* Mobile tap highlight */
+  .guideray-technical-words-item {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Special Effects for Mobile */
+@media (max-width: 640px) {
+  .guideray-technical-words-container {
+    perspective: 1000px;
+  }
+  
+  .guideray-technical-words-item {
+    transform-style: preserve-3d;
+  }
+  
+  .guideray-technical-words-item:hover {
+    transform: translateX(6px) rotateY(5deg);
+  }
+  
+  .guideray-technical-words-header::after {
+    width: 30px;
+  }
+  
+  .guideray-technical-words-header:hover::after {
+    width: 60px;
   }
 }

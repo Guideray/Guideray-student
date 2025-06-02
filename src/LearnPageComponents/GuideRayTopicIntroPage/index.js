@@ -40,7 +40,7 @@ const GuideRayTopicIntroPage = ({ darkMode, toggleTheme }) => {
 
   const data = courseDataMap[coursePath];
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [activeMainTopic, setActiveMainTopic] = useState(Object.keys(data)[0]);
+  const [activeMainTopic, setActiveMainTopic] = useState(null);
   const [activeSubTopic, setActiveSubTopic] = useState(null);
   const [activeSection, setActiveSection] = useState(null);
   const [subMenuOpen, setSubMenuOpen] = useState(null);
@@ -60,35 +60,29 @@ const GuideRayTopicIntroPage = ({ darkMode, toggleTheme }) => {
 
   // Set initial content when component mounts
   useEffect(() => {
-    const mainTopics = Object.keys(data);
-    if (mainTopics.length > 0) {
-      const firstMainTopic = mainTopics[0];
-      const subTopics = Object.keys(data[firstMainTopic]);
-      if (subTopics.length > 0) {
-        const firstSubTopic = subTopics[0];
-        const sections = Object.keys(data[firstMainTopic][firstSubTopic]);
-        if (sections.length > 0) {
-          setActiveMainTopic(firstMainTopic);
-          setActiveSubTopic(firstSubTopic);
-          setActiveSection(sections[0]);
-          setSubMenuOpen(firstMainTopic);
-          
-          // Scroll to top of the page initially
-          window.scrollTo(0, 0);
-          
-          // Then scroll to the first section after a small delay
-          setTimeout(() => {
-            if (sectionRefs[sections[0]].current) {
-              sectionRefs[sections[0]].current.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-              });
-            }
-          }, 100);
+    try {
+      const mainTopics = Object.keys(data);
+      if (mainTopics.length > 0) {
+        const firstMainTopic = mainTopics[0];
+        const subTopics = Object.keys(data[firstMainTopic]);
+        if (subTopics.length > 0) {
+          const firstSubTopic = subTopics[0];
+          const sections = Object.keys(data[firstMainTopic][firstSubTopic]);
+          if (sections.length > 0) {
+            setActiveMainTopic(firstMainTopic);
+            setActiveSubTopic(firstSubTopic);
+            setActiveSection(sections[0]);
+            setSubMenuOpen(firstMainTopic);
+            
+            // Scroll to top of the page initially
+            window.scrollTo(0, 0);
+          }
         }
       }
+    } catch (err) {
+      setError(err.message);
     }
-  }, []);
+  }, [data]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -100,7 +94,7 @@ const GuideRayTopicIntroPage = ({ darkMode, toggleTheme }) => {
   };
 
   const scrollToRef = (ref) => {
-    if (ref.current) {
+    if (ref && ref.current) {
       ref.current.scrollIntoView({ 
         behavior: 'smooth', 
         block: 'start' 
@@ -223,16 +217,16 @@ const GuideRayTopicIntroPage = ({ darkMode, toggleTheme }) => {
                 >
                   <div className="guideray-topic-intro-sidebar-item-content">
                     <span className="guideray-topic-intro-topic-name">{topicKey}</span>
-                    {activeMainTopic === topicKey && (
-                      <span className="guideray-topic-intro-chevron-icon">
-                        {subMenuOpen === topicKey ? <FiChevronDown size={16} /> : <FiChevronDown size={16} />}
-                      </span>
-                    )}
+                    <span className="guideray-topic-intro-chevron-icon">
+                      {subMenuOpen === topicKey ? <FiChevronUp size={16} /> : <FiChevronDown size={16} />}
+                    </span>
                   </div>
                 </li>
                 
-                {activeMainTopic === topicKey && subMenuOpen === topicKey && (
-                  <div className={`guideray-topic-intro-submenu-container ${darkMode ? 'guideray-topic-intro-dark' : 'guideray-topic-intro-light'}`}>
+                {activeMainTopic === topicKey && (
+                  <div 
+                    className={`guideray-topic-intro-submenu-container ${darkMode ? 'guideray-topic-intro-dark' : 'guideray-topic-intro-light'} ${subMenuOpen === topicKey ? 'guideray-topic-intro-open' : ''}`}
+                  >
                     {subTopicKeys.map((subTopic) => (
                       <React.Fragment key={subTopic}>
                         <li 
@@ -250,7 +244,7 @@ const GuideRayTopicIntroPage = ({ darkMode, toggleTheme }) => {
                         </li>
                         
                         {activeSubTopic === subTopic && (
-                          <div className={`guideray-topic-intro-section-container ${darkMode ? 'guideray-topic-intro-dark' : 'guideray-topic-intro-light'}`}>
+                          <div className={`guideray-topic-intro-section-container ${darkMode ? 'guideray-topic-intro-dark' : 'guideray-topic-intro-light'} guideray-topic-intro-open`}>
                             {getSectionsForSubTopic(subTopic).map((section) => (
                               <li
                                 key={section}
@@ -283,7 +277,7 @@ const GuideRayTopicIntroPage = ({ darkMode, toggleTheme }) => {
           </div>
         ) : (
           <>
-            {activeSubTopic && data[activeMainTopic][activeSubTopic] && (
+            {activeMainTopic && activeSubTopic && data[activeMainTopic][activeSubTopic] && (
               <>
                 <div className="guideray-topic-intro-content-header">
                   <h2>{activeMainTopic}</h2>
