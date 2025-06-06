@@ -8,8 +8,9 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import pythonData from './CourceData/python_data.json';
 import StudentPracticeTest from './OtherComponents/StudentPracticeTest';
+import GuideRayApp from './VideoCourceComponents/GuideRayCourceApp';
 import StudentCource from './MainComponents/StudentCource';
-
+import GuidedRayCodingPlatform from './OtherComponents/GuidedRayCodingPlatform';
 function AppContent() {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -119,6 +120,14 @@ function AppContent() {
         <Route 
         path = "/course"
         element={<StudentCource               darkMode={darkMode}
+/>} />
+<Route 
+        path = "/video-course"
+        element={<GuideRayApp               darkMode={darkMode}
+/>} />
+<Route 
+        path = "/coding-platform"
+        element={<GuidedRayCodingPlatform               darkMode={darkMode}
 />} />
         {/* Add more routes as needed */}
       </Routes>

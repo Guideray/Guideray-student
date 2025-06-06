@@ -1,0 +1,42 @@
+.guideraycodingpracticecomponent-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.guideraycodingpracticecomponent-title {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.guideraycodingpracticecomponent-practicelinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.guideraycodingpracticecomponent-practicelink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #ecf0f1;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.guideraycodingpracticecomponent-practicelink:hover {
+  background-color: #d6eaf8;
+}
+
+.guideraycodingpracticecomponent-link {
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.guideraycodingpracticecomponent-linkicon {
+  color: #7f8c8d;
+}
