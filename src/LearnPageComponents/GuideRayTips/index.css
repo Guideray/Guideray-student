@@ -1,0 +1,325 @@
+/* GuideRayTips.css - Ultra Beautiful Mobile-First Design */
+
+/* Base Container with Glass Morphism Effect */
+.guideray_tips_container {
+  border-radius: 24px;
+  padding: 3rem;
+  margin: 2rem auto;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  max-width: 1200px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  background: rgba(var(--card-bg-rgb), 0.85);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(var(--border-color-rgb), 0.3);
+}
+
+/* Floating Decorative Elements */
+.guideray_tips_container::before,
+.guideray_tips_container::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.15;
+  z-index: -1;
+  transition: all 0.8s ease;
+}
+
+.guideray_tips_container::before {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  right: -50px;
+  background: var(--accent-color-1);
+}
+
+.guideray_tips_container::after {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  left: -100px;
+  background: var(--accent-color-2);
+}
+
+/* Title with Beautiful Text Shadow */
+.guideray_tips_title {
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--primary-color);
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.guideray_tips_title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2));
+  transition: all 0.4s ease;
+}
+
+/* Description with Elegant Typography */
+.guideray_tips_description {
+  font-size: 1.2rem;
+  line-height: 1.9;
+  color: var(--text-color);
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  max-width: 800px;
+}
+
+/* Grid Layout with Staggered Animation */
+.guideray_tips_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Cards with 3D Depth Effect */
+.guideray_tips_card {
+  display: flex;
+  gap: 1.5rem;
+  background: rgba(var(--card-bg-rgb), 0.7);
+  border-radius: 18px;
+  padding: 2rem;
+  border: 1px solid rgba(var(--border-color-rgb), 0.2);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.05);
+}
+
+.guideray_tips_card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--accent-color-1), var(--accent-color-2));
+  transition: all 0.5s ease;
+}
+
+.guideray_tips_card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.guideray_tips_card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 32px -8px rgba(var(--primary-color-rgb), 0.1);
+}
+
+.guideray_tips_card:hover::after {
+  opacity: 1;
+}
+
+/* Icon with Floating Animation */
+.guideray_tips_icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+  transform-origin: center;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+/* Content with Beautiful Typography */
+.guideray_tips_content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  position: relative;
+  z-index: 2;
+}
+
+/* Beautiful Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.guideray_tips_container {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.guideray_tips_card {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* Staggered Card Animations */
+.guideray_tips_card:nth-child(1) { animation-delay: 0.1s; }
+.guideray_tips_card:nth-child(2) { animation-delay: 0.2s; }
+.guideray_tips_card:nth-child(3) { animation-delay: 0.3s; }
+.guideray_tips_card:nth-child(4) { animation-delay: 0.4s; }
+.guideray_tips_card:nth-child(5) { animation-delay: 0.5s; }
+.guideray_tips_card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Ultra Beautiful Mobile Responsiveness */
+@media (max-width: 1024px) {
+  .guideray_tips_grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.75rem;
+  }
+  
+  .guideray_tips_card {
+    padding: 1.75rem;
+  }
+}
+
+/* Stunning Mobile View (Under 768px) */
+@media (max-width: 768px) {
+  .guideray_tips_container {
+    padding: 2.5rem;
+    border-radius: 22px;
+    margin: 1.5rem 0;
+    backdrop-filter: blur(8px);
+  }
+  
+  .guideray_tips_title {
+    font-size: 1.8rem;
+  }
+  
+  .guideray_tips_description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .guideray_tips_container::before,
+  .guideray_tips_container::after {
+    filter: blur(40px);
+  }
+}
+
+/* Ultra Refined Mobile Experience (Under 480px) */
+@media (max-width: 480px) {
+  .guideray_tips_container {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    margin: 1.25rem 0;
+    backdrop-filter: blur(6px);
+  }
+  
+  .guideray_tips_title {
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .guideray_tips_title::after {
+    width: 60px;
+    height: 3px;
+  }
+  
+  .guideray_tips_description {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1.75rem;
+  }
+  
+  .guideray_tips_grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .guideray_tips_card {
+    padding: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .guideray_tips_icon {
+    font-size: 1.8rem;
+    align-self: flex-start;
+  }
+  
+  /* Special Mobile-Only Effects */
+  .guideray_tips_container::before {
+    width: 150px;
+    height: 150px;
+    top: -30px;
+    right: -30px;
+  }
+  
+  .guideray_tips_container::after {
+    width: 200px;
+    height: 200px;
+    bottom: -70px;
+    left: -70px;
+  }
+}
+
+/* Micro-Interactions for Ultra Beauty */
+@media (hover: hover) {
+  .guideray_tips_card {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+                box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .guideray_tips_card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 40px -10px rgba(var(--primary-color-rgb), 0.15) !important;
+  }
+  
+  .guideray_tips_icon {
+    animation: float 5s ease-in-out infinite;
+  }
+}
+
+:root {
+  --card-bg-rgb: 255, 255, 255;
+  --border-color-rgb: 224, 229, 242;
+  --primary-color-rgb: 59, 130, 246;
+  --primary-color: #3b82f6;
+  --text-color: #4b5563;
+  --accent-color-1: #3b82f6;
+  --accent-color-2: #1e40af;
+}
+
+.dark {
+  --card-bg-rgb: 30, 41, 59;
+  --border-color-rgb: 59, 130, 246;
+  --primary-color-rgb: 147, 197, 253;
+  --primary-color: #93c5fd;
+  --text-color: #cbd5e1;
+  --accent-color-1: #60a5fa;
+  --accent-color-2: #3b82f6;
+}

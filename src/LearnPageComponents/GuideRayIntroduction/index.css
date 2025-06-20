@@ -1,0 +1,399 @@
+/* GuideRayIntroduction.css - Ultra Beautiful Mobile-First Design */
+
+/* Base Container with Glass Morphism Effect */
+.guideray-introduction-container {
+  border-radius: 24px;
+  padding: 3rem;
+  margin: 2rem auto;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  max-width: 1200px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Floating Decorative Elements */
+.guideray-introduction-container::before,
+.guideray-introduction-container::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.2;
+  z-index: -1;
+  transition: all 0.8s ease;
+}
+
+.guideray-introduction-container::before {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  right: -50px;
+}
+
+.guideray-introduction-container::after {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  left: -100px;
+}
+
+/* Header with Beautiful Icon Animation */
+.guideray-introduction-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.guideray-introduction-icon {
+  font-size: 2.25rem;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+  transform-origin: center;
+  padding: 0.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Title with Animated Underline */
+.guideray-introduction-title {
+  font-size: 2.25rem;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.25;
+  position: relative;
+  padding-bottom: 1rem;
+  letter-spacing: -0.02em;
+  transition: all 0.3s ease;
+}
+
+.guideray-introduction-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 5px;
+  border-radius: 3px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: left;
+}
+
+.guideray-introduction-header:hover .guideray-introduction-title::after {
+  transform: scaleX(1.5);
+}
+
+/* Description with Elegant Border */
+.guideray-introduction-description {
+  font-size: 1.25rem;
+  line-height: 1.9;
+  margin: 0;
+  padding-left: 2rem;
+  border-left: 4px solid;
+  transition: all 0.5s ease;
+  position: relative;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.guideray-introduction-description::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: currentColor;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.guideray-introduction-description:hover::before {
+  opacity: 0.1;
+  transform: scaleY(1.1);
+}
+
+/* Technical Container with Floating Effect */
+.guideray-introduction-technical-container {
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 2px dashed;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.guideray-introduction-technical-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.guideray-introduction-technical-container:hover::before {
+  opacity: 0.3;
+}
+
+/* Light Theme - Soft & Elegant */
+.guideray-introduction-container.light {
+  background: linear-gradient(145deg, rgba(255,255,255,0.92) 0%, rgba(248,249,255,0.95) 100%);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08), 
+              0 10px 20px -5px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(224, 229, 242, 0.6);
+}
+
+.guideray-introduction-container.light::before {
+  background: #3b82f6;
+}
+
+.guideray-introduction-container.light::after {
+  background: #1e40af;
+}
+
+.guideray-introduction-icon.light {
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+}
+
+.guideray-introduction-header:hover .guideray-introduction-icon.light {
+  transform: rotate(15deg) scale(1.1);
+  box-shadow: 0 6px 24px rgba(59, 130, 246, 0.2);
+}
+
+.guideray-introduction-title.light {
+  color: #1e40af;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.guideray-introduction-title.light::after {
+  background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.guideray-introduction-description.light {
+  color: #4b5563;
+  border-left-color: rgba(59, 130, 246, 0.3);
+}
+
+.guideray-introduction-technical-container.light {
+  border-top-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Dark Theme - Futuristic & Sleek */
+.guideray-introduction-container.dark {
+  background: linear-gradient(145deg, rgba(26,26,46,0.92) 0%, rgba(22,33,62,0.95) 100%);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 
+              0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.guideray-introduction-container.dark::before {
+  background: #3b82f6;
+}
+
+.guideray-introduction-container.dark::after {
+  background: #1e40af;
+}
+
+.guideray-introduction-icon.dark {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  box-shadow: 0 4px 20px rgba(96, 165, 250, 0.1);
+}
+
+.guideray-introduction-header:hover .guideray-introduction-icon.dark {
+  transform: rotate(15deg) scale(1.1);
+  box-shadow: 0 6px 24px rgba(96, 165, 250, 0.2);
+}
+
+.guideray-introduction-title.dark {
+  color: #93c5fd;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.guideray-introduction-title.dark::after {
+  background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 100%);
+  box-shadow: 0 4px 16px rgba(96, 165, 250, 0.4);
+}
+
+.guideray-introduction-description.dark {
+  color: rgba(203, 213, 225, 0.9);
+  border-left-color: rgba(96, 165, 250, 0.4);
+}
+
+.guideray-introduction-technical-container.dark {
+  border-top-color: rgba(96, 165, 250, 0.4);
+}
+
+/* Ultra Beautiful Mobile Responsiveness */
+@media (max-width: 1024px) {
+  .guideray-introduction-container {
+    padding: 2.5rem;
+    border-radius: 22px;
+  }
+  
+  .guideray-introduction-title {
+    font-size: 2rem;
+  }
+  
+  .guideray-introduction-description {
+    font-size: 1.15rem;
+  }
+}
+
+/* Stunning Mobile View (Under 768px) */
+@media (max-width: 768px) {
+  .guideray-introduction-container {
+    padding: 2rem 1.75rem;
+    border-radius: 20px;
+    margin: 1.5rem 0;
+    backdrop-filter: blur(8px);
+  }
+  
+  .guideray-introduction-header {
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+  
+  .guideray-introduction-icon {
+    font-size: 1.75rem;
+    padding: 0.6rem;
+  }
+  
+  .guideray-introduction-title {
+    font-size: 1.75rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .guideray-introduction-title::after {
+    width: 60px;
+    height: 4px;
+  }
+  
+  .guideray-introduction-description {
+    font-size: 1.1rem;
+    padding-left: 1.5rem;
+    border-left-width: 3px;
+  }
+  
+  .guideray-introduction-technical-container {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+  }
+}
+
+/* Ultra Refined Mobile Experience (Under 480px) */
+@media (max-width: 480px) {
+  .guideray-introduction-container {
+    padding: 1.75rem 1.5rem;
+    border-radius: 18px;
+    margin: 1.25rem 0;
+    backdrop-filter: blur(6px);
+  }
+  
+  .guideray-introduction-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .guideray-introduction-icon {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .guideray-introduction-title {
+    font-size: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .guideray-introduction-title::after {
+    width: 50px;
+    height: 3px;
+  }
+  
+  .guideray-introduction-description {
+    font-size: 1rem;
+    line-height: 1.8;
+    padding-left: 1.25rem;
+    border-left-width: 2px;
+  }
+  
+  .guideray-introduction-technical-container {
+    margin-top: 2rem;
+    padding-top: 1.75rem;
+  }
+  
+  /* Special Mobile-Only Effects */
+  .guideray-introduction-container::before {
+    width: 150px;
+    height: 150px;
+    top: -30px;
+    right: -30px;
+    filter: blur(40px);
+  }
+  
+  .guideray-introduction-container::after {
+    width: 200px;
+    height: 200px;
+    bottom: -70px;
+    left: -70px;
+    filter: blur(40px);
+  }
+}
+
+/* Beautiful Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.guideray-introduction-container {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* Micro-Interactions for Ultra Beauty */
+@media (hover: hover) {
+  .guideray-introduction-container {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
+                box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .guideray-introduction-container:hover {
+    transform: translateY(-8px) scale(1.01);
+  }
+  
+  .guideray-introduction-icon {
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                box-shadow 0.4s ease;
+  }
+}

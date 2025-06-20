@@ -1,0 +1,77 @@
+.guideray-student-resource-recommendations {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.guideray-student-resource-recommendations-dark {
+  background: #2d3748;
+  color: #f7fafc;
+}
+
+.guideray-student-resource-recommendations-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.guideray-student-resource-recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.guideray-student-resource-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: rgba(79, 70, 229, 0.05);
+}
+
+.guideray-student-resource-recommendations-dark .guideray-student-resource-item {
+  background: rgba(160, 174, 192, 0.1);
+}
+
+.guideray-student-resource-icon {
+  font-size: 1.25rem;
+  margin-right: 1rem;
+}
+
+.guideray-student-resource-details {
+  flex: 1;
+}
+
+.guideray-student-resource-title {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.guideray-student-resource-subject {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.guideray-student-resource-download {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #4f46e5;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.guideray-student-resource-download:hover {
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.guideray-student-resource-recommendations-dark .guideray-student-resource-download {
+  color: #a5b4fc;
+}
+
+.guideray-student-resource-recommendations-dark .guideray-student-resource-download:hover {
+  background: rgba(165, 180, 252, 0.1);
+}

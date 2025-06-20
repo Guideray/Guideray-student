@@ -1,0 +1,520 @@
+/* Main container */
+.guideray-video-component-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #0f0f12;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.guideray-video-component-container.fullscreen {
+  max-width: none;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+}
+
+/* Video container */
+.guideray-video-component-video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.guideray-video-component-video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Loading spinner */
+.guideray-video-component-loading-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(15, 15, 18, 0.8);
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.guideray-video-component-loading-spinner.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.guideray-video-component-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: #6366f1;
+  border-left-color: #8b5cf6;
+  border-right-color: #a855f7;
+  animation: guideray-video-component-spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.guideray-video-component-spinner-text {
+  margin-top: 16px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes guideray-video-component-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Thumbnail overlay */
+.guideray-video-component-thumbnail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.guideray-video-component-thumbnail-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.guideray-video-component-play-button {
+  width: 90px;
+  height: 90px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 10px;
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.guideray-video-component-play-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Controls overlay */
+.guideray-video-component-controls-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 30%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 4;
+}
+
+.guideray-video-component-controls-overlay.visible {
+  opacity: 1;
+}
+
+/* Top controls */
+.guideray-video-component-top-controls {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guideray-video-component-video-title {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.5px;
+}
+
+/* Center controls */
+.guideray-video-component-center-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.guideray-video-component-control-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  position: relative;
+}
+
+.guideray-video-component-control-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.1);
+}
+
+.guideray-video-component-play-pause {
+  width: 70px;
+  height: 70px;
+  background-color: rgba(99, 102, 241, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+
+.guideray-video-component-play-pause:hover {
+  background-color: rgba(99, 102, 241, 0.9);
+  transform: scale(1.15);
+}
+
+.guideray-video-component-skip-forward,
+.guideray-video-component-skip-backward {
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.8rem;
+  opacity: 0.9;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 12px 15px;
+  border-radius: 30px;
+}
+
+.guideray-video-component-skip-forward:hover,
+.guideray-video-component-skip-backward:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.guideray-video-component-skip-forward span,
+.guideray-video-component-skip-backward span {
+  font-weight: 500;
+}
+
+/* Bottom controls */
+.guideray-video-component-bottom-controls {
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+}
+
+.guideray-video-component-progress-container {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  position: relative;
+  transition: height 0.2s ease;
+}
+
+.guideray-video-component-progress-container:hover {
+  height: 10px;
+}
+
+.guideray-video-component-progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.guideray-video-component-progress-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.guideray-video-component-progress-container:hover .guideray-video-component-progress-thumb {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.guideray-video-component-progress-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  z-index: 2;
+}
+
+.guideray-video-component-controls-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guideray-video-component-time-display {
+  color: #fff;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.guideray-video-component-right-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Volume controls */
+.guideray-video-component-volume-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.guideray-video-component-volume-slider {
+  width: 90px;
+  height: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  outline: none;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.guideray-video-component-volume-controls:hover .guideray-video-component-volume-slider {
+  opacity: 1;
+  width: 110px;
+}
+
+.guideray-video-component-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guideray-video-component-volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.guideray-video-component-volume-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Playback rate controls */
+.guideray-video-component-playback-rate-container {
+  position: relative;
+}
+
+.guideray-video-component-playback-button {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.guideray-video-component-playback-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.guideray-video-component-playback-menu {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 10px;
+  background-color: rgba(30, 30, 35, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 80px;
+}
+
+.guideray-video-component-playback-option {
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.guideray-video-component-playback-option:hover {
+  background-color: rgba(99, 102, 241, 0.3);
+}
+
+.guideray-video-component-playback-option.active {
+  background-color: rgba(99, 102, 241, 0.5);
+  font-weight: 600;
+}
+
+/* Fullscreen button */
+.guideray-video-component-fullscreen-button {
+  margin-left: 5px;
+}
+
+/* Tooltip styles */
+.guideray-video-component-control-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.guideray-video-component-control-button:hover::after {
+  opacity: 1;
+  margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .guideray-video-component-container {
+    border-radius: 0;
+  }
+  
+  .guideray-video-component-video-title {
+    font-size: 1rem;
+  }
+  
+  .guideray-video-component-center-controls {
+    gap: 30px;
+  }
+  
+  .guideray-video-component-play-pause {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .guideray-video-component-skip-forward,
+  .guideray-video-component-skip-backward {
+    font-size: 0.7rem;
+    padding: 10px 12px;
+  }
+  
+  .guideray-video-component-time-display {
+    font-size: 0.8rem;
+  }
+  
+  .guideray-video-component-playback-button span {
+    display: none;
+  }
+  
+  .guideray-video-component-volume-slider {
+    display: none;
+  }
+  
+  .guideray-video-component-volume-controls:hover .guideray-video-component-volume-slider {
+    display: none;
+  }
+}
+
+/* Fullscreen styles */
+@media (min-width: 1200px) {
+  .guideray-video-component-container {
+    max-width: 1100px;
+  }
+}
+
+/* Thumbnail placeholder styles */
+.guideray-video-component-thumbnail-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.guideray-video-component-thumbnail-placeholder svg {
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.guideray-video-component-thumbnail-placeholder p {
+  margin: 0;
+  font-size: 14px;
+}

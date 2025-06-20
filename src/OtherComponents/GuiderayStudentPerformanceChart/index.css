@@ -1,0 +1,175 @@
+.guideray-student-performance-chart {
+  background: var(--chart-bg);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--chart-shadow);
+  transition: all 0.3s ease;
+  max-height: 400px;
+}
+
+.guideray-student-performance-chart.light {
+  --chart-bg: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --accent-color: #6d28d9;
+  --chart-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --range-btn-bg: #f1f5f9;
+  --range-btn-active: #6d28d9;
+  --stat-bg: #f8fafc;
+}
+
+.guideray-student-performance-chart.dark {
+  --chart-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-color: #8b5cf6;
+  --chart-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --range-btn-bg: #334155;
+  --range-btn-active: #8b5cf6;
+  --stat-bg: #0f172a;
+}
+
+.guideray-student-performance-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.guideray-student-performance-chart-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.guideray-student-performance-chart-range-selector {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--range-btn-bg);
+  border-radius: 10px;
+  padding: 0.25rem;
+}
+
+.guideray-student-performance-chart-range-btn {
+  border: none;
+  padding: 0.375rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.guideray-student-performance-chart-range-btn.active {
+  background: var(--range-btn-active);
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.guideray-student-performance-chart-container {
+  height: 220px;
+  margin: 0.5rem 0;
+  position: relative;
+}
+
+.guideray-student-performance-chart-footer {
+  margin-top: 0.75rem;
+}
+
+.guideray-student-performance-chart-stats {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.guideray-student-performance-chart-stat {
+  flex: 1;
+  background: var(--stat-bg);
+  border-radius: 10px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.guideray-student-performance-chart-stat .label {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.guideray-student-performance-chart-stat .value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.guideray-student-performance-chart-stat .positive {
+  color: #10b981;
+}
+
+.guideray-student-performance-chart-stat .negative {
+  color: #ef4444;
+}
+
+/* Add these to your existing CSS file */
+
+/* Bar chart specific styles */
+.guideray-student-performance-chart-container canvas {
+  transition: transform 0.3s ease;
+}
+
+.guideray-student-performance-chart-container:hover canvas {
+  transform: scale(1.01);
+}
+
+/* Enhanced tooltip styles */
+.chartjs-tooltip {
+  box-shadow: var(--chart-shadow);
+  border-radius: 8px !important;
+  opacity: 1 !important;
+}
+
+.chartjs-tooltip-body {
+  margin: 0.5rem 0;
+}
+
+.chartjs-tooltip-body-item {
+  display: flex;
+  align-items: center;
+}
+
+.chartjs-tooltip-body-item span:first-child {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.chartjs-tooltip-footer {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-color);
+  font-style: italic;
+}
+
+/* Animation for bars */
+@keyframes barAnimation {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* Add this to your existing dark/light mode variables */
+.guideray-student-performance-chart.light {
+  --border-color: #e5e7eb;
+}
+
+.guideray-student-performance-chart.dark {
+  --border-color: #475569;
+}

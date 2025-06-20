@@ -1,0 +1,297 @@
+/* Main container - Compact version */
+.guderay-progress-calendar-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #ffffff;
+  min-height: 400px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+/* Calendar wrapper */
+.guderay-progress-calendar {
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Header styling - Compact */
+.guderay-progress-month-header,
+.guderay-progress-year-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.guderay-progress-month-title,
+.guderay-progress-year-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 6px 12px;
+  border-radius: 6px;
+  letter-spacing: 0.2px;
+}
+
+.guderay-progress-month-title:hover,
+.guderay-progress-year-title:hover {
+  color: #3498db;
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* Navigation buttons - Smaller */
+.guderay-progress-nav-button {
+  background: rgba(0, 0, 0, 0.03);
+  border: none;
+  font-size: 14px;
+  color: #7f8c8d;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.guderay-progress-nav-button:hover {
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.15);
+  transform: translateY(-1px);
+}
+
+.guderay-progress-nav-button:disabled,
+.guderay-progress-nav-disabled {
+  color: #e0e0e0 !important;
+  cursor: not-allowed;
+  background-color: transparent !important;
+  box-shadow: none;
+}
+
+/* Weekdays header - Smaller */
+.guderay-progress-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.guderay-progress-weekday {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 2px 0;
+}
+
+/* Days grid - Tighter */
+.guderay-progress-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+/* Day cell - Fixed size */
+.guderay-progress-day {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+  margin: 0 auto;
+}
+
+.guderay-progress-day::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.guderay-progress-day:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  z-index: 1;
+}
+
+.guderay-progress-day:hover::before {
+  opacity: 1;
+}
+
+/* Day status colors */
+.guderay-progress-completed {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.guderay-progress-incomplete {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.guderay-progress-future {
+  background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+  color: #95a5a6;
+}
+
+.guderay-progress-today {
+  box-shadow: 0 0 0 1px #3498db, 0 2px 8px rgba(52, 152, 219, 0.15);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.3); }
+  70% { box-shadow: 0 0 0 4px rgba(52, 152, 219, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+}
+
+/* Empty days */
+.guderay-progress-empty-day {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+}
+
+/* Year view - Compact */
+.guderay-progress-year-view {
+  padding: 8px 2px;
+}
+
+.guderay-progress-months-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.guderay-progress-month-cell {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  font-size: 12px;
+  color: #2c3e50;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.guderay-progress-month-cell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.guderay-progress-month-cell:hover {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.1);
+}
+
+.guderay-progress-month-cell:hover::before {
+  opacity: 1;
+}
+
+.guderay-progress-current-month {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.15);
+}
+
+.guderay-progress-future-month {
+  background: linear-gradient(135deg, #ecf0f1, #dfe6e9);
+  color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* Legend - Compact */
+.guderay-progress-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.02);
+  padding: 8px;
+  margin-top: 50px;
+  border-radius: 8px;
+}
+
+.guderay-progress-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.guderay-progress-legend-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.guderay-progress-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.guderay-progress-legend-color.completed {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.guderay-progress-legend-color.incomplete {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.guderay-progress-legend-color.future {
+  background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+}
+
+.guderay-progress-legend-color.today {
+  background: white;
+  border: 1px solid #3498db;
+  box-shadow: 0 0 0 1px white inset;
+}

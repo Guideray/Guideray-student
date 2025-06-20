@@ -1,0 +1,85 @@
+.guideray-student-upcoming-classes {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.guideray-student-upcoming-classes-dark {
+  background: #2d3748;
+  color: #f7fafc;
+}
+
+.guideray-student-upcoming-classes-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.guideray-student-upcoming-classes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.guideray-student-upcoming-class-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: rgba(79, 70, 229, 0.05);
+}
+
+.guideray-student-upcoming-classes-dark .guideray-student-upcoming-class-item {
+  background: rgba(160, 174, 192, 0.1);
+}
+
+.guideray-student-upcoming-class-time {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4f46e5;
+  min-width: 60px;
+}
+
+.guideray-student-upcoming-classes-dark .guideray-student-upcoming-class-time {
+  color: #a5b4fc;
+}
+
+.guideray-student-upcoming-class-details {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.guideray-student-upcoming-class-name {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.guideray-student-upcoming-class-teacher {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.guideray-student-upcoming-class-join {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guideray-student-upcoming-class-join:hover {
+  background: #4338ca;
+}
+
+.guideray-student-upcoming-classes-dark .guideray-student-upcoming-class-join {
+  background: #6366f1;
+}
+
+.guideray-student-upcoming-classes-dark .guideray-student-upcoming-class-join:hover {
+  background: #4f46e5;
+}
