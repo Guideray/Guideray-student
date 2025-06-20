@@ -1,8 +1,0 @@
-{
-  "course1": {
-    "courseName": "Python Mastery: From Basics to Advanced",
-    "description": "A comprehensive Python course covering everything from basic syntax to advanced topics like object-oriented programming, file handling, and modules. Perfect for beginners and intermediate learners.",
-    "duration": "12 weeks",
-    "path": "python_data.json"
-  }
-}
