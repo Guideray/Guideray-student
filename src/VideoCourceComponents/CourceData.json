@@ -1,0 +1,90 @@
+{
+  "Python Basics": {
+    "Python Introduction": {
+      "videoComponent": {
+        "link": "https://www.youtube.com/embed/rfscVS0vtbw",
+        "title": "Introduction to Python Programming"
+      },
+      "practiceMcq": {
+        "questions": [
+          {
+            "question": "Which of the following is the correct extension for Python files?",
+            "options": [".py", ".python", ".pyt", ".pt"],
+            "answer": 0
+          },
+          {
+            "question": "Python is a ___ language?",
+            "options": ["Compiled", "Interpreted", "Both", "None"],
+            "answer": 1
+          }
+        ]
+      },
+      "codingPractice": {
+        "links": [
+          {
+            "title": "HackerRank - Print 'Hello, World!'",
+            "url": "https://www.hackerrank.com/challenges/py-hello-world"
+          },
+          {
+            "title": "HackerRank - Python If-Else",
+            "url": "https://www.hackerrank.com/challenges/py-if-else"
+          }
+        ]
+      }
+    },
+    "Variables and Data Types": {
+      "videoComponent": {
+        "link": "https://www.youtube.com/embed/khKv-8q7YmY",
+        "title": "Python Variables and Data Types"
+      },
+      "practiceMcq": {
+        "questions": [
+          {
+            "question": "Which of these is not a valid variable name in Python?",
+            "options": ["my_var", "_var", "1var", "var1"],
+            "answer": 2
+          },
+          {
+            "question": "What data type is 3.14 in Python?",
+            "options": ["int", "float", "double", "decimal"],
+            "answer": 1
+          }
+        ]
+      },
+      "codingPractice": {
+        "links": [
+          {
+            "title": "HackerRank - Arithmetic Operators",
+            "url": "https://www.hackerrank.com/challenges/python-arithmetic-operators"
+          }
+        ]
+      }
+    }
+  },
+  "Python Intermediate": {
+    "Functions": {
+      "videoComponent": {
+        "link": "https://www.youtube.com/embed/9Os0o3wzS_I",
+        "title": "Python Functions Explained"
+      },
+      "practiceMcq": {
+        "questions": [
+          {
+            "question": "Which keyword is used to define a function in Python?",
+            "options": ["func", "def", "function", "define"],
+            "answer": 1
+          }
+        ]
+      },
+      "codingPractice": {
+        "links": [
+          {
+            "title": "HackerRank - Write a Function",
+            "url": "https://www.hackerrank.com/challenges/write-a-function"
+          }
+        ]
+      }
+    }
+  }
+  
+}

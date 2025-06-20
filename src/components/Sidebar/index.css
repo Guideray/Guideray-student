@@ -1,0 +1,59 @@
+
+.guideray-student-dashboard-sidebar.collapsed {
+  width: 60px;
+}
+
+.guideray-student-dashboard-sidebar.guideray-student-dashboard-sidebar-open {
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .guideray-student-dashboard-sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .guideray-student-dashboard-sidebar.guideray-student-dashboard-sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+.guideray-student-dashboard-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.guideray-student-dashboard-menu-item {
+  padding: 15px;
+  cursor: pointer;
+}
+
+.guideray-student-dashboard-menu-item.active {
+  background-color: #333;
+}
+
+.guideray-student-dashboard-menu-link {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.guideray-student-dashboard-menu-icon {
+  margin-right: 10px;
+}
+
+.tooltip {
+  display: none;
+}
+
+.guideray-student-dashboard-logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  width: 100%;
+  padding: 15px;
+  cursor: pointer;
+  text-align: left;
+}

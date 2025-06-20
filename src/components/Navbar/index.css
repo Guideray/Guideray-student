@@ -1,0 +1,231 @@
+/* Refined Navbar with Subtle Glass Effect */
+.guideray-student-dashboard-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.1rem 1rem;
+  background: rgb(9, 7, 69);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 60px;
+  transition: all 0.3s ease-out;
+}
+
+/* Compact Sidebar Toggle Button */
+.guideray-student-dashboard-sidebar-toggle {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  transition: all 0.2s ease;
+}
+
+.guideray-student-dashboard-sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.guideray-student-dashboard-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guideray-student-dashboard-logo img {
+  height: 35px;
+  transition: transform 0.3s ease;
+}
+
+/* Premium Theme Toggle - More Compact */
+.guideray-student-dashboard-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guideray-student-dashboard-theme-toggle {
+  width: 42px;
+  height: 24px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(145deg, #000000, #000000);
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.guideray-student-dashboard-toggle-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  left: 2px;
+}
+
+.guideray-student-dashboard-theme-toggle.active .guideray-student-dashboard-toggle-circle {
+  left: calc(100% - 22px);
+}
+
+.guideray-student-dashboard-toggle-circle svg {
+  width: 12px;
+  height: 12px;
+  color: #090745;
+}
+
+/* Elegant Initials Avatar */
+.guideray-student-dashboard-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.guideray-student-dashboard-avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+/* Prevent text/image selection and copying */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.no-copy img {
+  pointer-events: none; /* Prevent right click */
+}
+
+/* Prevent right-click on logo */
+.guideray-student-dashboard-logo img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Zoom Controls */
+.guideray-student-dashboard-zoom-controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.zoom-percentage {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.guideray-student-dashboard-dark .zoom-percentage {
+  color: #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.guideray-student-dashboard-light .zoom-percentage {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.zoom-controls-popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: flex;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 5px;
+  z-index: 100;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.guideray-student-dashboard-dark .zoom-controls-popup {
+  background-color: #2d3748;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.zoom-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.guideray-student-dashboard-light .zoom-button {
+  color: #333;
+}
+
+.guideray-student-dashboard-dark .zoom-button {
+  color: #e0e0e0;
+}
+
+.zoom-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.guideray-student-dashboard-dark .zoom-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.zoom-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.zoom-button:not(:last-child) {
+  margin-right: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
