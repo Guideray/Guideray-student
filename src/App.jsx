@@ -18,7 +18,6 @@ import StudentProfile from './OtherComponents/StudentProfile';
 import GuiderayStudentNotification from './OtherComponents/StudentNotification';
 import GuideRayStudentProgressCalendar from './OtherComponents/StudentProgressBox';
 
-// CSS Styles
 const styles = `
 .App {
   text-align: center;
