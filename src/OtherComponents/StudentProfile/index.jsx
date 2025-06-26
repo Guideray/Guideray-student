@@ -17,7 +17,7 @@ const StudentProfile = ({ darkMode }) => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/students/me', {
+        const response = await axios.get('https://webservice.guideray.in/api/students/me', {
           headers: {
             Authorization: `Bearer ${cookies.studentToken}`
           }
@@ -63,7 +63,7 @@ const StudentProfile = ({ darkMode }) => {
     setIsSubmitting(true);
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/students/${studentData.id}`,
+        `https://webservice.guideray.in/api/students/${studentData.id}`,
         formData,
         {
           headers: {

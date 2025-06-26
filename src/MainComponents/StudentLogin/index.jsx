@@ -81,7 +81,7 @@ const StudentLogin = () => {
     setSuccessMessage('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/student-auth/request-otp', {
+      const response = await axios.post('https://webservice.guideray.in/api/student-auth/request-otp', {
         email: email
       });
 
@@ -134,7 +134,7 @@ const StudentLogin = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/student-auth/verify-otp', {
+      const response = await axios.post('https://webservice.guideray.in/api/student-auth/verify-otp', {
         email: email,
         otp: otpCode
       });
@@ -163,7 +163,7 @@ const StudentLogin = () => {
     setSuccessMessage('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/student-auth/request-otp', {
+      const response = await axios.post('https://webservice.guideray.in/api/student-auth/request-otp', {
         email: email
       });
 

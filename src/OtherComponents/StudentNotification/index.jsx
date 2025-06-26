@@ -29,7 +29,7 @@ const GuiderayStudentNotification = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/students/me', {
+        const response = await axios.get('https://webservice.guideray.in/api/students/me', {
           headers: {
             Authorization: `Bearer ${cookies.studentToken}`
           }
@@ -50,7 +50,7 @@ const GuiderayStudentNotification = () => {
       if (!studentInfo) return;
       
       try {
-        const response = await axios.get(`http://localhost:5000/api/notifications/${studentInfo.studentId}`);
+        const response = await axios.get(`https://webservice.guideray.in/api/notifications/${studentInfo.studentId}`);
         const notificationsData = response.data.data || [];
         setNotifications(notificationsData);
         setLoading(false);
@@ -67,7 +67,7 @@ const GuiderayStudentNotification = () => {
 
   const markAsRead = async (notificationId) => {
     try {
-      await axios.put(`http://localhost:5000/api/notifications/${notificationId}/read`, {
+      await axios.put(`https://webservice.guideray.in/api/notifications/${notificationId}/read`, {
         studentId: studentInfo.studentId
       }, {
         headers: {
@@ -111,7 +111,7 @@ const GuiderayStudentNotification = () => {
 
   const deleteSelectedNotifications = async () => {
     try {
-      await axios.post('http://localhost:5000/api/notifications/delete-selected', {
+      await axios.post('https://webservice.guideray.in/api/notifications/delete-selected', {
         ids: selectedNotifications
       }, {
         headers: {

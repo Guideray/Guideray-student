@@ -91,7 +91,7 @@ const StudentRegistration = ({ darkMode }) => {
       formDataToSend.append('address[postalCode]', formData.address.postalCode);
       formDataToSend.append('address[country]', formData.address.country);
 
-      const response = await fetch('http://localhost:5000/api/students/', {
+      const response = await fetch('https://webservice.guideray.in/api/students/', {
         method: 'POST',
         body: formDataToSend
       });
