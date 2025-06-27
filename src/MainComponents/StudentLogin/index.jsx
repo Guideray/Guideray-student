@@ -81,9 +81,18 @@ const StudentLogin = () => {
     setSuccessMessage('');
 
     try {
-      const response = await axios.post('https://webservice.guideray.in/api/student-auth/request-otp', {
-        email: email
-      });
+    const response = await axios.post(
+  'https://webservice.guideray.in/api/student-auth/request-otp',
+  {
+    email: email
+  },
+  {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  }
+);
 
       if (response.data.success) {
         setOtpSent(true);
@@ -134,10 +143,19 @@ const StudentLogin = () => {
     }
 
     try {
-      const response = await axios.post('https://webservice.guideray.in/api/student-auth/verify-otp', {
-        email: email,
-        otp: otpCode
-      });
+     const response = await axios.post(
+  'https://webservice.guideray.in/api/student-auth/verify-otp',
+  {
+    email: email,
+    otp: otpCode
+  },
+  {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true  // Important to allow cookie/session transfer
+  }
+);
 
       if (response.data.success) {
         setStudentData(response.data.data);
