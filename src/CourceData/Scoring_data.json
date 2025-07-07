@@ -1,0 +1,11 @@
+{
+  "courseName": "Python Basics",
+  "topics": [
+    "Introduction to Python",
+    "Installing Python & IDEs",
+    "Hello World Program and Syntax & Indentation",
+    "Comments and Data Types",
+    "Type Conversion",
+    "Variables"
+  ]
+}

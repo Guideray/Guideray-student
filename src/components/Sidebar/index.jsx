@@ -9,6 +9,7 @@ import {
   MdEmojiEvents,
   MdMessage
 } from 'react-icons/md';
+import './index.css'
 
 const Sidebar = ({
   sidebarCollapsed,
@@ -39,6 +40,14 @@ const Sidebar = ({
     <aside
       className={`guideray-student-dashboard-sidebar ${sidebarCollapsed ? 'collapsed' : ''} ${mobileSidebarOpen ? 'guideray-student-dashboard-sidebar-open' : ''}`}
     >
+      <div className='guideray-sidebar-icon'>
+        <img
+            src="https://res.cloudinary.com/dx97khgxd/image/upload/v1747826507/b4r9unmciqqgfiuncwcp.png" 
+            alt="Portal Logo"
+            draggable="false"
+            className="logo-image"
+          />
+      </div>
       <ul className="guideray-student-dashboard-menu">
         {menuItems.map((item, index) => (
           <li

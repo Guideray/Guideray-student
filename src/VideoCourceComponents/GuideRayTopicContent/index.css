@@ -1,171 +1,225 @@
-/* index.css */
-.GuideRayTopicContent-container {
+.guide-container {
   max-width: 1350px;
   margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.GuideRayTopicContent-header {
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-.GuideRayTopicContent-title {
-  font-size: 2rem;
-  color: #4f46e5;
-  margin-bottom: 1rem;
-  font-weight: 700;
-}
-
-.GuideRayTopicContent-progress {
-  height: 8px;
-  background-color: #e0e7ff;
-  border-radius: 4px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #333;
   overflow: hidden;
+}
+
+.guide-header {
+  margin-bottom: 2rem;
+  text-align: left;
+  padding: 0 1rem;
+}
+
+.guide-title {
+  font-size: 1.8rem;
+  color: #4f46e5;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.guide-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+.progress-tracker {
   max-width: 500px;
   margin: 0 auto;
 }
 
-.GuideRayTopicContent-progress-bar {
-  height: 100%;
+.progress-bar {
+  height: 6px;
   background: linear-gradient(90deg, #4f46e5, #8b5cf6);
-  border-radius: 4px;
-  transition: width 0.3s ease;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  transition: width 0.4s ease;
 }
 
-.GuideRayTopicContent-timeline {
+.progress-text {
+  display: block;
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: right;
+}
+
+.learning-path {
   position: relative;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.GuideRayTopicContent-timeline:before {
+.learning-path:before {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 30px;
-  width: 3px;
+  left: 26px;
+  width: 2px;
   background: linear-gradient(to bottom, #4f46e5, #8b5cf6);
-  border-radius: 3px;
 }
 
-.GuideRayTopicContent-timeline-item {
+.path-step {
   position: relative;
-  margin-bottom: 3rem;
-  padding-left: 80px;
+  margin-bottom: 2rem;
+  padding-left: 64px;
 }
 
-.GuideRayTopicContent-timeline-point {
+.step-indicator {
   position: absolute;
   left: 0;
   top: 0;
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #4f46e5, #8b5cf6);
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 3px 12px rgba(79, 70, 229, 0.2);
   z-index: 1;
 }
 
-.GuideRayTopicContent-timeline-icon {
-  width: 24px;
-  height: 24px;
+.step-icon {
+  width: 22px;
+  height: 22px;
   color: white;
 }
 
-.GuideRayTopicContent-timeline-content {
+.step-content {
   position: relative;
-  padding: 2rem;
-  min-width: 1000px;
-  border-radius: 12px;
+  padding: 1.5rem;
+  border-radius: 10px;
   background-color: white;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.GuideRayTopicContent-timeline-item:hover .GuideRayTopicContent-timeline-content {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-}
 
-.GuideRayTopicContent-timeline-date {
-  font-size: 0.9rem;
+.step-number {
+  display: block;
+  font-size: 0.8rem;
   color: #8b5cf6;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.05em;
 }
 
-.GuideRayTopicContent-timeline-title {
-  font-size: 1.25rem;
-  color: #1e1e1e;
-  margin-bottom: 1.5rem;
+.step-title {
+  font-size: 1.3rem;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
   font-weight: 600;
+  line-height: 1.3;
+}
+
+.step-description {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
 }
 
 /* Dark mode styles */
-.GuideRayTopicContent-container.dark .GuideRayTopicContent-title {
+.guide-container.dark {
+  color: #e5e7eb;
+}
+
+.guide-container.dark .guide-title {
   color: #8b5cf6;
 }
 
-.GuideRayTopicContent-container.dark .GuideRayTopicContent-progress {
-  background-color: #2e2e3a;
+.guide-container.dark .guide-subtitle {
+  color: #9ca3af;
 }
 
-.GuideRayTopicContent-container.dark .GuideRayTopicContent-timeline-content {
-  background-color: #2e2e3a;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+.guide-container.dark .progress-text {
+  color: #9ca3af;
 }
 
-.GuideRayTopicContent-container.dark .GuideRayTopicContent-timeline-title {
+.guide-container.dark .step-content {
+  background-color: #2e2e3a;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.guide-container.dark .step-title {
   color: #f3f4f6;
 }
 
-.GuideRayTopicContent-container.dark .GuideRayTopicContent-timeline-date {
-  color: #a78bfa;
+.guide-container.dark .step-description {
+  color: #d1d5db;
 }
 
-/* Responsive design */
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .guide-container {
+    padding: 1.25rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .GuideRayTopicContent-timeline-item {
-    padding-left: 60px;
+  .guide-title {
+    font-size: 1.6rem;
   }
   
-  .GuideRayTopicContent-timeline-point {
-    width: 50px;
-    height: 50px;
+  .path-step {
+    padding-left: 56px;
   }
   
-  .GuideRayTopicContent-timeline-icon {
+  .step-indicator {
+    width: 46px;
+    height: 46px;
+  }
+  
+  .step-icon {
     width: 20px;
     height: 20px;
   }
   
-  .GuideRayTopicContent-timeline-content {
-    padding: 1.5rem;
+  .step-content {
+    padding: 1.25rem;
   }
 }
 
 @media (max-width: 480px) {
-  .GuideRayTopicContent-container {
+  .guide-container {
     padding: 1rem;
   }
   
-  .GuideRayTopicContent-timeline-item {
-    padding-left: 50px;
+  .guide-title {
+    font-size: 1.4rem;
   }
   
-  .GuideRayTopicContent-timeline-point {
+  .guide-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .path-step {
+    padding-left: 48px;
+  }
+  
+  .step-indicator {
     width: 40px;
     height: 40px;
   }
   
-  .GuideRayTopicContent-timeline-icon {
-    width: 16px;
-    height: 16px;
+  .step-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .step-title {
+    font-size: 1.15rem;
+  }
+  
+  .step-description {
+    font-size: 0.85rem;
   }
 }

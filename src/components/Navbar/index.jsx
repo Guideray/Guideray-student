@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FiMenu, FiX, FiSun, FiMoon, FiUser, FiSettings, FiLogOut ,FiHash ,FiCreditCard ,FiChevronRight } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiMoon, FiUser, FiSettings, FiLogOut, FiHash, FiCreditCard, FiChevronRight, FiCheckCircle } from 'react-icons/fi';
 import { RiDashboardLine, RiNotificationLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
-import './index.css';
+import './index.css'
 
 function Navbar({
   darkMode,
@@ -12,6 +12,11 @@ function Navbar({
   toggleSidebar,
   mobileSidebarOpen,
   showSidebarToggle,
+  showProfile,
+  isAuthenticated,
+  loadingProgress,
+  onLogout,
+  isLoading
 }) {
   const navigate = useNavigate();
   const [cookies] = useCookies(['studentToken']);
@@ -80,52 +85,48 @@ function Navbar({
 
   const handleProfileClick = () => {
     setShowProfileDropdown(!showProfileDropdown);
-    setShowNotifications(false); // Close notifications if open
+    setShowNotifications(false);
   };
 
   const handleNotificationClick = () => {
     setShowNotifications(!showNotifications);
-    setShowProfileDropdown(false); // Close profile if open
-  };
-
-  const toggleProfileDetails = () => {
-    setProfileDetailsExpanded(!profileDetailsExpanded);
+    setShowProfileDropdown(false);
   };
 
   const handleLogout = () => {
     document.cookie = 'studentToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    navigate('/login');
-  };
-
-  const formatDate = (dateString) => {
-    if (!dateString) return 'Not specified';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    onLogout();
   };
 
   return (
-    <nav className={`guideray-student-dashboard-navbar ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="guideray-student-dashboard-navbar-left">
+    <nav className={`guideray-student-navbar ${isScrolled ? 'scrolled' : ''} ${darkMode ? 'guideray-student-navbar-dark' : ''}`}>
+      {/* Loading indicator */}
+      {isLoading && (
+        <div className="guideray-student-navbar-loading-container">
+          <div 
+            className={`guideray-student-navbar-loading-progress ${loadingProgress >= 100 ? 'complete' : ''}`}
+            style={{ width: `${loadingProgress}%` }}
+          />
+        </div>
+      )}
+
+      <div className="guideray-student-navbar-left">
         {showSidebarToggle && (
           <button
-            className="guideray-student-dashboard-sidebar-toggle"
+            className="guideray-student-navbar-sidebar-toggle"
             onClick={toggleSidebar}
             aria-label="Toggle sidebar"
           >
             {mobileSidebarOpen ? (
-              <FiX size={20} className="nav-icon" />
+              <FiX size={20} className="guideray-student-navbar-icon" />
             ) : (
-              <FiMenu size={20} className="nav-icon" />
+              <FiMenu size={20} className="guideray-student-navbar-icon" />
             )}
           </button>
         )}
 
         <div
-          className="guideray-student-dashboard-logo no-select no-copy"
+          className="guideray-student-navbar-logo guideray-student-navbar-no-select guideray-student-navbar-no-copy"
           onClick={() => navigate('/')}
           title="Go to Dashboard"
         >
@@ -140,141 +141,138 @@ function Navbar({
         </div>
       </div>
 
-      <div className="guideray-student-dashboard-navbar-right">
-        <div className="nav-action-group">
+      <div className="guideray-student-navbar-right">
+        <div className="guideray-student-navbar-action-group">
           <button
-            className={`guideray-student-dashboard-theme-toggle ${darkMode ? 'active' : ''}`}
+            className={`guideray-student-navbar-theme-toggle ${darkMode ? 'active' : ''}`}
             onClick={toggleTheme}
             aria-label="Toggle theme"
           >
-            <div className="guideray-student-dashboard-toggle-circle">
+            <div className="guideray-student-navbar-toggle-circle">
               {darkMode ? <FiMoon size={12} /> : <FiSun size={12} />}
             </div>
           </button>
         </div>
 
-        <div className="nav-action-group">
-          <div className="notification-bell" onClick={handleNotificationClick}>
-            <RiNotificationLine size={20} className="nav-icon" />
+        <div className="guideray-student-navbar-action-group">
+          <div className="guideray-student-navbar-notification-bell" onClick={handleNotificationClick}>
+            <RiNotificationLine size={20} className="guideray-student-navbar-icon" />
             {notifications.some(n => !n.read) && (
-              <span className="notification-badge"></span>
+              <span className="guideray-student-navbar-notification-badge"></span>
             )}
             
             {showNotifications && (
-              <div className="notification-dropdown">
-                <div className="dropdown-header">
+              <div className="guideray-student-navbar-notification-dropdown">
+                <div className="guideray-student-navbar-dropdown-header">
                   <h4>Notifications</h4>
-                  <span className="mark-all-read">Mark all as read</span>
+                  <span className="guideray-student-navbar-mark-all-read">Mark all as read</span>
                 </div>
-                <div className="notification-list">
+                <div className="guideray-student-navbar-notification-list">
                   {notifications.map(notification => (
                     <div 
                       key={notification.id} 
-                      className={`notification-item ${!notification.read ? 'unread' : ''}`}
+                      className={`guideray-student-navbar-notification-item ${!notification.read ? 'unread' : ''}`}
                     >
-                      <div className="notification-dot"></div>
-                      <div className="notification-content">
-                        <p className="notification-message">{notification.message}</p>
-                        <span className="notification-time">{notification.time}</span>
+                      <div className="guideray-student-navbar-notification-dot"></div>
+                      <div className="guideray-student-navbar-notification-content">
+                        <p className="guideray-student-navbar-notification-message">{notification.message}</p>
+                        <span className="guideray-student-navbar-notification-time">{notification.time}</span>
                       </div>
                     </div>
                   ))}
                 </div>
-                <div className="dropdown-footer">
+                <div className="guideray-student-navbar-dropdown-footer">
                   View all notifications
                 </div>
               </div>
             )}
           </div>
 
-          <div 
-            className="guideray-student-dashboard-profile" 
-            onClick={handleProfileClick}
-          >
-            {studentData?.profilePic ? (
-              <img
-                src={studentData.profilePic}
-                alt="Profile"
-                className="guideray-student-dashboard-avatar"
-              />
-            ) : (
-              <div className="guideray-student-dashboard-avatar">
-                {getUserInitials()}
-              </div>
-            )}
-            
-{showProfileDropdown && (
-  <div className="guideray-student-navbar-dropdown-container">
-    {/* Profile Header */}
-    <div className="guideray-student-navbar-profile-header">
-      <div className="guideray-student-navbar-avatar-wrapper">
-        {studentData?.profilePic ? (
-          <img
-            src={studentData.profilePic}
-            alt="Profile"
-            className="guideray-student-navbar-profile-image"
-          />
-        ) : (
-          <div className="guideray-student-navbar-avatar-fallback">
-            {getUserInitials()}
-          </div>
-        )}
-      </div>
-      
-      <div className="guideray-student-navbar-profile-details">
-        <div className="guideray-student-navbar-name-container">
-          <h3 className="guideray-student-navbar-user-name">
-            {studentData?.name || 'User'}
-          </h3>
-          {studentData?.isVerified && (
-            <span className="guideray-student-navbar-verification-badge">
-              <FiCheckCircle />
-            </span>
+          {showProfile && (
+            <div 
+              className="guideray-student-navbar-profile" 
+              onClick={handleProfileClick}
+            >
+              {studentData?.profilePic ? (
+                <img
+                  src={studentData.profilePic}
+                  alt="Profile"
+                  className="guideray-student-navbar-avatar"
+                />
+              ) : (
+                <div className="guideray-student-navbar-avatar">
+                  {getUserInitials()}
+                </div>
+              )}
+              
+              {showProfileDropdown && (
+                <div className="guideray-student-navbar-dropdown-container">
+                  <div className="guideray-student-navbar-profile-header">
+                    <div className="guideray-student-navbar-avatar-wrapper">
+                      {studentData?.profilePic ? (
+                        <img
+                          src={studentData.profilePic}
+                          alt="Profile"
+                          className="guideray-student-navbar-profile-image"
+                        />
+                      ) : (
+                        <div className="guideray-student-navbar-avatar-fallback">
+                          {getUserInitials()}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="guideray-student-navbar-profile-details">
+                      <div className="guideray-student-navbar-name-container">
+                        <h3 className="guideray-student-navbar-user-name">
+                          {studentData?.name || 'User'}
+                        </h3>
+                        {studentData?.isVerified && (
+                          <span className="guideray-student-navbar-verification-badge">
+                            <FiCheckCircle />
+                          </span>
+                        )}
+                      </div>
+                      <p className="guideray-student-navbar-user-email">
+                        {studentData?.email || 'student@example.com'}
+                      </p>
+                      <div className="guideray-student-navbar-id-container">
+                        <FiCreditCard className="guideray-student-navbar-id-icon" />
+                        <span className="guideray-student-navbar-id-text">
+                          {studentData?.studentId || 'STUXXXXX'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="guideray-student-navbar-dropdown-menu">
+                    <div 
+                      className="guideray-student-navbar-menu-item"
+                      onClick={() => navigate('/profile')}
+                    >
+                      <div className="guideray-student-navbar-menu-icon">
+                        <FiUser />
+                      </div>
+                      <span className="guideray-student-navbar-menu-text">My Profile</span>
+                      <div className="guideray-student-navbar-menu-arrow">
+                        <FiChevronRight />
+                      </div>
+                    </div>
+                    
+                    <div 
+                      className="guideray-student-navbar-menu-item guideray-student-navbar-logout-item"
+                      onClick={handleLogout}
+                    >
+                      <div className="guideray-student-navbar-menu-icon">
+                        <FiLogOut />
+                      </div>
+                      <span className="guideray-student-navbar-menu-text">Logout</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
-        </div>
-        <p className="guideray-student-navbar-user-email">
-          {studentData?.email || 'student@example.com'}
-        </p>
-        <div className="guideray-student-navbar-id-container">
-          <FiCreditCard className="guideray-student-navbar-id-icon" />
-          <span className="guideray-student-navbar-id-text">
-            {studentData?.studentId || 'STUXXXXX'}
-          </span>
-        </div>
-      </div>
-    </div>
-
-    {/* Menu Items */}
-    <div className="guideray-student-navbar-dropdown-menu">
-      <div 
-        className="guideray-student-navbar-menu-item"
-        onClick={() => navigate('/profile')}
-      >
-        <div className="guideray-student-navbar-menu-icon">
-          <FiUser />
-        </div>
-        <span className="guideray-student-navbar-menu-text">My Profile</span>
-        <div className="guideray-student-navbar-menu-arrow">
-          <FiChevronRight />
-        </div>
-      </div>
-      
-      <div 
-        className="guideray-student-navbar-menu-item guideray-student-navbar-logout-item"
-        onClick={handleLogout}
-      >
-        <div className="guideray-student-navbar-menu-icon">
-          <FiLogOut />
-        </div>
-        <span className="guideray-student-navbar-menu-text">Logout</span>
-      </div>
-    </div>
-
-    {/* Footer */}
-
-  </div>
-)}
-          </div>
         </div>
       </div>
     </nav>

@@ -240,7 +240,18 @@ const StudentLogin = () => {
   <FaBook className="guideray-student-login-bg-icon guideray-student-login-bg-icon-31" />
   <FaClock className="guideray-student-login-bg-icon guideray-student-login-bg-icon-32" />
 </div>
+<div className='guideray-student-login-logo'>
+      <img
+            src="https://res.cloudinary.com/dx97khgxd/image/upload/v1747826507/b4r9unmciqqgfiuncwcp.png" 
+            alt="Portal Logo"
+            draggable="false"
+            className="logo-image"
+          />
+
+</div>
+
         <div className="guideray-student-login-welcome-content">
+       
           <h2 className="guideray-student-login-welcome-title">
             Learn Programming in Telugu
           </h2>
@@ -274,8 +285,6 @@ const StudentLogin = () => {
           <div 
             className="guideray-student-login-languages-scroll-wrapper"
             ref={scrollContainerRef}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
           >
             <div className="guideray-student-login-languages-container">
               {languagesData.languages.map((language) => (

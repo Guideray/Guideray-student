@@ -1,190 +1,245 @@
+
+/* Luxurious Sidebar with Collapse Feature */
 .guideray-student-dashboard-sidebar {
-  background-color: #222;
-  height: 100vh;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  width: 240px;
+  background: rgb(3, 0, 81);
+  color: white;
   display: flex;
   flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 1000;
+  height: calc(100vh);
+  position: fixed;
+  overflow: visible;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  will-change: transform, width;
+}
+
+.guideray-sidebar-icon img{
+  min-height: 45px;
+  max-height: 45px;
+}
+.guideray-sidebar-icon{
+  display: flex;
+    border-top-right-radius: 20px;
+
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  background-color: #02003e;
+  margin-bottom: 10px;
+
+
 }
 
 .guideray-student-dashboard-sidebar.collapsed {
-  width: 60px;
-}
-
-.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-menu-text,
-.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-logout-text {
-  opacity: 0;
-  width: 0;
-  margin-left: 0;
-  transition: all 0.2s ease;
-}
-
-.guideray-student-dashboard-sidebar.guideray-student-dashboard-sidebar-open {
-  transform: translateX(0);
-}
-
-@media (max-width: 768px) {
-  .guideray-student-dashboard-sidebar {
-    transform: translateX(-100%);
-    position: fixed;
-    z-index: 1000;
-    width: 250px;
-  }
-
-  .guideray-student-dashboard-sidebar.guideray-student-dashboard-sidebar-open {
-    transform: translateX(0);
-  }
+  width: 72px;
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .guideray-student-dashboard-menu {
   list-style: none;
   padding: 0;
-  margin: 20px 0;
-  flex-grow: 1;
+  margin: 0;
+  flex: 1;
 }
 
 .guideray-student-dashboard-menu-item {
-  padding: 12px 15px;
-  cursor: pointer;
+  margin-bottom: 4px;
   position: relative;
-  transition: all 0.2s ease;
-  margin: 5px 10px;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.guideray-student-dashboard-menu-item:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 100%;
-  background-color: transparent;
-  transition: all 0.3s ease;
-}
-
-.guideray-student-dashboard-menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.guideray-student-dashboard-menu-item:hover:before {
-  background-color: #555;
-}
-
-.guideray-student-dashboard-menu-item.active {
-  background-color: rgba(51, 51, 51, 0.7);
-}
-
-.guideray-student-dashboard-menu-item.active:before {
-  background-color: #fff;
 }
 
 .guideray-student-dashboard-menu-link {
-  text-decoration: none;
-  color: white;
   display: flex;
   align-items: center;
+  padding: 12px 20px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: 
+    padding 0.3s ease-out,
+    background-color 0.2s ease,
+    color 0.2s ease;
   position: relative;
-  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 6px;
+  margin: 0 8px;
+}
+
+.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-menu-link {
+  justify-content: center;
+  padding: 12px 0;
+  transition: 
+    padding 0.3s ease-out 0.1s,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.guideray-student-dashboard-menu-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.guideray-student-dashboard-menu-link.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
 }
 
 .guideray-student-dashboard-menu-icon {
-  margin-right: 15px;
-  font-size: 1.2rem;
-  min-width: 24px;
-  transition: all 0.3s ease;
+  margin-right: 12px;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-menu-icon {
+  margin-right: 0;
+  font-size: 20px;
 }
 
 .guideray-student-dashboard-menu-text {
-  transition: all 0.3s ease;
+  transition: 
+    opacity 0.2s ease-out 0.1s,
+    width 0s linear 0.3s;
+}
+
+.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-menu-text {
+  opacity: 0;
+  width: 0;
+  position: absolute;
+  transition: 
+    opacity 0.1s ease-out,
+    width 0s linear 0.2s;
+}
+
+/* Tooltip for collapsed menu items */
+.guideray-student-dashboard-menu-item .tooltip {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #090745;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
   white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1100;
+  visibility: hidden;
+  min-width: max-content;
+}
+
+.guideray-student-dashboard-menu-item .tooltip::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #090745;
+}
+
+.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-menu-item:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease 0.1s;
 }
 
 .guideray-student-dashboard-menu-badge {
-  background-color: #ff4757;
+  background: #ff4757;
   color: white;
   border-radius: 10px;
-  padding: 2px 8px;
-  font-size: 0.7rem;
-  margin-left: auto;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  position: absolute;
+  right: 20px;
   animation: pulse 2s infinite;
+}
+
+.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-menu-badge {
+  right: 13px;
+  top: 4px;
 }
 
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
 
-.tooltip {
-  display: none;
-  position: absolute;
-  left: 70px;
-  background-color: #333;
-  padding: 5px 10px;
-  border-radius: 4px;
-  white-space: nowrap;
-  z-index: 100;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-menu-item:hover .tooltip {
-  display: block;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
+/* Sophisticated Logout Button */
 .guideray-student-dashboard-logout-btn {
-  background: none;
-  border: none;
-  color: white;
-  width: calc(100% - 20px);
-
-  padding: 15px;
-  margin: 10px;
-  cursor: pointer;
-  padding-top: 50px;
-  text-align: left;
   display: flex;
   align-items: center;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  width: calc(100% - 16px);
+  margin: 8px;
   border-radius: 6px;
   transition: all 0.3s ease;
-  position: relative;
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap;
   overflow: hidden;
 }
 
+.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-logout-btn {
+  justify-content: center;
+  padding: 12px 0;
+  width: calc(100% - 16px);
+  margin: 8px;
+}
+
 .guideray-student-dashboard-logout-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.guideray-student-dashboard-logout-btn:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 100%;
-  background-color: transparent;
-  transition: all 0.3s ease;
-}
-
-.guideray-student-dashboard-logout-btn:hover:before {
-  background-color: #ff4757;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
 }
 
 .guideray-student-dashboard-logout-icon {
-  margin-right: 15px;
-  font-size: 1.2rem;
-  min-width: 24px;
+  margin-right: 12px;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-logout-icon {
+  margin-right: 0;
+  font-size: 20px;
 }
 
 .guideray-student-dashboard-logout-text {
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.guideray-student-dashboard-sidebar.collapsed .guideray-student-dashboard-logout-text {
+  opacity: 0;
+  width: 0;
+  position: absolute;
+}
+
+
+.guideray-student-dashboard-sidebar.collapsed ~ .guideray-student-dashboard-content-area {
+  margin-left: 240px;
 }

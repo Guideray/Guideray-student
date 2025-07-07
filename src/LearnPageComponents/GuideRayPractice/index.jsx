@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import './index.css';
-
+import { FiArrowRight, FiAward, FiBookOpen } from 'react-icons/fi';
+import { FaRegLightbulb } from 'react-icons/fa';
+import './index.css'
 const GuideRayPractice = ({ data, darkMode }) => {
   const navigate = useNavigate();
   
@@ -37,81 +38,30 @@ const GuideRayPractice = ({ data, darkMode }) => {
 
   return (
     <motion.div 
-      className={`guideray_practice_container ${darkMode ? 'dark' : 'light'}`}
+      className={`guideray-student-practice-container ${darkMode ? 'guideray-student-practice-dark' : 'guideray-student-practice-light'}`}
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
-
-      
-      {/* Header section */}
-      <div className="guideray_header">
-        <motion.h2 
-          className="guideray_practice_title"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          {data.title}
-        </motion.h2>
-        
-        <motion.p 
-          className="guideray_practice_description"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.9 }}
-          transition={{ delay: 0.4 }}
-        >
-          {data.description}
-          <span className="guideray_description_tip">
-            Pro tip: Complete all tasks sequentially for maximum learning benefit.
-          </span>
-        </motion.p>
-      </div>
-      
-      {/* Tasks list */}
-      <motion.ol 
-        className="guideray_practice_list"
-        initial="hidden"
-        animate="visible"
-      >
-        {data.tasks && data.tasks.map((task, index) => (
-          <motion.li 
-            key={index} 
-            className="guideray_practice_item"
-            custom={index}
-            variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-          >
-            <div className="guideray_practice_task">
-              <span className="guideray_task_icon">📌</span>
-              {task}
-            </div>
-          </motion.li>
-        ))}
-      </motion.ol>
-
-      {/* Action section */}
       {data.quizQuestions && (
         <motion.div 
-          className="guideray_action_section"
+          className="guideray-student-practice-action-section"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
-          <p className="guideray_ready_text">
-            Ready to test your knowledge? This practice test contains {data.quizQuestions.length} carefully crafted questions.
-          </p>
+          <p className="guideray-student-practice-ready-text">Ready to test your knowledge?</p>
           <motion.button 
-            className={`guideray_practice_button ${darkMode ? 'dark' : 'light'}`}
+            className="guideray-student-practice-button"
             onClick={handleStartPractice}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span className="guideray_button_text">Start Practice Test</span>
-            <span className="guideray_button_icon">🚀</span>
+            <span>Begin Practice</span>
+            <FiArrowRight className="guideray-student-practice-icon" />
           </motion.button>
-          <p className="guideray_encouragement">
-            You've got this! Practice makes perfect.
+          <p className="guideray-student-practice-encouragement">
+            <FiAward className="guideray-student-practice-icon" /> You're going to do great!
           </p>
         </motion.div>
       )}

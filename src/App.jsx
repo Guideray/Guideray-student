@@ -22,7 +22,8 @@ const styles = `
 .App {
   text-align: center;
   max-width: 100vw;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y : auto;
   max-height:100vh;
 }
 
@@ -235,6 +236,36 @@ const styles = `
     height: 48px;
   }
 }
+
+/* Navbar loading indicator */
+.navbar-loading-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  overflow: hidden;
+}
+
+.navbar-loading-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+  animation: navbarLoading 1.5s infinite;
+}
+
+@keyframes navbarLoading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
 `;
 
 // Inject styles
@@ -249,40 +280,55 @@ function AppContent() {
   const [cookies, setCookie, removeCookie] = useCookies(['studentToken']);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   const userInitials = "AB";
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
-  // Check authentication status on initial render
+  // Define routes where navbar should be hidden
+  const navbarHiddenRoutes = ['/login', '/student-registration', '/'];
+  
+  // Define routes where sidebar should be shown
+  const sidebarShownRoutes = ['/', '/home'];
+
   useEffect(() => {
     const token = cookies['studentToken'];
     setIsAuthenticated(!!token);
     setAuthChecked(true);
+    
+    const startTime = Date.now();
+    const totalDuration = 3000;
+    
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min((elapsed / totalDuration) * 100, 100);
+      setLoadingProgress(progress);
+      
+      if (progress < 100) {
+        requestAnimationFrame(updateProgress);
+      } else {
+        setIsLoading(false);
+      }
+    };
+    
+    requestAnimationFrame(updateProgress);
+    
+    return () => cancelAnimationFrame(updateProgress);
   }, [cookies]);
 
-  // Allow sidebar toggle only on these routes
-  const collapsibleSidebarRoutes = ['/', '/practice', '/contest'];
-  const isCollapsibleSidebarRoute = collapsibleSidebarRoutes.includes(location.pathname);
-
-  // Show profile only on these routes
-  const profileRoutes = ['/', '/intro', '/student-practice', '/course', '/video-course', '/coding-platform','/profile'];
-  const showProfile = profileRoutes.includes(location.pathname);
-
-  // Handle login success
   const handleLoginSuccess = (token) => {
     setCookie('studentToken', token, { path: '/', maxAge: 3600 });
     setIsAuthenticated(true);
     navigate('/', { replace: true });
   };
 
-  // Handle logout
   const handleLogout = () => {
     removeCookie('studentToken', { path: '/' });
     setIsAuthenticated(false);
     navigate('/login', { replace: true });
   };
 
-  // Redirect logic
   useEffect(() => {
     if (!authChecked) return;
 
@@ -302,8 +348,6 @@ function AppContent() {
   };
 
   const toggleSidebar = () => {
-    if (!isCollapsibleSidebarRoute) return;
-
     if (window.innerWidth <= 768) {
       setMobileSidebarOpen(prev => !prev);
     } else {
@@ -311,20 +355,17 @@ function AppContent() {
     }
   };
 
-  // Set theme class
   useEffect(() => {
     document.body.classList.remove('dark-theme', 'light-theme');
     document.body.classList.add(darkMode ? 'dark-theme' : 'light-theme');
   }, [darkMode]);
 
-  // ProtectedRoute component
   const ProtectedRoute = ({ children }) => {
     if (!authChecked) return null;
     if (!isAuthenticated) return <Navigate to="/login" replace />;
     return children;
   };
 
-  // AuthRoute component
   const AuthRoute = ({ children }) => {
     if (!authChecked) return null;
     if (isAuthenticated) return <Navigate to="/" replace />;
@@ -348,21 +389,31 @@ function AppContent() {
     );
   }
 
+  // Determine if navbar should be shown
+  const showNavbar = !navbarHiddenRoutes.includes(location.pathname);
+  
+  // Determine if sidebar should be shown
+  const showSidebar = sidebarShownRoutes.includes(location.pathname);
+
   return (
     <>
-      <Navbar
-        darkMode={darkMode}
-        toggleTheme={toggleTheme}
-        toggleSidebar={toggleSidebar}
-        mobileSidebarOpen={mobileSidebarOpen}
-        userInitials={userInitials}
-        showSidebarToggle={isCollapsibleSidebarRoute}
-        showProfile={showProfile}
-        isAuthenticated={isAuthenticated}
-        onLogout={handleLogout}
-      />
+      {showNavbar && (
+        <Navbar
+          darkMode={darkMode}
+          toggleTheme={toggleTheme}
+          toggleSidebar={toggleSidebar}
+          mobileSidebarOpen={mobileSidebarOpen}
+          userInitials={userInitials}
+          showSidebarToggle={showSidebar}
+          showProfile={isAuthenticated}
+          isAuthenticated={isAuthenticated}
+          onLogout={handleLogout}
+          loadingProgress={loadingProgress}
+          isLoading={isLoading}
+        />
+      )}
 
-      {isCollapsibleSidebarRoute && (
+      {showSidebar && (
         <Sidebar
           sidebarCollapsed={sidebarCollapsed}
           mobileSidebarOpen={mobileSidebarOpen}
@@ -371,109 +422,18 @@ function AppContent() {
       )}
 
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <StudentDashboard
-                darkMode={darkMode}
-                toggleTheme={toggleTheme}
-                toggleSidebar={toggleSidebar}
-                mobileSidebarOpen={mobileSidebarOpen}
-                sidebarCollapsed={sidebarCollapsed}
-              />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/intro"
-          element={
-            <ProtectedRoute>
-              <GuideRayTopicIntroPage data={pythonData} darkMode={darkMode} />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/student-practice"
-          element={
-            <ProtectedRoute>
-              <StudentPracticeTest />
-            </ProtectedRoute>
-          }
-        />
-        <Route 
-          path="/course"
-          element={
-            <ProtectedRoute>
-              <StudentCource darkMode={darkMode} />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/video-course"
-          element={
-            <ProtectedRoute>
-              <GuideRayApp darkMode={darkMode} />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/coding-platform"
-          element={
-            <ProtectedRoute>
-              <GuidedRayCodingPlatform darkMode={darkMode} />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/student-registration"
-          element={
-            <AuthRoute>
-              <StudentRegistration darkMode={darkMode} />
-            </AuthRoute>
-          } 
-        />
-        <Route 
-          path="/login"
-          element={
-            <AuthRoute>
-              <StudentLogin 
-                darkMode={darkMode}
-                onLoginSuccess={handleLoginSuccess}
-              />
-            </AuthRoute>
-          } 
-        />
-          <Route 
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <StudentProfile 
-                  darkMode={darkMode}
-                />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/notifications"
-            element={
-              <ProtectedRoute>
-                <GuiderayStudentNotification 
-                  darkMode={darkMode}
-                />
-              </ProtectedRoute>
-            } 
-          />
-                  <Route 
-            path="/progress"
-            element={
-              <ProtectedRoute>
-                <GuideRayStudentProgressCalendar 
-                  darkMode={darkMode}
-                />
-              </ProtectedRoute>
-            } 
-          />
+        <Route path="/" element={<ProtectedRoute><StudentDashboard darkMode={darkMode} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} mobileSidebarOpen={mobileSidebarOpen} sidebarCollapsed={sidebarCollapsed} /></ProtectedRoute>} />
+        <Route path="/home" element={<ProtectedRoute><StudentDashboard darkMode={darkMode} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} mobileSidebarOpen={mobileSidebarOpen} sidebarCollapsed={sidebarCollapsed} /></ProtectedRoute>} />
+        <Route path="/intro" element={<ProtectedRoute><GuideRayTopicIntroPage data={pythonData} darkMode={darkMode} /></ProtectedRoute>} />
+        <Route path="/student-practice" element={<ProtectedRoute><StudentPracticeTest /></ProtectedRoute>} />
+        <Route path="/course" element={<ProtectedRoute><StudentCource darkMode={darkMode} /></ProtectedRoute>} />
+        <Route path="/video-course" element={<ProtectedRoute><GuideRayApp darkMode={darkMode} /></ProtectedRoute>} />
+        <Route path="/coding-platform" element={<ProtectedRoute><GuidedRayCodingPlatform darkMode={darkMode} /></ProtectedRoute>} />
+        <Route path="/student-registration" element={<AuthRoute><StudentRegistration darkMode={darkMode} /></AuthRoute>} />
+        <Route path="/login" element={<AuthRoute><StudentLogin darkMode={darkMode} onLoginSuccess={handleLoginSuccess} /></AuthRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><StudentProfile darkMode={darkMode} /></ProtectedRoute>} />
+        <Route path="/notifications" element={<ProtectedRoute><GuiderayStudentNotification darkMode={darkMode} /></ProtectedRoute>} />
+        <Route path="/progress" element={<ProtectedRoute><GuideRayStudentProgressCalendar darkMode={darkMode} /></ProtectedRoute>} />
       </Routes>
     </>
   );

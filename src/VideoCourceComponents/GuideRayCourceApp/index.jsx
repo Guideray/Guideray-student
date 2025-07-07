@@ -26,8 +26,8 @@ const GuideRayApp = ({ darkMode }) => {
   };
 
   return (
-    <div className={`guideray-app-container ${darkMode ? 'dark-mode' : ''}`}>
-      <div className="guideray-background-pattern"></div>
+    <div className={`guideray-course-app-container ${darkMode ? 'dark-mode' : ''}`}>
+      <div className="guideray-course-app-background-pattern"></div>
       
       <GuideRaySidebar 
         courseData={courseData} 
@@ -37,33 +37,33 @@ const GuideRayApp = ({ darkMode }) => {
         darkMode={darkMode}
       />
       
-      <div className="guideray-main-content">
-        <div className={`guideray-content-header-wrapper ${headerVisible ? 'visible' : ''}`}>
-          <div className="guideray-header-content">
-            <div className="guideray-concept-chip">
-              <span>{selectedConcept}</span>
+      <div className="guideray-course-app-main-content">
+        <div className={`guideray-course-app-content-header-wrapper ${headerVisible ? 'visible' : ''}`}>
+          <div className="guideray-course-app-header-content">
+            <div className="guideray-course-app-concept-chip">
+              <span>{selectedConcept} &gt; {selectedTopic}</span>
               <svg width="16" height="16" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
               </svg>
             </div>
-            <h1 className="guideray-content-header">
-              <span className="guideray-header-highlight">{selectedTopic}</span>
+            <h1 className="guideray-course-app-content-header">
+              <div className="guideray-course-app-breadcrumb">
+                <span>{selectedConcept}</span> &gt; {selectedTopic}
+              </div>
             </h1>
-            <div className="guideray-header-underline">
-              <div className="guideray-underline-animation"></div>
-            </div>
+  
           </div>
         </div>
         
         {isLoading ? (
-          <div className="guideray-loading-state">
-            <div className="guideray-progress-bar">
-              <div className="guideray-progress-fill"></div>
+          <div className="guideray-course-app-loading-state">
+            <div className="guideray-course-app-progress-bar">
+              <div className="guideray-course-app-progress-fill"></div>
             </div>
-            <div className="guideray-pulse-animation">
-              <div className="guideray-pulse-dot"></div>
-              <div className="guideray-pulse-dot"></div>
-              <div className="guideray-pulse-dot"></div>
+            <div className="guideray-course-app-pulse-animation">
+              <div className="guideray-course-app-pulse-dot"></div>
+              <div className="guideray-course-app-pulse-dot"></div>
+              <div className="guideray-course-app-pulse-dot"></div>
             </div>
           </div>
         ) : (
@@ -74,13 +74,13 @@ const GuideRayApp = ({ darkMode }) => {
         )}
       </div>
       
-      <div className="guideray-floating-actions">
-        <button className="guideray-fab">
+      {/* <div className="guideray-course-app-floating-actions">
+        <button className="guideray-course-app-fab">
           <svg width="24" height="24" viewBox="0 0 24 24">
             <path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
           </svg>
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

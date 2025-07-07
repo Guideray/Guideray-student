@@ -1,10 +1,13 @@
 /* Base Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 :root {
   --guideray-student-login-primary-color: rgb(9, 7, 69);
   --guideray-student-login-secondary-color: #4a47a3;
   --guideray-student-login-accent-color: #6c63ff;
   --guideray-student-login-light-color: #f8f9fa;
-  --guideray-student-login-dark-color: #212529;
+  --guideray-student-login-dark-color: #010daf;
   --guideray-student-login-success-color: #28a745;
   --guideray-student-login-warning-color: #ffc107;
   --guideray-student-login-danger-color: #dc3545;
@@ -14,15 +17,27 @@
   --guideray-student-login-border-radius: 8px;
   --guideray-student-login-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   --guideray-student-login-transition: all 0.3s ease;
-  --guideray-student-login-gradient: rgb(9, 7, 69);
+  --guideray-student-login-gradient: rgb(5, 0, 152);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
+.guideray-student-login-logo img {
+  height: 48px;
+  transition: all 0.3s ease;
+  
+}
+
+.guideray-student-login-logo{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+
 
 .guideray-student-login-container {
   display: flex;
@@ -44,13 +59,15 @@
 }
 
 .guideray-student-login-left-section {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: white;
   overflow: hidden;
   position: relative;
   padding-top: 40px;
+  width: 50%;
   z-index: 2;
 }
 
@@ -61,6 +78,8 @@
   align-items: center;
   background-color: white;
   position: relative;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   z-index: 2;
 }
 
@@ -176,7 +195,7 @@
   position: relative;
   padding-bottom: 15px;
   cursor: grab;
-  margin-top: 80px;
+  margin-top: 20px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -213,11 +232,7 @@
   border: 1px solid rgba(255,255,255,0.2);
 }
 
-.guideray-student-login-language-card:hover {
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  background: rgba(255,255,255,0.15);
-}
+
 
 .guideray-student-login-language-image {
   height: 100px;
@@ -239,9 +254,6 @@
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
-.guideray-student-login-language-card:hover .guideray-student-login-language-image img {
-  transform: scale(1.1);
-}
 
 .guideray-student-login-language-info {
   padding: 0.8rem;

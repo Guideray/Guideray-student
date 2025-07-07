@@ -1,47 +1,50 @@
 /* Enhanced Navbar with Glass Morphism and Smooth Animations */
-.guideray-student-dashboard-navbar {
+.guideray-student-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
-  background: rgb(9, 7, 69);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgb(4, 0, 133);
+  padding-right: 2rem;
   color: white;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: sticky;
   top: 0;
   z-index: 1000;
   height: 70px;
+  margin: 0px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.guideray-student-dashboard-navbar.scrolled {
+.guideray-student-navbar.scrolled {
   background: rgba(9, 7, 69, 0.95);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   height: 65px;
 }
 
 /* Logo Styles */
-.guideray-student-dashboard-logo {
+.guideray-student-navbar-logo {
   display: flex;
   align-items: center;
   gap: 12px;
   cursor: pointer;
   transition: transform 0.3s ease;
+  background-color: rgb(0, 2, 145);
+  width: 240px;
+  height: 70px;
+  display: flex;
+  margin: 0px;
+  flex-direction: row;
+  background: rgb(4, 0, 133);
+  justify-content: flex-start;
+  padding-left: 20px;
+  border-top-right-radius: 20px;
+  align-items: center;
 }
 
-.guideray-student-dashboard-logo:hover {
-  transform: translateY(-1px);
-}
-
-.guideray-student-dashboard-logo img {
-  height: 38px;
+.guideray-student-navbar-logo img {
+  height: 40px;
   transition: all 0.3s ease;
 }
 
-.logo-text {
+.guideray-student-navbar-logo-text {
   font-size: 1.25rem;
   font-weight: 600;
   background: linear-gradient(90deg, #ffffff, #e0e0ff);
@@ -52,7 +55,7 @@
 }
 
 /* Sidebar Toggle */
-.guideray-student-dashboard-sidebar-toggle {
+.guideray-student-navbar-sidebar-toggle {
   background: transparent;
   border: none;
   border-radius: 8px;
@@ -66,28 +69,28 @@
   transition: all 0.2s ease;
 }
 
-.guideray-student-dashboard-sidebar-toggle:hover {
+.guideray-student-navbar-sidebar-toggle:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: scale(1.05);
 }
 
-.nav-icon {
+.guideray-student-navbar-icon {
   transition: transform 0.2s ease;
 }
 
-.guideray-student-dashboard-sidebar-toggle:hover .nav-icon {
+.guideray-student-navbar-sidebar-toggle:hover .guideray-student-navbar-icon {
   transform: scale(1.1);
 }
 
 /* Navbar Layout */
-.guideray-student-dashboard-navbar-left,
-.guideray-student-dashboard-navbar-right {
+.guideray-student-navbar-left,
+.guideray-student-navbar-right {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-.nav-action-group {
+.guideray-student-navbar-action-group {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -95,7 +98,7 @@
 }
 
 /* Theme Toggle */
-.guideray-student-dashboard-theme-toggle {
+.guideray-student-navbar-theme-toggle {
   width: 48px;
   height: 26px;
   border-radius: 15px;
@@ -110,12 +113,12 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.guideray-student-dashboard-theme-toggle:hover {
+.guideray-student-navbar-theme-toggle:hover {
   transform: scale(1.05);
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-.guideray-student-dashboard-toggle-circle {
+.guideray-student-navbar-toggle-circle {
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -129,21 +132,23 @@
   left: 2px;
 }
 
-.guideray-student-dashboard-theme-toggle.active .guideray-student-dashboard-toggle-circle {
+.guideray-student-navbar-theme-toggle.active .guideray-student-navbar-toggle-circle {
   left: calc(100% - 24px);
   background: linear-gradient(145deg, #ffffff, #e6e6e6);
 }
-.guideray-student-dashboard-sidebar-toggle{
+
+.guideray-student-navbar-sidebar-toggle {
   display: none;
 }
-.guideray-student-dashboard-toggle-circle svg {
+
+.guideray-student-navbar-toggle-circle svg {
   width: 12px;
   height: 12px;
   color: #090745;
 }
 
 /* Avatar Styles */
-.guideray-student-dashboard-avatar {
+.guideray-student-navbar-avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -160,105 +165,14 @@
   user-select: none;
 }
 
-.guideray-student-dashboard-avatar:hover {
+.guideray-student-navbar-avatar:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Zoom Controls */
-.guideray-student-dashboard-zoom-controls {
-  position: relative;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.zoom-percentage {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 20px;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.zoom-percentage:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.zoom-chevron {
-  font-size: 12px;
-  opacity: 0.7;
-  transition: transform 0.2s ease;
-}
-
-.guideray-student-dashboard-zoom-controls:hover .zoom-chevron {
-  transform: translateY(1px);
-}
-
-.zoom-controls-popup {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  display: flex;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  padding: 8px;
-  z-index: 100;
-  animation: fadeInUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 8px;
-}
-
-.guideray-student-dashboard-dark .zoom-controls-popup {
-  background-color: rgba(45, 55, 72, 0.95);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-}
-
-.zoom-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 12px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border-radius: 6px;
-  color: #333;
-}
-
-.guideray-student-dashboard-dark .zoom-button {
-  color: #e0e0e0;
-}
-
-.zoom-button:hover {
-  background-color: rgba(0, 0, 0, 0.08);
-}
-
-.guideray-student-dashboard-dark .zoom-button:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-
-.zoom-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.zoom-button:not(:last-child) {
-  margin-right: 6px;
-}
-
 /* Notification Bell */
-.notification-bell {
+.guideray-student-navbar-notification-bell {
   position: relative;
   display: flex;
   align-items: center;
@@ -270,15 +184,15 @@
   transition: all 0.2s ease;
 }
 
-.notification-bell:hover {
+.guideray-student-navbar-notification-bell:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.notification-bell .nav-icon {
+.guideray-student-navbar-notification-bell .guideray-student-navbar-icon {
   color: white;
 }
 
-.notification-badge {
+.guideray-student-navbar-notification-badge {
   position: absolute;
   top: 6px;
   right: 6px;
@@ -289,7 +203,7 @@
   border: 2px solid #090745;
 }
 
-.notification-dropdown {
+.guideray-student-navbar-notification-dropdown {
   position: absolute;
   top: 100%;
   right: 0;
@@ -300,17 +214,17 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   width: 320px;
   z-index: 1000;
-  animation: fadeInUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: guideray-student-navbar-fadeInUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   margin-top: 8px;
   overflow: hidden;
 }
 
-.guideray-student-dashboard-dark .notification-dropdown {
+.guideray-student-navbar-dark .guideray-student-navbar-notification-dropdown {
   background-color: rgba(45, 55, 72, 0.98);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
-.dropdown-header {
+.guideray-student-navbar-dropdown-header {
   padding: 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
@@ -318,38 +232,38 @@
   align-items: center;
 }
 
-.guideray-student-dashboard-dark .dropdown-header {
+.guideray-student-navbar-dark .guideray-student-navbar-dropdown-header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.dropdown-header h4 {
+.guideray-student-navbar-dropdown-header h4 {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
   color: #333;
 }
 
-.guideray-student-dashboard-dark .dropdown-header h4 {
+.guideray-student-navbar-dark .guideray-student-navbar-dropdown-header h4 {
   color: #e0e0e0;
 }
 
-.mark-all-read {
+.guideray-student-navbar-mark-all-read {
   font-size: 12px;
   color: #667eea;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.mark-all-read:hover {
+.guideray-student-navbar-mark-all-read:hover {
   color: #5a6fd1;
 }
 
-.notification-list {
+.guideray-student-navbar-notification-list {
   max-height: 300px;
   overflow-y: auto;
 }
 
-.notification-item {
+.guideray-student-navbar-notification-item {
   padding: 12px 16px;
   display: flex;
   align-items: flex-start;
@@ -358,27 +272,27 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-.guideray-student-dashboard-dark .notification-item {
+.guideray-student-navbar-dark .guideray-student-navbar-notification-item {
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-.notification-item:hover {
+.guideray-student-navbar-notification-item:hover {
   background: rgba(0, 0, 0, 0.02);
 }
 
-.guideray-student-dashboard-dark .notification-item:hover {
+.guideray-student-navbar-dark .guideray-student-navbar-notification-item:hover {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.notification-item.unread {
+.guideray-student-navbar-notification-item.unread {
   background: rgba(102, 126, 234, 0.05);
 }
 
-.guideray-student-dashboard-dark .notification-item.unread {
+.guideray-student-navbar-dark .guideray-student-navbar-notification-item.unread {
   background: rgba(102, 126, 234, 0.1);
 }
 
-.notification-dot {
+.guideray-student-navbar-notification-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -389,37 +303,37 @@
   transition: opacity 0.2s ease;
 }
 
-.notification-item.unread .notification-dot {
+.guideray-student-navbar-notification-item.unread .guideray-student-navbar-notification-dot {
   opacity: 1;
 }
 
-.notification-content {
+.guideray-student-navbar-notification-content {
   flex: 1;
 }
 
-.notification-message {
+.guideray-student-navbar-notification-message {
   margin: 0;
   font-size: 13px;
   color: #333;
   line-height: 1.4;
 }
 
-.guideray-student-dashboard-dark .notification-message {
+.guideray-student-navbar-dark .guideray-student-navbar-notification-message {
   color: #e0e0e0;
 }
 
-.notification-time {
+.guideray-student-navbar-notification-time {
   display: block;
   font-size: 11px;
   color: #888;
   margin-top: 4px;
 }
 
-.guideray-student-dashboard-dark .notification-time {
+.guideray-student-navbar-dark .guideray-student-navbar-notification-time {
   color: #aaa;
 }
 
-.dropdown-footer {
+.guideray-student-navbar-dropdown-footer {
   padding: 12px 16px;
   text-align: center;
   font-size: 13px;
@@ -429,325 +343,25 @@
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.guideray-student-dashboard-dark .dropdown-footer {
+.guideray-student-navbar-dark .guideray-student-navbar-dropdown-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   color: #8a9eff;
 }
 
-.dropdown-footer:hover {
+.guideray-student-navbar-dropdown-footer:hover {
   background: rgba(0, 0, 0, 0.02);
   color: #5a6fd1;
 }
 
-.guideray-student-dashboard-dark .dropdown-footer:hover {
+.guideray-student-navbar-dark .guideray-student-navbar-dropdown-footer:hover {
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Profile Dropdown */
-.guideray-student-dashboard-profile-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  width: 260px;
-  z-index: 1000;
-  animation: fadeInUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 8px;
-  overflow: hidden;
-}
-
-.guideray-student-dashboard-dark .guideray-student-dashboard-profile-dropdown {
-  background-color: rgba(45, 55, 72, 0.98);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-}
-
-.profile-summary {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-}
-
-.dropdown-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.dropdown-avatar-initials {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.profile-info h4 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-}
-
-.guideray-student-dashboard-dark .profile-info h4 {
-  color: #e0e0e0;
-}
-
-.profile-info span {
-  font-size: 12px;
-  color: #888;
-  display: block;
-  margin-top: 2px;
-}
-
-.guideray-student-dashboard-dark .profile-info span {
-  color: #aaa;
-}
-
-.dropdown-divider {
-  height: 1px;
-  background: rgba(0, 0, 0, 0.05);
-  margin: 4px 0;
-}
-
-.guideray-student-dashboard-dark .dropdown-divider {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.profile-dropdown-item {
-  padding: 10px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: #333;
-}
-
-.guideray-student-dashboard-dark .profile-dropdown-item {
-  color: #e0e0e0;
-}
-
-.profile-dropdown-item:hover {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.guideray-student-dashboard-dark .profile-dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.dropdown-icon {
-  color: #667eea;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Prevent text/image selection and copying */
-.no-select {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.no-copy img {
-  pointer-events: none;
-}
-
-/* Prevent right-click on logo */
-.guideray-student-dashboard-logo img {
-  -webkit-user-drag: none;
-  user-drag: none;
-  pointer-events: none;
-}
-
-/* Profile Dropdown Enhancements */
-.profile-summary {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  cursor: default;
-}
-
-.profile-info h4 {
-  margin: 0 0 4px 0;
-  font-size: 15px;
-  font-weight: 600;
-  color: #333;
-}
-
-.guideray-student-dashboard-dark .profile-info h4 {
-  color: #e0e0e0;
-}
-
-.profile-info span {
-  font-size: 13px;
-  color: #666;
-  display: block;
-  line-height: 1.4;
-}
-
-.guideray-student-dashboard-dark .profile-info span {
-  color: #aaa;
-}
-
-.student-id {
-  display: inline-block;
-  background: rgba(102, 126, 234, 0.1);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  margin-top: 4px;
-  color: #667eea;
-}
-
-.guideray-student-dashboard-dark .student-id {
-  background: rgba(102, 126, 234, 0.2);
-}
-
-.profile-details-toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  font-size: 13px;
-  font-weight: 500;
-  color: #444;
-}
-
-.guideray-student-dashboard-dark .profile-details-toggle {
-  color: #ddd;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.profile-details-toggle:hover {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.guideray-student-dashboard-dark .profile-details-toggle:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.toggle-arrow {
-  transition: transform 0.2s ease;
-}
-
-.toggle-arrow.expanded {
-  transform: rotate(180deg);
-}
-
-.profile-details-content {
-  padding: 12px 16px;
-  background: rgba(0, 0, 0, 0.02);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.guideray-student-dashboard-dark .profile-details-content {
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.profile-detail-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.profile-detail-item:last-child {
-  margin-bottom: 0;
-}
-
-.detail-label {
-  color: #666;
-  font-weight: 500;
-}
-
-.guideray-student-dashboard-dark .detail-label {
-  color: #aaa;
-}
-
-.detail-value {
-  color: #333;
-  text-align: right;
-  max-width: 60%;
-}
-
-.guideray-student-dashboard-dark .detail-value {
-  color: #e0e0e0;
-}
-
-/* Animation for profile details */
-.profile-details-content {
-  animation: fadeIn 0.2s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    max-height: 0;
-  }
-  to {
-    opacity: 1;
-    max-height: 500px;
-  }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .profile-details-content {
-    padding: 10px 12px;
-  }
-  
-  .profile-detail-item {
-    flex-direction: column;
-    gap: 2px;
-  }
-  .guideray-student-dashboard-sidebar-toggle{
-    display: block;
-  }
-  
-  .detail-value {
-    max-width: 100%;
-    text-align: left;
-  }
-}
-
-/* Main Container */
+/* Adjust the dropdown container positioning */
 .guideray-student-navbar-dropdown-container {
   position: absolute;
   right: 0;
-  top: 65px;
+  top: 100%; /* Changed from top: 65px to make it relative to navbar */
   width: 320px;
   background: #ffffff;
   border-radius: 16px;
@@ -759,8 +373,11 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin-top: 8px; /* Add some spacing from navbar */
+  max-height: calc(100vh - 80px); /* Prevent going off screen */
+  overflow-y: auto; /* Add scroll if needed */
 }
+
 
 @keyframes guideray-student-navbar-dropdown-entrance {
   0% {
@@ -1017,4 +634,94 @@
   color: #94a3b8;
   text-align: center;
   font-weight: 500;
+}
+
+/* Animations */
+@keyframes guideray-student-navbar-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Prevent text/image selection and copying */
+.guideray-student-navbar-no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.guideray-student-navbar-no-copy img {
+  pointer-events: none;
+}
+
+/* Prevent right-click on logo */
+.guideray-student-navbar-logo img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Loading Indicator Styles */
+.guideray-student-navbar-loading-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #e5e7eb;
+  overflow: hidden;
+}
+
+.guideray-student-navbar-loading-progress {
+  height: 100%;
+  background-color: #3b82f6;
+  width: 0;
+  transition: width 0.3s ease-out;
+}
+
+.guideray-student-navbar-loading-progress.complete {
+  background-color: #2b00ff;
+  transition: width 0.3s ease-out, background-color 0.5s ease-out;
+}
+
+/* Dark mode support */
+.guideray-student-navbar-dark .guideray-student-navbar-loading-container {
+  background-color: #374151;
+}
+
+.guideray-student-navbar-dark .guideray-student-navbar-loading-progress {
+  background-color: #3d0cf0;
+}
+
+.guideray-student-navbar-dark .guideray-student-navbar-loading-progress.complete {
+  background-color: #1900ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .guideray-student-navbar-sidebar-toggle {
+    display: block;
+  }
+  
+  .guideray-student-navbar-dropdown-container {
+    width: 280px;
+  }
+  
+  .guideray-student-navbar-notification-dropdown {
+    width: 280px;
+  }
+  
+  .guideray-student-navbar-profile-header {
+    padding: 16px;
+  }
+  
+  .guideray-student-navbar-menu-item {
+    padding: 12px 16px;
+  }
 }

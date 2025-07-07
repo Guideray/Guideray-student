@@ -3,9 +3,10 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   max-width: 380px;
   margin: 0 auto;
-  padding: 16px;
+  border: 0.5px solid lightgray;
   background-color: #ffffff;
-  min-height: 400px;
+  min-height: 310px;
+  max-height: 310px;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.03);
@@ -250,11 +251,9 @@
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
-  margin-top: 16px;
   font-size: 11px;
   background: rgba(0, 0, 0, 0.02);
   padding: 8px;
-  margin-top: 50px;
   border-radius: 8px;
 }
 
