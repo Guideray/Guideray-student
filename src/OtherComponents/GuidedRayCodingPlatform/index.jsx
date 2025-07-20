@@ -194,7 +194,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
   useEffect(() => {
     const fetchUserProgress = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/consistancy/progress/${studentId}/${courseId}`);
+        const response = await axios.get(`https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`);
         setUserProgress(response.data.data);
       } catch (error) {
         console.error('Error fetching user progress:', error);
@@ -590,7 +590,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
           }
         };
         
-        await axios.post(`http://localhost:3000/api/consistancy/progress/${studentId}`, payload);
+        await axios.post(`https://webservice.guideray.in/api/consistancy/progress/${studentId}`, payload);
       }
     } catch (error) {
       console.error('Error updating progress:', error);

@@ -15,7 +15,7 @@ const GuideRayPractice = ({ data, darkMode, courseId, studentId, studentName, to
     const fetchProgressData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/consistancy/progress/${studentId}/${courseId}`
+          `https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`
         );
         if (response.data.success) {
           // Check if this topic is already marked as completed (>= 50% progress)
@@ -55,7 +55,7 @@ const GuideRayPractice = ({ data, darkMode, courseId, studentId, studentName, to
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/consistancy/progress/${studentId}`,
+        `https://webservice.guideray.in/api/consistancy/progress/${studentId}`,
         {
           courseName: courseId,
           topicIndex: topicIndex,

@@ -185,7 +185,7 @@ const StudentCourse = ({ darkMode, userData }) => {
         setLoading(true);
         
         const api = axios.create({
-          baseURL: 'http://localhost:3001/api',
+          baseURL: 'https://webservice.guideray.in/api',
           withCredentials: true,
           headers: {
             'Authorization': `Bearer ${cookies.studentToken}`
@@ -217,7 +217,7 @@ const StudentCourse = ({ darkMode, userData }) => {
   const checkCourseInitialized = async (course) => {
     try {
       const api = axios.create({
-        baseURL: 'http://localhost:3000',
+        baseURL: 'https://webservice.guideray.in',
         withCredentials: true,
         headers: {
           'Authorization': `Bearer ${cookies.studentToken}`
@@ -245,7 +245,7 @@ const StudentCourse = ({ darkMode, userData }) => {
       }
 
       const api = axios.create({
-        baseURL: 'http://localhost:3000',
+        baseURL: 'https://webservice.guideray.in',
         withCredentials: true,
         headers: {
           'Authorization': `Bearer ${cookies.studentToken}`
@@ -293,7 +293,7 @@ const StudentCourse = ({ darkMode, userData }) => {
       }
 
       const api = axios.create({
-        baseURL: 'http://localhost:3001/api',
+        baseURL: 'https://webservice.guideray.in/api',
         withCredentials: true,
         headers: {
           'Authorization': `Bearer ${cookies.studentToken}`

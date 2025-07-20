@@ -59,7 +59,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
     const fetchProgressData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/consistancy/progress/${studentId}/${courseId}`
+          `https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`
         );
         if (response.data.success) {
           setProgressData(response.data.data);
@@ -108,7 +108,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
     try {
       const now = new Date().toISOString();
       const response = await axios.post(
-        `http://localhost:3000/api/consistancy/progress/${studentId}`,
+        `https://webservice.guideray.in/api/consistancy/progress/${studentId}`,
         {
           courseName: courseId,
           topicIndex: topicIndex,

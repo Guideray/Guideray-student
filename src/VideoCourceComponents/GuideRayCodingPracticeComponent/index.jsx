@@ -20,7 +20,7 @@ const GuideRayCodingPracticeComponent = ({ codingData, topicIndex, topic, concep
   useEffect(() => {
     const fetchProgressData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/consistancy/progress/${studentId}/${courseId}`);
+        const response = await fetch(`https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`);
         const { data } = await response.json();
         setProgressData(data);
         
@@ -60,7 +60,7 @@ const GuideRayCodingPracticeComponent = ({ codingData, topicIndex, topic, concep
   const handleMarkAsRead = async () => {
     try {
       // Make API call to mark topic as read
-      const response = await fetch(`http://localhost:3000/api/consistancy/mark-read`, {
+      const response = await fetch(`https://webservice.guideray.in/api/consistancy/mark-read`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

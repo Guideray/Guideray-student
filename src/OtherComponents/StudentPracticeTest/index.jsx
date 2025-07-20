@@ -37,7 +37,7 @@ const StudentPracticeTest = () => {
   useEffect(() => {
     const checkCompletionStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/consistancy/progress/${studentId}/${courseId}`);
+        const response = await fetch(`https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`);
         const data = await response.json();
         
         if (data.success) {
@@ -188,7 +188,7 @@ const StudentPracticeTest = () => {
       // Only trigger API if not already completed
       if (!alreadyCompleted) {
         try {
-          const response = await fetch(`http://localhost:3000/api/consistancy/progress/${studentId}`, {
+          const response = await fetch(`https://webservice.guideray.in/api/consistancy/progress/${studentId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

@@ -36,7 +36,7 @@ const GuideRayApp = ({ darkMode, studentId ,userData}) => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `http://localhost:3000/api/consistancy/progress/${studentId}/${courseId}`
+          `https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`
         );
         if (response.data.success) {
           setProgressData(response.data.data);
@@ -57,7 +57,7 @@ const GuideRayApp = ({ darkMode, studentId ,userData}) => {
   const updateTopicProgress = async (studentId, concept, topicIndex, completionType) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/consistancy/progress/${studentId}`,
+        `https://webservice.guideray.in/api/consistancy/progress/${studentId}`,
         {
           courseName: concept,
           topicIndex: topicIndex,

@@ -18,7 +18,7 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
   useEffect(() => {
     const fetchProgress = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/consistancy/progress/${userData.id}/${courseId}`);
+        const response = await fetch(`https://webservice.guideray.in/api/consistancy/progress/${userData.id}/${courseId}`);
         const data = await response.json();
         if (data.success) {
           const topicProgressData = data.data.t[topicIndex];

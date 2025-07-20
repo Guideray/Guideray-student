@@ -18,7 +18,7 @@ const GuiderayStudentRecentCourses = () => {
         const fetchData = async () => {
             try {
                 // Fetch enrolled courses
-                const enrolledResponse = await fetch(`http://localhost:3000/api/consistancy/${studentId}`);
+                const enrolledResponse = await fetch(`https://webservice.guideray.in/api/consistancy/${studentId}`);
                 if (!enrolledResponse.ok) throw new Error('Failed to fetch enrolled courses');
                 const enrolledData = await enrolledResponse.json();
                 
@@ -28,7 +28,7 @@ const GuiderayStudentRecentCourses = () => {
                 setCourses(enrolledCourses);
 
                 // Fetch available courses
-                const availableResponse = await fetch('http://localhost:3001/api/courses/available');
+                const availableResponse = await fetch('https://webservice.guideray.in/api/courses/available');
                 if (!availableResponse.ok) throw new Error('Failed to fetch available courses');
                 const availableData = await availableResponse.json();
                 

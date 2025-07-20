@@ -42,7 +42,7 @@ const StudentAuth = ({ onSuccess, onLogout }) => {
       setStatus('Checking authentication status...');
       setStatusType('waiting');
 
-      const response = await fetch('http://localhost:5000/check_session', {
+      const response = await fetch('https://face-app.guideray.in/check_session', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ const StudentAuth = ({ onSuccess, onLogout }) => {
       setStatus('Starting verification...');
       setStatusType('processing');
 
-      const response = await fetch('http://localhost:5000/start_verification', {
+      const response = await fetch('https://face-app.guideray.in/start_verification', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -175,7 +175,7 @@ const StudentAuth = ({ onSuccess, onLogout }) => {
       setStatus('Starting registration...');
       setStatusType('processing');
 
-      const response = await fetch('http://localhost:5000/start_registration', {
+      const response = await fetch('https://face-app.guideray.in/start_registration', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -239,7 +239,7 @@ const StudentAuth = ({ onSuccess, onLogout }) => {
       ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
       const imageData = canvas.toDataURL('image/jpeg');
 
-      const response = await fetch('http://localhost:5000/process_frame', {
+      const response = await fetch('https://face-app.guideray.in/process_frame', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -274,7 +274,7 @@ const StudentAuth = ({ onSuccess, onLogout }) => {
       setStatus('Verifying identity...');
       setStatusType('processing');
 
-      const response = await fetch('http://localhost:5000/verify', {
+      const response = await fetch('https://face-app.guideray.in/verify', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -311,7 +311,7 @@ const StudentAuth = ({ onSuccess, onLogout }) => {
       setStatus('Registering face...');
       setStatusType('processing');
 
-      const response = await fetch('http://localhost:5000/register', {
+      const response = await fetch('https://face-app.guideray.in/register', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const GuiderayStudentConsistencyScoreBar = ({ darkMode, studentId }) => {
   useEffect(() => {
     const fetchConsistencyData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/consistancy/${studentId}`);
+        const response = await fetch(`https://webservice.guideray.in/api/consistancy/${studentId}`);
         const data = await response.json();
         if (data.success) {
           setConsistencyData(data.data);

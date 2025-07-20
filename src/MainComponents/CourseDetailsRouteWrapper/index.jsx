@@ -24,7 +24,7 @@ const CourseDetailsRouteWrapper = ({ darkMode, userData }) => {
 
     const fetchAvailableCourses = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/courses/available');
+        const response = await fetch('https://webservice.guideray.in/api/courses/available');
         if (!response.ok) throw new Error('Failed to fetch available courses');
         const data = await response.json();
         
@@ -50,7 +50,7 @@ const CourseDetailsRouteWrapper = ({ darkMode, userData }) => {
     setError(null);
     try {
       // Implement actual enrollment logic here
-      const response = await fetch('http://localhost:3000/api/enroll', {
+      const response = await fetch('https://webservice.guideray.in/api/enroll', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

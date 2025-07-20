@@ -54,7 +54,7 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
         pollingIntervalRef.current = setInterval(async () => {
           try {
             const response = await axios.get(
-              `http://localhost:3000/api/payments/verify`,
+              `https://webservice.guideray.in/api/payments/verify`,
               {
                 params: {
                   orderId: orderId,
@@ -93,7 +93,7 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
         (async () => {
           try {
             const response = await axios.get(
-              `http://localhost:3000/api/payments/verify`,
+              `https://webservice.guideray.in/api/payments/verify`,
               {
                 params: {
                   orderId: orderId,
@@ -163,7 +163,7 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
       setStatus('processing');
 
       const orderResponse = await axios.post(
-        'http://localhost:3000/api/payments/create-order',
+        'https://webservice.guideray.in/api/payments/create-order',
         {
           courseId: course._id,
           customerName: userData.name,
