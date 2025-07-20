@@ -1,0 +1,170 @@
+.student-course-details-container {
+  margin: 0 auto;
+}
+
+.student-course-details-dark {
+  background-color: #2d3748;
+  color: #fff;
+}
+
+.student-course-details-light {
+  background-color: #fff;
+  color: #333;
+}
+
+.student-course-details-back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background: none;
+  border: none;
+  color: #4299e1;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.student-course-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.student-course-details-header h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.student-course-details-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4299e1;
+  margin: 0;
+}
+
+.student-course-details-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+}
+
+.student-course-details-description h3,
+.student-course-details-payment h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.student-course-details-learn-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.student-course-details-learn-list li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.student-course-details-check-icon {
+  color: #48bb78;
+}
+
+.student-course-details-meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.student-course-details-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.student-course-details-meta-icon {
+  color: #4a5568;
+}
+
+.student-course-details-dark .student-course-details-meta-icon {
+  color: #a0aec0;
+}
+
+.student-course-details-payment {
+  background-color: #f7fafc;
+  padding: 2rem;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.student-course-details-dark .student-course-details-payment {
+  background-color: #1a202c;
+}
+
+.student-course-details-payment-method {
+  margin-bottom: 1.5rem;
+}
+
+.student-course-details-payment-method label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.student-course-details-card-form {
+  margin-bottom: 1.5rem;
+}
+
+.student-course-details-form-group {
+  margin-bottom: 1rem;
+}
+
+.student-course-details-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.student-course-details-form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.student-course-details-dark .student-course-details-form-group input {
+  background-color: #2d3748;
+  border-color: #4a5568;
+  color: #fff;
+}
+
+.student-course-details-form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.student-course-details-form-row .student-course-details-form-group {
+  flex: 1;
+}
+
+.student-course-details-payment-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.student-course-details-payment-button:hover {
+  background-color: #3182ce;
+}

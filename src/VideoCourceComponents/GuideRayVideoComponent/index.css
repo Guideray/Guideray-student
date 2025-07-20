@@ -7,7 +7,6 @@
   background-color: #0f0f12;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -517,4 +516,241 @@
 .guideray-video-component-thumbnail-placeholder p {
   margin: 0;
   font-size: 14px;
+}
+
+.guideray-video-component-outer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.guideray-video-component-mark-read-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+
+
+/* Animation for when video is completed */
+@keyframes guideray-video-component-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(52, 168, 83, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 168, 83, 0); }
+}
+
+
+
+
+/* Responsive adjustments for mark as read button */
+@media (max-width: 768px) {
+  .guideray-video-component-mark-read-container {
+    justify-content: center;
+    padding-right: 0;
+  }
+  
+  .guideray-video-component-mark-read-button {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+  }
+}
+
+/* Keyboard navigation focus styles */
+.guideray-video-component-control-button:focus-visible,
+.guideray-video-component-playback-option:focus-visible,
+.guideray-video-component-volume-slider:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Loading state for video */
+.guideray-video-component-loading-state {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  color: white;
+}
+
+/* Error state for video */
+.guideray-video-component-error-state {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.guideray-video-component-error-state h3 {
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.guideray-video-component-error-state button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.guideray-video-component-error-state button:hover {
+  background-color: #4f46e5;
+}
+
+/* Fullscreen adjustments */
+.guideray-video-component-container.fullscreen .guideray-video-component-video-title {
+  font-size: 1.5rem;
+}
+
+.guideray-video-component-container.fullscreen .guideray-video-component-play-pause {
+  width: 90px;
+  height: 90px;
+}
+
+.guideray-video-component-container.fullscreen .guideray-video-component-skip-forward,
+.guideray-video-component-container.fullscreen .guideray-video-component-skip-backward {
+  font-size: 1rem;
+  padding: 15px 20px;
+}
+
+.guideray-video-component-container.fullscreen .guideray-video-component-time-display {
+  font-size: 1.1rem;
+}
+
+.guideray-video-component-container.fullscreen .guideray-video-component-volume-slider {
+  width: 120px;
+}
+
+.guideray-video-component-container.fullscreen .guideray-video-component-volume-controls:hover .guideray-video-component-volume-slider {
+  width: 150px;
+}
+
+/* Mark as Read Container */
+.guideray-video-component-mark-read-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Mark as Read Button */
+.guideray-video-component-mark-read-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #999;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  text-align: right;
+}
+
+.guideray-video-component-mark-read-button:hover:not(:disabled) {
+  background-color: rgba(0, 123, 255, 0.1);
+  color: #007BFF;
+}
+
+.guideray-video-component-mark-read-button.completed {
+  color: #007BFF;
+  cursor: default;
+}
+
+.guideray-video-component-mark-read-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Circle Icon */
+.guideray-video-component-mark-read-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.guideray-video-component-mark-read-button.completed .guideray-video-component-mark-read-circle {
+  background-color: #007BFF;
+  border-color: #007BFF;
+  color: white;
+}
+
+.guideray-video-component-mark-read-button:hover:not(:disabled) .guideray-video-component-mark-read-circle {
+  border-color: #007BFF;
+}
+
+/* Check Icon */
+.guideray-video-component-mark-read-circle .check-icon {
+  stroke-width: 3px;
+  font-size: 10px;
+}
+
+/* Tooltip styles */
+.guideray-video-component-mark-read-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.guideray-video-component-mark-read-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+  bottom: calc(100% + 5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .guideray-video-component-mark-read-container {
+    justify-content: center;
+  }
+  
+  .guideray-video-component-mark-read-button {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
 }

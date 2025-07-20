@@ -1,32 +1,39 @@
-/* Main container - Compact version */
+/* Main container - White background theme */
 .guderay-progress-calendar-container {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  max-width: 380px;
+    max-width: 19.8vw;
+        min-width: 19.8vw;
+
   margin: 0 auto;
-  border: 0.5px solid lightgray;
+  height: 430px;
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
-  min-height: 310px;
-  max-height: 310px;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  color: #333333;
+    border: 3px solid #f4f4f4;
 }
 
 /* Calendar wrapper */
 .guderay-progress-calendar {
-  margin-bottom: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
   transition: all 0.3s ease;
 }
 
-/* Header styling - Compact */
+/* Header styling */
 .guderay-progress-month-header,
 .guderay-progress-year-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  height: 40px;
+  margin-bottom: 8px;
+  padding: 0 4px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .guderay-progress-month-title,
@@ -34,7 +41,7 @@
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: #2c3e50;
+  color: #333333;
   cursor: pointer;
   transition: all 0.2s;
   padding: 6px 12px;
@@ -44,16 +51,16 @@
 
 .guderay-progress-month-title:hover,
 .guderay-progress-year-title:hover {
-  color: #3498db;
-  background-color: rgba(52, 152, 219, 0.1);
+  color: #3a5eff;
+  background-color: rgba(58, 94, 255, 0.1);
 }
 
-/* Navigation buttons - Smaller */
+/* Navigation buttons */
 .guderay-progress-nav-button {
-  background: rgba(0, 0, 0, 0.03);
+  background: #f5f5f5;
   border: none;
   font-size: 14px;
-  color: #7f8c8d;
+  color: #666666;
   cursor: pointer;
   padding: 6px;
   border-radius: 50%;
@@ -63,63 +70,64 @@
   justify-content: center;
   width: 30px;
   height: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .guderay-progress-nav-button:hover {
-  color: #3498db;
-  background: rgba(52, 152, 219, 0.15);
+  color: #333333;
+  background: #e0e0e0;
   transform: translateY(-1px);
 }
 
 .guderay-progress-nav-button:disabled,
 .guderay-progress-nav-disabled {
-  color: #e0e0e0 !important;
+  color: #cccccc !important;
   cursor: not-allowed;
   background-color: transparent !important;
-  box-shadow: none;
 }
 
-/* Weekdays header - Smaller */
+/* Weekdays header */
 .guderay-progress-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin-bottom: 8px;
+  height: 24px;
+  margin-bottom: 4px;
   text-align: center;
 }
 
 .guderay-progress-weekday {
   font-size: 11px;
   font-weight: 600;
-  color: #7f8c8d;
+  color: #666666;
   text-transform: uppercase;
   letter-spacing: 0.3px;
   padding: 2px 0;
 }
 
-/* Days grid - Tighter */
+/* Days grid */
 .guderay-progress-days-grid {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   gap: 4px;
 }
 
-/* Day cell - Fixed size */
+/* Day cell */
 .guderay-progress-day {
   width: 32px;
   height: 32px;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   font-size: 11px;
+  margin-bottom: 8px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
-  margin: 0 auto;
 }
 
 .guderay-progress-day::before {
@@ -129,14 +137,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.05);
   opacity: 0;
   transition: opacity 0.2s;
 }
 
 .guderay-progress-day:hover {
   transform: scale(1.05);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   z-index: 1;
 }
 
@@ -158,42 +165,47 @@
 }
 
 .guderay-progress-future {
-  background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
-  color: #95a5a6;
+  background: #f5f5f5;
+  color: #999999;
 }
 
 .guderay-progress-today {
-  box-shadow: 0 0 0 1px #3498db, 0 2px 8px rgba(52, 152, 219, 0.15);
+  background: rgba(58, 94, 255, 0.1);
+  color: #3a5eff;
+  box-shadow: 0 0 0 1px #3a5eff, 0 2px 8px rgba(58, 94, 255, 0.1);
+  font-weight: 600;
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.3); }
-  70% { box-shadow: 0 0 0 4px rgba(52, 152, 219, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(58, 94, 255, 0.2); }
+  70% { box-shadow: 0 0 0 4px rgba(58, 94, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(58, 94, 255, 0); }
 }
 
-/* Empty days */
 .guderay-progress-empty-day {
   width: 32px;
   height: 32px;
   margin: 0 auto;
 }
 
-/* Year view - Compact */
+/* Year view */
 .guderay-progress-year-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 8px 2px;
 }
 
 .guderay-progress-months-grid {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 8px;
 }
 
 .guderay-progress-month-cell {
-  width: 100%;
-  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,9 +214,8 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 500;
   font-size: 12px;
-  color: #2c3e50;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  color: #333333;
+  background: #f5f5f5;
   position: relative;
   overflow: hidden;
 }
@@ -216,16 +227,14 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.05);
   opacity: 0;
   transition: opacity 0.2s;
 }
 
 .guderay-progress-month-cell:hover {
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
+  background: rgba(58, 94, 255, 0.1);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.1);
 }
 
 .guderay-progress-month-cell:hover::before {
@@ -233,48 +242,49 @@
 }
 
 .guderay-progress-current-month {
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
+  background: rgba(58, 94, 255, 0.2);
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.15);
+  color: #3a5eff;
 }
 
 .guderay-progress-future-month {
-  background: linear-gradient(135deg, #ecf0f1, #dfe6e9);
-  color: #bdc3c7;
+  background: #f9f9f9;
+  color: #cccccc;
   cursor: not-allowed;
 }
 
-/* Legend - Compact */
+/* Legend */
 .guderay-progress-legend {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
   font-size: 11px;
-  background: rgba(0, 0, 0, 0.02);
+  background: #f9f9f9;
   padding: 8px;
   border-radius: 8px;
+  margin-top: auto;
+  border: 1px solid #f0f0f0;
 }
 
 .guderay-progress-legend-item {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 2px 6px;
+  padding: 4px 8px;
   border-radius: 4px;
   transition: all 0.2s;
+  color: #666666;
 }
 
 .guderay-progress-legend-item:hover {
-  background: rgba(0, 0, 0, 0.03);
+  background: #f0f0f0;
 }
 
 .guderay-progress-legend-color {
   width: 12px;
   height: 12px;
   border-radius: 3px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
 }
 
 .guderay-progress-legend-color.completed {
@@ -286,11 +296,24 @@
 }
 
 .guderay-progress-legend-color.future {
-  background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+  background: #e0e0e0;
 }
 
 .guderay-progress-legend-color.today {
-  background: white;
-  border: 1px solid #3498db;
-  box-shadow: 0 0 0 1px white inset;
+  background: rgba(58, 94, 255, 0.6);
+  box-shadow: 0 0 0 1px #3a5eff;
+}
+
+/* Loading and error states */
+.guderay-progress-loading,
+.guderay-progress-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #666666;
+  font-size: 14px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
 }

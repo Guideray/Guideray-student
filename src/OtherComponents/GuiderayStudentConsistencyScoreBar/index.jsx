@@ -1,70 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import GuiderayStudentPerformanceChart from '../GuiderayStudentPerformanceChart';
 
-const GuiderayStudentConsistencyScoreBar = ({ darkMode }) => {
+const GuiderayStudentConsistencyScoreBar = ({ darkMode, studentId }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [showCoursesModal, setShowCoursesModal] = useState(false);
   const [showPerformanceModal, setShowPerformanceModal] = useState(false);
   const [score, setScore] = useState(0);
+  const [consistencyData, setConsistencyData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Animate score on component mount
-  React.useEffect(() => {
-    const targetScore = 1300349;
-    const duration = 2000; // 2 seconds
-    const increment = targetScore / (duration / 16); // 60fps
-    
-    const animate = () => {
-      setScore(prev => {
-        if (prev >= targetScore) return targetScore;
-        return prev + increment;
-      });
-      
-      if (score < targetScore) {
-        requestAnimationFrame(animate);
+  useEffect(() => {
+    const fetchConsistencyData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/consistancy/${studentId}`);
+        const data = await response.json();
+        if (data.success) {
+          setConsistencyData(data.data);
+          
+          // Animate score
+          const targetScore = calculateTotalScore(data.data);
+          const duration = 2000;
+          const increment = targetScore / (duration / 16);
+          
+          const animate = () => {
+            setScore(prev => {
+              if (prev >= targetScore) return targetScore;
+              return prev + increment;
+            });
+            
+            if (score < targetScore) {
+              requestAnimationFrame(animate);
+            }
+          };
+          
+          animate();
+        }
+      } catch (error) {
+        console.error('Error fetching consistency data:', error);
+      } finally {
+        setLoading(false);
       }
     };
-    
-    animate();
-  }, []);
 
-  const consistencyData = {
-    currentStreak: 12,
-    longestStreak: 18,
-    courses: [
-      {
-        id: 1,
-        name: "Mathematics",
-        score: 923456,
-        currentStreak: 15,
-        longestStreak: 22,
-        lastActive: "2023-06-15"
-      },
-      {
-        id: 2,
-        name: "Physics",
-        score: 784321,
-        currentStreak: 8,
-        longestStreak: 14,
-        lastActive: "2023-06-14"
-      },
-      {
-        id: 3,
-        name: "Chemistry",
-        score: 856789,
-        currentStreak: 12,
-        longestStreak: 18,
-        lastActive: "2023-06-15"
-      },
-      {
-        id: 4,
-        name: "Biology",
-        score: 812345,
-        currentStreak: 10,
-        longestStreak: 16,
-        lastActive: "2023-06-13"
-      }
-    ]
+    fetchConsistencyData();
+  }, [studentId]);
+
+  const calculateTotalScore = (data) => {
+    if (!data || !data.dp) return 0;
+    
+    // Calculate score based on activity hours and count
+    return data.dp.reduce((total, day) => {
+      return total + (day.ah * 1000) + (day.ct * 500);
+    }, 0);
+  };
+
+  const formatCourseData = (data) => {
+    if (!data || !data.cp) return [];
+    
+    return data.cp.map(course => ({
+      id: course.n,
+      name: course.n.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+      score: course.cs * 1000,
+      currentStreak: course.s.c,
+      longestStreak: course.s.l,
+      lastActive: course.lad
+    }));
   };
 
   const toggleCoursesModal = () => {
@@ -75,9 +76,28 @@ const GuiderayStudentConsistencyScoreBar = ({ darkMode }) => {
     setShowPerformanceModal(!showPerformanceModal);
   };
 
+  if (loading) {
+    return (
+      <div className={`guideray-student-streak-card ${darkMode ? 'dark' : 'light'}`}>
+        <div className="guideray-student-streak-loading">Loading consistency data...</div>
+      </div>
+    );
+  }
+
+  if (!consistencyData) {
+    return (
+      <div className={`guideray-student-streak-card ${darkMode ? 'dark' : 'light'}`}>
+        <div className="guideray-student-streak-error">Failed to load consistency data</div>
+      </div>
+    );
+  }
+
+  const courses = formatCourseData(consistencyData);
+  const totalScore = calculateTotalScore(consistencyData);
+
   return (
     <div className={`guideray-student-streak-card ${darkMode ? 'dark' : 'light'}`}>
-                <h3>Learning Consistency</h3>
+      <h3>Learning Consistency</h3>
 
       <div className="guideray-student-streak-header">
         <div className="guideray-student-streak-tabs">
@@ -114,7 +134,9 @@ const GuiderayStudentConsistencyScoreBar = ({ darkMode }) => {
           <div className="guideray-student-streak-indicator">
             <div className="guideray-student-streak-flame">🔥</div>
             <div>
-              <div className="guideray-student-streak-count">{consistencyData.currentStreak} days</div>
+              <div className="guideray-student-streak-count">
+                {consistencyData.streaks.daily.c} days
+              </div>
               <div className="guideray-student-streak-label">Current Streak</div>
             </div>
           </div>
@@ -122,17 +144,68 @@ const GuiderayStudentConsistencyScoreBar = ({ darkMode }) => {
           <div className="guideray-student-streak-indicator">
             <div className="guideray-student-streak-trophy">🏆</div>
             <div>
-              <div className="guideray-student-streak-count">{consistencyData.longestStreak} days</div>
+              <div className="guideray-student-streak-count">
+                {consistencyData.streaks.daily.l} days
+              </div>
               <div className="guideray-student-streak-label">Longest Streak</div>
             </div>
           </div>
         </div>
 
-        <div className="guideray-student-streak-progress">
-          <div 
-            className="guideray-student-streak-progress-bar"
-            style={{ width: `${(score / 1300349) * 100}%` }}
-          ></div>
+        <div className="guideray-student-milestones">
+          <h4>Next Milestones</h4>
+          <div className="guideray-student-milestone-container">
+            <div className="guideray-student-milestone">
+              <div className="guideray-student-milestone-header">
+                <span className="guideray-student-milestone-icon">📅</span>
+                <span className="guideray-student-milestone-title">Daily</span>
+              </div>
+              <div className="guideray-student-milestone-progress">
+                <div 
+                  className="guideray-student-milestone-progress-bar"
+                  style={{ width: `${consistencyData.streakStatus.daily.nextMilestone.progress}%` }}
+                ></div>
+              </div>
+              <div className="guideray-student-milestone-details">
+                <span>{consistencyData.streaks.daily.c} of {consistencyData.streakStatus.daily.nextMilestone.target} days</span>
+                <span>{consistencyData.streakStatus.daily.nextMilestone.remaining} to go</span>
+              </div>
+            </div>
+
+            <div className="guideray-student-milestone">
+              <div className="guideray-student-milestone-header">
+                <span className="guideray-student-milestone-icon">🗓️</span>
+                <span className="guideray-student-milestone-title">Weekly</span>
+              </div>
+              <div className="guideray-student-milestone-progress">
+                <div 
+                  className="guideray-student-milestone-progress-bar"
+                  style={{ width: `${consistencyData.streakStatus.weekly.nextMilestone.progress}%` }}
+                ></div>
+              </div>
+              <div className="guideray-student-milestone-details">
+                <span>{consistencyData.streaks.weekly.c} of {consistencyData.streakStatus.weekly.nextMilestone.target} weeks</span>
+                <span>{consistencyData.streakStatus.weekly.nextMilestone.remaining} to go</span>
+              </div>
+            </div>
+
+            <div className="guideray-student-milestone">
+              <div className="guideray-student-milestone-header">
+                <span className="guideray-student-milestone-icon">📆</span>
+                <span className="guideray-student-milestone-title">Monthly</span>
+              </div>
+              <div className="guideray-student-milestone-progress">
+                <div 
+                  className="guideray-student-milestone-progress-bar"
+                  style={{ width: `${consistencyData.streakStatus.monthly.nextMilestone.progress}%` }}
+                ></div>
+              </div>
+              <div className="guideray-student-milestone-details">
+                <span>{consistencyData.streaks.monthly.c} of {consistencyData.streakStatus.monthly.nextMilestone.target} months</span>
+                <span>{consistencyData.streakStatus.monthly.nextMilestone.remaining} to go</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -149,7 +222,7 @@ const GuiderayStudentConsistencyScoreBar = ({ darkMode }) => {
               </button>
             </div>
             <div className="guideray-student-courses-list">
-              {consistencyData.courses.map(course => (
+              {courses.map(course => (
                 <div key={course.id} className="guideray-student-course-item">
                   <div className="guideray-student-course-name">{course.name}</div>
                   <div className="guideray-student-course-score">
@@ -185,7 +258,11 @@ const GuiderayStudentConsistencyScoreBar = ({ darkMode }) => {
                 ✕
               </button>
             </div>
-            <GuiderayStudentPerformanceChart darkMode={darkMode} />
+            <GuiderayStudentPerformanceChart 
+              darkMode={darkMode} 
+              streakData={consistencyData.streaks}
+              streakStatus={consistencyData.streakStatus}
+            />
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 // Import components
 import GuideRayTopicIntroPage from './LearnPageComponents/GuideRayTopicIntroPage';
@@ -15,202 +16,160 @@ import GuidedRayCodingPlatform from './OtherComponents/GuidedRayCodingPlatform';
 import StudentRegistration from './MainComponents/StudentRegistration';
 import StudentLogin from './MainComponents/StudentLogin';
 import StudentProfile from './OtherComponents/StudentProfile';
+import CourseDetails from './MainComponents/StudentCourseDetails';
 import GuiderayStudentNotification from './OtherComponents/StudentNotification';
 import GuideRayStudentProgressCalendar from './OtherComponents/StudentProgressBox';
-
+import StudentAuth from './MainComponents/StudentAuth';
+import PaymentStatus from './components/PaymentStatus';
+import CourseDetailsRouteWrapper from './MainComponents/CourseDetailsRouteWrapper';
+// Styles
 const styles = `
 .App {
   text-align: center;
   max-width: 100vw;
   overflow-x: hidden;
-  overflow-y : auto;
-  max-height:100vh;
+  overflow-y: auto;
+  max-height: 100vh;
+  background-color: white;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.spinnering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
 }
 
-@keyframes App-logo-spin {
-  from {
+.spinner-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #4a90e2;
+  border-right-color: #4a90e2;
+  animation: spin 1.8s linear infinite;
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.3);
+}
+
+.spinner-ring:nth-child(1) {
+  width: 90px;
+  height: 90px;
+  border-top-color: #50c9ba;
+  border-right-color: #50c9ba;
+  animation-direction: reverse;
+  animation-duration: 2.2s;
+  z-index: 10001;
+}
+
+.spinner-ring:nth-child(2) {
+  width: 80px;
+  height: 80px;
+  border-top-color: #a178df;
+  border-right-color: #a178df;
+  animation-duration: 2s;
+  z-index: 10001;
+}
+
+.spinner-ring:nth-child(3) {
+  width: 70px;
+  height: 70px;
+  border-top-color: #ff00fb5d;
+  border-right-color: #ff00fb5d;
+  animation-duration: 1.6s;
+  z-index: 10001;
+}
+
+.center-icon {
+  position: relative;
+  width: 100px;
+  background-color: rgba(255, 255, 255, 0);
+  height: 100px;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+}
+
+.center-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: #4a90e2;
+}
+
+@keyframes spin {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-/* Loading Spinner Styles */
-.loader-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.9);
-  z-index: 9999;
-}
-
-.spinner {
-  width: 64px;
-  height: 64px;
-  position: relative;
-}
-
-.spinner-inner {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 4px solid transparent;
-  border-radius: 50%;
-  animation: spinner-rotate 1.5s linear infinite;
-}
-
-.spinner-inner:nth-child(1) {
-  border-top-color: #3b82f6;
-  border-bottom-color: #3b82f6;
-}
-
-.spinner-inner:nth-child(2) {
-  border-left-color:rgb(52, 81, 197);
-  border-right-color:rgb(72, 72, 195);
-  animation-delay: 0.1s;
-}
-
-.spinner-inner:nth-child(3) {
-  border-top-color:rgb(73, 252, 85);
-  border-bottom-color:rgb(37, 255, 62);
-  animation-delay: 0.2s;
-}
-
-@keyframes spinner-rotate {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.1);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
-
-.loader-text {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  color: #4b5563;
-  font-weight: 500;
-  animation: pulse 2s infinite;
-}
-
-.loader-subtext {
-  margin-top: 8px;
-  font-size: 0.9rem;
-  color: #6b7280;
-  animation: fadeInOut 3s infinite;
-}
-
 @keyframes pulse {
   0% {
-    opacity: 0.6;
-  }
-  50% {
+    transform: scale(1);
     opacity: 1;
   }
-  100% {
-    opacity: 0.6;
-  }
-}
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0.5;
-  }
   50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
     opacity: 1;
   }
-  100% {
-    opacity: 0.5;
-  }
 }
 
-/* Progress bar animation */
-@keyframes progress {
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: sparkle 3s linear infinite;
+  opacity: 0;
+}
+
+@keyframes sparkle {
   0% {
-    width: 0%;
-    left: 0;
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
   }
   50% {
-    width: 100%;
-    left: 0;
+    transform: translate(20px, -20px) scale(1.5);
+    opacity: 0;
   }
   100% {
-    width: 0%;
-    left: 100%;
+    transform: translate(40px, -40px) scale(0);
+    opacity: 0;
   }
 }
 
-.progress-bar {
-  width: 200px;
-  height: 4px;
-  background-color: #e5e7eb;
-  border-radius: 2px;
-  margin: 20px auto;
-  overflow: hidden;
-  position: relative;
+.intoit {
+  height: 50px;
+  margin-left: 3px;
+  margin-bottom: 3px;
 }
 
-.progress-bar-fill {
-  height: 100%;
-  width: 0%;
-  background-color: #3b82f6;
-  border-radius: 2px;
-  animation: progress 2s ease-in-out infinite;
-}
-
-/* Secure content styles */
-.secure-content {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Print prevention */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  
-  .secure-content {
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    user-select: none !important;
-  }
-}
-
-/* Dark mode styles */
 .dark-theme {
   background-color: #1a202c;
   color: #f7fafc;
@@ -221,49 +180,38 @@ const styles = `
   color: #1a202c;
 }
 
-/* Responsive adjustments */
+.main-content {
+  transition: margin-left 0.3s ease;
+  width: 100%;
+}
+
+.main-content.with-navbar {
+}
+
+.main-content.sidebar-collapsed {
+  margin-left: 80px;
+}
+
+.main-content.sidebar-expanded {
+  margin-left: 243px;
+}
+
+.main-content.standalone {
+  margin-left: 0;
+  padding-top: 0;
+}
+
 @media (max-width: 768px) {
-  .loader-text {
-    font-size: 1rem;
-  }
+  .loader-text { font-size: 1rem; }
+  .spinner { width: 140px; height: 140px; }
+  .spinner-ring:nth-child(1) { width: 70px; height: 70px; }
+  .spinner-ring:nth-child(2) { width: 60px; height: 60px; }
+  .spinner-ring:nth-child(3) { width: 50px; height: 50px; }
+  .center-icon { width: 80px; height: 80px; }
   
-  .loader-subtext {
-    font-size: 0.8rem;
-  }
-  
-  .spinner {
-    width: 48px;
-    height: 48px;
-  }
-}
-
-/* Navbar loading indicator */
-.navbar-loading-indicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: transparent;
-  overflow: hidden;
-}
-
-.navbar-loading-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, #3b82f6, transparent);
-  animation: navbarLoading 1.5s infinite;
-}
-
-@keyframes navbarLoading {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
+  .main-content.sidebar-collapsed,
+  .main-content.sidebar-expanded {
+    margin-left: 0;
   }
 }
 `;
@@ -274,126 +222,228 @@ styleElement.innerHTML = styles;
 document.head.appendChild(styleElement);
 
 function AppContent() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true' || false;
+  });
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['studentToken']);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const userInitials = "AB";
+  const [userData, setUserData] = useState(null);
+  const [loadingUserData, setLoadingUserData] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  // Define routes where navbar should be hidden
-  const navbarHiddenRoutes = ['/login', '/student-registration', '/'];
-  
-  // Define routes where sidebar should be shown
-  const sidebarShownRoutes = ['/', '/home'];
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  useEffect(() => {
-    const token = cookies['studentToken'];
-    setIsAuthenticated(!!token);
-    setAuthChecked(true);
-    
-    const startTime = Date.now();
-    const totalDuration = 3000;
-    
-    const updateProgress = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min((elapsed / totalDuration) * 100, 100);
-      setLoadingProgress(progress);
+  // Memoized route configurations
+    const routeConfig = useMemo(() => ({
+    public: ['/login', '/student-registration'],
+    private: ['/', '/home', '/intro', '/student-practice', '/course', 
+             '/video-course', '/coding-platform', '/profile', 
+             '/notifications', '/progress', '/auth','course-details'],
+    hideNavbar: ['/login', '/student-registration','/','/home','/video-courses','/course-details', '/video-courses/', '/student-practice','/coding-platform'],
+    showSidebar: ['/', '/home','/course','/course-details'],
+    showProfile: ['/', '/home', '/course', '/profile', '/notifications', '/progress'],
+    standalonePages: ['/login', '/student-registration',"/student-practice",'/coding-platform']
+  }), []);
+
+  // Fetch user data from API
+  const fetchUserData = useCallback(async () => {
+    try {
+      setLoadingUserData(true);
+      const response = await axios.get('https://webservice.guideray.in/api/students/me', {
+        headers: {
+          'Authorization': `Bearer ${cookies.studentToken}`
+        }
+      });
       
-      if (progress < 100) {
-        requestAnimationFrame(updateProgress);
-      } else {
-        setIsLoading(false);
+      if (response.data && response.data.success) {
+        const user = response.data.data;
+        // Format initials from first letters of first and last name
+        const initials = user.first_name && user.last_name 
+          ? `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`.toUpperCase()
+          : 'ST';
+        
+        setUserData({
+          ...user,
+          initials
+        });
       }
-    };
-    
-    requestAnimationFrame(updateProgress);
-    
-    return () => cancelAnimationFrame(updateProgress);
-  }, [cookies]);
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      if (error.response && error.response.status === 401) {
+        // Token is invalid, logout the user
+        removeCookie('studentToken', { path: '/' });
+        setIsAuthenticated(false);
+        setUserData(null);
+        navigate('/login', { replace: true });
+      }
+    } finally {
+      setLoadingUserData(false);
+    }
+  }, [cookies.studentToken, navigate, removeCookie]);
 
-  const handleLoginSuccess = (token) => {
-    setCookie('studentToken', token, { path: '/', maxAge: 3600 });
+  // Stable auth check function
+  const checkAuthStatus = useCallback(async () => {
+    const token = cookies.studentToken;
+    if (token) {
+      try {
+        setIsAuthenticated(true);
+        // Fetch user data after authentication
+        await fetchUserData();
+      } catch (error) {
+        console.error("Auth verification failed:", error);
+        removeCookie('studentToken', { path: '/' });
+        setIsAuthenticated(false);
+        setUserData(null);
+      }
+    } else {
+      setIsAuthenticated(false);
+      setUserData(null);
+    }
+    setAuthChecked(true);
+  }, [cookies.studentToken, fetchUserData, removeCookie]);
+
+  // Initial auth check
+  useEffect(() => {
+    checkAuthStatus();
+  }, [checkAuthStatus]);
+
+  // Handle login success
+  const handleLoginSuccess = useCallback(async (token, user) => {
+    setCookie('studentToken', token, {
+      path: '/',
+      maxAge: 3600,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production'
+    });
     setIsAuthenticated(true);
+    // Fetch complete user data after login
+    await fetchUserData();
     navigate('/', { replace: true });
-  };
+  }, [navigate, setCookie, fetchUserData]);
 
-  const handleLogout = () => {
+  // Handle logout
+  const handleLogout = useCallback(() => {
     removeCookie('studentToken', { path: '/' });
     setIsAuthenticated(false);
+    setUserData(null);
     navigate('/login', { replace: true });
-  };
+  }, [navigate, removeCookie]);
 
+  // Route protection and redirection
   useEffect(() => {
     if (!authChecked) return;
 
-    if (isAuthenticated) {
-      if (location.pathname === '/login' || location.pathname === '/student-registration') {
-        navigate('/', { replace: true });
-      }
-    } else {
-      if (location.pathname !== '/login' && location.pathname !== '/student-registration') {
-        navigate('/login', { replace: true });
-      }
+    const currentPath = location.pathname;
+    const isPublic = routeConfig.public.includes(currentPath);
+    const isPrivate = routeConfig.private.includes(currentPath);
+
+    if (isAuthenticated && isPublic) {
+      navigate('/', { replace: true });
+    } else if (!isAuthenticated && isPrivate) {
+      navigate('/login', { replace: true });
     }
-  }, [isAuthenticated, location.pathname, authChecked, navigate]);
+  }, [isAuthenticated, location.pathname, authChecked, navigate, routeConfig]);
 
-  const toggleTheme = () => {
-    setDarkMode(prev => !prev);
-  };
+  // Theme management
+  useEffect(() => {
+    document.body.classList.toggle('dark-theme', darkMode);
+    document.body.classList.toggle('light-theme', !darkMode);
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
 
-  const toggleSidebar = () => {
+  const toggleTheme = useCallback(() => {
+    setDarkMode(prev => {
+      const newMode = !prev;
+      localStorage.setItem('darkMode', newMode);
+      return newMode;
+    });
+  }, []);
+
+  const toggleSidebar = useCallback(() => {
     if (window.innerWidth <= 768) {
       setMobileSidebarOpen(prev => !prev);
     } else {
       setSidebarCollapsed(prev => !prev);
     }
-  };
+  }, []);
 
-  useEffect(() => {
-    document.body.classList.remove('dark-theme', 'light-theme');
-    document.body.classList.add(darkMode ? 'dark-theme' : 'light-theme');
-  }, [darkMode]);
+  const toggleSidebarCollapse = useCallback(() => {
+    setSidebarCollapsed(prev => !prev);
+  }, []);
 
-  const ProtectedRoute = ({ children }) => {
-    if (!authChecked) return null;
-    if (!isAuthenticated) return <Navigate to="/login" replace />;
-    return children;
-  };
+  // Custom Spinner Component
+  const CustomSpinner = ({ text = "Loading..." }) => (
+    <div className='spinnering'>
+      <div className="spinner-container">
+        <div className="spinner-ring"></div>
+        <div className="spinner-ring"></div>
+        <div className="spinner-ring"></div>
+        <div className="center-icon">
+          <img
+            src="https://res.cloudinary.com/dx97khgxd/image/upload/v1747826507/ztn55zzd1exaemchuevl.png"
+            alt="guideray"
+            className="intoit"
+          />
+        </div>
+        <div className="sparkle" style={{ top: '30%', left: '30%', animationDelay: '0s' }}></div>
+        <div className="sparkle" style={{ top: '40%', left: '60%', animationDelay: '0.5s' }}></div>
+        <div className="sparkle" style={{ top: '70%', left: '40%', animationDelay: '1s' }}></div>
+        <div className="sparkle" style={{ top: '20%', left: '50%', animationDelay: '1.5s' }}></div>
+      </div>
+    </div>
+  );
 
-  const AuthRoute = ({ children }) => {
-    if (!authChecked) return null;
-    if (isAuthenticated) return <Navigate to="/" replace />;
-    return children;
-  };
+  // Route protection components
+  const ProtectedRoute = useCallback(({ children }) => {
+    if (!authChecked || loadingUserData) {
+      return <CustomSpinner text="Loading your data..." />;
+    }
+    return isAuthenticated ? children : <Navigate to="/login" replace />;
+  }, [authChecked, isAuthenticated, loadingUserData]);
+
+  const AuthRoute = useCallback(({ children }) => {
+    if (!authChecked) {
+      return <CustomSpinner text="Loading..." />;
+    }
+    return !isAuthenticated ? children : <Navigate to="/" replace />;
+  }, [authChecked, isAuthenticated]);
+
+  // Determine UI visibility
+  const currentPath = location.pathname;
+const hideNavbarDynamic = currentPath.startsWith('/video-courses/') && currentPath.split('/').length > 2;
+const hideNavbarExact = routeConfig.hideNavbar
+const showNavbar = !(hideNavbarExact.includes(currentPath) || hideNavbarDynamic);
+const showSidebar = isAuthenticated && routeConfig.showSidebar.includes(currentPath);
+  const isStandalonePage = routeConfig.standalonePages.includes(currentPath);
+
+  // Determine main content class
+  const mainContentClass = useMemo(() => {
+    let classes = ['main-content'];
+    
+    if (isStandalonePage) {
+      classes.push('standalone');
+    } else {
+      if (showNavbar) {
+        classes.push('with-navbar');
+      }
+      if (sidebarCollapsed) {
+        classes.push('sidebar-collapsed');
+      } else {
+        classes.push('sidebar-expanded');
+      }
+    }
+    
+    return classes.join(' ');
+  }, [isStandalonePage, showNavbar, sidebarCollapsed]);
 
   if (!authChecked) {
-    return (
-      <div className="loader-container">
-        <div className="spinner">
-          <div className="spinner-inner"></div>
-          <div className="spinner-inner"></div>
-          <div className="spinner-inner"></div>
-        </div>
-        <p className="loader-text">Securing your session</p>
-        <p className="loader-subtext">Just a moment...</p>
-        <div className="progress-bar">
-          <div className="progress-bar-fill"></div>
-        </div>
-      </div>
-    );
+    return <CustomSpinner text="Initializing application..." />;
   }
-
-  // Determine if navbar should be shown
-  const showNavbar = !navbarHiddenRoutes.includes(location.pathname);
-  
-  // Determine if sidebar should be shown
-  const showSidebar = sidebarShownRoutes.includes(location.pathname);
 
   return (
     <>
@@ -401,15 +451,12 @@ function AppContent() {
         <Navbar
           darkMode={darkMode}
           toggleTheme={toggleTheme}
-          toggleSidebar={toggleSidebar}
-          mobileSidebarOpen={mobileSidebarOpen}
-          userInitials={userInitials}
-          showSidebarToggle={showSidebar}
-          showProfile={isAuthenticated}
           isAuthenticated={isAuthenticated}
-          onLogout={handleLogout}
           loadingProgress={loadingProgress}
+          onLogout={handleLogout}
           isLoading={isLoading}
+          collapsed={sidebarCollapsed}
+          toggleCollapse={toggleSidebarCollapse}
         />
       )}
 
@@ -418,23 +465,146 @@ function AppContent() {
           sidebarCollapsed={sidebarCollapsed}
           mobileSidebarOpen={mobileSidebarOpen}
           toggleSidebar={toggleSidebar}
+          darkMode={darkMode}
+          userData={userData}
         />
       )}
 
-      <Routes>
-        <Route path="/" element={<ProtectedRoute><StudentDashboard darkMode={darkMode} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} mobileSidebarOpen={mobileSidebarOpen} sidebarCollapsed={sidebarCollapsed} /></ProtectedRoute>} />
-        <Route path="/home" element={<ProtectedRoute><StudentDashboard darkMode={darkMode} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} mobileSidebarOpen={mobileSidebarOpen} sidebarCollapsed={sidebarCollapsed} /></ProtectedRoute>} />
-        <Route path="/intro" element={<ProtectedRoute><GuideRayTopicIntroPage data={pythonData} darkMode={darkMode} /></ProtectedRoute>} />
-        <Route path="/student-practice" element={<ProtectedRoute><StudentPracticeTest /></ProtectedRoute>} />
-        <Route path="/course" element={<ProtectedRoute><StudentCource darkMode={darkMode} /></ProtectedRoute>} />
-        <Route path="/video-course" element={<ProtectedRoute><GuideRayApp darkMode={darkMode} /></ProtectedRoute>} />
-        <Route path="/coding-platform" element={<ProtectedRoute><GuidedRayCodingPlatform darkMode={darkMode} /></ProtectedRoute>} />
-        <Route path="/student-registration" element={<AuthRoute><StudentRegistration darkMode={darkMode} /></AuthRoute>} />
-        <Route path="/login" element={<AuthRoute><StudentLogin darkMode={darkMode} onLoginSuccess={handleLoginSuccess} /></AuthRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><StudentProfile darkMode={darkMode} /></ProtectedRoute>} />
-        <Route path="/notifications" element={<ProtectedRoute><GuiderayStudentNotification darkMode={darkMode} /></ProtectedRoute>} />
-        <Route path="/progress" element={<ProtectedRoute><GuideRayStudentProgressCalendar darkMode={darkMode} /></ProtectedRoute>} />
-      </Routes>
+      <main className={mainContentClass}>
+        <Routes>
+          <Route path="/" element={
+            <ProtectedRoute>
+              <StudentDashboard 
+                darkMode={darkMode}
+                toggleTheme={toggleTheme}
+                sidebarCollapsed={sidebarCollapsed}
+                userData={userData}
+              />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/home" element={
+            <ProtectedRoute>
+              <StudentDashboard 
+                darkMode={darkMode}
+                toggleTheme={toggleTheme}
+                userData={userData}
+              />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/intro" element={
+            <ProtectedRoute>
+              <GuideRayTopicIntroPage 
+                data={pythonData} 
+                darkMode={darkMode} 
+                userData={userData}
+              />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/student-practice" element={
+            <ProtectedRoute>
+              <StudentPracticeTest 
+                darkMode={darkMode} 
+                userData={userData}
+              />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/course" element={
+            <ProtectedRoute>
+              <StudentCource 
+                darkMode={darkMode} 
+                userData={userData}
+              />
+            </ProtectedRoute>
+          } />
+          
+   <Route path="/video-courses/:courseId" element={
+  <ProtectedRoute>
+    <GuideRayApp 
+      darkMode={darkMode} 
+      userData={userData}
+    />
+  </ProtectedRoute>
+} />
+ <Route path="/course-details" element={
+  <ProtectedRoute>
+    <CourseDetailsRouteWrapper 
+      darkMode={darkMode} 
+      userData={userData}
+    />
+  </ProtectedRoute>
+} />
+
+          
+          <Route path="/coding-platform" element={
+            <ProtectedRoute>
+              <GuidedRayCodingPlatform 
+                darkMode={darkMode} 
+                userData={userData}
+              />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/student-registration" element={
+            <AuthRoute>
+              <StudentRegistration darkMode={darkMode} />
+            </AuthRoute>
+          } />
+          
+          <Route path="/login" element={
+            <AuthRoute>
+              <StudentLogin 
+                darkMode={darkMode} 
+                onLoginSuccess={handleLoginSuccess} 
+              />
+            </AuthRoute>
+          } />
+          
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <StudentProfile 
+                darkMode={darkMode} 
+                userData={userData}
+                onUpdateProfile={setUserData}
+              />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/notifications" element={
+            <ProtectedRoute>
+              <GuiderayStudentNotification 
+                darkMode={darkMode} 
+                userData={userData}
+              />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/progress" element={
+            <ProtectedRoute>
+              <GuideRayStudentProgressCalendar 
+                darkMode={darkMode} 
+                userData={userData}
+              />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/payment-status" element={<PaymentStatus darkMode={darkMode} />} />
+          
+          <Route path="/auth" element={
+            <ProtectedRoute>
+              <StudentAuth 
+                darkMode={darkMode}
+                userData={userData}
+                onSuccess={() => navigate('/')}
+                onLogout={handleLogout}
+              />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </main>
     </>
   );
 }
@@ -442,7 +612,7 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <div className="App secure-content">
+      <div className="App">
         <AppContent />
       </div>
     </Router>

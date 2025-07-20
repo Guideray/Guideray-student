@@ -1,0 +1,427 @@
+/* Base Container Styles */
+.GuiderayStudentRecentCourses-container {
+    margin: 0 auto;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-height: 80vh;
+    overflow: auto;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-radius: 16px;
+    border: 3px solid rgb(240, 240, 240);
+    border-radius: 20px;
+    
+}
+
+.GuiderayStudentRecentCourses-container::-webkit-scrollbar {
+    display: none;
+}
+
+.GuiderayStudentRecentCourses-card-title-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Title Styles */
+.GuiderayStudentRecentCourses-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    color: #1a237e;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.GuiderayStudentRecentCourses-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #3d5afe, #1a237e);
+    border-radius: 3px;
+}
+
+/* Section Title Styles */
+.GuiderayStudentRecentCourses-section-title {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+    color: #283593;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e8eaf6;
+}
+
+/* Status Message Styles */
+.GuiderayStudentRecentCourses-loading,
+.GuiderayStudentRecentCourses-error,
+.GuiderayStudentRecentCourses-empty {
+    text-align: center;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    color: #546e7a;
+    border: 1px solid #eceff1;
+    transition: all 0.3s ease;
+}
+
+.GuiderayStudentRecentCourses-loading {
+    background: linear-gradient(to right, #f6f7ff, #ffffff);
+    border-left: 4px solid #3d5afe;
+}
+
+.GuiderayStudentRecentCourses-error {
+    color: #d32f2f;
+    background: linear-gradient(to right, #ffebee, #ffffff);
+    border-left: 4px solid #f44336;
+}
+
+.GuiderayStudentRecentCourses-empty {
+    background: linear-gradient(to right, #e8f5e9, #ffffff);
+    border-left: 4px solid #4caf50;
+}
+
+/* Courses Grid Layout */
+.GuiderayStudentRecentCourses-courses-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+}
+
+/* Custom Scrollbar */
+.GuiderayStudentRecentCourses-courses-grid::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.GuiderayStudentRecentCourses-courses-grid::-webkit-scrollbar-track {
+    background: #e8eaf6;
+    border-radius: 10px;
+}
+
+.GuiderayStudentRecentCourses-courses-grid::-webkit-scrollbar-thumb {
+    background-color: #7986cb;
+    border-radius: 10px;
+    border: 2px solid #e8eaf6;
+}
+
+/* Course Card Styles */
+.GuiderayStudentRecentCourses-course-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    height: 160px;
+    width: 670px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    position: relative;
+    border: 1px solid #e0e0e0;
+}
+
+.GuiderayStudentRecentCourses-course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.GuiderayStudentRecentCourses-enrolled {
+    border-left: 4px solid #3d5afe;
+    background: linear-gradient(to right, #f5f7ff, #ffffff);
+}
+
+.GuiderayStudentRecentCourses-available {
+    border-left: 4px solid #00c853;
+    background: linear-gradient(to right, #f1f8e9, #ffffff);
+}
+
+/* Card Image Styles */
+.GuiderayStudentRecentCourses-card-image {
+    width: 150px;
+    height: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.GuiderayStudentRecentCourses-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;             /* Keeps image covering the container */
+    object-position: left top;     /* Ensures image shows from top-left (start) */
+    transition: transform 0.5s ease;
+}
+
+
+.GuiderayStudentRecentCourses-course-card:hover .GuiderayStudentRecentCourses-card-image img {
+    transform: scale(1.05);
+}
+
+/* Card Content Styles */
+.GuiderayStudentRecentCourses-card-content {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.GuiderayStudentRecentCourses-card-content-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.GuiderayStudentRecentCourses-card-title {
+    margin: 0 0 0.4rem 0;
+    color: #1a237e;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.GuiderayStudentRecentCourses-category,
+.GuiderayStudentRecentCourses-concept {
+    margin: 0 0 0.3rem 0;
+    font-size: 0.8rem;
+    color: #546e7a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.GuiderayStudentRecentCourses-progress {
+    margin: 0.4rem 0;
+    color: #2962ff;
+    font-weight: 500;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Rating Styles */
+.GuiderayStudentRecentCourses-rating {
+    display: flex;
+    align-items: center;
+    margin: 0.4rem 0;
+}
+
+.GuiderayStudentRecentCourses-rating svg {
+    color: #ffb300;
+    margin-right: 0.2rem;
+    font-size: 0.85rem;
+}
+
+.GuiderayStudentRecentCourses-filled {
+    color: #ffb300;
+}
+
+.GuiderayStudentRecentCourses-half {
+    color: #ffb300;
+    opacity: 0.8;
+}
+
+.GuiderayStudentRecentCourses-rating span {
+    margin-left: 0.4rem;
+    font-size: 0.75rem;
+    color: #78909c;
+}
+
+/* Meta Information */
+.GuiderayStudentRecentCourses-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.4rem 0;
+    font-size: 0.75rem;
+    color: #78909c;
+}
+
+.GuiderayStudentRecentCourses-meta svg {
+    margin-right: 0.2rem;
+    font-size: 0.75rem;
+    color: #7986cb;
+}
+
+/* Description */
+.GuiderayStudentRecentCourses-description {
+    margin: 0.4rem 0;
+    color: #455a64;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+/* Button Styles */
+.GuiderayStudentRecentCourses-action-button,
+.GuiderayStudentRecentCourses-enroll-button {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: auto;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+}
+
+.GuiderayStudentRecentCourses-action-button {
+    background: linear-gradient(to right, #3d5afe, #304ffe);
+    color: white;
+}
+
+.GuiderayStudentRecentCourses-action-button:hover {
+    background: linear-gradient(to right, #304ffe, #1a237e);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(63, 81, 181, 0.3);
+}
+
+.GuiderayStudentRecentCourses-enroll-button {
+    background: linear-gradient(to right, #00c853, #00e676);
+    color: white;
+}
+
+.GuiderayStudentRecentCourses-enroll-button:hover {
+    background: linear-gradient(to right, #00b248, #00c853);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 200, 83, 0.3);
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .GuiderayStudentRecentCourses-courses-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .GuiderayStudentRecentCourses-card-image {
+        width: 130px;
+    }
+}
+
+@media (max-width: 992px) {
+    .GuiderayStudentRecentCourses-container {
+        padding: 1rem;
+    }
+    
+    .GuiderayStudentRecentCourses-title {
+        font-size: 1.6rem;
+    }
+    
+    .GuiderayStudentRecentCourses-section-title {
+        font-size: 1.3rem;
+    }
+    
+    .GuiderayStudentRecentCourses-courses-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .GuiderayStudentRecentCourses-title {
+        font-size: 1.4rem;
+    }
+    
+    .GuiderayStudentRecentCourses-section-title {
+        font-size: 1.2rem;
+    }
+    
+    .GuiderayStudentRecentCourses-course-card {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .GuiderayStudentRecentCourses-card-image {
+        width: 100%;
+        height: 160px;
+    }
+    
+    .GuiderayStudentRecentCourses-card-content {
+        padding: 0.8rem;
+    }
+    
+    .GuiderayStudentRecentCourses-card-title {
+        font-size: 0.9rem;
+    }
+    
+    .GuiderayStudentRecentCourses-description {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .GuiderayStudentRecentCourses-courses-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .GuiderayStudentRecentCourses-title {
+        font-size: 1.3rem;
+    }
+    
+    .GuiderayStudentRecentCourses-section-title {
+        font-size: 1.1rem;
+    }
+    
+    .GuiderayStudentRecentCourses-card-image {
+        height: 140px;
+    }
+    
+    .GuiderayStudentRecentCourses-action-button,
+    .GuiderayStudentRecentCourses-enroll-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .GuiderayStudentRecentCourses-container {
+        padding: 0.8rem;
+    }
+    
+    .GuiderayStudentRecentCourses-title {
+        font-size: 1.2rem;
+    }
+    
+    .GuiderayStudentRecentCourses-card-content-1 {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .GuiderayStudentRecentCourses-card-title-inner {
+        gap: 10px;
+    }
+}

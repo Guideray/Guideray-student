@@ -1,11 +1,10 @@
 /* Main sidebar container */
 .guideray-video-course-sidebar-container {
   position: fixed;
-  top: 60px;
   left: 0;
   width: 300px;
   height: 100vh;
-  background: rgb(4, 0, 133);
+  background: #000f54;
   color: #ffffff;
   box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -78,7 +77,8 @@
   transition: all 0.2s;
   font-weight: 600;
   position: relative;
-  background-color: rgba(255, 255, 255, 0.05);
+    background-color: #02003e;
+
   margin: 5px 15px;
   border-radius: 6px;
 }
@@ -251,4 +251,42 @@
 
 .guideray-video-course-sidebar-concepts::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+
+/* Add to GuideRaySidebar.css */
+.guideray-video-course-sidebar-topic.locked {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.guideray-video-course-sidebar-topic.locked .guideray-video-course-sidebar-topic-content {
+  position: relative;
+  padding-right: 30px;
+}
+
+.guideray-video-course-sidebar-topic-lock {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+.guideray-video-course-sidebar-topic-completed {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #10b981;
+  font-size: 0.8rem;
+}
+
+/* Dark mode adjustments */
+.dark-mode .guideray-video-course-sidebar-topic.locked {
+  opacity: 0.5;
+}
+
+.dark-mode .guideray-video-course-sidebar-topic-lock {
+  color: #6b7280;
 }

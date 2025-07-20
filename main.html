@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Spinner</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #515151 0%, #6f6f6f 100%);
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .spinner-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #4a90e2;
+            border-right-color: #4a90e2;
+            animation: spin 1.8s linear infinite;
+            box-shadow: 0 0 15px rgba(74, 144, 226, 0.3);
+        }
+        
+        .spinner-ring:nth-child(1) {
+            width: 90px;
+            height: 90px;
+            border-top-color: #50c9ba;
+            border-right-color: #50c9ba;
+            animation-direction: reverse;
+            animation-duration: 2.2s;
+            z-index: 10001;
+        }
+        
+        .spinner-ring:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            border-top-color: #a178df;
+            border-right-color: #a178df;
+            animation-duration: 2s;
+            z-index: 10001;
+        }
+        
+        .spinner-ring:nth-child(3) {
+            width: 70px;
+            height: 70px;
+            border-top-color: #ff00fb5d;
+            border-right-color: #ff00fb5d;
+            animation-duration: 1.6s;
+            z-index: 10001;
+        }
+        
+        .center-icon {
+            position: relative;
+            width: 100px;
+            background-color: rgba(255, 255, 255, 0);
+            height: 100px;
+            z-index: 2;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100px;
+        }
+        
+        .center-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #4a90e2;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: sparkle 3s linear infinite;
+            opacity: 0;
+        }
+        
+        @keyframes sparkle {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(20px, -20px) scale(1.5);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(40px, -40px) scale(0);
+                opacity: 0;
+            }
+        }
+        .intoit{
+            height: 50px;
+            margin-left: 3px;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner-container">
+        <!-- Three animated rings -->
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        
+        <!-- Center icon -->
+        <div class="center-icon">
+            <img src="https://res.cloudinary.com/dx97khgxd/image/upload/v1747826507/ztn55zzd1exaemchuevl.png" alt="guideray" class="intoit">
+        </div>
+        
+        <!-- Random sparkles -->
+        <div class="sparkle" style="top: 30%; left: 30%; animation-delay: 0s;"></div>
+        <div class="sparkle" style="top: 40%; left: 60%; animation-delay: 0.5s;"></div>
+        <div class="sparkle" style="top: 70%; left: 40%; animation-delay: 1s;"></div>
+        <div class="sparkle" style="top: 20%; left: 50%; animation-delay: 1.5s;"></div>
+    </div>
+</body>
+</html>

@@ -1,28 +1,60 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaClock, FaFlag, FaChevronLeft, FaChevronRight, FaSun, FaMoon, FaBookmark, FaHistory } from 'react-icons/fa';
+import { FaClock, FaFlag, FaChevronLeft, FaChevronRight, FaSun, FaMoon, FaBookmark, FaHistory, FaTrophy, FaRedo } from 'react-icons/fa';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 import { RiQuestionnaireFill } from 'react-icons/ri';
 import { useLocation, useNavigate } from 'react-router-dom';
-
 import { MdCheckCircle } from 'react-icons/md';
 import './index.css';
 
 const StudentPracticeTest = () => {
-  // Sample questions data
-    const location = useLocation();
-      const quizQuestions = location.state?.quizData || [];
-
-      console.log(quizQuestions)
-
-
-  const [questions, setQuestions] = useState(quizQuestions);
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const {
+    quizData: initialQuizQuestions,
+    quizTime,
+    courseId,
+    studentId,
+    studentName,
+    topic,
+    topicIndex,
+    concept
+  } = location.state || {};
+  
+  const [questions, setQuestions] = useState(initialQuizQuestions || []);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(5400); // 90 minutes in seconds
-  const [theme, setTheme] = useState('dark');
-  const [examTitle] = useState("Sample Certification Exam");
+  const [timeLeft, setTimeLeft] = useState(quizTime * 60 || 600); // Convert minutes to seconds
+  const [theme, setTheme] = useState('light');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showFailureModal, setShowFailureModal] = useState(false);
+  const [score, setScore] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [alreadyCompleted, setAlreadyCompleted] = useState(false);
   const timerBarRef = useRef(null);
+
+  // Check if the student has already completed this topic
+  useEffect(() => {
+    const checkCompletionStatus = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/consistancy/progress/${studentId}/${courseId}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          const topicProgress = data.data.t.find(t => t.t === topicIndex);
+          if (topicProgress && topicProgress.p >= 50) {
+            setAlreadyCompleted(true);
+          }
+        }
+      } catch (error) {
+        console.error("Error checking completion status:", error);
+      }
+    };
+
+    if (studentId && courseId) {
+      checkCompletionStatus();
+    }
+  }, [studentId, courseId, topicIndex]);
 
   // Calculate progress percentage
   const answeredQuestions = questions.filter(q => q.status === "answered").length;
@@ -39,27 +71,23 @@ const StudentPracticeTest = () => {
   // Handle timer bar animation and color transition
   useEffect(() => {
     if (timerBarRef.current) {
-      const percentageLeft = (timeLeft / 5400) * 100;
+      const percentageLeft = (timeLeft / (quizTime * 60)) * 100;
       timerBarRef.current.style.width = `${percentageLeft}%`;
       
       // Smooth color transition based on time left
       if (percentageLeft <= 5) {
-        // Last 5% - red
         timerBarRef.current.style.backgroundColor = '#ff0000';
       } else if (percentageLeft <= 20) {
-        // Last 20% - transition from orange to red
-        const orangeToRedRatio = (percentageLeft - 5) / 15; // 15% range (5-20%)
+        const orangeToRedRatio = (percentageLeft - 5) / 15;
         timerBarRef.current.style.backgroundColor = `rgb(255, ${Math.floor(165 * orangeToRedRatio)}, 0)`;
       } else if (percentageLeft <= 40) {
-        // 20-40% - transition from blue to orange
-        const blueToOrangeRatio = (percentageLeft - 20) / 20; // 20% range (20-40%)
+        const blueToOrangeRatio = (percentageLeft - 20) / 20;
         timerBarRef.current.style.backgroundColor = `rgb(0, ${Math.floor(165 * (1 - blueToOrangeRatio))}, ${Math.floor(255 * (1 - blueToOrangeRatio))})`;
       } else {
-        // Above 40% - blue
         timerBarRef.current.style.backgroundColor = theme === 'dark' ? '#3A86FF' : '#0066CC';
       }
     }
-  }, [timeLeft, theme]);
+  }, [timeLeft, theme, quizTime]);
 
   // Handle timer
   useEffect(() => {
@@ -67,6 +95,7 @@ const StudentPracticeTest = () => {
       setTimeLeft(prev => {
         if (prev <= 0) {
           clearInterval(timer);
+          handleSubmit(); // Auto-submit when time runs out
           return 0;
         }
         return prev - 1;
@@ -79,7 +108,7 @@ const StudentPracticeTest = () => {
   // Mark current question as viewed when changed
   useEffect(() => {
     const updatedQuestions = [...questions];
-    if (updatedQuestions[currentQuestionIndex].status === "unseen") {
+    if (updatedQuestions[currentQuestionIndex]?.status === "unseen") {
       updatedQuestions[currentQuestionIndex].status = "viewed";
       setQuestions(updatedQuestions);
     }
@@ -137,7 +166,60 @@ const StudentPracticeTest = () => {
     }
   };
 
+  const calculateScore = () => {
+    let correct = 0;
+    questions.forEach(q => {
+      if (q.selectedAnswer === q.correctAnswer) {
+        correct++;
+      }
+    });
+
+    setCorrectAnswers(correct);
+    const percentage = (correct / questions.length) * 100;
+    setScore(percentage);
+    return percentage;
+  };
+
+  const handleSubmit = async () => {
+    setShowSubmitModal(false);
+    const scorePercentage = calculateScore();
+    
+    if (scorePercentage >= 70) {
+      // Only trigger API if not already completed
+      if (!alreadyCompleted) {
+        try {
+          const response = await fetch(`http://localhost:3000/api/consistancy/progress/${studentId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              courseName: courseId,
+              topicIndex: topicIndex,
+              completionType: "quiz",
+              date: new Date().toISOString()
+            })
+          });
+          
+          const data = await response.json();
+          if (data.success) {
+            setShowSuccessModal(true);
+          }
+        } catch (error) {
+          console.error("Error updating progress:", error);
+        }
+      } else {
+        // Show success modal without triggering API
+        setShowSuccessModal(true);
+      }
+    } else {
+      setShowFailureModal(true);
+    }
+  };
+
   const currentQuestion = questions[currentQuestionIndex];
+  const allQuestionsAnswered = questions.every(q => q.status === "answered");
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   return (
     <div className={`guideray-student-practice-test-app-container guideray-student-practice-test-${theme}`}>
@@ -168,13 +250,10 @@ const StudentPracticeTest = () => {
         </div>
         <div className="guideray-student-practice-test-theme-toggle-container">
           <button 
-            className={`guideray-student-practice-test-theme-toggle ${theme === 'dark' ? 'dark' : 'light'}`}
+            className="guideray-student-practice-test-theme-toggle"
             onClick={toggleTheme}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
-            <div className="guideray-student-practice-test-toggle-switch">
-              {theme === 'dark' ? <FaMoon className="moon-icon" /> : <FaSun className="sun-icon" />}
-            </div>
+            {theme === 'light' ? <FaMoon /> : <FaSun />}
           </button>
         </div>
       </nav>
@@ -190,21 +269,20 @@ const StudentPracticeTest = () => {
       <div className="guideray-student-practice-test-exam-container">
         <div className="guideray-student-practice-test-question-main">
           <div className="guideray-student-practice-test-question-container">
-            {/* ... rest of the question container content remains the same ... */}
             <div className="guideray-student-practice-test-question-header">
-              <h3>Question {currentQuestion.id}</h3>
+              <h3>Question {currentQuestion?.id}</h3>
               <div className="guideray-student-practice-test-question-status">
-                {currentQuestion.status === 'answered' && (
+                {currentQuestion?.status === 'answered' && (
                   <span className="guideray-student-practice-test-status-badge guideray-student-practice-test-answered">
                     <MdCheckCircle /> Answered
                   </span>
                 )}
-                {currentQuestion.status === 'marked' && (
+                {currentQuestion?.status === 'marked' && (
                   <span className="guideray-student-practice-test-status-badge guideray-student-practice-test-marked">
                     <FaFlag /> Marked
                   </span>
                 )}
-                {currentQuestion.status === 'hold' && (
+                {currentQuestion?.status === 'hold' && (
                   <span className="guideray-student-practice-test-status-badge guideray-student-practice-test-hold">
                     <FaClock /> On Hold
                   </span>
@@ -213,11 +291,11 @@ const StudentPracticeTest = () => {
             </div>
 
             <div className="guideray-student-practice-test-question-text">
-              <p>{currentQuestion.text}</p>
+              <p>{currentQuestion?.text}</p>
             </div>
 
             <div className="guideray-student-practice-test-options-container">
-              {currentQuestion.options.map((option, idx) => (
+              {currentQuestion?.options?.map((option, idx) => (
                 <div
                   key={idx}
                   className={`guideray-student-practice-test-option ${currentQuestion.selectedAnswer === option ? 'guideray-student-practice-test-selected' : ''}`}
@@ -249,12 +327,6 @@ const StudentPracticeTest = () => {
               >
                 <FaClock /> Hold Question
               </button>
-              <button 
-                className="guideray-student-practice-test-action-btn guideray-student-practice-test-hint-btn"
-                onClick={() => alert('Hint feature coming soon!')}
-              >
-                <HiOutlineLightBulb /> Get Hint
-              </button>
             </div>
 
             <div className="guideray-student-practice-test-navigation-buttons">
@@ -265,13 +337,22 @@ const StudentPracticeTest = () => {
               >
                 <FaChevronLeft /> Previous
               </button>
-              <button
-                className="guideray-student-practice-test-nav-btn guideray-student-practice-test-next-btn"
-                disabled={currentQuestionIndex === questions.length - 1}
-                onClick={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
-              >
-                Next <FaChevronRight />
-              </button>
+              {isLastQuestion ? (
+                <button
+                  className="guideray-student-practice-test-nav-btn guideray-student-practice-test-submit-btn"
+                  onClick={() => setShowSubmitModal(true)}
+                >
+                  Submit Test
+                </button>
+              ) : (
+                <button
+                  className="guideray-student-practice-test-nav-btn guideray-student-practice-test-next-btn"
+                  disabled={currentQuestionIndex === questions.length - 1}
+                  onClick={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
+                >
+                  Next <FaChevronRight />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -326,6 +407,99 @@ const StudentPracticeTest = () => {
           )}
         </div>
       </div>
+
+      {/* Submit Confirmation Modal */}
+      {showSubmitModal && (
+        <div className="guideray-student-practice-test-modal-overlay">
+          <div className="guideray-student-practice-test-modal">
+            <h3>Submit Test</h3>
+            <p>Are you sure you want to submit your test? You won't be able to make changes after submission.</p>
+            <div className="guideray-student-practice-test-modal-buttons">
+              <button 
+                className="guideray-student-practice-test-modal-cancel"
+                onClick={() => setShowSubmitModal(false)}
+              >
+                Cancel
+              </button>
+              <button 
+                className="guideray-student-practice-test-modal-submit"
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="guideray-student-practice-test-modal-overlay">
+          <div className="guideray-student-practice-test-success-modal">
+            <div className="guideray-student-practice-test-success-icon-container">
+              <div className="guideray-student-practice-test-success-icon-circle">
+                <FaTrophy size={50} color="#FFD700" />
+              </div>
+            </div>
+            <h3>Congratulations {studentName}!</h3>
+            <div className="guideray-student-practice-test-success-details">
+              <p>You have successfully completed:</p>
+              <div className="guideray-student-practice-test-success-detail-item">
+                <strong>Concept:</strong> {concept}
+              </div>
+              <div className="guideray-student-practice-test-success-detail-item">
+                <strong>Topic:</strong> {topic}
+              </div>
+              <div className="guideray-student-practice-test-success-detail-item">
+                <strong>Score:</strong> <span className="guideray-student-practice-test-success-score">{score.toFixed(0)}%</span> ({correctAnswers}/{questions.length} correct answers)
+              </div>
+            </div>
+            <div className="guideray-student-practice-test-success-actions">
+              <button 
+                className="guideray-student-practice-test-continue-btn"
+                onClick={() => navigate(`/video-courses/${courseId}`)}
+              >
+                Continue Course
+              </button>
+            </div>
+            <div className="guideray-student-practice-test-success-celebration"></div>
+          </div>
+        </div>
+      )}
+
+      {/* Failure Modal */}
+      {showFailureModal && (
+        <div className="guideray-student-practice-test-modal-overlay">
+          <div className="guideray-student-practice-test-failure-modal">
+            <div className="guideray-student-practice-test-failure-icon-container">
+              <div className="guideray-student-practice-test-failure-icon-circle">
+                <HiOutlineLightBulb size={50} color="#FF9800" />
+              </div>
+            </div>
+            <h3>Keep Practicing, {studentName}!</h3>
+            <div className="guideray-student-practice-test-failure-details">
+              <p>You need at least 70% to complete this topic.</p>
+              <div className="guideray-student-practice-test-failure-detail-item">
+                <strong>Your Score:</strong> <span className="guideray-student-practice-test-failure-score">{score.toFixed(0)}%</span> ({correctAnswers}/{questions.length} correct answers)
+              </div>
+            </div>
+            <div className="guideray-student-practice-test-failure-actions">
+              <button 
+                className="guideray-student-practice-test-retry-btn"
+                onClick={() => window.location.reload()}
+              >
+                <FaRedo /> Try Again
+              </button>
+              <button 
+                className="guideray-student-practice-test-back-btn"
+                onClick={() => navigate(`/video-courses/${courseId}`)}
+              >
+                Back to Course
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,30 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-const GuideRayStudentProgressCalendar = () => {
+const GuideRayStudentProgressCalendar = ({ studentId }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [viewMode, setViewMode] = useState('month'); // 'month' or 'year'
+  const [viewMode, setViewMode] = useState('month');
+  const [progressData, setProgressData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Sample progress data (replace with your actual data)
-  const generateProgressData = (year, month) => {
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const today = new Date();
-    const data = [];
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      
-      if (date > today) {
-        data.push({ status: 'future' });
-      } else {
-        // Randomly generate completion status for demo
-        data.push({
-          status: Math.random() > 0.4 ? 'completed' : 'incomplete'
-        });
+  useEffect(() => {
+    const fetchProgressData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/consistancy/${studentId}`);
+        const data = await response.json();
+        if (data.success) {
+          setProgressData(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching progress data:', error);
+      } finally {
+        setLoading(false);
       }
-    }
-    return data;
+    };
+
+    fetchProgressData();
+  }, [studentId]);
+
+  const getProgressForDate = (date) => {
+    if (!progressData || !progressData.dp) return 'incomplete';
+    
+    const dateStr = date.toISOString().split('T')[0];
+    const progressDay = progressData.dp.find(day => {
+      const dayStr = new Date(day.d).toISOString().split('T')[0];
+      return dayStr === dateStr;
+    });
+    
+    return progressDay ? 'completed' : 'incomplete';
   };
 
   const navigateMonth = (direction) => {
@@ -44,12 +55,14 @@ const GuideRayStudentProgressCalendar = () => {
   };
 
   const renderMonthView = () => {
+    if (loading) return <div className="guderay-progress-loading">Loading...</div>;
+    if (!progressData) return <div className="guderay-progress-error">No data available</div>;
+
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const monthName = currentDate.toLocaleString('default', { month: 'long' });
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDayOfMonth = new Date(year, month, 1).getDay();
-    const progressData = generateProgressData(year, month);
     const today = new Date();
 
     // Create empty cells for days before the 1st of the month
@@ -95,7 +108,7 @@ const GuideRayStudentProgressCalendar = () => {
           {Array.from({ length: daysInMonth }).map((_, day) => {
             const date = new Date(year, month, day + 1);
             const isToday = date.toDateString() === today.toDateString();
-            const dayStatus = progressData[day].status;
+            const dayStatus = date > today ? 'future' : getProgressForDate(date);
 
             return (
               <div

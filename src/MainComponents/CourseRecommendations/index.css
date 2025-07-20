@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Base Styles */
+
+
+.guideray-student-courses-dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Layout */
+.guideray-student-courses-layout {
+  display: flex;
+  gap: 10px;
+  margin-left: -20px;
+}
+
+.guideray-student-courses-main-content123 {
+  flex: 1;
+  min-width: 0;
+  border: 0.5px solid rgb(239, 239, 239);
+  padding: 20px;
+  border-radius: 20px;
+  min-width: 1050px;
+}
+
+/* Recommendations */
+.guideray-recommendations-container {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.guideray-recommendations-dark-mode {
+  background: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.guideray-recommendations-title {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(110, 142, 251, 0.2);
+}
+
+.guideray-recommendations-dark-mode .guideray-recommendations-title {
+  color: #f0f0f0;
+  border-bottom-color: rgba(138, 158, 251, 0.3);
+}
+
+.guideray-recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.guideray-recommendation-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.guideray-recommendation-dark-mode {
+  background: #2a2a2a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.guideray-recommendation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.guideray-recommendation-dark-mode:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+.guideray-recommendation-image-container {
+  height: 160px;
+  overflow: hidden;
+}
+
+.guideray-recommendation-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.guideray-recommendation-card:hover .guideray-recommendation-image {
+  transform: scale(1.05);
+}
+
+.guideray-recommendation-play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: white;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.guideray-recommendation-card:hover .guideray-recommendation-play-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.guideray-recommendation-content {
+  padding: 15px;
+}
+
+.guideray-recommendation-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.guideray-recommendation-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.guideray-recommendation-dark-mode .guideray-recommendation-title {
+  color: #f0f0f0;
+}
+
+.guideray-recommendation-rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.8rem;
+}
+
+.guideray-recommendation-star {
+  color: #ddd;
+  font-size: 0.8rem;
+}
+
+.guideray-recommendation-dark-mode .guideray-recommendation-star {
+  color: #555;
+}
+
+.guideray-recommendation-star.filled {
+  color: #ffc107;
+}
+
+.guideray-recommendation-category {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.guideray-recommendation-dark-mode .guideray-recommendation-category {
+  color: #aaa;
+}
+
+.guideray-recommendation-category-icon {
+  font-size: 0.9rem;
+  color: #6e8efb;
+}
+
+.guideray-recommendation-dark-mode .guideray-recommendation-category-icon {
+  color: #8a9efb;
+}
+
+.guideray-recommendation-meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.guideray-recommendation-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: #666;
+  background: rgba(110, 142, 251, 0.1);
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.guideray-recommendation-dark-mode .guideray-recommendation-meta-item {
+  color: #aaa;
+  background: rgba(138, 158, 251, 0.1);
+}
+
+.guideray-recommendation-meta-icon {
+  font-size: 0.8rem;
+  color: #6e8efb;
+}
+
+.guideray-recommendation-dark-mode .guideray-recommendation-meta-icon {
+  color: #8a9efb;
+}
+
+.guideray-recommendation-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guideray-recommendation-price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.guideray-recommendation-dark-mode .guideray-recommendation-price {
+  color: #f0f0f0;
+}
+
+.guideray-recommendation-price-icon {
+  color: #6e8efb;
+}
+
+.guideray-recommendation-dark-mode .guideray-recommendation-price-icon {
+  color: #8a9efb;
+}
+
+.guideray-recommendation-enroll-button {
+  background: linear-gradient(to right, #6e8efb, #a777e3);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.guideray-recommendation-enroll-button:hover {
+  background: linear-gradient(to right, #5a7ae3, #8a5ae0);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(110, 142, 251, 0.3);
+}
+
+/* Rest of your existing CSS remains the same */
+/* ... (all the previous CSS you provided) ... */
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .guideray-student-courses-layout {
+    flex-direction: column;
+  }
+  
+  .guideray-student-courses-sidebar {
+    width: 100%;
+    position: static;
+    margin-top: 30px;
+  }
+  
+  .guideray-recommendations-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 20px;
+  }
+  
+  .guideray-recommendation-card {
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .guideray-recommendations-list {
+    flex-direction: column;
+  }
+  
+  .guideray-recommendation-card {
+    min-width: auto;
+  }
+}

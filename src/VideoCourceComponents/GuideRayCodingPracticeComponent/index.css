@@ -2,11 +2,16 @@
 .GuideRayCodingPracticeComponent-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: #1a202c;
-
   margin-bottom: 50px;
+}
+
+/* Loading State */
+.GuideRayCodingPracticeComponent-loading {
+  text-align: center;
+  padding: 2rem;
+  color: #4b5563;
 }
 
 /* Header Section */
@@ -36,6 +41,50 @@
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
+}
+
+/* Progress Container */
+.GuideRayCodingPracticeComponent-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  background: #f8fafc;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.GuideRayCodingPracticeComponent-progress-bar {
+  flex-grow: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.GuideRayCodingPracticeComponent-progress-fill {
+  height: 100%;
+  background: #4f46e5;
+  transition: width 0.3s ease;
+}
+
+.GuideRayCodingPracticeComponent-progress-text {
+  font-weight: 600;
+  color: #4b5563;
+  min-width: 80px;
+}
+
+.GuideRayCodingPracticeComponent-completed-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #10b981;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 /* Table Wrapper */
@@ -91,6 +140,15 @@
   border-radius: 50%;
   background-color: #e5e7eb;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.GuideRayCodingPracticeComponent-status-indicator.completed {
+  background-color: #10b981;
+  border-color: #10b981;
+  color: white;
 }
 
 .GuideRayCodingPracticeComponent-row:hover .GuideRayCodingPracticeComponent-status-indicator {
@@ -103,6 +161,8 @@
   font-weight: 600;
   color: #1f2937;
   transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
 }
 
 .GuideRayCodingPracticeComponent-row:hover .GuideRayCodingPracticeComponent-problem-title {
@@ -190,6 +250,120 @@
   transform: translateX(2px);
 }
 
+/* Completed Rows */
+.GuideRayCodingPracticeComponent-row.completed {
+  background-color: #f0fdf4;
+}
+
+.GuideRayCodingPracticeComponent-row.completed:hover {
+  background-color: #dcfce7;
+}
+
+.GuideRayCodingPracticeComponent-row.completed .GuideRayCodingPracticeComponent-status-indicator {
+  background-color: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.GuideRayCodingPracticeComponent-row.completed .GuideRayCodingPracticeComponent-problem-title {
+  color: #10b981;
+}
+
+.GuideRayCodingPracticeComponent-completed-icon {
+  margin-left: 0.5rem;
+  color: #10b981;
+}
+
+/* Mark as Read Button */
+.GuideRayCodingPracticeComponent-mark-read-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #999;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-button:hover:not(:disabled) {
+  background-color: rgba(79, 70, 229, 0.1);
+  color: #007BFF;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-button.completed {
+  color: #007BFF;
+  cursor: default;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-button.completed .GuideRayCodingPracticeComponent-mark-read-circle {
+  background-color: #007BFF;
+  border-color: #007BFF;
+  color: white;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-button:hover:not(:disabled) .GuideRayCodingPracticeComponent-mark-read-circle {
+  border-color: #007BFF;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-circle .check-icon {
+  stroke-width: 3px;
+  font-size: 10px;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.GuideRayCodingPracticeComponent-mark-read-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+  bottom: calc(100% + 5px);
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .GuideRayCodingPracticeComponent-container {
@@ -216,6 +390,16 @@
 }
 
 @media (max-width: 480px) {
+  .GuideRayCodingPracticeComponent-progress-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .GuideRayCodingPracticeComponent-progress-bar {
+    width: 100%;
+  }
+  
   .GuideRayCodingPracticeComponent-problem-tags {
     display: none;
   }

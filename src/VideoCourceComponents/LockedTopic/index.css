@@ -1,0 +1,44 @@
+.locked-topic-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background-color: #f9fafb;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  min-height: 300px;
+}
+
+.locked-icon {
+  color: #9ca3af;
+  margin-bottom: 1.5rem;
+}
+
+.locked-title {
+  font-size: 1.5rem;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.locked-message {
+  font-size: 1rem;
+  color: #6b7280;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+/* Dark mode styles */
+.locked-topic-container.dark {
+  background-color: #2e2e3a;
+}
+
+.locked-topic-container.dark .locked-title {
+  color: #f3f4f6;
+}
+
+.locked-topic-container.dark .locked-message {
+  color: #d1d5db;
+}

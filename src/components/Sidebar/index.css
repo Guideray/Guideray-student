@@ -2,7 +2,7 @@
 /* Luxurious Sidebar with Collapse Feature */
 .guideray-student-dashboard-sidebar {
   width: 240px;
-  background: rgb(3, 0, 81);
+  background: #000f54;
   color: white;
   display: flex;
   flex-direction: column;
@@ -242,4 +242,234 @@
 
 .guideray-student-dashboard-sidebar.collapsed ~ .guideray-student-dashboard-content-area {
   margin-left: 240px;
+}
+
+.guideray-student-navbar-profile-container {
+  position: relative;
+  margin-top: 10px;
+}
+
+.guideray-student-navbar-profile {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  user-select: none;
+  margin: 10px;
+}
+
+.guideray-student-navbar-profile:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.guideray-student-navbar-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  object-fit: cover;
+}
+
+.guideray-avatar-fallback {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.guideray-student-navbar-profile-info {
+  margin-left: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.guideray-student-navbar-profile-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.guideray-student-navbar-profile-email {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.guideray-student-navbar-dropdown-arrow {
+  margin-left: auto;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.guideray-student-navbar-dropdown-arrow.open {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.guideray-student-navbar.collapsed .guideray-student-navbar-profile-info,
+.guideray-student-navbar.collapsed .guideray-student-navbar-dropdown-arrow {
+  opacity: 0;
+  width: 0;
+  margin-left: 0;
+}
+
+/* Profile Dropdown */
+.guideray-student-navbar-profile-dropdown {
+
+  position: absolute;
+  bottom: 100%;
+  left: 10px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  width: 280px;
+  z-index: 100001;
+  animation: guideray-fadeInUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transform-origin: bottom left;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.guideray-student-navbar-profile-header {
+  padding: 16px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  display: flex;
+  gap: 12px;
+}
+
+.guideray-student-navbar-avatar-wrapper {
+  position: relative;
+}
+
+.guideray-student-navbar-profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.guideray-premium-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+.guideray-premium-icon {
+  font-size: 10px;
+  color: white;
+}
+
+.guideray-student-navbar-profile-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.guideray-student-navbar-user-name {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.guideray-premium-tag {
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.guideray-student-navbar-user-email {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.guideray-student-navbar-id-container {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.guideray-student-navbar-id-text {
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-family: monospace;
+}
+
+.guideray-student-navbar-dropdown-menu {
+  padding: 8px 0;
+}
+
+.guideray-student-navbar-dropdown-item {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guideray-student-navbar-dropdown-item:hover {
+  background: #f9fafb;
+  color: #111827;
+}
+
+.guideray-student-navbar-item-icon {
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.guideray-profile-icon {
+  color: #6366f1;
+}
+
+.guideray-settings-icon {
+  color: #6b7280;
+}
+
+.guideray-logout-icon {
+  color: #ef4444;
+}
+
+.guideray-student-navbar-dropdown-divider {
+  height: 1px;
+  background: #f3f4f6;
+  margin: 6px 0;
 }

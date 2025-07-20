@@ -1,120 +1,643 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  FaPython, FaClock, FaBook, FaLaptopCode, FaJs, FaDatabase, FaServer
+  FaClock, FaBook, FaLaptopCode, FaLock,
+  FaSpinner, FaExclamationTriangle, FaRegStar, FaStar,
+  FaChevronRight, FaArrowLeft, FaCheck, FaUserGraduate,
+  FaSearch, FaServer, FaCertificate, FaTimes, FaChartLine, FaChevronDown, FaArrowRight
 } from 'react-icons/fa';
-import { MdComputer } from 'react-icons/md';
+import { MdComputer, MdCloud, MdCode, MdDataUsage } from 'react-icons/md';
+import { IoMdNotificationsOutline, IoMdNotifications } from 'react-icons/io';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import LearningPathModal from '../LearningPathModal';
+import PaymentButton from '../../components/PaymentButton';
+import CourseRecommendations from '../CourseRecommendations';
+import CourseDetails from '../StudentCourseDetails';
 import './index.css';
 
-const CourseCard = ({ course, darkMode }) => {
+const CourseCard = ({ course, darkMode, isLocked, onRegisterClick, userData, isRegistered, onNotifyClick, isNotified, onCourseVisit }) => {
   const navigate = useNavigate();
 
-  const handleExploreClick = () => {
-    navigate('/intro', { state: { path: course.path } });
+  const handleActionClick = () => {
+    if (isLocked && !isRegistered) {
+      onRegisterClick(course);
+    } else {
+      navigate(`/courses/${course._id}`);
+    }
   };
 
-  const getCourseIcon = (courseName) => {
-    const name = courseName.toLowerCase();
-    if (name.includes('python')) return <FaPython className="guideray-student-course-icon" />;
-    if (name.includes('javascript')) return <FaJs className="guideray-student-course-icon" />;
-    if (name.includes('data')) return <FaDatabase className="guideray-student-course-icon" />;
-    if (name.includes('web')) return <FaServer className="guideray-student-course-icon" />;
-    return <MdComputer className="guideray-student-course-icon" />;
+  const handleVisitCourse = async () => {
+    await onCourseVisit(course);
+    navigate(`/video-courses/${course._id}`);
   };
 
-  const getCourseImage = (courseName) => {
-    const name = courseName.toLowerCase();
-    if (name.includes('python')) return 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1000&q=80';
-    if (name.includes('javascript')) return 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&w=1000&q=80';
-    if (name.includes('data')) return 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80';
-    if (name.includes('web')) return 'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1000&q=80';
-    return 'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1000&q=80';
+  const getCategoryIcon = () => {
+    switch(course.category) {
+      case 'Programming': return <MdCode className="guideray-student-courses-card-category-icon" />;
+      case 'Data Science': return <MdDataUsage className="guideray-student-courses-card-category-icon" />;
+      case 'Web Development': return <FaServer className="guideray-student-courses-card-category-icon" />;
+      case 'DevOps': return <MdCloud className="guideray-student-courses-card-category-icon" />;
+      default: return <MdComputer className="guideray-student-courses-card-category-icon" />;
+    }
+  };
+
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStars) {
+        stars.push(<FaStar key={i} className="guideray-student-courses-card-star filled" />);
+      } else if (i === fullStars + 1 && hasHalfStar) {
+        stars.push(<FaStar key={i} className="guideray-student-courses-card-star half" />);
+      } else {
+        stars.push(<FaRegStar key={i} className="guideray-student-courses-card-star" />);
+      }
+    }
+    return stars;
+  };
+
+  const handleNotify = (e) => {
+    e.stopPropagation();
+    onNotifyClick(course);
   };
 
   return (
-    <div className={`guideray-student-course-card ${darkMode ? 'guideray-student-course-dark' : 'guideray-student-course-light'}`}>
-      <div className="guideray-student-course-image-container">
-        <img
-          src={getCourseImage(course.courseName)}
-          alt={course.courseName}
-          className="guideray-student-course-image"
-          loading="lazy"
-        />
-        <div className="guideray-student-course-icon-container">
-          {getCourseIcon(course.courseName)}
+    <div className={`guideray-student-courses-card ${darkMode ? 'guideray-student-courses-dark-mode' : ''} ${isRegistered ? 'registered' : ''}`}>
+      <div className="guideray-student-courses-card-image-container">
+        <img src={course.image} alt={course.name} className="guideray-student-courses-card-image" />
+        {isLocked && !isRegistered && (
+          <div className="guideray-student-courses-card-lock-overlay">
+            <FaLock />
+            <span>Enroll to access</span>
+          </div>
+        )}
+        <div className="guideray-student-courses-card-category">
+          {getCategoryIcon()}
+          <span>{course.category}</span>
         </div>
+        {!isLocked && !isRegistered && (
+          <button 
+            className="guideray-student-courses-card-notify-btn"
+            onClick={handleNotify}
+          >
+            {isNotified ? 
+              <IoMdNotifications style={{color: '#6e8efb'}} /> : 
+              <IoMdNotificationsOutline />}
+          </button>
+        )}
       </div>
 
-      <div className="guideray-student-course-content">
-        <h3 className="guideray-student-course-title">{course.courseName}</h3>
-        <p className="guideray-student-course-description">{course.description}</p>
+      <div className="guideray-student-courses-card-content">
+        <div className="guideray-student-courses-card-header">
+          <h3 className="guideray-student-courses-card-title">{course.name}</h3>
+          <div className="guideray-student-courses-card-rating">
+            {renderStars(course.rating)}
+            <span>{course.rating.toFixed(1)}</span>
+          </div>
+        </div>
 
-        <div className="guideray-student-course-meta">
-          <div className="guideray-student-course-meta-item">
-            <FaClock className="guideray-student-course-meta-icon" />
+        <p className="guideray-student-courses-card-description">{course.description}</p>
+
+        <div className="guideray-student-courses-card-meta">
+          <div className="guideray-student-courses-card-meta-item">
+            <FaClock className="guideray-student-courses-card-meta-icon" />
             <span>{course.duration}</span>
           </div>
-          <div className="guideray-student-course-meta-item">
-            <FaBook className="guideray-student-course-meta-icon" />
-            <span>15 Modules</span>
+          <div className="guideray-student-courses-card-meta-item">
+            <FaBook className="guideray-student-courses-card-meta-icon" />
+            <span>{course.modules} Modules</span>
           </div>
-          <div className="guideray-student-course-meta-item">
-            <FaLaptopCode className="guideray-student-course-meta-icon" />
-            <span>Hands-on Projects</span>
-          </div>
+          {course.projects && (
+            <div className="guideray-student-courses-card-meta-item">
+              <FaLaptopCode className="guideray-student-courses-card-meta-icon" />
+              <span>{course.projects} Projects</span>
+            </div>
+          )}
         </div>
 
-        <button
-          className={`guideray-student-course-enroll-button ${darkMode ? 'guideray-student-course-dark' : 'guideray-student-course-light'}`}
-          onClick={handleExploreClick}
+        <div className="guideray-student-courses-card-footer">
+          <span className="guideray-student-courses-card-students">
+            <FaUserGraduate /> {course.students.toLocaleString()}
+          </span>
+          {isRegistered ? (
+            <button
+              className="guideray-student-courses-card-button visit-course"
+              onClick={handleVisitCourse}
+            >
+              Visit Course
+              <FaArrowRight className="arrow-icon" />
+            </button>
+          ) : isLocked ? (
+            <button
+              className="guideray-student-courses-card-button enroll"
+              onClick={handleActionClick}
+            >
+              Enroll Now
+              <FaChevronRight className="arrow-icon" />
+            </button>
+          ) : (
+            <button
+              className={`guideray-student-courses-card-button ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}
+              onClick={handleActionClick}
+            >
+              Explore Course
+              <FaChevronRight className="arrow-icon" />
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+
+const StudentCourse = ({ darkMode, userData }) => {
+  const navigate = useNavigate();
+  const [cookies] = useCookies(['studentToken']);
+  const [courses, setCourses] = useState({
+    registered: [],
+    available: [],
+    upcoming: []
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [activeTab, setActiveTab] = useState('registered');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [notifiedCourses, setNotifiedCourses] = useState([]);
+  const [showLearningPath, setShowLearningPath] = useState(false);
+  const [initializedCourses, setInitializedCourses] = useState([]);
+
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        if (!userData || !userData.id) {
+          throw new Error('User data not available');
+        }
+
+        setLoading(true);
+        
+        const api = axios.create({
+          baseURL: 'http://localhost:3001/api',
+          withCredentials: true,
+          headers: {
+            'Authorization': `Bearer ${cookies.studentToken}`
+          }
+        });
+
+        const [registeredRes, availableRes, upcomingRes] = await Promise.all([
+          api.get(`/students/${userData.id}/courses`),
+          api.get('/courses/available'),
+          api.get('/courses/upcoming')
+        ]);
+
+        setCourses({
+          registered: registeredRes.data?.data || [],
+          available: availableRes.data?.data || [],
+          upcoming: upcomingRes.data?.data || []
+        });
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching courses:', err);
+        setError(err.response?.data?.error || err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, [userData, cookies.studentToken]);
+
+  const checkCourseInitialized = async (course) => {
+    try {
+      const api = axios.create({
+        baseURL: 'http://localhost:3000',
+        withCredentials: true,
+        headers: {
+          'Authorization': `Bearer ${cookies.studentToken}`
+        }
+      });
+
+      const response = await api.get(`/api/consistancy/progress/${userData.id}/${course._id}`);
+      return response.data?.data !== null;
+    } catch (error) {
+      // If we get a 404, it means the course is not initialized
+      if (error.response?.status === 404) {
+        return false;
+      }
+      console.error('Error checking course initialization:', error);
+      return false;
+    }
+  };
+
+  const initializeConsistencyTracking = async (course) => {
+    try {
+      // First check if the course is already initialized
+      const isInitialized = await checkCourseInitialized(course);
+      if (isInitialized) {
+        return;
+      }
+
+      const api = axios.create({
+        baseURL: 'http://localhost:3000',
+        withCredentials: true,
+        headers: {
+          'Authorization': `Bearer ${cookies.studentToken}`
+        }
+      });
+
+      // Initialize with topicCount 20 (as requested)
+      await api.post(`/api/consistancy/initialize/${userData.id}`, {
+        courses: [{
+          courseName: course._id,
+          topicCount: 20
+        }],
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+      });
+
+      // Mark this course as initialized
+      setInitializedCourses([...initializedCourses, course._id]);
+    } catch (error) {
+      console.error('Error initializing consistency tracking:', error);
+    }
+  };
+
+  const handleRegisterClick = (course) => {
+    setSelectedCourse(course);
+    setShowDetails(true);
+  };
+
+  const handleCourseVisit = async (course) => {
+    // Initialize consistency tracking when visiting a course for the first time
+    await initializeConsistencyTracking(course);
+  };
+
+  const handleNotifyClick = (course) => {
+    if (notifiedCourses.includes(course._id)) {
+      setNotifiedCourses(notifiedCourses.filter(id => id !== course._id));
+    } else {
+      setNotifiedCourses([...notifiedCourses, course._id]);
+    }
+  };
+
+  const handleEnroll = async () => {
+    try {
+      if (!userData || !userData.id) {
+        throw new Error('User data not available');
+      }
+
+      const api = axios.create({
+        baseURL: 'http://localhost:3001/api',
+        withCredentials: true,
+        headers: {
+          'Authorization': `Bearer ${cookies.studentToken}`
+        }
+      });
+
+      const response = await api.post(`/students/${userData.id}/courses`, {
+        courseId: selectedCourse._id
+      });
+
+      if (response.status !== 201) {
+        throw new Error('Registration failed');
+      }
+
+      setCourses(prev => ({
+        registered: [...prev.registered, selectedCourse],
+        available: prev.available.filter(c => c._id !== selectedCourse._id),
+        upcoming: prev.upcoming
+      }));
+      
+      return true;
+    } catch (err) {
+      setError(err.response?.data?.error || err.message);
+      return false;
+    }
+  };
+
+  const isCourseRegistered = (courseId) => {
+    return courses.registered.some(course => course._id === courseId);
+  };
+
+  const filteredCourses = (type) => {
+    let courseList = courses[type];
+    if (searchTerm) {
+      courseList = courseList.filter(course =>
+        course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.category.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    return courseList;
+  };
+
+  if (loading) {
+    return (
+      <div className={`guideray-student-courses-loading ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
+        <FaSpinner className="guideray-student-courses-spinner" />
+        <p>Loading your courses...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`guideray-student-courses-error ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
+        <FaExclamationTriangle className="guideray-student-courses-error-icon" />
+        <h3>Oops! Something went wrong</h3>
+        <p>{error}</p>
+        <button 
+          className="guideray-student-courses-error-retry"
+          onClick={() => window.location.reload()}
         >
-          Explore Course
-          <span className="guideray-student-course-button-arrow">→</span>
+          Try Again
         </button>
       </div>
-    </div>
-  );
-};
+    );
+  }
 
-const StudentCource = ({ darkMode }) => {
-  const courses = [
-    {
-      courseName: "Python Mastery: From Basics to Advanced",
-      description: "A comprehensive Python course covering everything from basic syntax to advanced topics like object-oriented programming, file handling, and modules. Perfect for beginners and intermediate learners.",
-      duration: "12 weeks",
-      path: "PythonData"
-    },
-    {
-      courseName: "JavaScript Fundamentals",
-      description: "Master the language of the web with this complete JavaScript course covering ES6+ features, DOM manipulation, and async programming.",
-      duration: "8 weeks",
-      path: "javascript_data.json"
-    },
-    {
-      courseName: "Data Science with Python",
-      description: "Learn data analysis, visualization, and machine learning using Python's powerful data science stack including Pandas, NumPy, and Matplotlib.",
-      duration: "10 weeks",
-      path: "data_science_data.json"
-    },
-    {
-      courseName: "Web Development Bootcamp",
-      description: "Full-stack web development course covering HTML, CSS, JavaScript, React, Node.js, and MongoDB to build modern web applications.",
-      duration: "14 weeks",
-      path: "webdev_data.json"
-    }
-  ];
+  if (showDetails && selectedCourse) {
+    return (
+      <CourseDetails 
+        course={selectedCourse} 
+        darkMode={darkMode} 
+        onBack={() => setShowDetails(false)}
+        onEnroll={handleEnroll}
+        userData={userData}
+        courses={courses}
+        onCourseVisit={handleCourseVisit}
+      />
+    );
+  }
 
   return (
-    <div className={`guideray-student-course-grid-container ${darkMode ? 'guideray-student-course-dark' : 'guideray-student-course-light'}`}>
-      <h2 className="guideray-student-course-grid-title">Featured Courses</h2>
-      <p className="guideray-student-course-grid-subtitle">Start your learning journey with our most popular courses</p>
-      <div className="guideray-student-course-grid">
-        {courses.map((course, index) => (
-          <CourseCard key={index} course={course} darkMode={darkMode} />
-        ))}
+    <div className={`guideray-student-courses-container ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
+      {showLearningPath && (
+        <LearningPathModal 
+          darkMode={darkMode} 
+          onClose={() => setShowLearningPath(false)} 
+        />
+      )}
+
+      <div className="guideray-student-courses-layout">
+        <div className="guideray-student-courses-main-content123">
+          <div className="guideray-student-courses-tabs-container">
+            <div className="guideray-student-courses-search-container">
+              <div className="guideray-student-courses-search-wrapper">
+                <div className="guideray-student-courses-search">
+                  <FaSearch className="guideray-student-courses-search-icon" />
+                  <input
+                    type="text"
+                    placeholder="Search courses by name, category or description..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="guideray-student-courses-search-input"
+                  />
+                </div>
+                <button 
+                  className="guideray-student-courses-learning-path-button"
+                  onClick={() => setShowLearningPath(true)}
+                >
+                  <FaChartLine className="guideray-student-courses-learning-path-icon" />
+                  View Learning Paths
+                </button>
+              </div>
+            </div>
+
+            <div className="guideray-student-courses-tabs">
+              <button
+                className={`guideray-student-courses-tab ${activeTab === 'registered' ? 'active' : ''}`}
+                onClick={() => setActiveTab('registered')}
+              >
+                <FaUserGraduate className="guideray-student-courses-tab-icon" />
+                My Courses
+                {courses.registered.length > 0 && (
+                  <span className="guideray-student-courses-tab-badge">{courses.registered.length}</span>
+                )}
+              </button>
+              <button
+                className={`guideray-student-courses-tab ${activeTab === 'available' ? 'active' : ''}`}
+                onClick={() => setActiveTab('available')}
+              >
+                <FaBook className="guideray-student-courses-tab-icon" />
+                Available Courses
+                <span className="guideray-student-courses-tab-badge">{courses.available.length}</span>
+              </button>
+              <button
+                className={`guideray-student-courses-tab ${activeTab === 'upcoming' ? 'active' : ''}`}
+                onClick={() => setActiveTab('upcoming')}
+              >
+                <FaClock className="guideray-student-courses-tab-icon" />
+                Upcoming Courses
+                <span className="guideray-student-courses-tab-badge">{courses.upcoming.length}</span>
+              </button>
+            </div>
+          </div>
+
+          <section className="guideray-student-courses-section">
+            {activeTab === 'registered' && (
+              <>
+                {filteredCourses('registered').length > 0 ? (
+                  <div className="guideray-student-courses-grid">
+                    {filteredCourses('registered').map(course => (
+                      <CourseCard 
+                        key={course._id}
+                        course={course}
+                        darkMode={darkMode}
+                        isLocked={false}
+                        isRegistered={true}
+                        onRegisterClick={handleRegisterClick}
+                        userData={userData}
+                        onNotifyClick={handleNotifyClick}
+                        isNotified={notifiedCourses.includes(course._id)}
+                        onCourseVisit={handleCourseVisit}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className={`guideray-student-courses-empty ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
+                    <img 
+                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png" 
+                      alt="No courses yet" 
+                      className="guideray-student-courses-empty-image"
+                    />
+                    <h3>Your learning journey starts here</h3>
+                    <p>You haven't enrolled in any courses yet. Explore our catalog to find the perfect course for you.</p>
+                    <div className="guideray-student-courses-empty-actions">
+                      <button 
+                        className="guideray-student-courses-explore-button"
+                        onClick={() => setActiveTab('available')}
+                      >
+                        Browse Available Courses
+                      </button>
+                      <button 
+                        className={`guideray-student-courses-path-button ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}
+                        onClick={() => setShowLearningPath(true)}
+                      >
+                        <FaChartLine /> Find My Learning Path
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeTab === 'available' && (
+              <>
+                {filteredCourses('available').length > 0 ? (
+                  <div className="guideray-student-courses-grid">
+                    {filteredCourses('available').map(course => (
+                      <CourseCard 
+                        key={course._id}
+                        course={course}
+                        darkMode={darkMode}
+                        isLocked={true}
+                        isRegistered={isCourseRegistered(course._id)}
+                        onRegisterClick={handleRegisterClick}
+                        userData={userData}
+                        onNotifyClick={handleNotifyClick}
+                        isNotified={notifiedCourses.includes(course._id)}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className={`guideray-student-courses-empty ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
+                    <img 
+                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png" 
+                      alt="No courses found" 
+                      className="guideray-student-courses-empty-image"
+                    />
+                    <h3>No courses match your search</h3>
+                    <p>Try adjusting your search or browse our upcoming courses.</p>
+                    <button 
+                      className="guideray-student-courses-explore-button"
+                      onClick={() => {
+                        setSearchTerm('');
+                        setActiveTab('upcoming');
+                      }}
+                    >
+                      View Upcoming Courses
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeTab === 'upcoming' && (
+              <>
+                {filteredCourses('upcoming').length > 0 ? (
+                  <div className="guideray-student-courses-grid">
+                    {filteredCourses('upcoming').map(course => (
+                      <div key={course._id} className={`guideray-student-courses-card ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
+                        <div className="guideray-student-courses-card-image-container">
+                          <img src={course.image} alt={course.name} className="guideray-student-courses-card-image" />
+                          <div className="guideray-student-courses-card-upcoming-badge">Coming Soon</div>
+                          <div className="guideray-student-courses-card-category">
+                            {course.category === 'Data Science' ? 
+                              <MdDataUsage className="guideray-student-courses-card-category-icon" /> : 
+                              <MdCloud className="guideray-student-courses-card-category-icon" />}
+                            <span>{course.category}</span>
+                          </div>
+                          <button 
+                            className="guideray-student-courses-card-notify-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleNotifyClick(course);
+                            }}
+                          >
+                            {notifiedCourses.includes(course._id) ? 
+                              <IoMdNotifications style={{color: '#6e8efb'}} /> : 
+                              <IoMdNotificationsOutline />}
+                          </button>
+                        </div>
+
+                        <div className="guideray-student-courses-card-content">
+                          <div className="guideray-student-courses-card-header">
+                            <h3 className="guideray-student-courses-card-title">{course.name}</h3>
+                            <div className="guideray-student-courses-card-rating">
+                              {[...Array(5)].map((_, i) => (
+                                i < Math.floor(course.rating) ? 
+                                  <FaStar key={i} className="guideray-student-courses-card-star filled" /> : 
+                                  <FaRegStar key={i} className="guideray-student-courses-card-star" />
+                              ))}
+                              <span>{course.rating.toFixed(1)}</span>
+                            </div>
+                          </div>
+
+                          <p className="guideray-student-courses-card-description">{course.description}</p>
+
+                          <div className="guideray-student-courses-card-meta">
+                            <div className="guideray-student-courses-card-meta-item">
+                              <FaClock className="guideray-student-courses-card-meta-icon" />
+                              <span>{course.duration}</span>
+                            </div>
+                            <div className="guideray-student-courses-card-meta-item">
+                              <FaBook className="guideray-student-courses-card-meta-icon" />
+                              <span>{course.modules} Modules</span>
+                            </div>
+                          </div>
+
+                          <div className="guideray-student-courses-card-footer">
+                            <span className="guideray-student-courses-card-students">{course.students.toLocaleString()} interested</span>
+                            <button 
+                              className={`guideray-student-courses-card-button ${notifiedCourses.includes(course._id) ? 'notified' : ''}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleNotifyClick(course);
+                              }}
+                            >
+                              {notifiedCourses.includes(course._id) ? 
+                                <IoMdNotifications /> : 
+                                <IoMdNotificationsOutline />}
+                              {notifiedCourses.includes(course._id) ? ' Notified' : ' Notify Me'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className={`guideray-student-courses-empty ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
+                    <img 
+                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png" 
+                      alt="No upcoming courses" 
+                      className="guideray-student-courses-empty-image"
+                    />
+                    <h3>No upcoming courses at this time</h3>
+                    <p>Check back later for new course announcements or browse our available courses.</p>
+                    <button 
+                      className="guideray-student-courses-explore-button"
+                      onClick={() => {
+                        setSearchTerm('');
+                        setActiveTab('available');
+                      }}
+                    >
+                      View Available Courses
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </section>
+        </div>
+
+        <div className="guideray-student-courses-sidebar">
+          <CourseRecommendations 
+            courses={courses.available.slice(0, 5)} 
+            darkMode={darkMode} 
+            onRegisterClick={handleRegisterClick}
+            userData={userData}
+          />
+        </div>
       </div>
     </div>
   );
 };
 
-export default StudentCource;
+export default StudentCourse;

@@ -1,5 +1,6 @@
 /* Base Styles */
 .guideray-student-dashboard-container {
+  background-color: white;
   overflow: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -23,7 +24,6 @@
 }
 
 .guideray-student-dashboard-content {
-  margin-left: 240px;
   display: flex;
   flex-direction: column;
   min-width: calc(100vw - 250px);
@@ -32,18 +32,35 @@
   box-sizing: border-box;
   overflow: hidden;
   max-height: 100vh;
-  gap: 20px;
+  gap: 0px;
   padding: 4px;
 }
-.guideray-student-dashboard-right-column-main{
+
+.guideray-student-dashboard-right-column-main {
   min-width: 100%;
   display: flex;
+  gap: 17px;
   flex-direction: row;
-  justify-content: flex-end;
-  height: 75vh;
+  justify-content: space-between;
+  height: 81vh;
+}
+.guideray-student-dashboard-left-column{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
 
 }
+.guideray-student-dashboard-left-column11{
+  overflow: auto;
+  height: 80vh;
 
+}
+.guideray-student-dashboard-left-column11::-webkit-scrollbar{
+    display: none;
+}
 .guideray-student-dashboard-left-content {
   display: flex;
   flex-direction: column;
@@ -53,10 +70,11 @@
   overflow: hidden;
 }
 
+
 /* Banner Styles */
 .guideray-student-dashboard-banner-container {
-  height: 160px;
-  min-width: 75%;
+  height: 120px;
+  min-width: 70%;
   max-width: 1300px;
   background: linear-gradient(135deg, #2d0088 0%, #00328a 50%, #0003a6 100%);
   border-radius: 18px;
@@ -88,8 +106,8 @@
 }
 
 .guideray-student-dashboard-banner-image {
-  width: 90px;
-  height: 90px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
   filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
 }
@@ -100,7 +118,7 @@
 }
 
 .guideray-student-dashboard-banner-title {
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   font-weight: 800;
   margin: 0;
   text-shadow: 0 3px 6px rgba(0,0,0,0.3);
@@ -109,7 +127,7 @@
 }
 
 .guideray-student-dashboard-banner-subtitle {
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   font-weight: 500;
   margin: 10px 0 0 0;
   opacity: 0.95;
@@ -124,146 +142,370 @@
 }
 
 .guideray-student-dashboard-banner-dot {
-  width: 12px;
-  height: 12px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: rgba(255,255,255,0.4);
 }
 
-/* Enhanced Header Container */
-.guideray-student-dashboard-header-container {
+
+.guideray-student-dashboard-bottom-section {
+  max-width: 100%;
+  min-width: 100%;
+  max-height: none;
+  min-height: 125px;
+  max-height: 125px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  overflow: hidden;
+  gap: 7px;
   justify-content: space-between;
-  gap: 15px;
-  padding: 20px;
-  height: 160px;
-  width: 340px;
-  background-color: #010044;
-  border-radius: 16px;
-  margin-left: 2px;
-  position: relative;
-  margin-right: 10px;
-  transition: all 0.3s ease;
-  z-index: 10;
+  align-items: flex-start;
 }
 
-.guideray-student-dashboard-header-container.guideray-student-dashboard-active {
+/* Right Column Layout */
+.guideray-student-dashboard-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 493px;
+  min-width: 320px;
+  min-height: calc(100vh - 200px);
+  /* border: 1px solid #e0e0e0; */
+    border: 3px solid #f4f4f4;
+
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow-y: auto;
+  padding-right: 10px;
+  padding: 15px;
+  box-sizing: content-box;
+}
+
+.guideray-student-dashboard-calendar-container,
+.guideray-student-dashboard-progress-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  
+}
+
+.guideray-student-dashboard-dark .guideray-student-dashboard-calendar-container,
+.guideray-student-dashboard-dark .guideray-student-dashboard-progress-container {
+  background-color: #2d3748;
+}
+
+/* Calendar Container Specific Styles */
+.guideray-student-dashboard-calendar-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Progress Bar Container Specific Styles */
+.guideray-student-dashboard-progress-container {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .guideray-student-dashboard-right-column {
+    width: 350px;
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 992px) {
+  .guideray-student-dashboard-content {
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+  }
+  
+  .guideray-student-dashboard-right-column {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    min-width: 100%;
+    margin-top: 20px;
+  }
+  
+  .guideray-student-dashboard-calendar-container,
+  .guideray-student-dashboard-progress-container {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .guideray-student-dashboard-right-column {
+    flex-direction: column;
+  }
+  
+  .guideray-student-dashboard-progress-container {
+    height: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .guideray-student-dashboard-content {
+    padding: 15px;
+  }
+  
+  .guideray-student-dashboard-calendar-container,
+  .guideray-student-dashboard-progress-container {
+    padding: 15px;
+  }
+}
+
+/* Auth Popup Styles */
+.guideray-student-dashboard-auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 119, 255, 0.177);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 
-.guideray-student-dashboard-header-top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.guideray-student-dashboard-left-column-inner1
+{
+display: flex;
+flex-direction: column;
+justify-content: flex-start !important;
+padding-top: 6px;
+gap: 6px;
+align-items: flex-end;
+
+
+}
+.guideray-student-dashboard-left-column-inner1 > * {
+  margin: 0 !important;  /* Remove auto margins */
 }
 
-.guideray-student-dashboard-header-bottom-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.guideray-student-dashboard-auth-popup {
+  position: relative;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow: hidden;
+  padding: 30px;
+  animation: fadeIn 0.3s ease-out;
 }
 
-/* Enhanced Theme Toggle */
-.guideray-student-dashboard-theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background-color: #f8f9fa;
-  border-radius: 24px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.guideray-student-dashboard-theme-toggle:hover {
-  background-color: #e9ecef;
-  transform: translateY(-1px);
-}
-
-.guideray-student-dashboard-theme-toggle.guideray-student-dashboard-active {
-  background-color: #2c3e50;
+.guideray-student-dashboard-dark .guideray-student-dashboard-auth-popup {
+  background-color: #2d3748;
   color: white;
 }
 
-.guideray-student-dashboard-toggle-circle {
-  width: 24px;
-  height: 24px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header Container */
+.guideray-student-dashboard-header-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #010044;
+  border-radius: 16px;
+  padding: 20px;
+  height: 120px;
+  width: 357px;
+  position: relative;
+  z-index: 10;
+}
+
+.guideray-student-dashboard-header-main-section {
+  flex: 0.8;
+  display: flex;
+  align-items: center;
+}
+
+.guideray-student-dashboard-header-controls-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 120px;
+  width: 90px;
+  padding-top: 20px;
+  align-items: center;
+  background-color: #0003a6;
+  gap: 30px;
+  border-radius: 10px;
+}
+
+/* Profile Section */
+.guideray-student-dashboard-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.guideray-student-dashboard-profile-image-container {
+  position: relative;
+}
+
+.guideray-student-dashboard-profile-image {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background-color: white;
+  object-fit: cover;
+  border: 3px solid #4dabf7;
+  box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
+}
+
+.guideray-student-dashboard-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  font-size: 24px;
+  font-weight: 600;
+  border: 3px solid #4dabf7;
 }
 
-.guideray-student-dashboard-theme-toggle.guideray-student-dashboard-active .guideray-student-dashboard-toggle-circle {
-  background-color: #4a5568;
+.guideray-student-dashboard-profile-details {
+  flex: 1;
+}
+
+.guideray-student-dashboard-profile-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
   color: white;
+  margin-bottom: 6px;
 }
 
-.guideray-student-dashboard-toggle-label {
+.guideray-student-dashboard-profile-email {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.guideray-student-dashboard-profile-id {
+  margin: 0;
   font-size: 13px;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
 }
 
-/* Enhanced Notifications */
-.guideray-student-dashboard-notification-bell {
+/* Toggle Button */
+.guideray-student-dashboard-toggle-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.guideray-student-dashboard-theme-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  padding: 0;
+  background-color: #2c3e501e;
+  transition: background-color 0.3s ease;
+}
+
+.guideray-student-dashboard-theme-toggle.guideray-student-dashboard-light {
+  background-color: #f8f9fa26;
+}
+
+.guideray-student-dashboard-toggle-track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.guideray-student-dashboard-toggle-thumb {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #4dabf700;
+  top: 2px;
+  left: 2px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background-color: #f8f9fa;
-  border-radius: 24px;
-  cursor: pointer;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.guideray-student-dashboard-theme-toggle.guideray-student-dashboard-dark .guideray-student-dashboard-toggle-thumb {
+  transform: translateX(0px);
+  background-color: #4a55681f;
+}
+
+/* Notification Bell */
+.guideray-student-dashboard-notification-container {
   position: relative;
+}
+
+.guideray-student-dashboard-notification-bell {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .guideray-student-dashboard-notification-bell:hover {
-  background-color: #e9ecef;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .guideray-student-dashboard-notification-bell.guideray-student-dashboard-active {
   background-color: #4dabf7;
-  color: white;
-}
-
-.guideray-student-dashboard-notification-bell.guideray-student-dashboard-active .guideray-student-dashboard-notification-icon {
-  color: white;
-}
-
-.guideray-student-dashboard-notification-bell.guideray-student-dashboard-active .guideray-student-dashboard-notification-text {
-  color: white;
 }
 
 .guideray-student-dashboard-notification-icon {
-  color: #343a40;
-  transition: color 0.3s ease;
-}
-
-.guideray-student-dashboard-notification-text {
-  font-size: 14px;
-  font-weight: 500;
-  color: #343a40;
-  transition: color 0.3s ease;
+  color: white;
 }
 
 .guideray-student-dashboard-notification-badge {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 8px;
+  right: 8px;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background-color: #ff6b6b;
-  border: 2px solid #ffffff;
+  border: 2px solid #010044;
 }
 
+/* Notification Dropdown */
 .guideray-student-dashboard-notification-dropdown {
   position: absolute;
   top: 60px;
@@ -272,12 +514,11 @@
   max-height: 400px;
   background-color: white;
   border-radius: 12px;
-  z-index: 1001;
+  z-index: 1004;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175);
-  
   overflow: hidden;
 }
 
@@ -292,10 +533,8 @@
   border-bottom: 1px solid #f1f3f5;
   display: flex;
   justify-content: space-between;
-  display: flex;
   align-items: center;
   background-color: #f8f9fa;
-  
 }
 
 .guideray-student-dashboard-dropdown-title {
@@ -388,320 +627,4 @@
 
 .guideray-student-dashboard-dropdown-footer:hover {
   background-color: #f1f3f5;
-}
-
-/* Enhanced Profile */
-.guideray-student-dashboard-profile {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background-color: #f8f9fa;
-  justify-content: space-between;
-  border-radius: 24px;
-  cursor: pointer;
-  position: relative;
-  min-width: 100%;
-  transition: all 0.3s ease;
-}
-
-.guideray-student-dashboard-profile:hover {
-  background-color: #e9ecef;
-}
-
-.guideray-student-dashboard-profile.guideray-student-dashboard-active {
-  background-color: #4dabf7;
-  color: white;
-}
-
-.guideray-student-dashboard-profile.guideray-student-dashboard-active .guideray-student-dashboard-profile-name {
-  color: white;
-}
-
-.guideray-student-dashboard-profile-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.guideray-student-dashboard-profile-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: #343a40;
-  transition: color 0.3s ease;
-}
-
-.guideray-student-dashboard-profile-image {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #e9ecef;
-  transition: all 0.3s ease;
-}
-
-.guideray-student-dashboard-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 600;
-  border: 2px solid #e9ecef;
-}
-
-.guideray-student-dashboard-profile:hover .guideray-student-dashboard-profile-image,
-.guideray-student-dashboard-profile:hover .guideray-student-dashboard-avatar {
-  border-color: #ced4da;
-  transform: scale(1.05);
-}
-
-.guideray-student-dashboard-navbar-dropdown-container {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: 320px;
-  background-color: white;
-  border-radius: 12px;
-  z-index: 1001;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175);
-  overflow: hidden;
-}
-
-.guideray-student-dashboard-profile.guideray-student-dashboard-active .guideray-student-dashboard-navbar-dropdown-container {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.guideray-student-dashboard-navbar-profile-header {
-  padding: 20px;
-  display: flex;
-  gap: 15px;
-  border-bottom: 1px solid #f1f3f5;
-  background-color: #f8f9fa;
-}
-
-.guideray-student-dashboard-navbar-profile-image {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid white;
-}
-
-.guideray-student-dashboard-navbar-avatar-fallback {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 600;
-  border: 3px solid white;
-}
-
-.guideray-student-dashboard-navbar-profile-details {
-  flex-grow: 1;
-  overflow: hidden;
-}
-
-.guideray-student-dashboard-navbar-name-container {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-
-.guideray-student-dashboard-navbar-user-name {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #343a40;
-}
-
-.guideray-student-dashboard-navbar-verification-badge {
-  color: #20c997;
-  font-size: 14px;
-}
-
-.guideray-student-dashboard-navbar-user-email {
-  margin: 0;
-  font-size: 13px;
-  color: #868e96;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.guideray-student-dashboard-navbar-dropdown-menu {
-  padding: 8px 0;
-}
-
-.guideray-student-dashboard-navbar-menu-item {
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.guideray-student-dashboard-navbar-menu-item:hover {
-  background-color: #f8f9fa;
-}
-
-.guideray-student-dashboard-navbar-menu-icon {
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 15px;
-  color: #868e96;
-  transition: color 0.2s ease;
-}
-
-.guideray-student-dashboard-navbar-menu-item:hover .guideray-student-dashboard-navbar-menu-icon {
-  color: #495057;
-}
-
-.guideray-student-dashboard-navbar-menu-text {
-  font-size: 14px;
-  flex-grow: 1;
-  color: #495057;
-  font-weight: 500;
-}
-
-.guideray-student-dashboard-navbar-menu-arrow {
-  color: #adb5bd;
-  transition: transform 0.2s ease;
-}
-
-.guideray-student-dashboard-navbar-menu-item:hover .guideray-student-dashboard-navbar-menu-arrow {
-  transform: translateX(3px);
-}
-
-.guideray-student-dashboard-navbar-logout-item {
-  border-top: 1px solid #f1f3f5;
-  margin-top: 4px;
-}
-
-.guideray-student-dashboard-navbar-logout-item .guideray-student-dashboard-navbar-menu-text,
-.guideray-student-dashboard-navbar-logout-item .guideray-student-dashboard-navbar-menu-icon {
-  color: #ff6b6b;
-}
-
-.guideray-student-dashboard-navbar-logout-item:hover {
-  background-color: #fff5f5;
-}
-
-.guideray-student-dashboard-bottom-section {
-  max-width: 100%;
-  min-width: 100%;
-  max-height: none;
-  min-height: 205px;
-  max-height: 205px;
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-/* Right Column Layout */
-.guideray-student-dashboard-right-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 390px;
-  min-width: 320px;
-  height: calc(100vh - 40px);
-  overflow-y: auto;
-  padding-right: 10px;
-}
-
-.guideray-student-dashboard-calendar-container,
-.guideray-student-dashboard-progress-container {
-  background-color: #ffffff;
-  border-radius: 12px;
-}
-
-.guideray-student-dashboard-dark .guideray-student-dashboard-calendar-container,
-.guideray-student-dashboard-dark .guideray-student-dashboard-progress-container {
-  background-color: #2d3748;
-}
-
-/* Calendar Container Specific Styles */
-.guideray-student-dashboard-calendar-container {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Progress Bar Container Specific Styles */
-.guideray-student-dashboard-progress-container {
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1200px) {
-  .guideray-student-dashboard-right-column {
-    width: 350px;
-    min-width: 280px;
-  }
-}
-
-@media (max-width: 992px) {
-  .guideray-student-dashboard-content {
-    flex-direction: column;
-    height: auto;
-    max-height: none;
-  }
-  
-  .guideray-student-dashboard-right-column {
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    min-width: 100%;
-    margin-top: 20px;
-  }
-  
-  .guideray-student-dashboard-calendar-container,
-  .guideray-student-dashboard-progress-container {
-    flex: 1;
-  }
-}
-
-@media (max-width: 768px) {
-  .guideray-student-dashboard-right-column {
-    flex-direction: column;
-  }
-  
-  .guideray-student-dashboard-progress-container {
-    height: auto;
-  }
-}
-
-@media (max-width: 576px) {
-  .guideray-student-dashboard-content {
-    padding: 15px;
-  }
-  
-  .guideray-student-dashboard-calendar-container,
-  .guideray-student-dashboard-progress-container {
-    padding: 15px;
-  }
 }

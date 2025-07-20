@@ -3,7 +3,6 @@ import axios from 'axios';
 import './index.css';
 import Editor from '@monaco-editor/react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
 import { 
   FiAlertCircle, 
   FiCheckCircle, 
@@ -15,21 +14,30 @@ import {
   FiEdit2,
   FiHelpCircle,
   FiMail,
-
   FiTerminal,
-
   FiEyeOff,
-
   FiPlus,
   FiMinus,
- 
   FiX,
+  FiAward,
+  FiBarChart2,
+  FiTrendingUp
 } from 'react-icons/fi';
 
-const GuidedRayCodingPlatform = ({ darkMode  }) => {
+const GuidedRayCodingPlatform = ({ darkMode }) => {
   const location = useLocation();
-  const problems = location.state
-  console.log(problems)
+  const problems = location.state || {};
+  
+  const {
+    topicIndex,
+    courseId,
+    studentId,
+    studentName,
+    topic,
+    concept
+  } = problems;
+  const navigate = useNavigate();
+
   // State for coding environment
   const [languages, setLanguages] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState('python');
@@ -50,44 +58,50 @@ const GuidedRayCodingPlatform = ({ darkMode  }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showOutputPopup, setShowOutputPopup] = useState(false);
   const [popupTitle, setPopupTitle] = useState('');
+  const [showStatusModal, setShowStatusModal] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
+  const [statusType, setStatusType] = useState('');
+  const [completionPercentage, setCompletionPercentage] = useState(0);
+  const [userProgress, setUserProgress] = useState(null);
   
   const editorRef = useRef(null);
   const problemSectionRef = useRef(null);
   const outputPopupRef = useRef(null);
+  const statusModalRef = useRef(null);
   
   const [currentProblem, setCurrentProblem] = useState(0);
 
   // Supported languages with templates
-const languageData = {
-  python: {
-    template: `# ${problems.problems[currentProblem].title}\n# Sample input: ${problems.problems[currentProblem].sampleInput || ''}`,
-    extension: 'py'
-  },
-  javascript: {
-    template: `// ${problems.problems[currentProblem].title}\n// Sample input: ${problems.problems[currentProblem].sampleInput || ''}`,
-    extension: 'js'
-  },
-  java: {
-    template: `public class Main {\n    public static void main(String[] args) {\n        // ${problems.problems[currentProblem].title}\n        // Sample input: ${problems.problems[currentProblem].sampleInput || ''}\n    }\n}`,
-    extension: 'java'
-  },
-  c: {
-    template: `#include <stdio.h>\n\nint main() {\n    // ${problems.problems[currentProblem].title}\n    // Sample input: ${problems.problems[currentProblem].sampleInput || ''}\n    return 0;\n}`,
-    extension: 'c'
-  },
-  cpp: {
-    template: `#include <iostream>\nusing namespace std;\n\nint main() {\n    // ${problems.problems[currentProblem].title}\n    // Sample input: ${problems.problems[currentProblem].sampleInput || ''}\n    return 0;\n}`,
-    extension: 'cpp'
-  },
-  kotlin: {
-    template: `fun main() {\n    // ${problems.problems[currentProblem].title}\n    // Sample input: ${problems.problems[currentProblem].sampleInput || ''}\n}`,
-    extension: 'kt'
-  },
-  sqlite3: {
-    template: `-- ${problems.problems[currentProblem].title}\n-- Sample input: ${problems.problems[currentProblem].sampleInput || ''}`,
-    extension: 'sql'
-  }
-};
+  const languageData = {
+    python: {
+      template: `# ${problems.problems?.[currentProblem]?.title || 'Problem'}\n# Sample input: ${problems.problems?.[currentProblem]?.sampleInput || ''}`,
+      extension: 'py'
+    },
+    javascript: {
+      template: `// ${problems.problems?.[currentProblem]?.title || 'Problem'}\n// Sample input: ${problems.problems?.[currentProblem]?.sampleInput || ''}`,
+      extension: 'js'
+    },
+    java: {
+      template: `public class Main {\n    public static void main(String[] args) {\n        // ${problems.problems?.[currentProblem]?.title || 'Problem'}\n        // Sample input: ${problems.problems?.[currentProblem]?.sampleInput || ''}\n    }\n}`,
+      extension: 'java'
+    },
+    c: {
+      template: `#include <stdio.h>\n\nint main() {\n    // ${problems.problems?.[currentProblem]?.title || 'Problem'}\n    // Sample input: ${problems.problems?.[currentProblem]?.sampleInput || ''}\n    return 0;\n}`,
+      extension: 'c'
+    },
+    cpp: {
+      template: `#include <iostream>\nusing namespace std;\n\nint main() {\n    // ${problems.problems?.[currentProblem]?.title || 'Problem'}\n    // Sample input: ${problems.problems?.[currentProblem]?.sampleInput || ''}\n    return 0;\n}`,
+      extension: 'cpp'
+    },
+    kotlin: {
+      template: `fun main() {\n    // ${problems.problems?.[currentProblem]?.title || 'Problem'}\n    // Sample input: ${problems.problems?.[currentProblem]?.sampleInput || ''}\n}`,
+      extension: 'kt'
+    },
+    sqlite3: {
+      template: `-- ${problems.problems?.[currentProblem]?.title || 'Problem'}\n-- Sample input: ${problems.problems?.[currentProblem]?.sampleInput || ''}`,
+      extension: 'sql'
+    }
+  };
 
   function getDefaultCode(problemId) {
     switch(problemId) {
@@ -123,7 +137,7 @@ const languageData = {
       
       case 3: // Fibonacci
         return selectedLanguage === 'python' ?
-          `n = int(input())\na, b = 0, 1\nfor _ in range(n):\n    print(a, end=' ')\na, b = b, a + b` :
+          `n = int(input())\na, b = 0, 1\nfor _ in range(n):\n    print(a, end=' ')\n    a, b = b, a + b` :
           selectedLanguage === 'javascript' ?
           `let n = parseInt(readline());\nlet a = 0, b = 1;\nlet res = [];\nfor(let i = 0; i < n; i++) {\n    res.push(a);\n    [a, b] = [b, a + b];\n}\nconsole.log(res.join(' '));` :
           selectedLanguage === 'java' ?
@@ -175,6 +189,22 @@ const languageData = {
 
     fetchLanguages();
   }, []);
+
+  // Fetch user progress
+  useEffect(() => {
+    const fetchUserProgress = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/consistancy/progress/${studentId}/${courseId}`);
+        setUserProgress(response.data.data);
+      } catch (error) {
+        console.error('Error fetching user progress:', error);
+      }
+    };
+    
+    if (studentId && courseId) {
+      fetchUserProgress();
+    }
+  }, [studentId, courseId]);
 
   // Update code template when language or problem changes
   useEffect(() => {
@@ -438,8 +468,9 @@ const languageData = {
         content: code
       }];
 
-      let allPassed = true;
+      let passedCount = 0;
       const results = [];
+      const totalTests = problems.problems[currentProblem].testCases.length;
 
       // Run all test cases
       for (const testCase of problems.problems[currentProblem].testCases) {
@@ -458,7 +489,6 @@ const languageData = {
             error: response.data.compile.stderr,
             isPublic: testCase.isPublic
           });
-          allPassed = false;
           continue;
         } else if (response.data.run && response.data.run.stderr) {
           results.push({
@@ -467,7 +497,6 @@ const languageData = {
             error: response.data.run.stderr,
             isPublic: testCase.isPublic
           });
-          allPassed = false;
           continue;
         }
 
@@ -483,21 +512,88 @@ const languageData = {
           isPublic: testCase.isPublic
         });
 
-        if (!passed) allPassed = false;
+        if (passed) passedCount++;
       }
 
       setTestResults(results);
+      
+      const percentage = Math.round((passedCount / totalTests) * 100);
+      setCompletionPercentage(percentage);
+      const allPassed = percentage === 100;
+      
       setOutput(allPassed ? 
         '🎉 All test cases passed! Your solution is correct!' : 
-        'Some test cases failed. Please check your code.');
+        percentage >= 70 ?
+        `Good job! You passed ${percentage}% of test cases. Keep practicing to reach 100%!` :
+        `Your answer didn't meet the requirements (${percentage}% passed). Please try again.`);
       
       setError(null);
       setShowOutputPopup(true);
+      
+      // Show status modal based on results
+      if (percentage >= 70) {
+        if (percentage === 100) {
+          setStatusMessage('Perfect! All test cases passed!');
+          setStatusType('success');
+        } else {
+          setStatusMessage(`Good job! You passed ${percentage}% of test cases. Keep practicing to reach 100%!`);
+          setStatusType('partial');
+        }
+        setShowStatusModal(true);
+        
+        // Update progress if needed
+        await updateProgress(percentage);
+      } else {
+        setStatusMessage(`Your answer didn't meet the requirements (${percentage}% passed). Please try again or review the course material.`);
+        setStatusType('fail');
+        setShowStatusModal(true);
+      }
     } catch (err) {
       setOutput(`Error: ${err.response?.data?.message || 'Failed to submit code'}`);
       setShowOutputPopup(true);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Update user progress with correct problem ID
+  const updateProgress = async (percentage) => {
+    if (!studentId || !courseId) return;
+    
+    try {
+      const questionId = problems.problems[currentProblem].id; // Use the actual problem ID
+      
+      // Check if we need to update based on existing progress
+      let shouldUpdate = true;
+      
+      if (userProgress && userProgress.cp && userProgress.cp.length > 0) {
+        const courseProgress = userProgress.cp.find(cp => cp.n === courseId);
+        if (courseProgress && courseProgress.t && courseProgress.t.length > topicIndex) {
+          const topicProgress = courseProgress.t[topicIndex];
+          if (topicProgress.cq) {
+            const existingQuestion = topicProgress.cq.find(q => q.q === questionId);
+            if (existingQuestion && existingQuestion.p >= percentage) {
+              shouldUpdate = false;
+            }
+          }
+        }
+      }
+      
+      if (shouldUpdate) {
+        const payload = {
+          courseName: courseId,
+          topicIndex: topicIndex,
+          completionType: "coding",
+          codingQuestion: {
+            q: questionId, // Use the actual problem ID
+            p: percentage
+          }
+        };
+        
+        await axios.post(`http://localhost:3000/api/consistancy/progress/${studentId}`, payload);
+      }
+    } catch (error) {
+      console.error('Error updating progress:', error);
     }
   };
 
@@ -545,11 +641,14 @@ const languageData = {
     }
   }, [fontSize]);
 
-  // Close popup when clicking outside
+  // Close popups when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (outputPopupRef.current && !outputPopupRef.current.contains(event.target)) {
         setShowOutputPopup(false);
+      }
+      if (statusModalRef.current && !statusModalRef.current.contains(event.target)) {
+        setShowStatusModal(false);
       }
     };
 
@@ -577,7 +676,7 @@ const languageData = {
             ref={problemSectionRef}
           >
             <div className="guidedray-coding-platform-problem-selector">
-              {problems.problems.map((problem, index) => (
+              {problems.problems?.map((problem, index) => (
                 <button
                   key={problem.id}
                   className={`guidedray-coding-platform-problem-tab ${currentProblem === index ? 'active' : ''}`}
@@ -593,12 +692,14 @@ const languageData = {
 
             <div className="guidedray-coding-platform-problem-content">
               <div className="problem-header">
-                <h2>{problems.problems[currentProblem].title}</h2>
+                <h2>{problems.problems?.[currentProblem]?.title}</h2>
                 <div className="problem-meta">
-                  <span className="problem-id">Problem ID: {problems.problems[currentProblem].id}</span>
-                  <span className={`problem-difficulty difficulty-${problems.problems[currentProblem].difficulty.toLowerCase()}`}>
-                    {problems.problems[currentProblem].difficulty}
-                  </span>
+                  <span className="problem-id">Problem ID: {problems.problems?.[currentProblem]?.id}</span>
+                  {problems.problems?.[currentProblem]?.difficulty && (
+                    <span className={`problem-difficulty difficulty-${problems.problems[currentProblem].difficulty.toLowerCase()}`}>
+                      {problems.problems[currentProblem].difficulty}
+                    </span>
+                  )}
                 </div>
               </div>
               
@@ -628,11 +729,11 @@ const languageData = {
 
               {activeTab === 'problem' && (
                 <div className="guidedray-coding-platform-problem-description">
-                  <p>{problems.problems[currentProblem].description}</p>
+                  <p>{problems.problems?.[currentProblem]?.description}</p>
                   
                   <h3>Constraints</h3>
                   <ul className="guidedray-coding-platform-constraints">
-                    {problems.problems[currentProblem].constraints.map((constraint, index) => (
+                    {problems.problems?.[currentProblem]?.constraints?.map((constraint, index) => (
                       <li key={index}>
                         <FiAlertCircle size={14} />
                         {constraint}
@@ -644,20 +745,20 @@ const languageData = {
                     <div className="io-block">
                       <h3>Sample Input</h3>
                       <div className="guidedray-coding-platform-code-block">
-                        <pre>{problems.problems[currentProblem].sampleInput}</pre>
+                        <pre>{problems.problems?.[currentProblem]?.sampleInput}</pre>
                       </div>
                     </div>
                     
                     <div className="io-block">
                       <h3>Sample Output</h3>
                       <div className="guidedray-coding-platform-code-block">
-                        <pre>{problems.problems[currentProblem].sampleOutput}</pre>
+                        <pre>{problems.problems?.[currentProblem]?.sampleOutput}</pre>
                       </div>
                     </div>
                   </div>
                   
                   <h3>Explanation</h3>
-                  <p>{problems.problems[currentProblem].explanation}</p>
+                  <p>{problems.problems?.[currentProblem]?.explanation}</p>
                 </div>
               )}
 
@@ -698,7 +799,7 @@ const languageData = {
               <div className="guidedray-coding-platform-editor-header">
                 <div className="file-info">
                   <span className="guidedray-coding-platform-file-name">
-                    {fileName}.{languageData[selectedLanguage].extension}
+                    {fileName}.{languageData[selectedLanguage]?.extension}
                   </span>
                   <span className="language-version">
                     {selectedLanguage.charAt(0).toUpperCase() + selectedLanguage.slice(1)} {selectedVersion}
@@ -851,7 +952,7 @@ const languageData = {
                   onChange={(e) => setUserInput(e.target.value)}
                   className="guidedray-coding-platform-input"
                   placeholder="Enter custom input here"
-                                    style={{ fontSize: `${fontSize - 2}px` }}
+                  style={{ fontSize: `${fontSize - 2}px` }}
                   disabled={isLoading}
                 />
               )}
@@ -876,6 +977,43 @@ const languageData = {
                 </button>
               </div>
               <div className="guidedray-coding-platform-output-popup-content">
+                {/* Completion Percentage Meter - Only shown for submissions */}
+                {popupTitle === 'Submission Results' && (
+                  <div className="completion-meter-container">
+                    <div className="completion-meter-header">
+                      <FiBarChart2 size={20} />
+                      <h4>Completion Percentage</h4>
+                    </div>
+                    <div className="completion-meter">
+                      <div 
+                        className="completion-meter-fill"
+                        style={{ width: `${completionPercentage}%` }}
+                      ></div>
+                      <div className="completion-meter-label">
+                        {completionPercentage}%
+                      </div>
+                    </div>
+                    <div className="completion-message">
+                      {completionPercentage === 100 ? (
+                        <div className="perfect-score">
+                          <FiAward size={18} />
+                          <span>Perfect score! All test cases passed!</span>
+                        </div>
+                      ) : completionPercentage >= 70 ? (
+                        <div className="good-score">
+                          <FiTrendingUp size={18} />
+                          <span>Good job! Keep practicing to reach 100%!</span>
+                        </div>
+                      ) : (
+                        <div className="improve-score">
+                          <FiAlertCircle size={18} />
+                          <span>Keep trying! Review the problem and try again.</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 {output && (
                   <pre 
                     className="guidedray-coding-platform-output" 
@@ -956,6 +1094,57 @@ const languageData = {
           </div>
         )}
 
+        {/* Status Modal */}
+        {showStatusModal && (
+          <div className="guidedray-coding-platform-status-modal-overlay">
+            <div 
+              className={`guidedray-coding-platform-status-modal ${statusType}`}
+              ref={statusModalRef}
+            >
+              <div className="status-modal-header">
+                {statusType === 'success' ? (
+                  <FiCheckCircle size={24} className="status-icon" />
+                ) : statusType === 'partial' ? (
+                  <FiAlertCircle size={24} className="status-icon" />
+                ) : (
+                  <FiXCircle size={24} className="status-icon" />
+                )}
+                <h3>
+                  {statusType === 'success' ? 'Success!' : 
+                   statusType === 'partial' ? 'Almost There!' : 'Try Again'}
+                </h3>
+              </div>
+              <div className="status-modal-content">
+                <p>{statusMessage}</p>
+                {statusType === 'fail' && (
+                  <div className="status-modal-actions">
+                    <button 
+                      className="try-again-button"
+                      onClick={() => setShowStatusModal(false)}
+                    >
+                      Try Again
+                    </button>
+                    <button 
+                      className="review-button"
+                      onClick={() => navigate(`/video-courses/${courseId}`)}
+                    >
+                      Review Course
+                    </button>
+                  </div>
+                )}
+                {(statusType === 'success' || statusType === 'partial') && (
+                  <button 
+                    className="continue-button"
+                    onClick={() => setShowStatusModal(false)}
+                  >
+                    Continue
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         <footer className="guidedray-coding-platform-footer">
           <div className="footer-left">
             <div className="status-indicator">
@@ -967,7 +1156,7 @@ const languageData = {
             </span>
           </div>
           <div className="footer-right">
-            <p>© {new Date().getFullYear()} GuidedRay Coding Platform | Powered by Piston API</p>
+            <p>© {new Date().getFullYear()} GuideRay Coding Platform | Powered by Piston API</p>
             <div className="guidedray-coding-platform-footer-links">
               <a href="#">
                 <FiBook size={14} />
