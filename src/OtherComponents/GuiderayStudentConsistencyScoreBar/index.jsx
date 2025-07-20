@@ -78,8 +78,10 @@ const GuiderayStudentConsistencyScoreBar = ({ darkMode, studentId }) => {
 
   if (loading) {
     return (
-      <div className={`guideray-student-streak-card ${darkMode ? 'dark' : 'light'}`}>
-        <div className="guideray-student-streak-loading">Loading consistency data...</div>
+      <div className={`guideray-student-streak-card loading ${darkMode ? 'dark' : 'light'}`}>
+        <div className="guideray-student-streak-loader">
+          <div className="guideray-student-streak-spinner"></div>
+        </div>
       </div>
     );
   }

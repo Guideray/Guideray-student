@@ -12,8 +12,6 @@ const GuiderayStudentRecentCourses = () => {
     const [error, setError] = useState(null);
     const studentId = "684e8df52d038e0ae2fa5d26"; // Default student ID
 
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -81,8 +79,6 @@ const GuiderayStudentRecentCourses = () => {
         };
     };
 
-    console.log(availableCourses)
-
     const GuiderayStudentRecentCourses_handleCourseClick = (course, isAvailable = false) => {
         if (isAvailable) {
             navigate('/course-details', { state: { course } });
@@ -101,8 +97,6 @@ const GuiderayStudentRecentCourses = () => {
             }
         });
     };
-
-  
 
     const GuiderayStudentRecentCourses_getProgressText = (course) => {
         const currentTopic = GuiderayStudentRecentCourses_getCurrentTopic(course);
@@ -133,11 +127,8 @@ const GuiderayStudentRecentCourses = () => {
 
     if (loading) {
         return (
-            <div className="GuiderayStudentRecentCourses-container">
-                <h2 className="GuiderayStudentRecentCourses-title">Your Learning Dashboard</h2>
-                <div className="GuiderayStudentRecentCourses-loading">
-                    Loading your courses...
-                </div>
+            <div className="GuiderayStudentRecentCourses-container GuiderayStudentRecentCourses-loading-state">
+                <div className="GuiderayStudentRecentCourses-loader"></div>
             </div>
         );
     }
@@ -145,7 +136,6 @@ const GuiderayStudentRecentCourses = () => {
     if (error) {
         return (
             <div className="GuiderayStudentRecentCourses-container">
-                <h2 className="GuiderayStudentRecentCourses-title">Your Learning Dashboard</h2>
                 <div className="GuiderayStudentRecentCourses-error">
                     Error: {error}
                 </div>
@@ -181,8 +171,8 @@ const GuiderayStudentRecentCourses = () => {
                                     <div className="GuiderayStudentRecentCourses-card-content">
                                         <h3 className="GuiderayStudentRecentCourses-card-title">{courseDetails.title}</h3>
                                         <div className='GuiderayStudentRecentCourses-card-title-inner'>
-                                        <p className="GuiderayStudentRecentCourses-category">{courseDetails.category}</p>
-                                        <p className="GuiderayStudentRecentCourses-concept">{courseDetails.concept}</p>
+                                            <p className="GuiderayStudentRecentCourses-category">{courseDetails.category}</p>
+                                            <p className="GuiderayStudentRecentCourses-concept">{courseDetails.concept}</p>
                                         </div>
                                         <p className="GuiderayStudentRecentCourses-progress">
                                             {GuiderayStudentRecentCourses_getProgressText(course)}
@@ -222,8 +212,8 @@ const GuiderayStudentRecentCourses = () => {
                                 </div>
                                 <div className="GuiderayStudentRecentCourses-card-content">
                                     <div className='GuiderayStudentRecentCourses-card-content-1'>
-                                    <h3 className="GuiderayStudentRecentCourses-card-title">{course.name}</h3>
-                                    <p className="GuiderayStudentRecentCourses-category">{course.category}</p>
+                                        <h3 className="GuiderayStudentRecentCourses-card-title">{course.name}</h3>
+                                        <p className="GuiderayStudentRecentCourses-category">{course.category}</p>
                                     </div>
                                     <div className="GuiderayStudentRecentCourses-rating">
                                         {GuiderayStudentRecentCourses_renderStars(course.rating)}

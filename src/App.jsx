@@ -22,8 +22,13 @@ import GuideRayStudentProgressCalendar from './OtherComponents/StudentProgressBo
 import StudentAuth from './MainComponents/StudentAuth';
 import PaymentStatus from './components/PaymentStatus';
 import CourseDetailsRouteWrapper from './MainComponents/CourseDetailsRouteWrapper';
+
 // Styles
 const styles = `
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
   max-width: 100vw;
@@ -31,16 +36,26 @@ const styles = `
   overflow-y: auto;
   max-height: 100vh;
   background-color: white;
+  box-sizing: content-box;
 }
 
-.spinnering {
+/* New Loading Overlay Styles */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 1);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 100vw;
-  overflow-x: hidden;
-  overflow-y: auto;
-  min-height: 100vh;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.loading-overlay.dark {
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .spinner-container {
@@ -71,7 +86,6 @@ const styles = `
   border-right-color: #50c9ba;
   animation-direction: reverse;
   animation-duration: 2.2s;
-  z-index: 10001;
 }
 
 .spinner-ring:nth-child(2) {
@@ -80,7 +94,6 @@ const styles = `
   border-top-color: #a178df;
   border-right-color: #a178df;
   animation-duration: 2s;
-  z-index: 10001;
 }
 
 .spinner-ring:nth-child(3) {
@@ -89,17 +102,14 @@ const styles = `
   border-top-color: #ff00fb5d;
   border-right-color: #ff00fb5d;
   animation-duration: 1.6s;
-  z-index: 10001;
 }
 
 .center-icon {
   position: relative;
   width: 100px;
-  background-color: rgba(255, 255, 255, 0);
   height: 100px;
   z-index: 2;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   border-radius: 100px;
@@ -111,27 +121,18 @@ const styles = `
   fill: #4a90e2;
 }
 
+.intoit {
+  height: 50px;
+  margin-left: 3px;
+  margin-bottom: 3px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
   }
 }
 
@@ -164,25 +165,20 @@ const styles = `
   }
 }
 
-.intoit {
-  height: 50px;
-  margin-left: 3px;
-  margin-bottom: 3px;
-}
-
 .dark-theme {
   background-color: #1a202c;
   color: #f7fafc;
 }
 
 .light-theme {
-  background-color: #f7fafc;
+  background-color: #ffffffff;
   color: #1a202c;
 }
 
 .main-content {
   transition: margin-left 0.3s ease;
-  width: 100%;
+  min-width: calc(100vw - 243px);
+  max-width: calc(100vw - 243px);
 }
 
 .main-content.with-navbar {
@@ -194,6 +190,8 @@ const styles = `
 
 .main-content.sidebar-expanded {
   margin-left: 243px;
+  min-width: calc(100vw - 243px);
+  max-width: calc(100vw - 243px);
 }
 
 .main-content.standalone {
@@ -202,12 +200,26 @@ const styles = `
 }
 
 @media (max-width: 768px) {
-  .loader-text { font-size: 1rem; }
-  .spinner { width: 140px; height: 140px; }
-  .spinner-ring:nth-child(1) { width: 70px; height: 70px; }
-  .spinner-ring:nth-child(2) { width: 60px; height: 60px; }
-  .spinner-ring:nth-child(3) { width: 50px; height: 50px; }
-  .center-icon { width: 80px; height: 80px; }
+  .spinner-container { 
+    width: 140px; 
+    height: 140px; 
+  }
+  .spinner-ring:nth-child(1) { 
+    width: 70px; 
+    height: 70px; 
+  }
+  .spinner-ring:nth-child(2) { 
+    width: 60px; 
+    height: 60px; 
+  }
+  .spinner-ring:nth-child(3) { 
+    width: 50px; 
+    height: 50px; 
+  }
+  .center-icon { 
+    width: 80px; 
+    height: 80px; 
+  }
   
   .main-content.sidebar-collapsed,
   .main-content.sidebar-expanded {
@@ -239,7 +251,7 @@ function AppContent() {
   const location = useLocation();
 
   // Memoized route configurations
-    const routeConfig = useMemo(() => ({
+  const routeConfig = useMemo(() => ({
     public: ['/login', '/student-registration'],
     private: ['/', '/home', '/intro', '/student-practice', '/course', 
              '/video-course', '/coding-platform', '/profile', 
@@ -262,7 +274,6 @@ function AppContent() {
       
       if (response.data && response.data.success) {
         const user = response.data.data;
-        // Format initials from first letters of first and last name
         const initials = user.first_name && user.last_name 
           ? `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`.toUpperCase()
           : 'ST';
@@ -275,7 +286,6 @@ function AppContent() {
     } catch (error) {
       console.error("Failed to fetch user data:", error);
       if (error.response && error.response.status === 401) {
-        // Token is invalid, logout the user
         removeCookie('studentToken', { path: '/' });
         setIsAuthenticated(false);
         setUserData(null);
@@ -292,7 +302,6 @@ function AppContent() {
     if (token) {
       try {
         setIsAuthenticated(true);
-        // Fetch user data after authentication
         await fetchUserData();
       } catch (error) {
         console.error("Auth verification failed:", error);
@@ -321,7 +330,6 @@ function AppContent() {
       secure: process.env.NODE_ENV === 'production'
     });
     setIsAuthenticated(true);
-    // Fetch complete user data after login
     await fetchUserData();
     navigate('/', { replace: true });
   }, [navigate, setCookie, fetchUserData]);
@@ -376,9 +384,9 @@ function AppContent() {
     setSidebarCollapsed(prev => !prev);
   }, []);
 
-  // Custom Spinner Component
-  const CustomSpinner = ({ text = "Loading..." }) => (
-    <div className='spinnering'>
+  // New Loading Component
+  const LoadingOverlay = () => (
+    <div className={`loading-overlay ${darkMode ? 'dark' : ''}`}>
       <div className="spinner-container">
         <div className="spinner-ring"></div>
         <div className="spinner-ring"></div>
@@ -401,24 +409,24 @@ function AppContent() {
   // Route protection components
   const ProtectedRoute = useCallback(({ children }) => {
     if (!authChecked || loadingUserData) {
-      return <CustomSpinner text="Loading your data..." />;
+      return <LoadingOverlay />;
     }
     return isAuthenticated ? children : <Navigate to="/login" replace />;
   }, [authChecked, isAuthenticated, loadingUserData]);
 
   const AuthRoute = useCallback(({ children }) => {
     if (!authChecked) {
-      return <CustomSpinner text="Loading..." />;
+      return <LoadingOverlay />;
     }
     return !isAuthenticated ? children : <Navigate to="/" replace />;
   }, [authChecked, isAuthenticated]);
 
   // Determine UI visibility
   const currentPath = location.pathname;
-const hideNavbarDynamic = currentPath.startsWith('/video-courses/') && currentPath.split('/').length > 2;
-const hideNavbarExact = routeConfig.hideNavbar
-const showNavbar = !(hideNavbarExact.includes(currentPath) || hideNavbarDynamic);
-const showSidebar = isAuthenticated && routeConfig.showSidebar.includes(currentPath);
+  const hideNavbarDynamic = currentPath.startsWith('/video-courses/') && currentPath.split('/').length > 2;
+  const hideNavbarExact = routeConfig.hideNavbar;
+  const showNavbar = !(hideNavbarExact.includes(currentPath) || hideNavbarDynamic);
+  const showSidebar = isAuthenticated && routeConfig.showSidebar.includes(currentPath);
   const isStandalonePage = routeConfig.standalonePages.includes(currentPath);
 
   // Determine main content class
@@ -441,170 +449,174 @@ const showSidebar = isAuthenticated && routeConfig.showSidebar.includes(currentP
     return classes.join(' ');
   }, [isStandalonePage, showNavbar, sidebarCollapsed]);
 
-  if (!authChecked) {
-    return <CustomSpinner text="Initializing application..." />;
-  }
-
   return (
     <>
-      {showNavbar && (
-        <Navbar
-          darkMode={darkMode}
-          toggleTheme={toggleTheme}
-          isAuthenticated={isAuthenticated}
-          loadingProgress={loadingProgress}
-          onLogout={handleLogout}
-          isLoading={isLoading}
-          collapsed={sidebarCollapsed}
-          toggleCollapse={toggleSidebarCollapse}
-        />
+      {/* Show loading overlay while auth is being checked */}
+      {!authChecked && <LoadingOverlay />}
+
+      {/* Main app content when auth is checked */}
+      {authChecked && (
+        <>
+          {showNavbar && (
+            <Navbar
+              darkMode={darkMode}
+              toggleTheme={toggleTheme}
+              isAuthenticated={isAuthenticated}
+              loadingProgress={loadingProgress}
+              onLogout={handleLogout}
+              isLoading={isLoading}
+              collapsed={sidebarCollapsed}
+              toggleCollapse={toggleSidebarCollapse}
+            />
+          )}
+
+          {showSidebar && (
+            <Sidebar
+              sidebarCollapsed={sidebarCollapsed}
+              mobileSidebarOpen={mobileSidebarOpen}
+              toggleSidebar={toggleSidebar}
+              darkMode={darkMode}
+              userData={userData}
+            />
+          )}
+
+          <main className={mainContentClass}>
+            <Routes>
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <StudentDashboard 
+                    darkMode={darkMode}
+                    toggleTheme={toggleTheme}
+                    sidebarCollapsed={sidebarCollapsed}
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/home" element={
+                <ProtectedRoute>
+                  <StudentDashboard 
+                    darkMode={darkMode}
+                    toggleTheme={toggleTheme}
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/intro" element={
+                <ProtectedRoute>
+                  <GuideRayTopicIntroPage 
+                    data={pythonData} 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/student-practice" element={
+                <ProtectedRoute>
+                  <StudentPracticeTest 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/course" element={
+                <ProtectedRoute>
+                  <StudentCource 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/video-courses/:courseId" element={
+                <ProtectedRoute>
+                  <GuideRayApp 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/course-details" element={
+                <ProtectedRoute>
+                  <CourseDetailsRouteWrapper 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+
+              <Route path="/coding-platform" element={
+                <ProtectedRoute>
+                  <GuidedRayCodingPlatform 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/student-registration" element={
+                <AuthRoute>
+                  <StudentRegistration darkMode={darkMode} />
+                </AuthRoute>
+              } />
+              
+              <Route path="/login" element={
+                <AuthRoute>
+                  <StudentLogin 
+                    darkMode={darkMode} 
+                    onLoginSuccess={handleLoginSuccess} 
+                  />
+                </AuthRoute>
+              } />
+              
+              <Route path="/profile" element={
+                <ProtectedRoute>
+                  <StudentProfile 
+                    darkMode={darkMode} 
+                    userData={userData}
+                    onUpdateProfile={setUserData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/notifications" element={
+                <ProtectedRoute>
+                  <GuiderayStudentNotification 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/progress" element={
+                <ProtectedRoute>
+                  <GuideRayStudentProgressCalendar 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/payment-status" element={<PaymentStatus darkMode={darkMode} />} />
+              
+              <Route path="/auth" element={
+                <ProtectedRoute>
+                  <StudentAuth 
+                    darkMode={darkMode}
+                    userData={userData}
+                    onSuccess={() => navigate('/')}
+                    onLogout={handleLogout}
+                  />
+                </ProtectedRoute>
+              } />
+            </Routes>
+          </main>
+        </>
       )}
-
-      {showSidebar && (
-        <Sidebar
-          sidebarCollapsed={sidebarCollapsed}
-          mobileSidebarOpen={mobileSidebarOpen}
-          toggleSidebar={toggleSidebar}
-          darkMode={darkMode}
-          userData={userData}
-        />
-      )}
-
-      <main className={mainContentClass}>
-        <Routes>
-          <Route path="/" element={
-            <ProtectedRoute>
-              <StudentDashboard 
-                darkMode={darkMode}
-                toggleTheme={toggleTheme}
-                sidebarCollapsed={sidebarCollapsed}
-                userData={userData}
-              />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/home" element={
-            <ProtectedRoute>
-              <StudentDashboard 
-                darkMode={darkMode}
-                toggleTheme={toggleTheme}
-                userData={userData}
-              />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/intro" element={
-            <ProtectedRoute>
-              <GuideRayTopicIntroPage 
-                data={pythonData} 
-                darkMode={darkMode} 
-                userData={userData}
-              />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/student-practice" element={
-            <ProtectedRoute>
-              <StudentPracticeTest 
-                darkMode={darkMode} 
-                userData={userData}
-              />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/course" element={
-            <ProtectedRoute>
-              <StudentCource 
-                darkMode={darkMode} 
-                userData={userData}
-              />
-            </ProtectedRoute>
-          } />
-          
-   <Route path="/video-courses/:courseId" element={
-  <ProtectedRoute>
-    <GuideRayApp 
-      darkMode={darkMode} 
-      userData={userData}
-    />
-  </ProtectedRoute>
-} />
- <Route path="/course-details" element={
-  <ProtectedRoute>
-    <CourseDetailsRouteWrapper 
-      darkMode={darkMode} 
-      userData={userData}
-    />
-  </ProtectedRoute>
-} />
-
-          
-          <Route path="/coding-platform" element={
-            <ProtectedRoute>
-              <GuidedRayCodingPlatform 
-                darkMode={darkMode} 
-                userData={userData}
-              />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/student-registration" element={
-            <AuthRoute>
-              <StudentRegistration darkMode={darkMode} />
-            </AuthRoute>
-          } />
-          
-          <Route path="/login" element={
-            <AuthRoute>
-              <StudentLogin 
-                darkMode={darkMode} 
-                onLoginSuccess={handleLoginSuccess} 
-              />
-            </AuthRoute>
-          } />
-          
-          <Route path="/profile" element={
-            <ProtectedRoute>
-              <StudentProfile 
-                darkMode={darkMode} 
-                userData={userData}
-                onUpdateProfile={setUserData}
-              />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/notifications" element={
-            <ProtectedRoute>
-              <GuiderayStudentNotification 
-                darkMode={darkMode} 
-                userData={userData}
-              />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/progress" element={
-            <ProtectedRoute>
-              <GuideRayStudentProgressCalendar 
-                darkMode={darkMode} 
-                userData={userData}
-              />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/payment-status" element={<PaymentStatus darkMode={darkMode} />} />
-          
-          <Route path="/auth" element={
-            <ProtectedRoute>
-              <StudentAuth 
-                darkMode={darkMode}
-                userData={userData}
-                onSuccess={() => navigate('/')}
-                onLogout={handleLogout}
-              />
-            </ProtectedRoute>
-          } />
-        </Routes>
-      </main>
     </>
   );
 }

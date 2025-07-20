@@ -256,8 +256,8 @@
 /* Legend */
 .guderay-progress-legend {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: row;
+  gap: 1px;
   justify-content: center;
   font-size: 11px;
   background: #f9f9f9;

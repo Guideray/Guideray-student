@@ -1,17 +1,50 @@
 /* Main container - White background theme */
 .guideray-student-streak-card {
-    max-width: 20vw;
-        min-width: 20vw;
-
+  max-width: 100%;
+  min-width: 100%;
   border-radius: 16px;
   padding: 1rem;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
   min-height: 500px;
   background-color: #ffffff00;
   color: #333333;
+  position: relative;
+}
+
+/* Loading state */
+.guideray-student-streak-card.loading {
+  background-color: #f5f5f5;
+}
+
+.guideray-student-streak-card.loading.dark {
+  background-color: #2d3748;
+}
+
+.guideray-student-streak-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guideray-student-streak-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(58, 94, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: #3a5eff;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Header section */
@@ -439,4 +472,37 @@
   border-radius: 8px;
   margin-top: 1rem;
   border: 1px solid #f0f0f0;
+}
+
+/* Dark mode styles */
+.guideray-student-streak-card.dark {
+  background-color: #1a202c;
+  color: #f7fafc;
+}
+
+.guideray-student-streak-card.dark h3,
+.guideray-student-streak-card.dark .guideray-student-streak-count,
+.guideray-student-streak-card.dark .guideray-student-streak-title,
+.guideray-student-streak-card.dark .guideray-student-course-name {
+  color: #f7fafc;
+}
+
+.guideray-student-streak-card.dark .guideray-student-streak-tabs {
+  background: #2d3748;
+}
+
+.guideray-student-streak-card.dark .guideray-student-streak-tabs button {
+  color: #a0aec0;
+}
+
+.guideray-student-streak-card.dark .guideray-student-streak-score,
+.guideray-student-streak-card.dark .guideray-student-streak-indicator,
+.guideray-student-streak-card.dark .guideray-student-milestone,
+.guideray-student-streak-card.dark .guideray-student-course-item {
+  background: #2d3748;
+  border-color: #4a5568;
+}
+
+.guideray-student-streak-card.dark .guideray-student-streak-milestone-progress {
+  background: #4a5568;
 }

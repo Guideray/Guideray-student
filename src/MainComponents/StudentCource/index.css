@@ -2,7 +2,7 @@
 
 /* Base Styles */
 .guideray-student-courses-container {
-  max-width: 86vw;
+  width: calc(100vw - 243px);
   padding: 20px;
   background-color: #ffffff;
   background-color: white;
