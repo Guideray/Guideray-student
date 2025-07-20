@@ -354,7 +354,7 @@ const StudentLogin = () => {
               </form>
 
               <div className="guideray-student-login-signup-link">
-                Don't have an account? <a href="/signup">Register</a>
+                Don't have an account? <a href="/student-registration">Register</a>
               </div>
             </>
           ) : (

@@ -21,9 +21,7 @@
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+
   font-family: 'Poppins', sans-serif;
 }
 .guideray-student-login-logo img {
@@ -42,12 +40,13 @@
 .guideray-student-login-container {
   display: flex;
   min-height: 100vh;
+  min-width: 100vw;
   background: var(--guideray-student-login-gradient);
   position: relative;
   overflow: hidden;
 }
 
-.guideray-student-login-container::before {
+/* .guideray-student-login-container::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -56,7 +55,7 @@
   height: 200%;
   background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
   z-index: 1;
-}
+} */
 
 .guideray-student-login-left-section {
   display: flex;
@@ -67,7 +66,7 @@
   overflow: hidden;
   position: relative;
   padding-top: 40px;
-  width: 50%;
+  min-width: 50vw;
   z-index: 2;
 }
 
@@ -78,6 +77,7 @@
   align-items: center;
   background-color: white;
   position: relative;
+  min-width:50vw;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   z-index: 2;

@@ -46,7 +46,7 @@ const styles = `
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -171,7 +171,7 @@ const styles = `
 }
 
 .light-theme {
-  background-color: #ffffffff;
+  background-color: #f7fafc;
   color: #1a202c;
 }
 
