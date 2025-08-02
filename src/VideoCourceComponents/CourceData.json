@@ -2,10 +2,3137 @@
     "guideray_python_programming": {
         "Python Basics": {
             "Python Introduction": {
-                "videoComponent": {
-                    "thumbnail": "https://res.cloudinary.com/dx97khgxd/image/upload/v1749483514/Screenshot_2025-06-08_135537_w68eyj.jpg",
-                    "link": "https://youtu.be/j-wHPfyi0GI",
-                    "title": "Introduction to Python Programming"
+                "videoRecomendation": {
+                    "link": "https://youtu.be/ZkndfcIyxMM?si=pZzGaXFFC-wUT1Qz",
+                    "title": "Introduction to Python Programming",
+                    "credits" : "@PythonLifetelugu"
+                },
+                "cheetsheet" : {
+                    "link" : "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+                },
+                "practiceMcq": {
+                    "title": "Practice",
+                    "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
+                    "time" : 15,
+                    "quizQuestions": [
+                        {
+                            "id": 1,
+                            "text": "What type of programming language is Python?",
+                            "options": [
+                                "Low-level language",
+                                "High-level language",
+                                "Machine language",
+                                "Assembly language"
+                            ],
+                            "correctAnswer": "High-level language",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 2,
+                            "text": "Which of these is NOT a common use case for Python?",
+                            "options": [
+                                "Web Development",
+                                "Data Science",
+                                "Operating System Kernels",
+                                "Automation Scripting"
+                            ],
+                            "correctAnswer": "Operating System Kernels",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 3,
+                            "text": "What does the modulus operator (%) do in Python?",
+                            "options": [
+                                "Performs division",
+                                "Returns the remainder after division",
+                                "Multiplies two numbers",
+                                "Raises a number to a power"
+                            ],
+                            "correctAnswer": "Returns the remainder after division",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 4,
+                            "text": "Which Python framework is commonly used for web development?",
+                            "options": [
+                                "TensorFlow",
+                                "Django",
+                                "Pandas",
+                                "Pygame"
+                            ],
+                            "correctAnswer": "Django",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 5,
+                            "text": "What is the first step in a typical Python workflow?",
+                            "options": [
+                                "Input Handling",
+                                "Setup",
+                                "Core Logic",
+                                "Output"
+                            ],
+                            "correctAnswer": "Setup",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 6,
+                            "text": "Which of these libraries is used for data analysis in Python?",
+                            "options": [
+                                "NumPy",
+                                "Keras",
+                                "Pygame",
+                                "Flask"
+                            ],
+                            "correctAnswer": "NumPy",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 7,
+                            "text": "What does IDE stand for in programming?",
+                            "options": [
+                                "Integrated Development Environment",
+                                "Interactive Data Explorer",
+                                "International Data Exchange",
+                                "Internal Debugging Engine"
+                            ],
+                            "correctAnswer": "Integrated Development Environment",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 8,
+                            "text": "Which sector uses Python for fraud detection and algorithmic trading?",
+                            "options": [
+                                "Healthcare",
+                                "Banking and Finance",
+                                "Education",
+                                "Manufacturing"
+                            ],
+                            "correctAnswer": "Banking and Finance",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 9,
+                            "text": "What is the purpose of error handling in Python?",
+                            "options": [
+                                "To make code run faster",
+                                "To prevent crashes when something goes wrong",
+                                "To automatically fix bugs",
+                                "To reduce memory usage"
+                            ],
+                            "correctAnswer": "To prevent crashes when something goes wrong",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 10,
+                            "text": "Which Python feature makes it good for beginners?",
+                            "options": [
+                                "Complex syntax",
+                                "Readable and simple code structure",
+                                "Requires memory management",
+                                "Slow execution speed"
+                            ],
+                            "correctAnswer": "Readable and simple code structure",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 11,
+                            "text": "What would check_number(7) output in the example code?",
+                            "options": [
+                                "7 is Even",
+                                "7 is Odd",
+                                "Error",
+                                "Nothing (no output)"
+                            ],
+                            "correctAnswer": "7 is Odd",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 12,
+                            "text": "Which of these is a Python library for machine learning?",
+                            "options": [
+                                "Matplotlib",
+                                "scikit-learn",
+                                "Requests",
+                                "SQLite"
+                            ],
+                            "correctAnswer": "scikit-learn",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 13,
+                            "text": "What is the main purpose of data transformation in Python workflows?",
+                            "options": [
+                                "To make data look pretty",
+                                "To prepare data into a usable format",
+                                "To delete unnecessary data",
+                                "To slow down program execution"
+                            ],
+                            "correctAnswer": "To prepare data into a usable format",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 14,
+                            "text": "Which industry uses Python for medical image analysis?",
+                            "options": [
+                                "Retail",
+                                "Healthcare",
+                                "Entertainment",
+                                "Agriculture"
+                            ],
+                            "correctAnswer": "Healthcare",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 15,
+                            "text": "What does API stand for?",
+                            "options": [
+                                "Automated Programming Interface",
+                                "Application Programming Interface",
+                                "Advanced Python Integration",
+                                "Algorithmic Process Instruction"
+                            ],
+                            "correctAnswer": "Application Programming Interface",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        }
+                    ]
+                },
+                "codingPractice": {
+                    "title": "Coding Practice",
+                    "discription": "You will have three levl codes u have to answer those",
+                    "problems": [
+                        {
+                            "id": 1,
+                            "title": "Sum of Two Numbers",
+                            "description": "Write a program that takes two numbers as input and prints their sum.",
+                            "difficulty": "Easy",
+                            "constraints": [
+                                "Input numbers will be between -1000 and 1000",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5 7",
+                            "sampleOutput": "12",
+                            "explanation": "The sum of 5 and 7 is 12.",
+                            "testCases": [
+                                {
+                                    "input": "3 4",
+                                    "output": "7",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-2 8",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "0 0",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1000 1000",
+                                    "output": "2000",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-1000 -1000",
+                                    "output": "-2000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "999 1",
+                                    "output": "1000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "500 -300",
+                                    "output": "200",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "123 456",
+                                    "output": "579",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-500 500",
+                                    "output": "0",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "42 58",
+                                    "output": "100",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "0 42",
+                                    "output": "42",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-123 -456",
+                                    "output": "-579",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "title": "Factorial Calculation",
+                            "description": "Write a program to calculate the factorial of a given number. Factorial of n is the product of all positive integers less than or equal to n.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "0 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "120",
+                            "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120",
+                            "testCases": [
+                                {
+                                    "input": "0",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "720",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "3628800",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "479001600",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "1307674368000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "6402373705728000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "2432902008176640000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "5040",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "40320",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "9",
+                                    "output": "362880",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "title": "Fibonacci Sequence",
+                            "description": "Write a program to print the first n numbers of the Fibonacci sequence. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "1 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "0 1 1 2 3",
+                            "explanation": "The first 5 Fibonacci numbers are 0, 1, 1, 2, 3.",
+                            "testCases": [
+                                {
+                                    "input": "1",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "2",
+                                    "output": "0 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "0 1 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "0 1 1 2 3 5 8",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "0 1 1 2 3 5 8 13 21 34",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "4",
+                                    "output": "0 1 1 2",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "0 1 1 2 3 5",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "0 1 1 2 3 5 8 13",
+                                    "isPublic": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Python Introductione": {
+                "videoRecomendation": {
+                    "link": "https://youtu.be/ZkndfcIyxMM?si=pZzGaXFFC-wUT1Qz",
+                    "title": "Introduction to Python Programming",
+                    "credits" : "@PythonLifetelugu"
+                },
+                "cheetsheet" : {
+                    "link" : "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+                },
+                "practiceMcq": {
+                    "title": "Practice",
+                    "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
+                    "time" : 15,
+                    "quizQuestions": [
+                        {
+                            "id": 1,
+                            "text": "What type of programming language is Python?",
+                            "options": [
+                                "Low-level language",
+                                "High-level language",
+                                "Machine language",
+                                "Assembly language"
+                            ],
+                            "correctAnswer": "High-level language",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 2,
+                            "text": "Which of these is NOT a common use case for Python?",
+                            "options": [
+                                "Web Development",
+                                "Data Science",
+                                "Operating System Kernels",
+                                "Automation Scripting"
+                            ],
+                            "correctAnswer": "Operating System Kernels",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 3,
+                            "text": "What does the modulus operator (%) do in Python?",
+                            "options": [
+                                "Performs division",
+                                "Returns the remainder after division",
+                                "Multiplies two numbers",
+                                "Raises a number to a power"
+                            ],
+                            "correctAnswer": "Returns the remainder after division",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 4,
+                            "text": "Which Python framework is commonly used for web development?",
+                            "options": [
+                                "TensorFlow",
+                                "Django",
+                                "Pandas",
+                                "Pygame"
+                            ],
+                            "correctAnswer": "Django",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 5,
+                            "text": "What is the first step in a typical Python workflow?",
+                            "options": [
+                                "Input Handling",
+                                "Setup",
+                                "Core Logic",
+                                "Output"
+                            ],
+                            "correctAnswer": "Setup",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 6,
+                            "text": "Which of these libraries is used for data analysis in Python?",
+                            "options": [
+                                "NumPy",
+                                "Keras",
+                                "Pygame",
+                                "Flask"
+                            ],
+                            "correctAnswer": "NumPy",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 7,
+                            "text": "What does IDE stand for in programming?",
+                            "options": [
+                                "Integrated Development Environment",
+                                "Interactive Data Explorer",
+                                "International Data Exchange",
+                                "Internal Debugging Engine"
+                            ],
+                            "correctAnswer": "Integrated Development Environment",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 8,
+                            "text": "Which sector uses Python for fraud detection and algorithmic trading?",
+                            "options": [
+                                "Healthcare",
+                                "Banking and Finance",
+                                "Education",
+                                "Manufacturing"
+                            ],
+                            "correctAnswer": "Banking and Finance",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 9,
+                            "text": "What is the purpose of error handling in Python?",
+                            "options": [
+                                "To make code run faster",
+                                "To prevent crashes when something goes wrong",
+                                "To automatically fix bugs",
+                                "To reduce memory usage"
+                            ],
+                            "correctAnswer": "To prevent crashes when something goes wrong",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 10,
+                            "text": "Which Python feature makes it good for beginners?",
+                            "options": [
+                                "Complex syntax",
+                                "Readable and simple code structure",
+                                "Requires memory management",
+                                "Slow execution speed"
+                            ],
+                            "correctAnswer": "Readable and simple code structure",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 11,
+                            "text": "What would check_number(7) output in the example code?",
+                            "options": [
+                                "7 is Even",
+                                "7 is Odd",
+                                "Error",
+                                "Nothing (no output)"
+                            ],
+                            "correctAnswer": "7 is Odd",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 12,
+                            "text": "Which of these is a Python library for machine learning?",
+                            "options": [
+                                "Matplotlib",
+                                "scikit-learn",
+                                "Requests",
+                                "SQLite"
+                            ],
+                            "correctAnswer": "scikit-learn",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 13,
+                            "text": "What is the main purpose of data transformation in Python workflows?",
+                            "options": [
+                                "To make data look pretty",
+                                "To prepare data into a usable format",
+                                "To delete unnecessary data",
+                                "To slow down program execution"
+                            ],
+                            "correctAnswer": "To prepare data into a usable format",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 14,
+                            "text": "Which industry uses Python for medical image analysis?",
+                            "options": [
+                                "Retail",
+                                "Healthcare",
+                                "Entertainment",
+                                "Agriculture"
+                            ],
+                            "correctAnswer": "Healthcare",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 15,
+                            "text": "What does API stand for?",
+                            "options": [
+                                "Automated Programming Interface",
+                                "Application Programming Interface",
+                                "Advanced Python Integration",
+                                "Algorithmic Process Instruction"
+                            ],
+                            "correctAnswer": "Application Programming Interface",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        }
+                    ]
+                },
+                "codingPractice": {
+                    "title": "Coding Practice",
+                    "discription": "You will have three levl codes u have to answer those",
+                    "problems": [
+                        {
+                            "id": 1,
+                            "title": "Sum of Two Numbers",
+                            "description": "Write a program that takes two numbers as input and prints their sum.",
+                            "difficulty": "Easy",
+                            "constraints": [
+                                "Input numbers will be between -1000 and 1000",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5 7",
+                            "sampleOutput": "12",
+                            "explanation": "The sum of 5 and 7 is 12.",
+                            "testCases": [
+                                {
+                                    "input": "3 4",
+                                    "output": "7",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-2 8",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "0 0",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1000 1000",
+                                    "output": "2000",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-1000 -1000",
+                                    "output": "-2000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "999 1",
+                                    "output": "1000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "500 -300",
+                                    "output": "200",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "123 456",
+                                    "output": "579",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-500 500",
+                                    "output": "0",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "42 58",
+                                    "output": "100",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "0 42",
+                                    "output": "42",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-123 -456",
+                                    "output": "-579",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "title": "Factorial Calculation",
+                            "description": "Write a program to calculate the factorial of a given number. Factorial of n is the product of all positive integers less than or equal to n.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "0 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "120",
+                            "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120",
+                            "testCases": [
+                                {
+                                    "input": "0",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "720",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "3628800",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "479001600",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "1307674368000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "6402373705728000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "2432902008176640000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "5040",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "40320",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "9",
+                                    "output": "362880",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "title": "Fibonacci Sequence",
+                            "description": "Write a program to print the first n numbers of the Fibonacci sequence. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "1 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "0 1 1 2 3",
+                            "explanation": "The first 5 Fibonacci numbers are 0, 1, 1, 2, 3.",
+                            "testCases": [
+                                {
+                                    "input": "1",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "2",
+                                    "output": "0 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "0 1 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "0 1 1 2 3 5 8",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "0 1 1 2 3 5 8 13 21 34",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "4",
+                                    "output": "0 1 1 2",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "0 1 1 2 3 5",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "0 1 1 2 3 5 8 13",
+                                    "isPublic": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Python Introductio1n": {
+                "videoRecomendation": {
+                    "link": "https://youtu.be/ZkndfcIyxMM?si=pZzGaXFFC-wUT1Qz",
+                    "title": "Introduction to Python Programming",
+                    "credits" : "@PythonLifetelugu"
+                },
+                "cheetsheet" : {
+                    "link" : "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+                },
+                "practiceMcq": {
+                    "title": "Practice",
+                    "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
+                    "time" : 15,
+                    "quizQuestions": [
+                        {
+                            "id": 1,
+                            "text": "What type of programming language is Python?",
+                            "options": [
+                                "Low-level language",
+                                "High-level language",
+                                "Machine language",
+                                "Assembly language"
+                            ],
+                            "correctAnswer": "High-level language",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 2,
+                            "text": "Which of these is NOT a common use case for Python?",
+                            "options": [
+                                "Web Development",
+                                "Data Science",
+                                "Operating System Kernels",
+                                "Automation Scripting"
+                            ],
+                            "correctAnswer": "Operating System Kernels",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 3,
+                            "text": "What does the modulus operator (%) do in Python?",
+                            "options": [
+                                "Performs division",
+                                "Returns the remainder after division",
+                                "Multiplies two numbers",
+                                "Raises a number to a power"
+                            ],
+                            "correctAnswer": "Returns the remainder after division",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 4,
+                            "text": "Which Python framework is commonly used for web development?",
+                            "options": [
+                                "TensorFlow",
+                                "Django",
+                                "Pandas",
+                                "Pygame"
+                            ],
+                            "correctAnswer": "Django",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 5,
+                            "text": "What is the first step in a typical Python workflow?",
+                            "options": [
+                                "Input Handling",
+                                "Setup",
+                                "Core Logic",
+                                "Output"
+                            ],
+                            "correctAnswer": "Setup",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 6,
+                            "text": "Which of these libraries is used for data analysis in Python?",
+                            "options": [
+                                "NumPy",
+                                "Keras",
+                                "Pygame",
+                                "Flask"
+                            ],
+                            "correctAnswer": "NumPy",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 7,
+                            "text": "What does IDE stand for in programming?",
+                            "options": [
+                                "Integrated Development Environment",
+                                "Interactive Data Explorer",
+                                "International Data Exchange",
+                                "Internal Debugging Engine"
+                            ],
+                            "correctAnswer": "Integrated Development Environment",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 8,
+                            "text": "Which sector uses Python for fraud detection and algorithmic trading?",
+                            "options": [
+                                "Healthcare",
+                                "Banking and Finance",
+                                "Education",
+                                "Manufacturing"
+                            ],
+                            "correctAnswer": "Banking and Finance",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 9,
+                            "text": "What is the purpose of error handling in Python?",
+                            "options": [
+                                "To make code run faster",
+                                "To prevent crashes when something goes wrong",
+                                "To automatically fix bugs",
+                                "To reduce memory usage"
+                            ],
+                            "correctAnswer": "To prevent crashes when something goes wrong",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 10,
+                            "text": "Which Python feature makes it good for beginners?",
+                            "options": [
+                                "Complex syntax",
+                                "Readable and simple code structure",
+                                "Requires memory management",
+                                "Slow execution speed"
+                            ],
+                            "correctAnswer": "Readable and simple code structure",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 11,
+                            "text": "What would check_number(7) output in the example code?",
+                            "options": [
+                                "7 is Even",
+                                "7 is Odd",
+                                "Error",
+                                "Nothing (no output)"
+                            ],
+                            "correctAnswer": "7 is Odd",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 12,
+                            "text": "Which of these is a Python library for machine learning?",
+                            "options": [
+                                "Matplotlib",
+                                "scikit-learn",
+                                "Requests",
+                                "SQLite"
+                            ],
+                            "correctAnswer": "scikit-learn",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 13,
+                            "text": "What is the main purpose of data transformation in Python workflows?",
+                            "options": [
+                                "To make data look pretty",
+                                "To prepare data into a usable format",
+                                "To delete unnecessary data",
+                                "To slow down program execution"
+                            ],
+                            "correctAnswer": "To prepare data into a usable format",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 14,
+                            "text": "Which industry uses Python for medical image analysis?",
+                            "options": [
+                                "Retail",
+                                "Healthcare",
+                                "Entertainment",
+                                "Agriculture"
+                            ],
+                            "correctAnswer": "Healthcare",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 15,
+                            "text": "What does API stand for?",
+                            "options": [
+                                "Automated Programming Interface",
+                                "Application Programming Interface",
+                                "Advanced Python Integration",
+                                "Algorithmic Process Instruction"
+                            ],
+                            "correctAnswer": "Application Programming Interface",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        }
+                    ]
+                },
+                "codingPractice": {
+                    "title": "Coding Practice",
+                    "discription": "You will have three levl codes u have to answer those",
+                    "problems": [
+                        {
+                            "id": 1,
+                            "title": "Sum of Two Numbers",
+                            "description": "Write a program that takes two numbers as input and prints their sum.",
+                            "difficulty": "Easy",
+                            "constraints": [
+                                "Input numbers will be between -1000 and 1000",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5 7",
+                            "sampleOutput": "12",
+                            "explanation": "The sum of 5 and 7 is 12.",
+                            "testCases": [
+                                {
+                                    "input": "3 4",
+                                    "output": "7",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-2 8",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "0 0",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1000 1000",
+                                    "output": "2000",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-1000 -1000",
+                                    "output": "-2000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "999 1",
+                                    "output": "1000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "500 -300",
+                                    "output": "200",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "123 456",
+                                    "output": "579",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-500 500",
+                                    "output": "0",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "42 58",
+                                    "output": "100",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "0 42",
+                                    "output": "42",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-123 -456",
+                                    "output": "-579",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "title": "Factorial Calculation",
+                            "description": "Write a program to calculate the factorial of a given number. Factorial of n is the product of all positive integers less than or equal to n.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "0 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "120",
+                            "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120",
+                            "testCases": [
+                                {
+                                    "input": "0",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "720",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "3628800",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "479001600",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "1307674368000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "6402373705728000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "2432902008176640000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "5040",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "40320",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "9",
+                                    "output": "362880",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "title": "Fibonacci Sequence",
+                            "description": "Write a program to print the first n numbers of the Fibonacci sequence. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "1 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "0 1 1 2 3",
+                            "explanation": "The first 5 Fibonacci numbers are 0, 1, 1, 2, 3.",
+                            "testCases": [
+                                {
+                                    "input": "1",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "2",
+                                    "output": "0 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "0 1 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "0 1 1 2 3 5 8",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "0 1 1 2 3 5 8 13 21 34",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "4",
+                                    "output": "0 1 1 2",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "0 1 1 2 3 5",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "0 1 1 2 3 5 8 13",
+                                    "isPublic": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Python Introduction3": {
+                "videoRecomendation": {
+                    "link": "https://youtu.be/ZkndfcIyxMM?si=pZzGaXFFC-wUT1Qz",
+                    "title": "Introduction to Python Programming",
+                    "credits" : "@PythonLifetelugu"
+                },
+                "cheetsheet" : {
+                    "link" : "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+                },
+                "practiceMcq": {
+                    "title": "Practice",
+                    "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
+                    "time" : 15,
+                    "quizQuestions": [
+                        {
+                            "id": 1,
+                            "text": "What type of programming language is Python?",
+                            "options": [
+                                "Low-level language",
+                                "High-level language",
+                                "Machine language",
+                                "Assembly language"
+                            ],
+                            "correctAnswer": "High-level language",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 2,
+                            "text": "Which of these is NOT a common use case for Python?",
+                            "options": [
+                                "Web Development",
+                                "Data Science",
+                                "Operating System Kernels",
+                                "Automation Scripting"
+                            ],
+                            "correctAnswer": "Operating System Kernels",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 3,
+                            "text": "What does the modulus operator (%) do in Python?",
+                            "options": [
+                                "Performs division",
+                                "Returns the remainder after division",
+                                "Multiplies two numbers",
+                                "Raises a number to a power"
+                            ],
+                            "correctAnswer": "Returns the remainder after division",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 4,
+                            "text": "Which Python framework is commonly used for web development?",
+                            "options": [
+                                "TensorFlow",
+                                "Django",
+                                "Pandas",
+                                "Pygame"
+                            ],
+                            "correctAnswer": "Django",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 5,
+                            "text": "What is the first step in a typical Python workflow?",
+                            "options": [
+                                "Input Handling",
+                                "Setup",
+                                "Core Logic",
+                                "Output"
+                            ],
+                            "correctAnswer": "Setup",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 6,
+                            "text": "Which of these libraries is used for data analysis in Python?",
+                            "options": [
+                                "NumPy",
+                                "Keras",
+                                "Pygame",
+                                "Flask"
+                            ],
+                            "correctAnswer": "NumPy",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 7,
+                            "text": "What does IDE stand for in programming?",
+                            "options": [
+                                "Integrated Development Environment",
+                                "Interactive Data Explorer",
+                                "International Data Exchange",
+                                "Internal Debugging Engine"
+                            ],
+                            "correctAnswer": "Integrated Development Environment",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 8,
+                            "text": "Which sector uses Python for fraud detection and algorithmic trading?",
+                            "options": [
+                                "Healthcare",
+                                "Banking and Finance",
+                                "Education",
+                                "Manufacturing"
+                            ],
+                            "correctAnswer": "Banking and Finance",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 9,
+                            "text": "What is the purpose of error handling in Python?",
+                            "options": [
+                                "To make code run faster",
+                                "To prevent crashes when something goes wrong",
+                                "To automatically fix bugs",
+                                "To reduce memory usage"
+                            ],
+                            "correctAnswer": "To prevent crashes when something goes wrong",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 10,
+                            "text": "Which Python feature makes it good for beginners?",
+                            "options": [
+                                "Complex syntax",
+                                "Readable and simple code structure",
+                                "Requires memory management",
+                                "Slow execution speed"
+                            ],
+                            "correctAnswer": "Readable and simple code structure",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 11,
+                            "text": "What would check_number(7) output in the example code?",
+                            "options": [
+                                "7 is Even",
+                                "7 is Odd",
+                                "Error",
+                                "Nothing (no output)"
+                            ],
+                            "correctAnswer": "7 is Odd",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 12,
+                            "text": "Which of these is a Python library for machine learning?",
+                            "options": [
+                                "Matplotlib",
+                                "scikit-learn",
+                                "Requests",
+                                "SQLite"
+                            ],
+                            "correctAnswer": "scikit-learn",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 13,
+                            "text": "What is the main purpose of data transformation in Python workflows?",
+                            "options": [
+                                "To make data look pretty",
+                                "To prepare data into a usable format",
+                                "To delete unnecessary data",
+                                "To slow down program execution"
+                            ],
+                            "correctAnswer": "To prepare data into a usable format",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 14,
+                            "text": "Which industry uses Python for medical image analysis?",
+                            "options": [
+                                "Retail",
+                                "Healthcare",
+                                "Entertainment",
+                                "Agriculture"
+                            ],
+                            "correctAnswer": "Healthcare",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 15,
+                            "text": "What does API stand for?",
+                            "options": [
+                                "Automated Programming Interface",
+                                "Application Programming Interface",
+                                "Advanced Python Integration",
+                                "Algorithmic Process Instruction"
+                            ],
+                            "correctAnswer": "Application Programming Interface",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        }
+                    ]
+                },
+                "codingPractice": {
+                    "title": "Coding Practice",
+                    "discription": "You will have three levl codes u have to answer those",
+                    "problems": [
+                        {
+                            "id": 1,
+                            "title": "Sum of Two Numbers",
+                            "description": "Write a program that takes two numbers as input and prints their sum.",
+                            "difficulty": "Easy",
+                            "constraints": [
+                                "Input numbers will be between -1000 and 1000",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5 7",
+                            "sampleOutput": "12",
+                            "explanation": "The sum of 5 and 7 is 12.",
+                            "testCases": [
+                                {
+                                    "input": "3 4",
+                                    "output": "7",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-2 8",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "0 0",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1000 1000",
+                                    "output": "2000",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-1000 -1000",
+                                    "output": "-2000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "999 1",
+                                    "output": "1000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "500 -300",
+                                    "output": "200",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "123 456",
+                                    "output": "579",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-500 500",
+                                    "output": "0",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "42 58",
+                                    "output": "100",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "0 42",
+                                    "output": "42",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-123 -456",
+                                    "output": "-579",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "title": "Factorial Calculation",
+                            "description": "Write a program to calculate the factorial of a given number. Factorial of n is the product of all positive integers less than or equal to n.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "0 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "120",
+                            "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120",
+                            "testCases": [
+                                {
+                                    "input": "0",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "720",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "3628800",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "479001600",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "1307674368000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "6402373705728000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "2432902008176640000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "5040",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "40320",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "9",
+                                    "output": "362880",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "title": "Fibonacci Sequence",
+                            "description": "Write a program to print the first n numbers of the Fibonacci sequence. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "1 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "0 1 1 2 3",
+                            "explanation": "The first 5 Fibonacci numbers are 0, 1, 1, 2, 3.",
+                            "testCases": [
+                                {
+                                    "input": "1",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "2",
+                                    "output": "0 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "0 1 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "0 1 1 2 3 5 8",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "0 1 1 2 3 5 8 13 21 34",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "4",
+                                    "output": "0 1 1 2",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "0 1 1 2 3 5",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "0 1 1 2 3 5 8 13",
+                                    "isPublic": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+         "Python Basics1": {
+            "Python Introduction": {
+                "videoRecomendation": {
+                    "link": "https://youtu.be/ZkndfcIyxMM?si=pZzGaXFFC-wUT1Qz",
+                    "title": "Introduction to Python Programming",
+                    "credits" : "@PythonLifetelugu"
+                },
+                "cheetsheet" : {
+                    "link" : "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+                },
+                "practiceMcq": {
+                    "title": "Practice",
+                    "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
+                    "time" : 15,
+                    "quizQuestions": [
+                        {
+                            "id": 1,
+                            "text": "What type of programming language is Python?",
+                            "options": [
+                                "Low-level language",
+                                "High-level language",
+                                "Machine language",
+                                "Assembly language"
+                            ],
+                            "correctAnswer": "High-level language",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 2,
+                            "text": "Which of these is NOT a common use case for Python?",
+                            "options": [
+                                "Web Development",
+                                "Data Science",
+                                "Operating System Kernels",
+                                "Automation Scripting"
+                            ],
+                            "correctAnswer": "Operating System Kernels",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 3,
+                            "text": "What does the modulus operator (%) do in Python?",
+                            "options": [
+                                "Performs division",
+                                "Returns the remainder after division",
+                                "Multiplies two numbers",
+                                "Raises a number to a power"
+                            ],
+                            "correctAnswer": "Returns the remainder after division",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 4,
+                            "text": "Which Python framework is commonly used for web development?",
+                            "options": [
+                                "TensorFlow",
+                                "Django",
+                                "Pandas",
+                                "Pygame"
+                            ],
+                            "correctAnswer": "Django",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 5,
+                            "text": "What is the first step in a typical Python workflow?",
+                            "options": [
+                                "Input Handling",
+                                "Setup",
+                                "Core Logic",
+                                "Output"
+                            ],
+                            "correctAnswer": "Setup",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 6,
+                            "text": "Which of these libraries is used for data analysis in Python?",
+                            "options": [
+                                "NumPy",
+                                "Keras",
+                                "Pygame",
+                                "Flask"
+                            ],
+                            "correctAnswer": "NumPy",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 7,
+                            "text": "What does IDE stand for in programming?",
+                            "options": [
+                                "Integrated Development Environment",
+                                "Interactive Data Explorer",
+                                "International Data Exchange",
+                                "Internal Debugging Engine"
+                            ],
+                            "correctAnswer": "Integrated Development Environment",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 8,
+                            "text": "Which sector uses Python for fraud detection and algorithmic trading?",
+                            "options": [
+                                "Healthcare",
+                                "Banking and Finance",
+                                "Education",
+                                "Manufacturing"
+                            ],
+                            "correctAnswer": "Banking and Finance",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 9,
+                            "text": "What is the purpose of error handling in Python?",
+                            "options": [
+                                "To make code run faster",
+                                "To prevent crashes when something goes wrong",
+                                "To automatically fix bugs",
+                                "To reduce memory usage"
+                            ],
+                            "correctAnswer": "To prevent crashes when something goes wrong",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 10,
+                            "text": "Which Python feature makes it good for beginners?",
+                            "options": [
+                                "Complex syntax",
+                                "Readable and simple code structure",
+                                "Requires memory management",
+                                "Slow execution speed"
+                            ],
+                            "correctAnswer": "Readable and simple code structure",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 11,
+                            "text": "What would check_number(7) output in the example code?",
+                            "options": [
+                                "7 is Even",
+                                "7 is Odd",
+                                "Error",
+                                "Nothing (no output)"
+                            ],
+                            "correctAnswer": "7 is Odd",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 12,
+                            "text": "Which of these is a Python library for machine learning?",
+                            "options": [
+                                "Matplotlib",
+                                "scikit-learn",
+                                "Requests",
+                                "SQLite"
+                            ],
+                            "correctAnswer": "scikit-learn",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 13,
+                            "text": "What is the main purpose of data transformation in Python workflows?",
+                            "options": [
+                                "To make data look pretty",
+                                "To prepare data into a usable format",
+                                "To delete unnecessary data",
+                                "To slow down program execution"
+                            ],
+                            "correctAnswer": "To prepare data into a usable format",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 14,
+                            "text": "Which industry uses Python for medical image analysis?",
+                            "options": [
+                                "Retail",
+                                "Healthcare",
+                                "Entertainment",
+                                "Agriculture"
+                            ],
+                            "correctAnswer": "Healthcare",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 15,
+                            "text": "What does API stand for?",
+                            "options": [
+                                "Automated Programming Interface",
+                                "Application Programming Interface",
+                                "Advanced Python Integration",
+                                "Algorithmic Process Instruction"
+                            ],
+                            "correctAnswer": "Application Programming Interface",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        }
+                    ]
+                },
+                "codingPractice": {
+                    "title": "Coding Practice",
+                    "discription": "You will have three levl codes u have to answer those",
+                    "problems": [
+                        {
+                            "id": 1,
+                            "title": "Sum of Two Numbers",
+                            "description": "Write a program that takes two numbers as input and prints their sum.",
+                            "difficulty": "Easy",
+                            "constraints": [
+                                "Input numbers will be between -1000 and 1000",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5 7",
+                            "sampleOutput": "12",
+                            "explanation": "The sum of 5 and 7 is 12.",
+                            "testCases": [
+                                {
+                                    "input": "3 4",
+                                    "output": "7",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-2 8",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "0 0",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1000 1000",
+                                    "output": "2000",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-1000 -1000",
+                                    "output": "-2000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "999 1",
+                                    "output": "1000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "500 -300",
+                                    "output": "200",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "123 456",
+                                    "output": "579",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-500 500",
+                                    "output": "0",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "42 58",
+                                    "output": "100",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "0 42",
+                                    "output": "42",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-123 -456",
+                                    "output": "-579",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "title": "Factorial Calculation",
+                            "description": "Write a program to calculate the factorial of a given number. Factorial of n is the product of all positive integers less than or equal to n.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "0 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "120",
+                            "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120",
+                            "testCases": [
+                                {
+                                    "input": "0",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "720",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "3628800",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "479001600",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "1307674368000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "6402373705728000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "2432902008176640000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "5040",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "40320",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "9",
+                                    "output": "362880",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "title": "Fibonacci Sequence",
+                            "description": "Write a program to print the first n numbers of the Fibonacci sequence. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "1 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "0 1 1 2 3",
+                            "explanation": "The first 5 Fibonacci numbers are 0, 1, 1, 2, 3.",
+                            "testCases": [
+                                {
+                                    "input": "1",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "2",
+                                    "output": "0 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "0 1 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "0 1 1 2 3 5 8",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "0 1 1 2 3 5 8 13 21 34",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "4",
+                                    "output": "0 1 1 2",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "0 1 1 2 3 5",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "0 1 1 2 3 5 8 13",
+                                    "isPublic": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Python Introductione": {
+                "videoRecomendation": {
+                    "link": "https://youtu.be/ZkndfcIyxMM?si=pZzGaXFFC-wUT1Qz",
+                    "title": "Introduction to Python Programming",
+                    "credits" : "@PythonLifetelugu"
+                },
+                "cheetsheet" : {
+                    "link" : "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+                },
+                "practiceMcq": {
+                    "title": "Practice",
+                    "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
+                    "time" : 15,
+                    "quizQuestions": [
+                        {
+                            "id": 1,
+                            "text": "What type of programming language is Python?",
+                            "options": [
+                                "Low-level language",
+                                "High-level language",
+                                "Machine language",
+                                "Assembly language"
+                            ],
+                            "correctAnswer": "High-level language",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 2,
+                            "text": "Which of these is NOT a common use case for Python?",
+                            "options": [
+                                "Web Development",
+                                "Data Science",
+                                "Operating System Kernels",
+                                "Automation Scripting"
+                            ],
+                            "correctAnswer": "Operating System Kernels",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 3,
+                            "text": "What does the modulus operator (%) do in Python?",
+                            "options": [
+                                "Performs division",
+                                "Returns the remainder after division",
+                                "Multiplies two numbers",
+                                "Raises a number to a power"
+                            ],
+                            "correctAnswer": "Returns the remainder after division",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 4,
+                            "text": "Which Python framework is commonly used for web development?",
+                            "options": [
+                                "TensorFlow",
+                                "Django",
+                                "Pandas",
+                                "Pygame"
+                            ],
+                            "correctAnswer": "Django",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 5,
+                            "text": "What is the first step in a typical Python workflow?",
+                            "options": [
+                                "Input Handling",
+                                "Setup",
+                                "Core Logic",
+                                "Output"
+                            ],
+                            "correctAnswer": "Setup",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 6,
+                            "text": "Which of these libraries is used for data analysis in Python?",
+                            "options": [
+                                "NumPy",
+                                "Keras",
+                                "Pygame",
+                                "Flask"
+                            ],
+                            "correctAnswer": "NumPy",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 7,
+                            "text": "What does IDE stand for in programming?",
+                            "options": [
+                                "Integrated Development Environment",
+                                "Interactive Data Explorer",
+                                "International Data Exchange",
+                                "Internal Debugging Engine"
+                            ],
+                            "correctAnswer": "Integrated Development Environment",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 8,
+                            "text": "Which sector uses Python for fraud detection and algorithmic trading?",
+                            "options": [
+                                "Healthcare",
+                                "Banking and Finance",
+                                "Education",
+                                "Manufacturing"
+                            ],
+                            "correctAnswer": "Banking and Finance",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 9,
+                            "text": "What is the purpose of error handling in Python?",
+                            "options": [
+                                "To make code run faster",
+                                "To prevent crashes when something goes wrong",
+                                "To automatically fix bugs",
+                                "To reduce memory usage"
+                            ],
+                            "correctAnswer": "To prevent crashes when something goes wrong",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 10,
+                            "text": "Which Python feature makes it good for beginners?",
+                            "options": [
+                                "Complex syntax",
+                                "Readable and simple code structure",
+                                "Requires memory management",
+                                "Slow execution speed"
+                            ],
+                            "correctAnswer": "Readable and simple code structure",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 11,
+                            "text": "What would check_number(7) output in the example code?",
+                            "options": [
+                                "7 is Even",
+                                "7 is Odd",
+                                "Error",
+                                "Nothing (no output)"
+                            ],
+                            "correctAnswer": "7 is Odd",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 12,
+                            "text": "Which of these is a Python library for machine learning?",
+                            "options": [
+                                "Matplotlib",
+                                "scikit-learn",
+                                "Requests",
+                                "SQLite"
+                            ],
+                            "correctAnswer": "scikit-learn",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 13,
+                            "text": "What is the main purpose of data transformation in Python workflows?",
+                            "options": [
+                                "To make data look pretty",
+                                "To prepare data into a usable format",
+                                "To delete unnecessary data",
+                                "To slow down program execution"
+                            ],
+                            "correctAnswer": "To prepare data into a usable format",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 14,
+                            "text": "Which industry uses Python for medical image analysis?",
+                            "options": [
+                                "Retail",
+                                "Healthcare",
+                                "Entertainment",
+                                "Agriculture"
+                            ],
+                            "correctAnswer": "Healthcare",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 15,
+                            "text": "What does API stand for?",
+                            "options": [
+                                "Automated Programming Interface",
+                                "Application Programming Interface",
+                                "Advanced Python Integration",
+                                "Algorithmic Process Instruction"
+                            ],
+                            "correctAnswer": "Application Programming Interface",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        }
+                    ]
+                },
+                "codingPractice": {
+                    "title": "Coding Practice",
+                    "discription": "You will have three levl codes u have to answer those",
+                    "problems": [
+                        {
+                            "id": 1,
+                            "title": "Sum of Two Numbers",
+                            "description": "Write a program that takes two numbers as input and prints their sum.",
+                            "difficulty": "Easy",
+                            "constraints": [
+                                "Input numbers will be between -1000 and 1000",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5 7",
+                            "sampleOutput": "12",
+                            "explanation": "The sum of 5 and 7 is 12.",
+                            "testCases": [
+                                {
+                                    "input": "3 4",
+                                    "output": "7",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-2 8",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "0 0",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1000 1000",
+                                    "output": "2000",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-1000 -1000",
+                                    "output": "-2000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "999 1",
+                                    "output": "1000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "500 -300",
+                                    "output": "200",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "123 456",
+                                    "output": "579",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-500 500",
+                                    "output": "0",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "42 58",
+                                    "output": "100",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "0 42",
+                                    "output": "42",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-123 -456",
+                                    "output": "-579",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "title": "Factorial Calculation",
+                            "description": "Write a program to calculate the factorial of a given number. Factorial of n is the product of all positive integers less than or equal to n.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "0 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "120",
+                            "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120",
+                            "testCases": [
+                                {
+                                    "input": "0",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "720",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "3628800",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "479001600",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "1307674368000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "6402373705728000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "2432902008176640000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "5040",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "40320",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "9",
+                                    "output": "362880",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "title": "Fibonacci Sequence",
+                            "description": "Write a program to print the first n numbers of the Fibonacci sequence. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "1 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "0 1 1 2 3",
+                            "explanation": "The first 5 Fibonacci numbers are 0, 1, 1, 2, 3.",
+                            "testCases": [
+                                {
+                                    "input": "1",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "2",
+                                    "output": "0 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "0 1 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "0 1 1 2 3 5 8",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "0 1 1 2 3 5 8 13 21 34",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "4",
+                                    "output": "0 1 1 2",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "0 1 1 2 3 5",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "0 1 1 2 3 5 8 13",
+                                    "isPublic": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Python Introductio1n": {
+                "videoRecomendation": {
+                    "link": "https://youtu.be/ZkndfcIyxMM?si=pZzGaXFFC-wUT1Qz",
+                    "title": "Introduction to Python Programming",
+                    "credits" : "@PythonLifetelugu"
+                },
+                "cheetsheet" : {
+                    "link" : "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+                },
+                "practiceMcq": {
+                    "title": "Practice",
+                    "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
+                    "time" : 15,
+                    "quizQuestions": [
+                        {
+                            "id": 1,
+                            "text": "What type of programming language is Python?",
+                            "options": [
+                                "Low-level language",
+                                "High-level language",
+                                "Machine language",
+                                "Assembly language"
+                            ],
+                            "correctAnswer": "High-level language",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 2,
+                            "text": "Which of these is NOT a common use case for Python?",
+                            "options": [
+                                "Web Development",
+                                "Data Science",
+                                "Operating System Kernels",
+                                "Automation Scripting"
+                            ],
+                            "correctAnswer": "Operating System Kernels",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 3,
+                            "text": "What does the modulus operator (%) do in Python?",
+                            "options": [
+                                "Performs division",
+                                "Returns the remainder after division",
+                                "Multiplies two numbers",
+                                "Raises a number to a power"
+                            ],
+                            "correctAnswer": "Returns the remainder after division",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 4,
+                            "text": "Which Python framework is commonly used for web development?",
+                            "options": [
+                                "TensorFlow",
+                                "Django",
+                                "Pandas",
+                                "Pygame"
+                            ],
+                            "correctAnswer": "Django",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 5,
+                            "text": "What is the first step in a typical Python workflow?",
+                            "options": [
+                                "Input Handling",
+                                "Setup",
+                                "Core Logic",
+                                "Output"
+                            ],
+                            "correctAnswer": "Setup",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 6,
+                            "text": "Which of these libraries is used for data analysis in Python?",
+                            "options": [
+                                "NumPy",
+                                "Keras",
+                                "Pygame",
+                                "Flask"
+                            ],
+                            "correctAnswer": "NumPy",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 7,
+                            "text": "What does IDE stand for in programming?",
+                            "options": [
+                                "Integrated Development Environment",
+                                "Interactive Data Explorer",
+                                "International Data Exchange",
+                                "Internal Debugging Engine"
+                            ],
+                            "correctAnswer": "Integrated Development Environment",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 8,
+                            "text": "Which sector uses Python for fraud detection and algorithmic trading?",
+                            "options": [
+                                "Healthcare",
+                                "Banking and Finance",
+                                "Education",
+                                "Manufacturing"
+                            ],
+                            "correctAnswer": "Banking and Finance",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 9,
+                            "text": "What is the purpose of error handling in Python?",
+                            "options": [
+                                "To make code run faster",
+                                "To prevent crashes when something goes wrong",
+                                "To automatically fix bugs",
+                                "To reduce memory usage"
+                            ],
+                            "correctAnswer": "To prevent crashes when something goes wrong",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 10,
+                            "text": "Which Python feature makes it good for beginners?",
+                            "options": [
+                                "Complex syntax",
+                                "Readable and simple code structure",
+                                "Requires memory management",
+                                "Slow execution speed"
+                            ],
+                            "correctAnswer": "Readable and simple code structure",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 11,
+                            "text": "What would check_number(7) output in the example code?",
+                            "options": [
+                                "7 is Even",
+                                "7 is Odd",
+                                "Error",
+                                "Nothing (no output)"
+                            ],
+                            "correctAnswer": "7 is Odd",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 12,
+                            "text": "Which of these is a Python library for machine learning?",
+                            "options": [
+                                "Matplotlib",
+                                "scikit-learn",
+                                "Requests",
+                                "SQLite"
+                            ],
+                            "correctAnswer": "scikit-learn",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 13,
+                            "text": "What is the main purpose of data transformation in Python workflows?",
+                            "options": [
+                                "To make data look pretty",
+                                "To prepare data into a usable format",
+                                "To delete unnecessary data",
+                                "To slow down program execution"
+                            ],
+                            "correctAnswer": "To prepare data into a usable format",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 14,
+                            "text": "Which industry uses Python for medical image analysis?",
+                            "options": [
+                                "Retail",
+                                "Healthcare",
+                                "Entertainment",
+                                "Agriculture"
+                            ],
+                            "correctAnswer": "Healthcare",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        },
+                        {
+                            "id": 15,
+                            "text": "What does API stand for?",
+                            "options": [
+                                "Automated Programming Interface",
+                                "Application Programming Interface",
+                                "Advanced Python Integration",
+                                "Algorithmic Process Instruction"
+                            ],
+                            "correctAnswer": "Application Programming Interface",
+                            "selectedAnswer": null,
+                            "status": "unseen"
+                        }
+                    ]
+                },
+                "codingPractice": {
+                    "title": "Coding Practice",
+                    "discription": "You will have three levl codes u have to answer those",
+                    "problems": [
+                        {
+                            "id": 1,
+                            "title": "Sum of Two Numbers",
+                            "description": "Write a program that takes two numbers as input and prints their sum.",
+                            "difficulty": "Easy",
+                            "constraints": [
+                                "Input numbers will be between -1000 and 1000",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5 7",
+                            "sampleOutput": "12",
+                            "explanation": "The sum of 5 and 7 is 12.",
+                            "testCases": [
+                                {
+                                    "input": "3 4",
+                                    "output": "7",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-2 8",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "0 0",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1000 1000",
+                                    "output": "2000",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "-1000 -1000",
+                                    "output": "-2000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "999 1",
+                                    "output": "1000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "500 -300",
+                                    "output": "200",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "123 456",
+                                    "output": "579",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-500 500",
+                                    "output": "0",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "42 58",
+                                    "output": "100",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "0 42",
+                                    "output": "42",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "-123 -456",
+                                    "output": "-579",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "title": "Factorial Calculation",
+                            "description": "Write a program to calculate the factorial of a given number. Factorial of n is the product of all positive integers less than or equal to n.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "0 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "120",
+                            "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120",
+                            "testCases": [
+                                {
+                                    "input": "0",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "1",
+                                    "output": "1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "6",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "720",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "3628800",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "479001600",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "1307674368000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "6402373705728000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "2432902008176640000",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "5040",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "40320",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "9",
+                                    "output": "362880",
+                                    "isPublic": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "title": "Fibonacci Sequence",
+                            "description": "Write a program to print the first n numbers of the Fibonacci sequence. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.",
+                            "difficulty": "Medium",
+                            "constraints": [
+                                "1 ≤ n ≤ 20",
+                                "Time limit: 1 second",
+                                "Memory limit: 256 MB"
+                            ],
+                            "sampleInput": "5",
+                            "sampleOutput": "0 1 1 2 3",
+                            "explanation": "The first 5 Fibonacci numbers are 0, 1, 1, 2, 3.",
+                            "testCases": [
+                                {
+                                    "input": "1",
+                                    "output": "0",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "2",
+                                    "output": "0 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "3",
+                                    "output": "0 1 1",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "7",
+                                    "output": "0 1 1 2 3 5 8",
+                                    "isPublic": true
+                                },
+                                {
+                                    "input": "10",
+                                    "output": "0 1 1 2 3 5 8 13 21 34",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "12",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "15",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "18",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "20",
+                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "4",
+                                    "output": "0 1 1 2",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "6",
+                                    "output": "0 1 1 2 3 5",
+                                    "isPublic": false
+                                },
+                                {
+                                    "input": "8",
+                                    "output": "0 1 1 2 3 5 8 13",
+                                    "isPublic": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "Python Introduction3": {
+                "videoRecomendation": {
+                    "link": "https://youtu.be/ZkndfcIyxMM?si=pZzGaXFFC-wUT1Qz",
+                    "title": "Introduction to Python Programming",
+                    "credits" : "@PythonLifetelugu"
+                },
+                "cheetsheet" : {
+                    "link" : "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
                 },
                 "practiceMcq": {
                     "title": "Practice",

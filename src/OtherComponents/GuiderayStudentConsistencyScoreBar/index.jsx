@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import GuiderayStudentPerformanceChart from '../GuiderayStudentPerformanceChart';
+import API_BASE_URL from '../../../config';
 
 const GuiderayStudentConsistencyScoreBar = ({ darkMode, studentId }) => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -13,7 +14,7 @@ const GuiderayStudentConsistencyScoreBar = ({ darkMode, studentId }) => {
   useEffect(() => {
     const fetchConsistencyData = async () => {
       try {
-        const response = await fetch(`https://webservice.guideray.in/api/consistancy/${studentId}`);
+        const response = await fetch(`${API_BASE_URL}/api/consistancy/${studentId}`);
         const data = await response.json();
         if (data.success) {
           setConsistencyData(data.data);

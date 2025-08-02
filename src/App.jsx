@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import API_BASE_URL from '../config';
+
 
 // Import components
 import GuideRayTopicIntroPage from './LearnPageComponents/GuideRayTopicIntroPage';
@@ -22,6 +24,7 @@ import GuideRayStudentProgressCalendar from './OtherComponents/StudentProgressBo
 import StudentAuth from './MainComponents/StudentAuth';
 import PaymentStatus from './components/PaymentStatus';
 import CourseDetailsRouteWrapper from './MainComponents/CourseDetailsRouteWrapper';
+import GuideRayGuideTalk from './MainComponents/GuideRayGuideTalk';
 
 // Styles
 const styles = `
@@ -189,9 +192,9 @@ const styles = `
 }
 
 .main-content.sidebar-expanded {
-  margin-left: 243px;
-  min-width: calc(100vw - 243px);
-  max-width: calc(100vw - 243px);
+  margin-left: 235px;
+  min-width: calc(100vw - 235px);
+  max-width: calc(100vw - 235px);
 }
 
 .main-content.standalone {
@@ -250,14 +253,16 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
 
+
+
   // Memoized route configurations
   const routeConfig = useMemo(() => ({
     public: ['/login', '/student-registration'],
     private: ['/', '/home', '/intro', '/student-practice', '/course', 
              '/video-course', '/coding-platform', '/profile', 
              '/notifications', '/progress', '/auth','course-details'],
-    hideNavbar: ['/login', '/student-registration','/','/home','/video-courses','/course-details', '/video-courses/', '/student-practice','/coding-platform'],
-    showSidebar: ['/', '/home','/course','/course-details'],
+    hideNavbar: ['/login', '/student-registration','/','/home','/video-courses','/course-details', '/video-courses/', '/student-practice','/coding-platform','/guidetalk'],
+    showSidebar: ['/', '/home','/course','/course-details','/guidetalk'],
     showProfile: ['/', '/home', '/course', '/profile', '/notifications', '/progress'],
     standalonePages: ['/login', '/student-registration',"/student-practice",'/coding-platform']
   }), []);
@@ -266,7 +271,7 @@ function AppContent() {
   const fetchUserData = useCallback(async () => {
     try {
       setLoadingUserData(true);
-      const response = await axios.get('https://webservice.guideray.in/api/students/me', {
+      const response = await axios.get(`${API_BASE_URL}/api/students/me`, {
         headers: {
           'Authorization': `Bearer ${cookies.studentToken}`
         }
@@ -536,6 +541,8 @@ function AppContent() {
                   <GuideRayApp 
                     darkMode={darkMode} 
                     userData={userData}
+
+                    cookie = {cookies.studentToken}
                   />
                 </ProtectedRoute>
               } />
@@ -552,6 +559,15 @@ function AppContent() {
               <Route path="/coding-platform" element={
                 <ProtectedRoute>
                   <GuidedRayCodingPlatform 
+                    darkMode={darkMode} 
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              } />
+
+              <Route path="/guidetalk" element={
+                <ProtectedRoute>
+                  <GuideRayGuideTalk 
                     darkMode={darkMode} 
                     userData={userData}
                   />

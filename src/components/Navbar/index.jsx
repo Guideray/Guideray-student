@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import './index.css';
+import API_BASE_URL from '../../../config';
 
 const Navbar = ({
   darkMode,
@@ -39,7 +40,7 @@ const Navbar = ({
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get('https://webservice.guideray.in/api/students/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/students/me`, {
           headers: { Authorization: `Bearer ${cookies.studentToken}` }
         });
         setStudentData(response.data.data);

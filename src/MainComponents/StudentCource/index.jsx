@@ -15,6 +15,7 @@ import PaymentButton from '../../components/PaymentButton';
 import CourseRecommendations from '../CourseRecommendations';
 import CourseDetails from '../StudentCourseDetails';
 import './index.css';
+import API_BASE_URL from '../../../config';
 
 const CourseCard = ({ course, darkMode, isLocked, onRegisterClick, userData, isRegistered, onNotifyClick, isNotified, onCourseVisit }) => {
   const navigate = useNavigate();
@@ -185,7 +186,7 @@ const StudentCourse = ({ darkMode, userData }) => {
         setLoading(true);
         
         const api = axios.create({
-          baseURL: 'https://webservice.guideray.in/api',
+          baseURL: `${API_BASE_URL}/api`,
           withCredentials: true,
           headers: {
             'Authorization': `Bearer ${cookies.studentToken}`
@@ -217,7 +218,7 @@ const StudentCourse = ({ darkMode, userData }) => {
   const checkCourseInitialized = async (course) => {
     try {
       const api = axios.create({
-        baseURL: 'https://webservice.guideray.in',
+        baseURL: `${API_BASE_URL}`,
         withCredentials: true,
         headers: {
           'Authorization': `Bearer ${cookies.studentToken}`
@@ -245,7 +246,7 @@ const StudentCourse = ({ darkMode, userData }) => {
       }
 
       const api = axios.create({
-        baseURL: 'https://webservice.guideray.in',
+        baseURL: `${API_BASE_URL}`,
         withCredentials: true,
         headers: {
           'Authorization': `Bearer ${cookies.studentToken}`
@@ -293,7 +294,7 @@ const StudentCourse = ({ darkMode, userData }) => {
       }
 
       const api = axios.create({
-        baseURL: 'https://webservice.guideray.in/api',
+        baseURL: `${API_BASE_URL}/api`,
         withCredentials: true,
         headers: {
           'Authorization': `Bearer ${cookies.studentToken}`

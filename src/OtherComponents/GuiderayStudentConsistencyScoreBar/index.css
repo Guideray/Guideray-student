@@ -7,11 +7,11 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  min-height: 500px;
   background-color: #ffffff00;
   color: #333333;
   position: relative;
+  height: auto;           /* Let height depend on content */
+  overflow-y: visible;    /* Ensure no unnecessary scrollbars */
 }
 
 /* Loading state */

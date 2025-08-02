@@ -5,6 +5,7 @@ import { RiQuestionnaireFill } from 'react-icons/ri';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MdCheckCircle } from 'react-icons/md';
 import './index.css';
+import API_BASE_URL from '../../../config';
 
 const StudentPracticeTest = () => {
   const location = useLocation();
@@ -37,7 +38,7 @@ const StudentPracticeTest = () => {
   useEffect(() => {
     const checkCompletionStatus = async () => {
       try {
-        const response = await fetch(`https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`);
+        const response = await fetch(`${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`);
         const data = await response.json();
         
         if (data.success) {
@@ -188,7 +189,7 @@ const StudentPracticeTest = () => {
       // Only trigger API if not already completed
       if (!alreadyCompleted) {
         try {
-          const response = await fetch(`https://webservice.guideray.in/api/consistancy/progress/${studentId}`, {
+          const response = await fetch(`${API_BASE_URL}/api/consistancy/progress/${studentId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

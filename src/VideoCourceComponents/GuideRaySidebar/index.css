@@ -1,292 +1,442 @@
 /* Main sidebar container */
-.guideray-video-course-sidebar-container {
+.guideray-sidebar-container {
   position: fixed;
   left: 0;
-  width: 300px;
+  width: 280px;
   height: 100vh;
-  background: #000f54;
+  background: #04145a;
   color: #ffffff;
-  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  z-index: 1000;
+  overflow-y: auto;
 }
 
-/* Sidebar header */
-.guideray-video-course-sidebar-header {
-  padding: 25px 20px;
+.guideray-sidebar-container.loading,
+.guideray-sidebar-container.error {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: #4dabf7;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #ff6b6b;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Header Section */
+.guideray-sidebar-header {
+  padding: 10px;
+  display: flex;
+  padding-left: 4px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: #02003e;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.guideray-video-course-sidebar-title {
-  font-size: 1.4rem;
-  font-weight: 700;
+.guideray-sidebar-logo-container {
+  width: 180px;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap:10px;
+  
+  padding: 10px;
+  padding-left: 0px;
   align-items: center;
-  margin: 0;
-  letter-spacing: 0.5px;
+  justify-content: center;
 }
 
-.guideray-video-course-sidebar-subtitle {
+.guideray-sidebar-logo {
+  width: 90%;
+  height: 90%;
+  margin-left: 50px;
+  object-fit: contain;
+}
+
+.guideray-sidebar-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: white;
+  margin-left: 20px;
+  line-height: 1.3;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+    border-left: 3px solid #0029f5;
+    padding-left: 10px;
+
+}
+
+.guideray-sidebar-subtitle {
   display: block;
   font-size: 0.75rem;
   font-weight: 400;
-  margin-top: 5px;
+  margin-top: 6px;
   opacity: 0.8;
+  letter-spacing: 0.5px;
+  color: #cbd5e1;
+}
+
+.guideray-sidebar-streak {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  padding: 8px 16px;
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 77, 77, 0.1) 100%);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+.guideray-sidebar-streak-icon {
+  color: #ff6b6b;
+  margin-right: 8px;
+  font-size: 0.9rem;
+}
+
+/* Progress Summary */
+.guideray-sidebar-progress-summary {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+  margin: 15px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.progress-count {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.progress-label {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.guideray-video-course-sidebar-icon-contain{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+.progress-summary-item.completed .progress-count {
+  color: #10b981;
 }
 
-.guideray-video-course-sidebar-icon {
-  margin-right: 12px;
-  color: #ffffff;
-  font-size: 2.2rem;
+.progress-summary-item.in-progress .progress-count {
+  color: #f59f00;
+}
+
+.progress-summary-item.not-started .progress-count {
+  color: #94a3b8;
 }
 
 /* Concepts list */
-.guideray-video-course-sidebar-concepts {
+.guideray-sidebar-concepts {
   flex: 1;
   overflow-y: auto;
   padding: 15px 0;
 }
 
 /* Concept header */
-.guideray-video-course-sidebar-concept {
-  margin-bottom: 5px;
+.guideray-sidebar-concept {
+  margin-bottom: 12px;
 }
 
-.guideray-video-course-sidebar-concept-header {
+.guideray-sidebar-concept-header {
   display: flex;
   align-items: center;
-  padding: 14px 25px;
+  padding: 14px 20px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   font-weight: 600;
   position: relative;
-    background-color: #02003e;
-
-  margin: 5px 15px;
-  border-radius: 6px;
+  margin: 8px 15px;
+  border-radius: 8px;
 }
 
-.guideray-video-course-sidebar-concept-header:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+
+
+.guideray-sidebar-concept-header.active {
+  background: rgba(77, 171, 247, 0.1);
 }
 
-.guideray-video-course-sidebar-concept-header.active {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-}
-
-.guideray-video-course-sidebar-chevron {
+.guideray-sidebar-chevron {
   margin-right: 12px;
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.8);
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  min-width: 14px;
 }
 
-.guideray-video-course-sidebar-concept-header.active .guideray-video-course-sidebar-chevron {
-  color: #ffffff;
+.guideray-sidebar-concept-header.active .guideray-sidebar-chevron {
+  color: #4dabf7;
 }
 
-.guideray-video-course-sidebar-concept-title {
+.guideray-sidebar-concept-title {
   flex: 1;
   font-size: 0.95rem;
-}
-
-.guideray-video-course-sidebar-concept-count {
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.75rem;
   font-weight: 600;
 }
 
-/* Topics list */
-.guideray-video-course-sidebar-topics {
-  padding: 5px 0;
-  margin: 0 15px;
+.guideray-sidebar-concept-count {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 45px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.guideray-video-course-sidebar-topic {
-  padding: 9px 12px 12px 25px;
-  cursor: pointer;
-  transition: all 0.2s;
+/* Timeline Section */
+.guideray-sidebar-timeline-section {
   position: relative;
-  margin: 3px 0;
-  border-radius: 5px;
+  padding: 10px 15px 10px 60px;
+  margin-left: 0px;
 }
 
-.guideray-video-course-sidebar-topic:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-.guideray-video-course-sidebar-topic.active {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-}
-
-.guideray-video-course-sidebar-topic.active::before {
-  content: '';
+.guideray-sidebar-timeline-line {
   position: absolute;
-  left: 0;
+  left: 42px;
   top: 0;
-  height: 100%;
-  width: 4px;
-  background-color: #ffffff;
-  border-radius: 0 3px 3px 0;
+  bottom: 0;
+  width: 2px;
+  background: #4dabf7;
+  z-index: 1;
 }
 
-.guideray-video-course-sidebar-topic-content {
+.guideray-sidebar-timeline-item {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 20px;
-  align-items: center;
+  flex-direction: column;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
 }
 
-.guideray-video-course-sidebar-topic-icon {
-  font-size: 0.9rem;
-  opacity: 0.9;
+.guideray-sidebar-timeline-item.completed .guideray-sidebar-timeline-line {
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    #10b981 20%, 
+    #10b981 80%, 
+    transparent 100%);
 }
 
-.guideray-video-course-sidebar-topic.active .guideray-video-course-sidebar-topic-icon {
+.guideray-sidebar-timeline-item.locked {
   opacity: 1;
+}
+
+.guideray-sidebar-timeline-marker {
+  position: absolute;
+  left: -30px;
+  top: 6px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #04145a;
+  justify-content: center;
+  border-radius: 20px;
+  box-sizing: content-box;
+  padding: 3px;
+  z-index: 2;
+}
+
+.progress-icon {
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+}
+
+.progress-icon-1{
+    font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.progress-text {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-top: 2px;
+}
+
+.guideray-sidebar-timeline-content {
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+
+  margin-right: 15px;
+}
+
+.guideray-sidebar-timeline-content:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(3px);
+}
+
+.guideray-sidebar-timeline-content.active {
+  background: rgba(77, 171, 247, 0.1);
+  box-shadow: 0 2px 8px rgba(77, 171, 247, 0.2);
+}
+
+.guideray-sidebar-timeline-topic {
+  font-size: 0.8rem;
+  font-weight: 500;
+  flex: 1;
   color: #ffffff;
 }
 
-.guideray-video-course-sidebar-topic-title {
-  font-size: 0.9rem;
-  font-weight: 500;
+.guideray-sidebar-timeline-lock {
+  margin-left: 10px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
 }
 
-.guideray-video-course-sidebar-topic-badges {
+/* Topic badges */
+.guideray-sidebar-topic-badges {
   display: flex;
-  gap: 6px;
-  margin-top: 10px;
-  margin-left: 35px;
+  gap: 8px;
+  margin-left: 12px;
 }
 
-.guideray-video-course-sidebar-badge {
-  font-size: 0.7rem;
-  padding: 3px 6px;
+.guideray-sidebar-badge {
+  font-size: 0.65rem;
+  padding: 4px 8px;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.guideray-video-course-sidebar-badge.video {
+.guideray-sidebar-badge svg {
+  margin-right: 3px;
+  font-size: 0.75rem;
+}
+
+.guideray-sidebar-badge.video {
   color: #ff4d4d;
+  background: rgba(255, 77, 77, 0.1);
 }
 
-.guideray-video-course-sidebar-badge.mcq {
-  color: #feca57;
+.guideray-sidebar-badge.mcq {
+  color: #f59f00;
+  background: rgba(245, 159, 0, 0.1);
 }
 
-.guideray-video-course-sidebar-badge.coding {
+.guideray-sidebar-badge.coding {
   color: #1dd1a1;
+  background: rgba(29, 209, 161, 0.1);
 }
 
 /* Footer */
-.guideray-video-course-sidebar-footer {
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.1);
+.guideray-sidebar-footer {
+  padding: 18px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(5px);
 }
 
-.guideray-video-course-sidebar-progress {
-  margin-bottom: 5px;
+.guideray-sidebar-progress-container {
+  width: 100%;
 }
 
-.guideray-video-course-sidebar-progress-bar {
-  height: 6px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
+.guideray-sidebar-progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+.guideray-sidebar-progress-text span:last-child {
+  font-weight: 600;
+  color: white;
+}
+
+.guideray-sidebar-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.guideray-sidebar-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 8px;
 }
 
-.guideray-video-course-sidebar-progress-fill {
+.guideray-sidebar-progress-fill {
   height: 100%;
-  background-color: #ffffff;
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-.guideray-video-course-sidebar-progress-text {
-  font-size: 0.8rem;
-  opacity: 0.9;
-  display: block;
-  text-align: center;
+  border-radius: 4px;
+  transition: all 0.5s ease;
+  background: linear-gradient(90deg, #4dabf7 0%, #1dd1a1 100%);
 }
 
 /* Scrollbar styling */
-.guideray-video-course-sidebar-concepts::-webkit-scrollbar {
-  width: 8px;
+.guideray-sidebar-container::-webkit-scrollbar {
+  width: 6px;
 }
 
-.guideray-video-course-sidebar-concepts::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+.guideray-sidebar-container::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
 }
 
-.guideray-video-course-sidebar-concepts::-webkit-scrollbar-thumb {
+.guideray-sidebar-container::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
 }
 
-.guideray-video-course-sidebar-concepts::-webkit-scrollbar-thumb:hover {
+.guideray-sidebar-container::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Add to GuideRaySidebar.css */
-.guideray-video-course-sidebar-topic.locked {
-  opacity: 0.6;
-  pointer-events: none;
+/* Animation for active items */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(77, 171, 247, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(77, 171, 247, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(77, 171, 247, 0); }
 }
 
-.guideray-video-course-sidebar-topic.locked .guideray-video-course-sidebar-topic-content {
-  position: relative;
-  padding-right: 30px;
-}
-
-.guideray-video-course-sidebar-topic-lock {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9ca3af;
-  font-size: 0.8rem;
-}
-
-.guideray-video-course-sidebar-topic-completed {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #10b981;
-  font-size: 0.8rem;
-}
-
-/* Dark mode adjustments */
-.dark-mode .guideray-video-course-sidebar-topic.locked {
-  opacity: 0.5;
-}
-
-.dark-mode .guideray-video-course-sidebar-topic-lock {
-  color: #6b7280;
+.guideray-sidebar-timeline-content.active {
+  animation: pulse 1.5s infinite;
 }

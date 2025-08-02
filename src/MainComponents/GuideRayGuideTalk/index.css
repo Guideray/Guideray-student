@@ -1,0 +1,193 @@
+/* Main Container */
+.GuideRayGuideTalk-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header/Navbar */
+.GuideRayGuideTalk-header {
+  background-color: #000f54;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.GuideRayGuideTalk-mentor-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.GuideRayGuideTalk-avatar {
+  background-color: #4a5fc1;
+  color: white;
+}
+
+.GuideRayGuideTalk-mentor-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.GuideRayGuideTalk-mentor-name {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.GuideRayGuideTalk-mentor-title {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+.GuideRayGuideTalk-contact-info {
+  display: flex;
+  gap: 24px;
+}
+
+.GuideRayGuideTalk-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.GuideRayGuideTalk-contact-icon {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+.GuideRayGuideTalk-contact-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+}
+
+/* Chat Messages Area */
+.GuideRayGuideTalk-chat-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: #f5f7fa;
+  display: flex;
+  flex-direction: column;
+}
+
+.GuideRayGuideTalk-message-item {
+  padding: 8px 0 !important;
+  width: 100%;
+}
+
+.GuideRayGuideTalk-message-content {
+  display: flex;
+  align-items: flex-end;
+  max-width: 80%;
+  margin: 8px 0;
+}
+
+.GuideRayGuideTalk-mentor-message {
+  justify-content: flex-start;
+}
+
+.GuideRayGuideTalk-student-message {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.GuideRayGuideTalk-message-avatar {
+  flex-shrink: 0;
+  margin: 0 8px;
+}
+
+.GuideRayGuideTalk-message-bubble {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+  max-width: 100%;
+}
+
+.GuideRayGuideTalk-mentor-message .GuideRayGuideTalk-message-bubble {
+  background-color: white;
+  color: #333;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.GuideRayGuideTalk-student-message .GuideRayGuideTalk-message-bubble {
+  background-color: #000f54;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.GuideRayGuideTalk-message-text {
+  font-size: 15px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.GuideRayGuideTalk-message-time {
+  font-size: 11px;
+  margin-top: 4px;
+  align-self: flex-end;
+  opacity: 0.8;
+}
+
+.GuideRayGuideTalk-mentor-message .GuideRayGuideTalk-message-time {
+  color: #666;
+}
+
+.GuideRayGuideTalk-student-message .GuideRayGuideTalk-message-time {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Message Input Area */
+.GuideRayGuideTalk-input-area {
+  padding: 16px 24px;
+  background-color: white;
+  border-top: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.GuideRayGuideTalk-message-input {
+  flex: 1;
+  border-radius: 24px;
+  padding: 12px 16px;
+  border: 1px solid #e8e8e8;
+  resize: none;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.GuideRayGuideTalk-message-input:focus {
+  border-color: #000f54;
+  box-shadow: 0 0 0 2px rgba(0, 15, 84, 0.2);
+  outline: none;
+}
+
+.GuideRayGuideTalk-send-button {
+  background-color: #000f54;
+  border: none;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.GuideRayGuideTalk-send-button:hover {
+  background-color: #1a2a7c;
+  transform: translateY(-2px);
+}
+
+.GuideRayGuideTalk-send-button:active {
+  transform: translateY(0);
+}

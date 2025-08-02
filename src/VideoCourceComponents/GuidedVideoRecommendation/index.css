@@ -1,0 +1,403 @@
+/* GuidedVideoRecommendation.css */
+
+.guidedVideoRecommendation-container {
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.guidedVideoRecommendation-container.dark-mode {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.guidedVideoRecommendation-header {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+}
+
+.guidedVideoRecommendation-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.guidedVideoRecommendation-subtitle {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.guidedVideoRecommendation-video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.guidedVideoRecommendation-video-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.guidedVideoRecommendation-video {
+  width: 100%;
+  height: 100%;
+}
+
+.guidedVideoRecommendation-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.guidedVideoRecommendation-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #6366f1;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.guidedVideoRecommendation-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guidedVideoRecommendation-thumbnail-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.guidedVideoRecommendation-thumbnail-placeholder p {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.guidedVideoRecommendation-play-button {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgb(255, 0, 0);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.guidedVideoRecommendation-play-button:hover {
+  transform: scale(1.1);
+}
+
+.guidedVideoRecommendation-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.guidedVideoRecommendation-controls.visible {
+  opacity: 1;
+}
+
+.guidedVideoRecommendation-progress {
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.guidedVideoRecommendation-progress-filled {
+  height: 100%;
+  background-color: #6366f1;
+  border-radius: 3px;
+  position: relative;
+}
+
+.guidedVideoRecommendation-controls-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guidedVideoRecommendation-controls-left,
+.guidedVideoRecommendation-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.guidedVideoRecommendation-control-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.guidedVideoRecommendation-control-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.guidedVideoRecommendation-volume {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.guidedVideoRecommendation-volume input[type="range"] {
+  width: 80px;
+  height: 4px;
+  -webkit-appearance: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.guidedVideoRecommendation-volume input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background-color: #6366f1;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.guidedVideoRecommendation-time {
+  font-size: 0.9rem;
+  color: white;
+  opacity: 0.8;
+}
+
+.guidedVideoRecommendation-playback-rate {
+  position: relative;
+}
+
+.guidedVideoRecommendation-playback-menu {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background-color: #1e293b;
+  border-radius: 6px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 80px;
+}
+
+.guidedVideoRecommendation-playback-menu button {
+  background: none;
+  border: none;
+  color: #f8fafc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.guidedVideoRecommendation-playback-menu button:hover {
+  background-color: #334155;
+}
+
+.guidedVideoRecommendation-playback-menu button.active {
+  background-color: #6366f1;
+  color: white;
+}
+
+/* Mark as Read Container */
+.guidedVideoRecommendation-mark-read-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px;
+}
+
+/* Mark as Read Button */
+.guidedVideoRecommendation-mark-read-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #999;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  text-align: right;
+}
+
+.guidedVideoRecommendation-mark-read-button:hover:not(:disabled) {
+  background-color: rgba(0, 123, 255, 0.1);
+  color: #007BFF;
+}
+
+.guidedVideoRecommendation-mark-read-button.completed {
+  color: #007BFF;
+  cursor: default;
+}
+
+.guidedVideoRecommendation-mark-read-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Circle Icon */
+.guidedVideoRecommendation-mark-read-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.guidedVideoRecommendation-mark-read-button.completed .guidedVideoRecommendation-mark-read-circle {
+  background-color: #007BFF;
+  border-color: #007BFF;
+  color: white;
+}
+
+.guidedVideoRecommendation-mark-read-button:hover:not(:disabled) .guidedVideoRecommendation-mark-read-circle {
+  border-color: #007BFF;
+}
+
+/* Check Icon */
+.guidedVideoRecommendation-check-icon {
+  stroke-width: 3px;
+  font-size: 10px;
+}
+
+/* Tooltip styles */
+.guidedVideoRecommendation-mark-read-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.guidedVideoRecommendation-mark-read-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+  bottom: calc(100% + 5px);
+}
+
+/* Credits */
+.guidedVideoRecommendation-credits {
+  padding: 0 1rem 1rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: right;
+}
+
+.dark-mode .guidedVideoRecommendation-credits {
+  color: #94a3b8;
+}
+
+/* Disclaimer */
+.guidedVideoRecommendation-disclaimer {
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+  border-top: 1px solid #e2e8f0;
+}
+
+.dark-mode .guidedVideoRecommendation-disclaimer {
+  color: #94a3b8;
+  border-top-color: #334155;
+}
+
+/* Fullscreen styles */
+.guidedVideoRecommendation-container.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+  z-index: 9999;
+}
+
+.guidedVideoRecommendation-container.fullscreen .guidedVideoRecommendation-video-container {
+  height: 100%;
+  padding-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .guidedVideoRecommendation-mark-read-container {
+    justify-content: center;
+  }
+  
+  .guidedVideoRecommendation-mark-read-button {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+}

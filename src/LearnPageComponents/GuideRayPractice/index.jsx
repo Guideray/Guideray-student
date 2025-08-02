@@ -5,6 +5,7 @@ import { FiArrowRight, FiAward, FiBookOpen, FiCheck } from 'react-icons/fi';
 import { FaRegLightbulb } from 'react-icons/fa';
 import axios from 'axios';
 import './index.css';
+import API_BASE_URL from '../../../config';
 
 const GuideRayPractice = ({ data, darkMode, courseId, studentId, studentName, topic, topicIndex, concept }) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const GuideRayPractice = ({ data, darkMode, courseId, studentId, studentName, to
     const fetchProgressData = async () => {
       try {
         const response = await axios.get(
-          `https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`
+          `${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`
         );
         if (response.data.success) {
           // Check if this topic is already marked as completed (>= 50% progress)
@@ -55,7 +56,7 @@ const GuideRayPractice = ({ data, darkMode, courseId, studentId, studentName, to
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `https://webservice.guideray.in/api/consistancy/progress/${studentId}`,
+        `${API_BASE_URL}/api/consistancy/progress/${studentId}`,
         {
           courseName: courseId,
           topicIndex: topicIndex,

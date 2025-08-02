@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import API_BASE_URL from '../../../config';
 
 const GuideRayStudentProgressCalendar = ({ studentId }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -11,7 +12,7 @@ const GuideRayStudentProgressCalendar = ({ studentId }) => {
   useEffect(() => {
     const fetchProgressData = async () => {
       try {
-        const response = await fetch(`https://webservice.guideray.in/api/consistancy/${studentId}`);
+        const response = await fetch(`${API_BASE_URL}/api/consistancy/${studentId}`);
         const data = await response.json();
         if (data.success) {
           setProgressData(data.data);

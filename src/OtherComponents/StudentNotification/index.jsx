@@ -15,6 +15,7 @@ import {
   RiCheckboxCircleLine, RiDeleteBinLine
 } from 'react-icons/ri';
 import './index.css';
+import API_BASE_URL from '../../../config';
 
 const GuiderayStudentNotification = () => {
   const [cookies] = useCookies(['studentToken']);
@@ -29,7 +30,7 @@ const GuiderayStudentNotification = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get('https://webservice.guideray.in/api/students/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/students/me`, {
           headers: {
             Authorization: `Bearer ${cookies.studentToken}`
           }
@@ -50,7 +51,7 @@ const GuiderayStudentNotification = () => {
       if (!studentInfo) return;
       
       try {
-        const response = await axios.get(`https://webservice.guideray.in/api/notifications/${studentInfo.studentId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/notifications/${studentInfo.studentId}`);
         const notificationsData = response.data.data || [];
         setNotifications(notificationsData);
         setLoading(false);
@@ -67,7 +68,7 @@ const GuiderayStudentNotification = () => {
 
   const markAsRead = async (notificationId) => {
     try {
-      await axios.put(`https://webservice.guideray.in/api/notifications/${notificationId}/read`, {
+      await axios.put(`${API_BASE_URL}/api/notifications/${notificationId}/read`, {
         studentId: studentInfo.studentId
       }, {
         headers: {
@@ -111,7 +112,7 @@ const GuiderayStudentNotification = () => {
 
   const deleteSelectedNotifications = async () => {
     try {
-      await axios.post('https://webservice.guideray.in/api/notifications/delete-selected', {
+      await axios.post(`${API_BASE_URL}/api/notifications/delete-selected`, {
         ids: selectedNotifications
       }, {
         headers: {

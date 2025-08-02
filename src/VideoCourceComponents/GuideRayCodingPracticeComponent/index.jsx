@@ -10,7 +10,7 @@ import {
   FiBookmark
 } from 'react-icons/fi';
 import './index.css';
-
+import API_BASE_URL from '../../../config';
 const GuideRayCodingPracticeComponent = ({ codingData, topicIndex, topic, concept, studentName, studentId, courseId }) => {
   const navigate = useNavigate();
   const [progressData, setProgressData] = useState(null);
@@ -20,7 +20,7 @@ const GuideRayCodingPracticeComponent = ({ codingData, topicIndex, topic, concep
   useEffect(() => {
     const fetchProgressData = async () => {
       try {
-        const response = await fetch(`https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`);
+        const response = await fetch(`${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`);
         const { data } = await response.json();
         setProgressData(data);
         
@@ -60,7 +60,7 @@ const GuideRayCodingPracticeComponent = ({ codingData, topicIndex, topic, concep
   const handleMarkAsRead = async () => {
     try {
       // Make API call to mark topic as read
-      const response = await fetch(`https://webservice.guideray.in/api/consistancy/mark-read`, {
+      const response = await fetch(`${API_BASE_URL}/api/consistancy/mark-read`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

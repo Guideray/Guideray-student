@@ -1,11 +1,11 @@
 /* Main container - White background theme */
 .guderay-progress-calendar-container {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 19.8vw;
-        min-width: 19.8vw;
+    max-width: 22vw;
+        min-width: 22vw;
 
   margin: 0 auto;
-  height: 430px;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;

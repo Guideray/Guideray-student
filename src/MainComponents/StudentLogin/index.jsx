@@ -6,6 +6,7 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import axios from 'axios';
 import languagesData from './courses.json';
 import './index.css';
+import API_BASE_URL from '../../../config';
 
 const StudentLogin = () => {
   const [email, setEmail] = useState('');
@@ -82,7 +83,7 @@ const StudentLogin = () => {
 
     try {
     const response = await axios.post(
-  'https://webservice.guideray.in/api/student-auth/request-otp',
+  `${API_BASE_URL}/api/student-auth/request-otp`,
   {
     email: email
   },
@@ -144,7 +145,7 @@ const StudentLogin = () => {
 
     try {
      const response = await axios.post(
-  'https://webservice.guideray.in/api/student-auth/verify-otp',
+  `${API_BASE_URL}/api/student-auth/verify-otp`,
   {
     email: email,
     otp: otpCode
@@ -181,7 +182,7 @@ const StudentLogin = () => {
     setSuccessMessage('');
 
     try {
-      const response = await axios.post('https://webservice.guideray.in/api/student-auth/request-otp', {
+      const response = await axios.post(`${API_BASE_URL}/api/student-auth/request-otp`, {
         email: email
       });
 

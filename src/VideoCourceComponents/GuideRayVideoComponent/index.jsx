@@ -21,7 +21,7 @@ import {
 } from 'react-icons/md';
 import axios from 'axios';
 import './index.css';
-
+import API_BASE_URL from '../../../config';
 const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,courseId }) => {
   // Refs
   const videoRef = useRef(null);
@@ -59,7 +59,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
     const fetchProgressData = async () => {
       try {
         const response = await axios.get(
-          `https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`
+          `${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`
         );
         if (response.data.success) {
           setProgressData(response.data.data);
@@ -108,7 +108,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
     try {
       const now = new Date().toISOString();
       const response = await axios.post(
-        `https://webservice.guideray.in/api/consistancy/progress/${studentId}`,
+        `${API_BASE_URL}/api/consistancy/progress/${studentId}`,
         {
           courseName: courseId,
           topicIndex: topicIndex,

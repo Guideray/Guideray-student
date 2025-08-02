@@ -4,7 +4,7 @@ import { FaArrowLeft, FaChevronRight, FaStar, FaRegStar, FaClock, FaBook, FaLapt
 import PaymentButton from '../../components/PaymentButton';
 import CourseRecommendations from '../CourseRecommendations';
 import CourseDetails from '../StudentCourseDetails';
-
+import API_BASE_URL from '../../../config';
 const CourseDetailsRouteWrapper = ({ darkMode, userData }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const CourseDetailsRouteWrapper = ({ darkMode, userData }) => {
 
     const fetchAvailableCourses = async () => {
       try {
-        const response = await fetch('https://webservice.guideray.in/api/courses/available');
+        const response = await fetch(`${API_BASE_URL}/api/courses/available`);
         if (!response.ok) throw new Error('Failed to fetch available courses');
         const data = await response.json();
         
@@ -50,7 +50,7 @@ const CourseDetailsRouteWrapper = ({ darkMode, userData }) => {
     setError(null);
     try {
       // Implement actual enrollment logic here
-      const response = await fetch('https://webservice.guideray.in/api/enroll', {
+      const response = await fetch(`${API_BASE_URL}/api/enroll`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

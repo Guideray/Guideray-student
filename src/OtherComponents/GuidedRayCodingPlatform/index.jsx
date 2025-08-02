@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './index.css';
 import Editor from '@monaco-editor/react';
+import API_BASE_URL from '../../../config';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { 
   FiAlertCircle, 
@@ -194,7 +195,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
   useEffect(() => {
     const fetchUserProgress = async () => {
       try {
-        const response = await axios.get(`https://webservice.guideray.in/api/consistancy/progress/${studentId}/${courseId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`);
         setUserProgress(response.data.data);
       } catch (error) {
         console.error('Error fetching user progress:', error);
@@ -590,7 +591,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
           }
         };
         
-        await axios.post(`https://webservice.guideray.in/api/consistancy/progress/${studentId}`, payload);
+        await axios.post(`${API_BASE_URL}/api/consistancy/progress/${studentId}`, payload);
       }
     } catch (error) {
       console.error('Error updating progress:', error);

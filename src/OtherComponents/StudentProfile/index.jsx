@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiEdit2, FiSave, FiX, FiUser, FiPhone, FiMail, FiCalendar, FiBook, FiUsers, FiHash, FiLock } from 'react-icons/fi';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import API_BASE_URL from '../../../config';
 import './index.css';
 
 const StudentProfile = ({ darkMode }) => {
@@ -17,7 +18,7 @@ const StudentProfile = ({ darkMode }) => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get('https://webservice.guideray.in/api/students/me', {
+        const response = await axios.get(`${API_BASE_URL}/api/students/me`, {
           headers: {
             Authorization: `Bearer ${cookies.studentToken}`
           }
@@ -63,7 +64,7 @@ const StudentProfile = ({ darkMode }) => {
     setIsSubmitting(true);
     try {
       const response = await axios.put(
-        `https://webservice.guideray.in/api/students/${studentData.id}`,
+        `${API_BASE_URL}/api/students/${studentData.id}`,
         formData,
         {
           headers: {

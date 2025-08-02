@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import API_BASE_URL from '../../../config';
+
 import axios from 'axios';
 import { load } from '@cashfreepayments/cashfree-js';
 import { 
@@ -54,7 +56,7 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
         pollingIntervalRef.current = setInterval(async () => {
           try {
             const response = await axios.get(
-              `https://webservice.guideray.in/api/payments/verify`,
+              `${API_BASE_URL}/api/payments/verify`,
               {
                 params: {
                   orderId: orderId,
@@ -93,7 +95,7 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
         (async () => {
           try {
             const response = await axios.get(
-              `https://webservice.guideray.in/api/payments/verify`,
+              `${API_BASE_URL}/api/payments/verify`,
               {
                 params: {
                   orderId: orderId,
@@ -163,7 +165,7 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
       setStatus('processing');
 
       const orderResponse = await axios.post(
-        'https://webservice.guideray.in/api/payments/create-order',
+        `${API_BASE_URL}/api/payments/create-order`,
         {
           courseId: course._id,
           customerName: userData.name,
