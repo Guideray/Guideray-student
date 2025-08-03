@@ -7,10 +7,13 @@ import axios from 'axios';
 import './index.css';
 import API_BASE_URL from '../../../config';
 
-const GuideRayPractice = ({ data, darkMode, courseId, studentId, studentName, topic, topicIndex, concept }) => {
+const GuideRayPractice = ({ data, darkMode, courseId, studentId, studentName, topic, topicIndex, concept, topicData }) => {
   const navigate = useNavigate();
   const [isMarkedRead, setIsMarkedRead] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Check if coding practice exists in the topic
+  const hasCodingPractice = topicData?.codingPractice?.problems?.length > 0;
 
   useEffect(() => {
     const fetchProgressData = async () => {
@@ -45,7 +48,8 @@ const GuideRayPractice = ({ data, darkMode, courseId, studentId, studentName, to
         studentName: studentName,
         topic: topic,
         topicIndex: topicIndex,
-        concept: concept
+        concept: concept,
+        hasCodingPractice: hasCodingPractice // Pass the flag to the navigation route
       }
     });
   };

@@ -2,49 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { 
   FaChevronDown, 
   FaChevronRight, 
-  FaYoutube,
-  FaQuestionCircle,
-  FaCode,
   FaLock,
-  FaFire,
   FaClock
 } from 'react-icons/fa';
 import { IoMdCheckmarkCircle } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import API_BASE_URL from '../../../config';
-
-import axios from 'axios';
 import './index.css';
 
-const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect, studentId, courseId }) => {
+const GuideRaySidebar = ({ 
+  courseData, 
+  selectedConcept, 
+  selectedTopic, 
+  onSelect, 
+  progressData,
+  darkMode,
+  collapsed
+}) => {
   const [expandedConcepts, setExpandedConcepts] = useState({});
-  const [progressData, setProgressData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchProgressData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`
-        );
-        setProgressData(response.data.data);
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching progress data:', err);
-        setError('Failed to load progress data');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (studentId && courseId) {
-      fetchProgressData();
-      const intervalId = setInterval(fetchProgressData, 30000);
-      return () => clearInterval(intervalId);
-    }
-  }, [studentId, courseId]);
 
   useEffect(() => {
     if (courseData) {
@@ -56,39 +30,55 @@ const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect,
     }
   }, [courseData]);
 
+  useEffect(() => {
+    // Auto-select the last unlocked topic when component mounts or progress updates
+    if (courseData && progressData) {
+      const allTopics = getAllTopics();
+      let lastUnlockedIndex = -1;
+      
+      // Find the last unlocked topic
+      for (let i = 0; i < allTopics.length; i++) {
+        if (isTopicUnlocked(i)) {
+          lastUnlockedIndex = i;
+        } else {
+          break; // Topics are sequential, so we can break at first locked one
+        }
+      }
+      
+      // If we found an unlocked topic and no topic is currently selected
+      if (lastUnlockedIndex >= 0 && (!selectedConcept || !selectedTopic)) {
+        const topicToSelect = allTopics[lastUnlockedIndex];
+        if (topicToSelect.concept !== selectedConcept || topicToSelect.topic !== selectedTopic) {
+          onSelect(topicToSelect.concept, topicToSelect.topic);
+        }
+      }
+    }
+  }, [courseData, progressData]);
+
   const calculateCourseProgress = () => {
     if (!progressData || !progressData.t) {
       return {
         overallConsistency: 0,
-        streak: 0,
         completedTopics: 0,
-        totalTopics: 0,
-        inProgress: 0,
-        notStarted: 0
+        totalTopics: 0
       };
     }
 
     const totalTopics = progressData.t.length;
     let completedTopics = 0;
-    let inProgress = 0;
     let totalProgress = 0;
 
     progressData.t.forEach(topic => {
       if (topic.p >= 75) completedTopics++;
-      else if (topic.p > 0) inProgress++;
       totalProgress += topic.p;
     });
 
     const overallConsistency = Math.round(totalProgress / totalTopics);
-    const notStarted = totalTopics - completedTopics - inProgress;
 
     return {
       overallConsistency,
-      streak: progressData.streak?.c || 0,
       completedTopics,
-      totalTopics,
-      inProgress,
-      notStarted
+      totalTopics
     };
   };
 
@@ -111,8 +101,7 @@ const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect,
         topics.push({
           concept,
           topic,
-          globalIndex,
-          data: courseData[concept][topic]
+          globalIndex
         });
         globalIndex++;
       });
@@ -129,7 +118,8 @@ const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect,
 
   const isTopicUnlocked = (topicIndex) => {
     if (topicIndex === 0) return true;
-    return isTopicCompleted(topicIndex - 1);
+    if (!progressData || !progressData.t) return false;
+    return progressData.t[topicIndex - 1]?.p >= 75;
   };
 
   const getProgressColor = (percentage) => {
@@ -139,62 +129,33 @@ const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect,
     return '#94a3b8';
   };
 
-  const formatCourseName = (id) => {
-    if (!id) return '';
-    const parts = id.split('_');
-    if (parts.length < 2) return id;
-    return parts.slice(1)
-      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(' ');
-  };
-
   const getProgressIcon = (p) => {
     if (p >= 75) {
       return <IoMdCheckmarkCircle className="progress-icon" style={{ color: getProgressColor(p) }} />;
     }
-    return <FaClock className="progress-icon-1" style={{ color: getProgressColor(p) }} />;
+    return <FaClock className="progress-icon" style={{ color: getProgressColor(p) }} />;
   };
-
-  if (loading) {
-    return (
-      <div className="guideray-sidebar-container loading">
-        <div className="loading-spinner"></div>
-        <p>Loading your progress...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="guideray-sidebar-container error">
-        <p className="error-message">{error}</p>
-      </div>
-    );
-  }
 
   if (!courseData) {
     return (
-      <div className="guideray-sidebar-container error">
-        <p className="error-message">Course data not available</p>
+      <div className={`guideray-sidebar-container ${darkMode ? 'dark-mode' : ''} ${collapsed ? 'collapsed' : ''}`}>
+        <p>Course data not available</p>
       </div>
     );
   }
 
   return (
-    <div className="guideray-sidebar-container">
+    <div className={`guideray-sidebar-container ${darkMode ? 'dark-mode' : ''} ${collapsed ? 'collapsed' : ''}`}>
       <div className="guideray-sidebar-header">
-      <div className="guideray-sidebar-logo-container">
-  <Link to="/">
-    <img 
-      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1747826507/b4r9unmciqqgfiuncwcp.png" 
-      alt="GuideRay Logo" 
-      className="guideray-sidebar-logo"
-    />
-  </Link>
-</div>
-        <h2 className="guideray-sidebar-title">
-          {formatCourseName(progressData?.n)}
-        </h2>
+        <div className="guideray-sidebar-logo-container">
+          <Link to="/">
+            <img 
+              src="https://res.cloudinary.com/dx97khgxd/image/upload/v1747826507/b4r9unmciqqgfiuncwcp.png" 
+              alt="GuideRay Logo" 
+              className="guideray-sidebar-logo"
+            />
+          </Link>
+        </div>
       </div>
 
       <div className="guideray-sidebar-concepts">
@@ -212,7 +173,7 @@ const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect,
                 </span>
                 <span className="guideray-sidebar-concept-title">{concept}</span>
                 <span className="guideray-sidebar-concept-count">
-                  {conceptTopics.filter(t => isTopicCompleted(t.globalIndex)).length} / {conceptTopics.length}
+                  {conceptTopics.filter(t => isTopicCompleted(t.globalIndex)).length}/{conceptTopics.length}
                 </span>
               </div>
               
@@ -229,7 +190,6 @@ const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect,
                     <div
                       key={`${item.concept}-${item.topic}`}
                       className={`guideray-sidebar-timeline-item ${completed ? 'completed' : ''} ${!unlocked ? 'locked' : ''}`}
-                      data-progress={progress}
                     >
                       <div className="guideray-sidebar-timeline-marker">
                         {getProgressIcon(progress)}
@@ -240,10 +200,7 @@ const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect,
                         onClick={() => unlocked && onSelect(item.concept, item.topic)}
                       >
                         <div className="guideray-sidebar-timeline-topic">{item.topic}</div>
-                        
-                        {!unlocked && (
-                          <FaLock className="guideray-sidebar-timeline-lock" />
-                        )}
+                        {!unlocked && <FaLock className="guideray-sidebar-timeline-lock" />}
                       </div>
                     </div>
                   );
@@ -257,19 +214,17 @@ const GuideRaySidebar = ({ courseData, selectedConcept, selectedTopic, onSelect,
       <div className="guideray-sidebar-footer">
         <div className="guideray-sidebar-progress-container">
           <div className="guideray-sidebar-progress-text">
-            <span>Overall Progress</span>
+            <span>Progress</span>
             <span>{courseProgress.overallConsistency}%</span>
           </div>
-          <div className="guideray-sidebar-progress">
-            <div className="guideray-sidebar-progress-bar">
-              <div 
-                className="guideray-sidebar-progress-fill" 
-                style={{ 
-                  width: `${courseProgress.overallConsistency}%`,
-                  background: getProgressColor(courseProgress.overallConsistency)
-                }}
-              ></div>
-            </div>
+          <div className="guideray-sidebar-progress-bar">
+            <div 
+              className="guideray-sidebar-progress-fill" 
+              style={{ 
+                width: `${courseProgress.overallConsistency}%`,
+                backgroundColor: getProgressColor(courseProgress.overallConsistency)
+              }}
+            ></div>
           </div>
         </div>
       </div>

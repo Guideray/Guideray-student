@@ -7,7 +7,18 @@ import './index.css';
 import { useNavigate } from 'react-router-dom';
 import API_BASE_URL from '../../../config';
 
-const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progressData, concept, topic, topicIndex, courseId, userData }) => {
+const GuideRayTopicContent = ({ 
+  topicData, 
+  darkMode, 
+  isLocked, 
+  onComplete, 
+  progressData, 
+  concept, 
+  topic, 
+  topicIndex, 
+  courseId, 
+  userData 
+}) => {
   const [completedSteps, setCompletedSteps] = useState({
     video: false,
     cheatsheet: false,
@@ -18,10 +29,9 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
   const [topicProgress, setTopicProgress] = useState(0);
   const [loadingProgress, setLoadingProgress] = useState(true);
   const [videoWatchedPercentage, setVideoWatchedPercentage] = useState(0);
-  const [reloadTrigger, setReloadTrigger] = useState(false); // New state for triggering reloads
+  const [reloadTrigger, setReloadTrigger] = useState(false);
   const navigate = useNavigate();
 
-  // Function to get cookie value
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -38,9 +48,9 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
         setTopicProgress(topicProgressData.p);
         
         setCompletedSteps({
-          video: topicProgressData.p >= 10,
-          cheatsheet: topicProgressData.p >= 25,
-          mcq: topicProgressData.p >= 50,
+          video: topicProgressData.p >= 25,
+          cheatsheet: topicProgressData.p >= 50,
+          mcq: topicProgressData.p >= 75,
           coding: topicProgressData.p >= 100
         });
       }
@@ -53,7 +63,7 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
 
   useEffect(() => {
     fetchProgress();
-  }, [userData.id, courseId, topicIndex, reloadTrigger]); // Added reloadTrigger to dependencies
+  }, [userData.id, courseId, topicIndex, reloadTrigger]);
 
   const handleVideoProgress = (progress) => {
     setVideoWatchedPercentage(progress);
@@ -66,7 +76,6 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
     const updatedSteps = { ...completedSteps, [step]: true };
     setCompletedSteps(updatedSteps);
     
-    // Calculate new progress based on completed steps
     let newProgress = 0;
     if (updatedSteps.video) newProgress = 25;
     if (updatedSteps.cheatsheet) newProgress = 50;
@@ -75,10 +84,9 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
     
     setTopicProgress(newProgress);
     
-    // Trigger reload after state update
     if (onComplete) {
-      await onComplete(step, newProgress);
-      setReloadTrigger(prev => !prev); // Toggle reload trigger to force refresh
+      await onComplete(step);
+      setReloadTrigger(prev => !prev);
     }
   };
 
@@ -94,8 +102,8 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
       return;
     }
     
-    if (topicData.cheetsheet?.link) {
-      window.open(topicData.cheetsheet.link, '_blank');
+    if (topicData.cheatsheet?.link) {
+      window.open(topicData.cheatsheet.link, '_blank');
       if (!completedSteps.cheatsheet) {
         await handleComplete('cheatsheet');
       }
@@ -141,7 +149,6 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
                   <span className="guideray-topic-content-step-completed-label">Completed</span>
                 )}
               </div>
-       
               <GuidedVideoRecommendation 
                 videoData={topicData.videoRecomendation} 
                 darkMode={darkMode} 
@@ -156,8 +163,7 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
           </li>
         )}
 
-        {/* Cheatsheet Step */}
-        {topicData.cheetsheet && (
+        {topicData.cheatsheet && (
           <li className={`guideray-topic-content-path-step ${completedSteps.cheatsheet ? 'guideray-topic-content-completed' : ''}`}>
             <div className="guideray-topic-content-step-indicator">
               <div className={`guideray-topic-content-step-icon ${completedSteps.cheatsheet ? 'guideray-topic-content-step-completed' : ''}`}>
@@ -248,6 +254,7 @@ const GuideRayTopicContent = ({ topicData, darkMode, isLocked, onComplete, progr
                     studentName={userData.name}
                     topic={topic}
                     concept={concept}
+                    topicData={topicData}
                   />
                 </div>
               </div>

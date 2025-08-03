@@ -18,12 +18,13 @@ const StudentPracticeTest = () => {
     studentName,
     topic,
     topicIndex,
-    concept
+    concept,
+    hasCodingPractice
   } = location.state || {};
   
   const [questions, setQuestions] = useState(initialQuizQuestions || []);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(quizTime * 60 || 600); // Convert minutes to seconds
+  const [timeLeft, setTimeLeft] = useState(quizTime * 60 || 600);
   const [theme, setTheme] = useState('light');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
@@ -34,7 +35,6 @@ const StudentPracticeTest = () => {
   const [alreadyCompleted, setAlreadyCompleted] = useState(false);
   const timerBarRef = useRef(null);
 
-  // Check if the student has already completed this topic
   useEffect(() => {
     const checkCompletionStatus = async () => {
       try {
@@ -57,11 +57,9 @@ const StudentPracticeTest = () => {
     }
   }, [studentId, courseId, topicIndex]);
 
-  // Calculate progress percentage
   const answeredQuestions = questions.filter(q => q.status === "answered").length;
   const progressPercentage = Math.round((answeredQuestions / questions.length) * 100);
 
-  // Format time as HH:MM:SS
   const formatTime = (seconds) => {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
@@ -69,13 +67,11 @@ const StudentPracticeTest = () => {
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Handle timer bar animation and color transition
   useEffect(() => {
     if (timerBarRef.current) {
       const percentageLeft = (timeLeft / (quizTime * 60)) * 100;
       timerBarRef.current.style.width = `${percentageLeft}%`;
       
-      // Smooth color transition based on time left
       if (percentageLeft <= 5) {
         timerBarRef.current.style.backgroundColor = '#ff0000';
       } else if (percentageLeft <= 20) {
@@ -90,13 +86,12 @@ const StudentPracticeTest = () => {
     }
   }, [timeLeft, theme, quizTime]);
 
-  // Handle timer
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 0) {
           clearInterval(timer);
-          handleSubmit(); // Auto-submit when time runs out
+          handleSubmit();
           return 0;
         }
         return prev - 1;
@@ -106,7 +101,6 @@ const StudentPracticeTest = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Mark current question as viewed when changed
   useEffect(() => {
     const updatedQuestions = [...questions];
     if (updatedQuestions[currentQuestionIndex]?.status === "unseen") {
@@ -181,36 +175,46 @@ const StudentPracticeTest = () => {
     return percentage;
   };
 
+  const updateProgress = async (completionType) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/consistancy/progress/${studentId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          courseName: courseId,
+          topicIndex: topicIndex,
+          completionType: completionType,
+          date: new Date().toISOString()
+        })
+      });
+      return await response.json();
+    } catch (error) {
+      console.error("Error updating progress:", error);
+      return { success: false };
+    }
+  };
+
   const handleSubmit = async () => {
     setShowSubmitModal(false);
     const scorePercentage = calculateScore();
     
     if (scorePercentage >= 70) {
-      // Only trigger API if not already completed
       if (!alreadyCompleted) {
-        try {
-          const response = await fetch(`${API_BASE_URL}/api/consistancy/progress/${studentId}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              courseName: courseId,
-              topicIndex: topicIndex,
-              completionType: "quiz",
-              date: new Date().toISOString()
-            })
-          });
-          
-          const data = await response.json();
-          if (data.success) {
+        if (hasCodingPractice) {
+          const result = await updateProgress("quiz");
+          if (result.success) {
             setShowSuccessModal(true);
           }
-        } catch (error) {
-          console.error("Error updating progress:", error);
+        } else {
+          const quizResult = await updateProgress("quiz");
+          const topicResult = await updateProgress("quiz");
+          if (quizResult.success && topicResult.success) {
+            setShowSuccessModal(true);
+          }
         }
       } else {
-        // Show success modal without triggering API
         setShowSuccessModal(true);
       }
     } else {
@@ -224,7 +228,6 @@ const StudentPracticeTest = () => {
 
   return (
     <div className={`guideray-student-practice-test-app-container guideray-student-practice-test-${theme}`}>
-      {/* Progress bar for answered questions */}
       <div className="guideray-student-practice-test-progress-container">
         <div 
           className="guideray-student-practice-test-progress-bar"
@@ -259,7 +262,6 @@ const StudentPracticeTest = () => {
         </div>
       </nav>
 
-      {/* New full-width timer progress bar */}
       <div className="guideray-student-practice-test-timer-progress-container">
         <div 
           ref={timerBarRef}
@@ -294,6 +296,18 @@ const StudentPracticeTest = () => {
             <div className="guideray-student-practice-test-question-text">
               <p>{currentQuestion?.text}</p>
             </div>
+
+            {/* NEW CODE DISPLAY SECTION */}
+            {currentQuestion?.code && (
+              <div className="guideray-student-practice-test-code-display">
+                <div className="guideray-student-practice-test-code-header">
+                  <span>Code Example</span>
+                </div>
+                <pre className="guideray-student-practice-test-code-content">
+                  <code>{currentQuestion.code}</code>
+                </pre>
+              </div>
+            )}
 
             <div className="guideray-student-practice-test-options-container">
               {currentQuestion?.options?.map((option, idx) => (
@@ -409,7 +423,6 @@ const StudentPracticeTest = () => {
         </div>
       </div>
 
-      {/* Submit Confirmation Modal */}
       {showSubmitModal && (
         <div className="guideray-student-practice-test-modal-overlay">
           <div className="guideray-student-practice-test-modal">
@@ -433,7 +446,6 @@ const StudentPracticeTest = () => {
         </div>
       )}
 
-      {/* Success Modal */}
       {showSuccessModal && (
         <div className="guideray-student-practice-test-modal-overlay">
           <div className="guideray-student-practice-test-success-modal">
@@ -468,7 +480,6 @@ const StudentPracticeTest = () => {
         </div>
       )}
 
-      {/* Failure Modal */}
       {showFailureModal && (
         <div className="guideray-student-practice-test-modal-overlay">
           <div className="guideray-student-practice-test-failure-modal">

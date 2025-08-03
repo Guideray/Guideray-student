@@ -4,11 +4,12 @@ import GuideRaySidebar from '../GuideRaySidebar';
 import GuideRayTopicContent from '../GuideRayTopicContent';
 import './index.css';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import API_BASE_URL from '../../../config';
 
 const GuideRayApp = ({ darkMode, userData }) => {
   const { courseId } = useParams();
+  const location = useLocation();
   const [selectedConcept, setSelectedConcept] = useState(null);
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -16,15 +17,49 @@ const GuideRayApp = ({ darkMode, userData }) => {
   const [progressData, setProgressData] = useState(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [initialized, setInitialized] = useState(false);
-  const studentId = userData.id
+  const studentId = userData.id;
 
-  // Initialize selected concept and topic
+  // Safely get topic data with fallbacks
+  const getTopicData = () => {
+    if (!courseId || !selectedConcept || !selectedTopic || !courseData[courseId]) {
+      return null;
+    }
+    return courseData[courseId][selectedConcept]?.[selectedTopic] || null;
+  };
+
+  const topicData = getTopicData();
+
   useEffect(() => {
-    if (courseId && courseData[courseId] && !initialized) {
+    if (courseId && courseData[courseId]) {
+      // Check if we have topic data from location state
+      if (location.state?.topicIndex !== undefined && location.state?.partName) {
+        const partName = location.state.partName;
+        const topicIndex = location.state.topicIndex;
+        
+        // Safely navigate through the data structure
+        if (courseData[courseId][partName]) {
+          const concepts = Object.keys(courseData[courseId][partName]);
+          if (concepts.length > 0) {
+            const concept = location.state.concept || concepts[0];
+            if (courseData[courseId][partName][concept]) {
+              const topics = Object.keys(courseData[courseId][partName][concept]);
+              if (topics.length > topicIndex) {
+                // Assign partName to selectedConcept and concept to selectedTopic
+                setSelectedConcept(partName);
+                setSelectedTopic(concept);
+                setInitialized(true);
+                return;
+              }
+            }
+          }
+        }
+      }
+      
+      // Fallback to default initialization
       const concepts = Object.keys(courseData[courseId]);
       if (concepts.length > 0) {
         const firstConcept = concepts[0];
-        const topics = Object.keys(courseData[courseId][firstConcept]);
+        const topics = Object.keys(courseData[courseId][firstConcept] || {});
         if (topics.length > 0) {
           setSelectedConcept(firstConcept);
           setSelectedTopic(topics[0]);
@@ -32,9 +67,8 @@ const GuideRayApp = ({ darkMode, userData }) => {
         }
       }
     }
-  }, [courseId, initialized]);
+  }, [courseId, location.state]);
 
-  // Fetch progress data
   useEffect(() => {
     const fetchProgress = async () => {
       try {
@@ -45,7 +79,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
         if (response.data.success) {
           setProgressData(response.data.data);
           
-          if (response.data.data?.lastAccessed) {
+          if (!location.state?.topicIndex && response.data.data?.lastAccessed) {
             const lastConcept = response.data.data.lastAccessed.concept;
             const lastTopic = response.data.data.lastAccessed.topic;
             
@@ -65,7 +99,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
     if (courseId && courseData[courseId] && studentId) {
       fetchProgress();
     }
-  }, [studentId, courseId]);
+  }, [studentId, courseId, location.state]);
 
   const updateTopicProgress = async (studentId, concept, topicIndex, completionType) => {
     try {
@@ -91,7 +125,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
   }, [selectedTopic]);
 
   const handleSelection = (concept, topic) => {
-    if (!concept || !topic) return;
+    if (!concept || !topic || !courseData[courseId]?.[concept]?.[topic]) return;
     
     setIsLoading(true);
     setHeaderVisible(false);
@@ -115,7 +149,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
 
   const handleTopicComplete = async (step) => {
     try {
-      if (!selectedConcept || !selectedTopic) return;
+      if (!selectedConcept || !selectedTopic || !topicData) return;
       
       const topics = Object.keys(courseData[courseId][selectedConcept]);
       const topicIndex = topics.indexOf(selectedTopic);
@@ -133,7 +167,6 @@ const GuideRayApp = ({ darkMode, userData }) => {
         setProgressData(updatedData);
       }
       
-      const topicData = courseData[courseId][selectedConcept][selectedTopic];
       const allStepsCompleted = 
         (!topicData.videoComponent || step === 'video') &&
         (!topicData.practiceMcq || step === 'mcq') &&
@@ -156,9 +189,10 @@ const GuideRayApp = ({ darkMode, userData }) => {
   };
 
   const isTopicLocked = () => {
-    if (!progressData || !courseId || !selectedConcept || !selectedTopic) return false;
+    if (!progressData || !courseId || !selectedConcept || !selectedTopic || !courseData[courseId]?.[selectedConcept]) {
+      return false;
+    }
     
-    // First topic is always unlocked
     if (selectedConcept === Object.keys(courseData[courseId])[0] && 
         selectedTopic === Object.keys(courseData[courseId][selectedConcept])[0]) {
       return false;
@@ -169,7 +203,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
     
     if (conceptIndex > 0) {
       const prevConcept = concepts[conceptIndex - 1];
-      const prevConceptTopics = Object.keys(courseData[courseId][prevConcept]);
+      const prevConceptTopics = Object.keys(courseData[courseId][prevConcept] || {});
       const lastTopicPrevConcept = prevConceptTopics[prevConceptTopics.length - 1];
       
       const prevTopicIndex = prevConceptTopics.indexOf(lastTopicPrevConcept);
@@ -225,33 +259,32 @@ const GuideRayApp = ({ darkMode, userData }) => {
       />
       
       <div className={`guideray-course-app-main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-        {selectedConcept && selectedTopic ? (
+        {selectedConcept && selectedTopic && topicData ? (
           <>
             <div className={`guideray-course-app-content-header-wrapper ${headerVisible ? 'visible' : ''}`}>
               <div className="guideray-course-app-header-content">
-  <div className="guideray-course-app-header-text">
-    <h1 className="guideray-course-app-content-header">
-      <div className="guideray-course-app-breadcrumb">
-        <span>{selectedConcept}</span> &gt; {selectedTopic}
-      </div>
-    </h1>
-  </div>
-  
-  {/* User Profile Container */}
-  <div className="guideray-course-app-user-profile-container">
-    <div className="guideray-course-app-user-profile-content">
-      <img 
-        src={userData.profilePic} 
-        alt="Profile" 
-        className="guideray-course-app-user-profile-pic"
-      />
-      <div className="guideray-course-app-user-profile-info">
-        <div className="guideray-course-app-user-profile-name">{userData.name}</div>
-        <div className="guideray-course-app-user-profile-email">{userData.email}</div>
-      </div>
-    </div>
-  </div>
-</div>
+                <div className="guideray-course-app-header-text">
+                  <h1 className="guideray-course-app-content-header">
+                    <div className="guideray-course-app-breadcrumb">
+                      <span>{selectedConcept}</span> &gt; {selectedTopic}
+                    </div>
+                  </h1>
+                </div>
+                
+                <div className="guideray-course-app-user-profile-container">
+                  <div className="guideray-course-app-user-profile-content">
+                    <img 
+                      src={userData.profilePic} 
+                      alt="Profile" 
+                      className="guideray-course-app-user-profile-pic"
+                    />
+                    <div className="guideray-course-app-user-profile-info">
+                      <div className="guideray-course-app-user-profile-name">{userData.name}</div>
+                      <div className="guideray-course-app-user-profile-email">{userData.email}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             
             {isLoading ? (
@@ -267,7 +300,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
               </div>
             ) : (
               <GuideRayTopicContent 
-                topicData={courseData[courseId][selectedConcept][selectedTopic]} 
+                topicData={topicData} 
                 darkMode={darkMode}
                 isLocked={isTopicLocked()}
                 onComplete={handleTopicComplete}

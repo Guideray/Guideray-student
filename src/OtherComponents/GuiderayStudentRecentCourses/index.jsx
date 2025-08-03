@@ -49,8 +49,7 @@ const GuiderayStudentCourseProgress = ({ userData }) => {
         if (topic.p === 0) return 'not-started';
         if (topic.p === 25) return 'video-completed';
         if (topic.p === 50) return 'mcq-completed';
-        if (topic.p === 75) return 'coding-completed';
-        if (topic.p === 100) return 'completed';
+        if (topic.p >= 75) return 'completed';
         return 'in-progress';
     };
 
@@ -62,13 +61,25 @@ const GuiderayStudentCourseProgress = ({ userData }) => {
         if (step === 'video' && status !== 'not-started') 
             return <IoMdCheckmarkCircle className="gscp-status-icon completed" />;
         
-        if (step === 'mcq' && (status === 'mcq-completed' || status === 'coding-completed' || status === 'completed')) 
+        if (step === 'mcq' && (status === 'mcq-completed' || status === 'completed' || status === 'completed')) 
             return <IoMdCheckmarkCircle className="gscp-status-icon completed" />;
         
-        if (step === 'coding' && (status === 'coding-completed' || status === 'completed')) 
+        if (step === 'coding' && (status === 'completed' || status === 'completed')) 
             return <IoMdCheckmarkCircle className="gscp-status-icon completed" />;
         
         return <FaClock className="gscp-status-icon pending" />;
+    };
+
+    const hasVideoComponent = (content) => {
+        return content && content.videoRecomendation && content.videoRecomendation.link;
+    };
+
+    const hasMcqComponent = (content) => {
+        return content && content.practiceMcq && content.practiceMcq.quizQuestions && content.practiceMcq.quizQuestions.length > 0;
+    };
+
+    const hasCodingComponent = (content) => {
+        return content && content.codingPractice && content.codingPractice.problems && content.codingPractice.problems.length > 0;
     };
 
     const handleTopicClick = (course, topicIndex) => {
@@ -96,39 +107,15 @@ const GuiderayStudentCourseProgress = ({ userData }) => {
 
         if (!partName || !concept) return;
 
-        const content = courseDetails[partName][concept];
 
-        if (status === 'not-started' || status === 'video-completed') {
-            navigate(`/video-courses/${course.n}`, {
-                state: {
-                    topicIndex,
-                    topicName: concept,
-                    courseName: course.n,
-                    courseData: courseDetails,
-                    partName
-                }
-            });
-        } else if (status === 'mcq-completed') {
-            navigate('/mcq-quiz', {
-                state: {
-                    quizData: content.practiceMcq,
-                    courseName: course.n,
-                    topicIndex,
-                    topicName: concept,
-                    partName
-                }
-            });
-        } else if (status === 'coding-completed') {
-            navigate('/coding-practice', {
-                state: {
-                    problems: content.codingPractice.problems,
-                    courseName: course.n,
-                    topicIndex,
-                    topicName: concept,
-                    partName
-                }
-            });
-        }
+        // Navigate to the course with state containing the topic information
+        navigate(`/video-courses/${course.n}`, {
+            state: {
+                topicIndex,
+                partName,
+                concept
+            }
+        });
     };
 
     const renderCourseTabs = () => {
@@ -203,6 +190,11 @@ const GuiderayStudentCourseProgress = ({ userData }) => {
                                     const globalIndex = partStartIndex + partTopicIndex;
                                     const topic = selectedCourse.t[globalIndex];
                                     const status = topic ? getTopicStatus(topic) : 'not-started';
+                                    const content = courseDetails[partName][concept];
+                                    
+                                    const showVideoStep = hasVideoComponent(content);
+                                    const showMcqStep = hasMcqComponent(content);
+                                    const showCodingStep = hasCodingComponent(content);
                                     
                                     return (
                                         <div key={globalIndex} className="gscp-topic-item">
@@ -222,27 +214,35 @@ const GuiderayStudentCourseProgress = ({ userData }) => {
                                                     </h4>
                                                     
                                                     <div className="gscp-topic-steps">
-                                                        <div 
-                                                            className={`gscp-step ${status === 'completed' || status === 'video-completed' || status === 'mcq-completed' || status === 'coding-completed' ? 'completed' : ''}`}
-                                                            onClick={() => handleTopicClick(selectedCourse, globalIndex)}
-                                                        >
-                                                            {getStatusIcon(status, 'video')}
-                                                            <span>Learn Topic</span>
-                                                        </div>
-                                                        <div 
-                                                            className={`gscp-step ${status === 'completed' || status === 'mcq-completed' || status === 'coding-completed' ? 'completed' : ''}`}
-                                                            onClick={() => handleTopicClick(selectedCourse, globalIndex)}
-                                                        >
-                                                            {getStatusIcon(status, 'mcq')}
-                                                            <span>MCQ Practice</span>
-                                                        </div>
-                                                        <div 
-                                                            className={`gscp-step ${status === 'completed' || status === 'coding-completed' ? 'completed' : ''}`}
-                                                            onClick={() => handleTopicClick(selectedCourse, globalIndex)}
-                                                        >
-                                                            {getStatusIcon(status, 'coding')}
-                                                            <span>Coding Practice</span>
-                                                        </div>
+                                                        {showVideoStep && (
+                                                            <div 
+                                                                className={`gscp-step ${status === 'completed' || status === 'video-completed' || status === 'mcq-completed' || status === 'completed' ? 'completed' : ''}`}
+                                                                onClick={() => handleTopicClick(selectedCourse, globalIndex)}
+                                                            >
+                                                                {getStatusIcon(status, 'video')}
+                                                                <span>Learn Topic</span>
+                                                            </div>
+                                                        )}
+                                                        
+                                                        {showMcqStep && (
+                                                            <div 
+                                                                className={`gscp-step ${status === 'completed' || status === 'mcq-completed' || status === 'completed' ? 'completed' : ''}`}
+                                                                onClick={() => handleTopicClick(selectedCourse, globalIndex)}
+                                                            >
+                                                                {getStatusIcon(status, 'mcq')}
+                                                                <span>MCQ Practice</span>
+                                                            </div>
+                                                        )}
+                                                        
+                                                        {showCodingStep && (
+                                                            <div 
+                                                                className={`gscp-step ${status === 'completed' || status === 'completed' ? 'completed' : ''}`}
+                                                                onClick={() => handleTopicClick(selectedCourse, globalIndex)}
+                                                            >
+                                                                {getStatusIcon(status, 'coding')}
+                                                                <span>Coding Practice</span>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -287,11 +287,9 @@ const GuiderayStudentCourseProgress = ({ userData }) => {
 
     return (
         <div className="gscp-container">
-            
             {selectedCourse && (
                 <div className="gscp-course-content">
-                                {renderCourseTabs()}
-
+                    {renderCourseTabs()}
                     {renderCourseParts()}
                 </div>
             )}
