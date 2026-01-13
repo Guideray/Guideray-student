@@ -5,7 +5,7 @@ import { RiQuestionnaireFill } from 'react-icons/ri';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MdCheckCircle } from 'react-icons/md';
 import './index.css';
-import API_BASE_URL from '../../../config';
+import axiosInstance from '../../api/axiosInstance';
 
 const StudentPracticeTest = () => {
   const location = useLocation();
@@ -21,7 +21,7 @@ const StudentPracticeTest = () => {
     concept,
     hasCodingPractice
   } = location.state || {};
-  
+
   const [questions, setQuestions] = useState(initialQuizQuestions || []);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(quizTime * 60 || 600);
@@ -38,9 +38,9 @@ const StudentPracticeTest = () => {
   useEffect(() => {
     const checkCompletionStatus = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`);
-        const data = await response.json();
-        
+        const response = await axiosInstance.get(`/api/consistency/progress/${studentId}/${courseId}`);
+        const data = response.data;
+
         if (data.success) {
           const topicProgress = data.data.t.find(t => t.t === topicIndex);
           if (topicProgress && topicProgress.p >= 50) {
@@ -71,7 +71,7 @@ const StudentPracticeTest = () => {
     if (timerBarRef.current) {
       const percentageLeft = (timeLeft / (quizTime * 60)) * 100;
       timerBarRef.current.style.width = `${percentageLeft}%`;
-      
+
       if (percentageLeft <= 5) {
         timerBarRef.current.style.backgroundColor = '#ff0000';
       } else if (percentageLeft <= 20) {
@@ -141,7 +141,7 @@ const StudentPracticeTest = () => {
   };
 
   const getQuestionStatusColor = (status) => {
-    switch(status) {
+    switch (status) {
       case 'answered': return '#4CAF50';
       case 'viewed': return '#9C27B0';
       case 'marked': return '#FF9800';
@@ -152,7 +152,7 @@ const StudentPracticeTest = () => {
   };
 
   const getQuestionStatusIcon = (status) => {
-    switch(status) {
+    switch (status) {
       case 'answered': return <MdCheckCircle size={10} />;
       case 'marked': return <FaBookmark size={10} />;
       case 'hold': return <FaHistory size={10} />;
@@ -177,19 +177,13 @@ const StudentPracticeTest = () => {
 
   const updateProgress = async (completionType) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/consistancy/progress/${studentId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          courseName: courseId,
-          topicIndex: topicIndex,
-          completionType: completionType,
-          date: new Date().toISOString()
-        })
+      const response = await axiosInstance.post(`/api/consistency/progress/${studentId}`, {
+        courseName: courseId,
+        topicIndex: topicIndex,
+        completionType: completionType,
+        date: new Date().toISOString()
       });
-      return await response.json();
+      return response.data;
     } catch (error) {
       console.error("Error updating progress:", error);
       return { success: false };
@@ -199,7 +193,7 @@ const StudentPracticeTest = () => {
   const handleSubmit = async () => {
     setShowSubmitModal(false);
     const scorePercentage = calculateScore();
-    
+
     if (scorePercentage >= 70) {
       if (!alreadyCompleted) {
         if (hasCodingPractice) {
@@ -229,7 +223,7 @@ const StudentPracticeTest = () => {
   return (
     <div className={`guideray-student-practice-test-app-container guideray-student-practice-test-${theme}`}>
       <div className="guideray-student-practice-test-progress-container">
-        <div 
+        <div
           className="guideray-student-practice-test-progress-bar"
           style={{ width: `${progressPercentage}%` }}
         ></div>
@@ -253,7 +247,7 @@ const StudentPracticeTest = () => {
           </div>
         </div>
         <div className="guideray-student-practice-test-theme-toggle-container">
-          <button 
+          <button
             className="guideray-student-practice-test-theme-toggle"
             onClick={toggleTheme}
           >
@@ -263,7 +257,7 @@ const StudentPracticeTest = () => {
       </nav>
 
       <div className="guideray-student-practice-test-timer-progress-container">
-        <div 
+        <div
           ref={timerBarRef}
           className="guideray-student-practice-test-timer-progress-bar"
         ></div>
@@ -429,13 +423,13 @@ const StudentPracticeTest = () => {
             <h3>Submit Test</h3>
             <p>Are you sure you want to submit your test? You won't be able to make changes after submission.</p>
             <div className="guideray-student-practice-test-modal-buttons">
-              <button 
+              <button
                 className="guideray-student-practice-test-modal-cancel"
                 onClick={() => setShowSubmitModal(false)}
               >
                 Cancel
               </button>
-              <button 
+              <button
                 className="guideray-student-practice-test-modal-submit"
                 onClick={handleSubmit}
               >
@@ -468,7 +462,7 @@ const StudentPracticeTest = () => {
               </div>
             </div>
             <div className="guideray-student-practice-test-success-actions">
-              <button 
+              <button
                 className="guideray-student-practice-test-continue-btn"
                 onClick={() => navigate(`/video-courses/${courseId}`)}
               >
@@ -496,13 +490,13 @@ const StudentPracticeTest = () => {
               </div>
             </div>
             <div className="guideray-student-practice-test-failure-actions">
-              <button 
+              <button
                 className="guideray-student-practice-test-retry-btn"
                 onClick={() => window.location.reload()}
               >
                 <FaRedo /> Try Again
               </button>
-              <button 
+              <button
                 className="guideray-student-practice-test-back-btn"
                 onClick={() => navigate(`/video-courses/${courseId}`)}
               >

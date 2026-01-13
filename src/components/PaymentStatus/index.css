@@ -27,12 +27,12 @@
 /* Modal Content */
 .payment-status-modal-content {
   padding: 32px;
-  text-align: center;
+  text-align: left;
 }
 
 /* Modal Icon Styles */
 .payment-status-modal-icon {
-  font-size: 64px;
+  font-size: 4rem;
   margin-bottom: 20px;
 }
 
@@ -74,7 +74,7 @@
 
 /* Typography */
 .payment-status-modal h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   margin-bottom: 12px;
   color: #1f2937;
 }
@@ -82,7 +82,7 @@
 .payment-status-modal-message {
   color: #6b7280;
   margin-bottom: 24px;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 /* Details Section */
@@ -103,18 +103,18 @@
 
 .payment-status-modal-detail-icon {
   color: #4f46e5;
-  font-size: 18px;
+  font-size: 1.125rem;
   flex-shrink: 0;
 }
 
 .payment-status-modal-label {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #6b7280;
   display: block;
 }
 
 .payment-status-modal-value {
-  font-size: 16px;
+  font-size: 1rem;
   color: #1f2937;
   font-weight: 500;
 }

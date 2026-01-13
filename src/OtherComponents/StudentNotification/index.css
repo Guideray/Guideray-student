@@ -1,560 +1,579 @@
 /* Base Styles */
-.guideray-student-notification-container {
-  max-width: 100vw;
-  margin: 2rem auto;
-  padding: 2rem;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #2d3748;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+.guideray-student-notifications-container {
+  /* font-family inherited */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 50px;
+  color: #333;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Header Styles */
-.guideray-student-notification-header {
+.guideray-student-notifications-header {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 25px;
+  text-align: left;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.guideray-student-notification-title {
+.guideray-student-notifications-header-title {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.guideray-student-notification-icon {
-  font-size: 2rem;
-  color: #4f46e5;
-  background: #e0e7ff;
-  padding: 0.5rem;
-  border-radius: 12px;
-}
-
-.guideray-student-notification-title h1 {
-  font-size: 1.875rem;
-  font-weight: 700;
+.guideray-student-notifications-header-title h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-main);
   margin: 0;
-  color: #1e293b;
-  background: linear-gradient(90deg, #4f46e5, #7c3aed);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
-.guideray-student-notification-count {
-  margin-left: auto;
-  font-size: 0.9375rem;
-  color: #64748b;
-  background: #e2e8f0;
-  padding: 0.375rem 1rem;
-  border-radius: 9999px;
+.guideray-student-notifications-header-icon {
+  font-size: 24px;
+  color: var(--color-indigo);
+}
+
+.guideray-student-notifications-unread-count {
+  background-color: var(--color-indigo);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 600;
+  margin-left: 10px;
 }
 
-.guideray-student-notification-actions {
+.guideray-student-notifications-header-controls {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 15px;
 }
 
-.guideray-student-notification-action-btn {
+/* Filter Tabs */
+.guideray-student-notifications-filter-tabs {
+  display: flex;
+  gap: 8px;
+  background-color: #f3f4f6;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.guideray-student-notifications-filter-tab {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.guideray-student-notifications-filter-tab:hover {
+  color: var(--color-indigo);
+  background-color: #e0e7ff;
+}
+
+.guideray-student-notifications-filter-tab.guideray-student-notifications-active {
+  color: var(--color-indigo);
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Actions */
+.guideray-student-notifications-header-actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 15px;
+}
+
+.guideray-student-notifications-mark-all-read,
+.guideray-student-notifications-delete-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
   border: none;
-  font-size: 0.9375rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.guideray-student-notification-mark-read-btn {
-  background-color: #4f46e5;
+.guideray-student-notifications-mark-all-read {
+  background-color: var(--color-indigo);
   color: white;
 }
 
-.guideray-student-notification-mark-read-btn:hover {
+.guideray-student-notifications-mark-all-read:hover {
   background-color: #4338ca;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
 
-.guideray-student-notification-delete-btn {
-  background-color: #ef4444;
-  color: white;
+.guideray-student-notifications-mark-all-read:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
 }
 
-.guideray-student-notification-delete-btn:hover {
-  background-color: #dc2626;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+.guideray-student-notifications-delete-button {
+  background-color: #fee2e2;
+  color: #dc2626;
 }
 
-.guideray-student-notification-selected-count {
-  font-size: 0.9375rem;
-  color: #475569;
-  margin-left: auto;
-  font-weight: 600;
+.guideray-student-notifications-delete-button:hover {
+  background-color: #fecaca;
+}
+
+.guideray-student-notifications-selected-count {
+  font-size: 14px;
+  color: var(--text-muted);
 }
 
 /* Notification List */
-.guideray-student-notification-list {
+.guideray-student-notifications-list {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 12px;
 }
 
-.guideray-student-notification-card {
+/* Notification Card */
+.guideray-student-notifications-card {
   display: flex;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
   overflow: hidden;
-  border-left: 6px solid transparent;
 }
 
-.guideray-student-notification-card.guideray-student-notification-unread {
+.guideray-student-notifications-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.guideray-student-notifications-card.guideray-student-notifications-unread {
   border-left-color: #4f46e5;
   background-color: #f8fafc;
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.15);
 }
 
-.guideray-student-notification-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.guideray-student-notification-checkbox {
-  padding: 1.5rem 1.25rem;
+/* Checkbox */
+.guideray-student-notifications-checkbox-container {
   display: flex;
   align-items: flex-start;
-}
-
-.guideray-student-notification-checkbox input[type="checkbox"] {
-  opacity: 0;
-  position: absolute;
-}
-
-.guideray-student-notification-checkbox label {
-  position: relative;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #cbd5e1;
-  border-radius: 6px;
+  padding: 20px;
+  padding-top: 25px;
   cursor: pointer;
-  transition: all 0.3s;
 }
 
-.guideray-student-notification-checkbox input[type="checkbox"]:checked + label {
-  background-color: #4f46e5;
+.guideray-student-notifications-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.guideray-student-notifications-checkmark {
+  position: relative;
+  height: 18px;
+  width: 18px;
+  background-color: white;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.guideray-student-notifications-checkbox-container:hover input~.guideray-student-notifications-checkmark {
+  border-color: #9ca3af;
+}
+
+.guideray-student-notifications-checkbox-container input:checked~.guideray-student-notifications-checkmark {
+  background-color: var(--color-indigo);
   border-color: #4f46e5;
 }
 
-.guideray-student-notification-checkbox label:after {
-  content: '';
+.guideray-student-notifications-checkmark:after {
+  content: "";
   position: absolute;
-  left: 6px;
-  top: 2px;
-  width: 5px;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 4px;
   height: 10px;
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-  opacity: 0;
-  transition: all 0.3s;
 }
 
-.guideray-student-notification-checkbox input[type="checkbox"]:checked + label:after {
-  opacity: 1;
+.guideray-student-notifications-checkbox-container input:checked~.guideray-student-notifications-checkmark:after {
+  display: block;
 }
 
-.guideray-student-notification-content {
+/* Notification Content */
+.guideray-student-notifications-content {
   flex: 1;
-  padding: 1.5rem 1.5rem 1.5rem 0;
+  padding: 16px 16px 16px 0;
 }
 
-.guideray-student-notification-card-header {
+.guideray-student-notifications-card-header {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.guideray-student-notification-icon-container {
-  margin-top: 0.25rem;
+.guideray-student-notifications-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #e0e7ff;
+  flex-shrink: 0;
 }
 
-.notification-type-icon {
-  font-size: 1.5rem;
-  padding: 0.5rem;
-  border-radius: 10px;
+.guideray-student-notifications-icon {
+  font-size: 18px;
+  color: var(--color-indigo);
 }
 
-.notification-type-icon.exam {
-  color: #d946ef;
-  background-color: #f5d0fe;
+.guideray-student-notifications-icon-exam {
+  color: #8b5cf6;
 }
 
-.notification-type-icon.alert {
-  color: #f59e0b;
-  background-color: #fef3c7;
+.guideray-student-notifications-icon-alert {
+  color: #ef4444;
 }
 
-.notification-type-icon.event {
+.guideray-student-notifications-icon-event {
   color: #10b981;
-  background-color: #d1fae5;
 }
 
-.notification-type-icon.important {
-  color: #ec4899;
-  background-color: #fce7f3;
+.guideray-student-notifications-icon-important {
+  color: #f59e0b;
 }
 
-.notification-type-icon.info {
-  color: #3b82f6;
-  background-color: #dbeafe;
-}
-
-.guideray-student-notification-title-text {
-  margin: 0;
-  font-size: 1.25rem;
-  text-align: left;
-  font-weight: 700;
-  color: #1e293b;
+.guideray-student-notifications-title-container {
   flex: 1;
 }
 
-.guideray-student-notification-time {
+.guideray-student-notifications-title-container h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--text-main);
+}
+
+.guideray-student-notifications-time {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: #64748b;
-  font-weight: 500;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
 }
 
-.guideray-student-notification-time svg {
-  font-size: 1rem;
-  color: #94a3b8;
-}
-
-.guideray-student-notification-message {
-  line-height: 1.7;
-  margin-bottom: 1rem;
-  color: #475569;
-  margin-left: 40px;
+.guideray-student-notifications-preview-text {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #4b5563;
   text-align: left;
-  font-size: 1rem;
+  padding-left: 50px;
+  line-height: 1.5;
 }
 
-.guideray-student-notification-footer {
+.guideray-student-notifications-html-content {
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  text-align: left;
+
+}
+
+.guideray-student-notifications-html-content p {
+  margin: 8px 0;
+  text-align: left;
+}
+
+.guideray-student-notifications-html-content ul,
+.guideray-student-notifications-html-content ol {
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+.guideray-student-notifications-card-footer {
   display: flex;
   justify-content: flex-end;
-  padding-left: 2.5rem;
 }
 
-.guideray-student-notification-mark-read-btn {
+.guideray-student-notifications-mark-read-button {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: none;
-  border: 2px solid #4f46e5;
-  color: #4f46e5;
-  border-radius: 8px;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: #e0e7ff;
+  color: var(--color-indigo);
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s ease;
 }
 
-.guideray-student-notification-mark-read-btn:hover {
-  background-color: #eef2ff;
-  transform: translateY(-2px);
+.guideray-student-notifications-mark-read-button:hover {
+  background-color: #c7d2fe;
 }
 
-.guideray-student-notification-read-indicator {
+.guideray-student-notifications-read-indicator {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #10b981;
-  font-size: 0.9375rem;
-  font-weight: 600;
-}
-
-.guideray-student-notification-read-indicator svg {
+  gap: 6px;
+  font-size: 13px;
   color: #10b981;
 }
 
 /* Empty State */
-.guideray-student-notification-empty-state {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  margin-top: 1rem;
-}
-
-.guideray-student-notification-empty-icon {
-  font-size: 3.5rem;
-  color: #cbd5e1;
-  margin-bottom: 1.5rem;
-}
-
-.guideray-student-notification-empty-state h3 {
-  margin: 0 0 1rem;
-  color: #1e293b;
-  font-weight: 700;
-  font-size: 1.5rem;
-}
-
-.guideray-student-notification-empty-state p {
-  color: #64748b;
-  margin: 0;
-  font-size: 1.0625rem;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-/* Loading State */
-.guideray-student-notification-loading-container {
+.guideray-student-notifications-empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.guideray-student-notification-spinner {
-  font-size: 2.5rem;
-  color: #4f46e5;
-  margin-bottom: 1.5rem;
-  animation: guideray-student-notification-spin 1s linear infinite;
+.guideray-student-notifications-empty-icon {
+  font-size: 48px;
+  color: #9ca3af;
+  margin-bottom: 16px;
 }
 
-.guideray-student-notification-loading-container p {
-  color: #475569;
-  font-size: 1.125rem;
+.guideray-student-notifications-empty-state h3 {
+  font-size: 18px;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
 }
 
-@keyframes guideray-student-notification-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.guideray-student-notifications-empty-state p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Loading State */
+.guideray-student-notifications-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.guideray-student-notifications-spinner {
+  margin-bottom: 16px;
+}
+
+.guideray-student-notifications-spin {
+  font-size: 32px;
+  color: var(--color-indigo);
+  animation: guideray-student-notifications-spin 1s linear infinite;
+}
+
+@keyframes guideray-student-notifications-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.guideray-student-notifications-loading p {
+  font-size: 14px;
+  color: var(--text-muted);
 }
 
 /* Error State */
-.guideray-student-notification-error-container {
+.guideray-student-notifications-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
   text-align: center;
-  padding: 3rem 2rem;
-  background: #fff1f2;
-  border-radius: 16px;
-  border-left: 6px solid #f87171;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.guideray-student-notification-error-icon {
-  font-size: 2.5rem;
+.guideray-student-notifications-error-icon {
+  font-size: 48px;
   color: #ef4444;
-  margin-bottom: 1.5rem;
+  margin-bottom: 16px;
 }
 
-.guideray-student-notification-error-container h3 {
-  margin: 0 0 1rem;
-  color: #b91c1c;
-  font-weight: 700;
+.guideray-student-notifications-error h3 {
+  font-size: 18px;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
 }
 
-.guideray-student-notification-error-container p {
-  color: #64748b;
-  margin-bottom: 2rem;
-  font-size: 1.0625rem;
+.guideray-student-notifications-error p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 16px 0;
 }
 
-.guideray-student-notification-retry-button {
+.guideray-student-notifications-retry-button {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #4f46e5;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: var(--color-indigo);
   color: white;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s;
-  margin: 0 auto;
-  font-size: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
-.guideray-student-notification-retry-button:hover {
+.guideray-student-notifications-retry-button:hover {
   background-color: #4338ca;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
 
 /* Confirmation Modal */
-.guideray-student-notification-confirm-modal {
+.guideray-student-notifications-confirmation-modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(4px);
 }
 
-.guideray-student-notification-confirm-content {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 16px;
-  max-width: 450px;
-  width: 90%;
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+.guideray-student-notifications-modal-content {
+  background-color: white;
+  padding: 24px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
-  animation: guideray-student-notification-modal-appear 0.3s ease-out;
 }
 
-.guideray-student-notification-confirm-icon {
-  font-size: 3.5rem;
+.guideray-student-notifications-modal-icon {
+  font-size: 48px;
   color: #ef4444;
-  margin-bottom: 1.5rem;
+  margin-bottom: 16px;
 }
 
-.guideray-student-notification-confirm-content h3 {
-  margin: 0 0 1rem;
-  color: #1e293b;
-  font-size: 1.5rem;
-  font-weight: 700;
+.guideray-student-notifications-modal-content h3 {
+  font-size: 18px;
+  color: var(--text-main);
+  margin: 0 0 12px 0;
 }
 
-.guideray-student-notification-confirm-content p {
-  color: #64748b;
-  margin-bottom: 2rem;
-  font-size: 1.0625rem;
-  line-height: 1.6;
+.guideray-student-notifications-modal-content p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 20px 0;
+  line-height: 1.5;
 }
 
-.guideray-student-notification-confirm-buttons {
+.guideray-student-notifications-modal-actions {
   display: flex;
-  gap: 1rem;
   justify-content: center;
+  gap: 12px;
 }
 
-.guideray-student-notification-confirm-btn {
+.guideray-student-notifications-cancel-button,
+.guideray-student-notifications-confirm-button {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
+  gap: 6px;
+  padding: 8px 16px;
   border: none;
-  font-size: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.guideray-student-notification-delete-confirm {
+.guideray-student-notifications-cancel-button {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.guideray-student-notifications-cancel-button:hover {
+  background-color: #e5e7eb;
+}
+
+.guideray-student-notifications-confirm-button {
   background-color: #ef4444;
   color: white;
 }
 
-.guideray-student-notification-delete-confirm:hover {
+.guideray-student-notifications-confirm-button:hover {
   background-color: #dc2626;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
 }
 
-.guideray-student-notification-cancel-btn {
-  background-color: #e2e8f0;
-  color: #475569;
-}
-
-.guideray-student-notification-cancel-btn:hover {
-  background-color: #cbd5e1;
-  transform: translateY(-2px);
-}
-
-@keyframes guideray-student-notification-modal-appear {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .guideray-student-notification-container {
-    padding: 1.5rem;
-    border-radius: 0;
-  }
-  
-  .guideray-student-notification-header {
-    flex-direction: column;
-  }
-  
-  .guideray-student-notification-count {
-    margin-left: 0;
-    margin-top: 1rem;
-  }
-  
-  .guideray-student-notification-actions {
+  .guideray-student-notifications-header-controls {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
   }
-  
-  .guideray-student-notification-selected-count {
-    margin-left: 0;
-  }
-  
-  .guideray-student-notification-card {
-    flex-direction: column;
-  }
-  
-  .guideray-student-notification-checkbox {
-    padding: 1.25rem 1.25rem 0.5rem;
-  }
-  
-  .guideray-student-notification-content {
-    padding: 0 1.25rem 1.25rem;
-  }
-  
-  .guideray-student-notification-message {
-    padding-left: 0;
-  }
-  
-  .guideray-student-notification-footer {
-    padding-left: 0;
-    justify-content: flex-start;
-  }
-  
-  .guideray-student-notification-confirm-buttons {
-    flex-direction: column;
-  }
-  
-  .guideray-student-notification-confirm-btn {
+
+  .guideray-student-notifications-filter-tabs {
     width: 100%;
-    justify-content: center;
+    justify-content: space-between;
+  }
+
+  .guideray-student-notifications-filter-tab {
+    flex: 1;
+    text-align: center;
+  }
+
+  .guideray-student-notifications-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .guideray-student-notifications-card {
+    flex-direction: column;
+  }
+
+  .guideray-student-notifications-checkbox-container {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .guideray-student-notifications-content {
+    padding: 16px;
   }
 }

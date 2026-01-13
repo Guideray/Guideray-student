@@ -1,18 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import API_BASE_URL from '../../../config';
-
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import { load } from '@cashfreepayments/cashfree-js';
-import { 
-  FaSpinner, 
-  FaLock, 
-  FaArrowRight, 
+import {
+  FaSpinner,
+  FaLock,
+  FaArrowRight,
   FaTimesCircle
 } from 'react-icons/fa';
 import PaymentStatusModal from '../PaymentStatus';
 import './index.css';
 
-const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
+const PaymentButton = ({ course, userData, onPaymentSuccess = () => { } }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -34,7 +32,7 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
         setError('Payment system initialization failed');
       }
     };
-    
+
     initializeSDK();
 
     return () => {
@@ -55,23 +53,20 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
       return new Promise((resolve) => {
         pollingIntervalRef.current = setInterval(async () => {
           try {
-            const response = await axios.get(
-              `${API_BASE_URL}/api/payments/verify`,
+            const response = await axiosInstance.get(
+              `/api/payments/verify`,
               {
                 params: {
                   orderId: orderId,
                   courseId: course._id,
                   userId: userData.id
-                },
-                headers: {
-                  'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
               }
             );
 
             if (response.data && response.data[0]?.payment_status) {
               const paymentStatus = response.data[0].payment_status;
-              
+
               if (paymentStatus === 'SUCCESS') {
                 clearInterval(pollingIntervalRef.current);
                 setStatus('success');
@@ -94,23 +89,20 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
         // Initial immediate check
         (async () => {
           try {
-            const response = await axios.get(
-              `${API_BASE_URL}/api/payments/verify`,
+            const response = await axiosInstance.get(
+              `/api/payments/verify`,
               {
                 params: {
                   orderId: orderId,
                   courseId: course._id,
                   userId: userData.id
-                },
-                headers: {
-                  'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
               }
             );
 
             if (response.data && response.data[0]?.payment_status) {
               const paymentStatus = response.data[0].payment_status;
-              
+
               if (paymentStatus === 'SUCCESS') {
                 clearInterval(pollingIntervalRef.current);
                 setStatus('success');
@@ -137,7 +129,7 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
 
   const handleRetry = async () => {
     if (!orderDetails?.orderId) return;
-    
+
     setLoading(true);
     try {
       const verified = await verifyPaymentOnBackend(orderDetails.orderId);
@@ -164,8 +156,8 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
       setShowModal(true);
       setStatus('processing');
 
-      const orderResponse = await axios.post(
-        `${API_BASE_URL}/api/payments/create-order`,
+      const orderResponse = await axiosInstance.post(
+        `/api/payments/create-order`,
         {
           courseId: course._id,
           customerName: userData.name,
@@ -173,11 +165,6 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
           customerPhone: userData.phone || '9999999999',
           orderAmount: course.price,
           userId: userData.id
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
         }
       );
 
@@ -218,8 +205,8 @@ const PaymentButton = ({ course, userData, onPaymentSuccess = () => {} }) => {
       console.error('Payment error:', err);
       setStatus('failed');
       setError(
-        err.response?.data?.error || 
-        err.response?.data?.message || 
+        err.response?.data?.error ||
+        err.response?.data?.message ||
         'Payment initiation failed. Please try again.'
       );
     } finally {

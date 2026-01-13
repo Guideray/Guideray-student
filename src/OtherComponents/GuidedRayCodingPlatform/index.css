@@ -1,5 +1,5 @@
 /* GuidedRay Coding Platform - Modern Beautiful UI */
-:root {
+.guidedray-coding-platform-container {
   --primary-color: #6c5ce7;
   --primary-light: #a29bfe;
   --primary-dark: #4834d4;
@@ -61,7 +61,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dark .guidedray-coding-platform-error {
@@ -86,7 +86,7 @@
   background: linear-gradient(135deg, var(--sidebar-bg) 0%, #24243e 100%);
   color: var(--sidebar-text);
   border-right: none;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
@@ -98,15 +98,15 @@
   display: flex;
   overflow-x: auto;
   padding: 12px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   scrollbar-width: thin;
   scrollbar-color: var(--primary-light) transparent;
 }
 
 .dark .guidedray-coding-platform-problem-selector {
-  background: rgba(30,30,30,0.8);
+  background: rgba(30, 30, 30, 0.8);
   border-bottom: 1px solid var(--border-dark);
 }
 
@@ -132,7 +132,7 @@
   white-space: nowrap;
   transition: all 0.2s ease;
   position: relative;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .guidedray-coding-platform-problem-tab:hover {
@@ -227,7 +227,7 @@
   display: flex;
   gap: 12px;
   font-size: 14px;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   align-items: center;
 }
 
@@ -237,7 +237,7 @@
 
 .problem-tabs {
   display: flex;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 20px;
   position: relative;
 }
@@ -249,7 +249,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .problem-tab {
@@ -259,7 +259,7 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   position: relative;
   transition: all 0.2s ease;
   margin-right: 4px;
@@ -293,7 +293,7 @@
 .guidedray-coding-platform-problem-description {
   line-height: 1.7;
   font-size: 15px;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
   text-align: left;
 }
 
@@ -333,10 +333,10 @@
 
 .io-block {
   flex: 1;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .io-block h3 {
@@ -347,7 +347,7 @@
 }
 
 .guidedray-coding-platform-code-block {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 6px;
   padding: 12px;
   font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
@@ -365,8 +365,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.2);
-  color: rgba(255,255,255,0.7);
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 0 0 0 4px;
@@ -380,7 +380,7 @@
   justify-content: center;
   height: 60%;
   text-align: center;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   padding: 20px;
 }
 
@@ -406,7 +406,7 @@
 /* Resize Handle */
 .guidedray-coding-platform-resize-handle {
   width: 8px;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   cursor: col-resize;
   transition: all 0.2s ease;
   position: relative;
@@ -425,7 +425,7 @@
   right: 1px;
   height: 40px;
   transform: translateY(-50%);
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 3px;
 }
 
@@ -456,7 +456,7 @@
   padding: 10px 16px;
   background-color: var(--bg-white);
   border-bottom: 1px solid var(--border-light);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .dark .guidedray-coding-platform-editor-header {
@@ -608,7 +608,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .guidedray-coding-platform-editor-container {
@@ -758,6 +760,7 @@
 
   gap: 16px;
 }
+
 .monaco-editor .margin-view-overlays .current-line-margin,
 .monaco-editor .margin-view-overlays .current-line-exact-margin {
   background-color: transparent !important;
@@ -841,8 +844,8 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  color: rgba(255,255,255,0.7);
-  background-color: rgba(255,255,255,0.1);
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 3px 8px;
   border-radius: 12px;
   position: relative;
@@ -872,7 +875,7 @@
 .test-case-details {
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px dashed rgba(255,255,255,0.1);
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
 .test-case-io {
@@ -883,7 +886,7 @@
 }
 
 .io-block {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   padding: 10px;
 }
@@ -892,7 +895,7 @@
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 6px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .test-case-failure {
@@ -919,7 +922,7 @@
 .error-details {
   font-family: 'Fira Code', monospace;
   white-space: pre-wrap;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   padding: 10px;
   border-radius: 4px;
   font-size: 12px;
@@ -1013,9 +1016,17 @@
 }
 
 @keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.7; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .footer-right {
@@ -1095,6 +1106,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1102,32 +1114,53 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.test-case:nth-child(1) { animation-delay: 0.1s; }
-.test-case:nth-child(2) { animation-delay: 0.2s; }
-.test-case:nth-child(3) { animation-delay: 0.3s; }
-.test-case:nth-child(4) { animation-delay: 0.4s; }
-.test-case:nth-child(5) { animation-delay: 0.5s; }
+.test-case:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.test-case:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.test-case:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.test-case:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.test-case:nth-child(5) {
+  animation-delay: 0.5s;
+}
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .guidedray-coding-platform-main {
     flex-direction: column;
   }
-  
+
   .guidedray-coding-platform-problem-section,
   .guidedray-coding-platform-coding-section {
     width: 100% !important;
     height: 50% !important;
   }
-  
+
   .guidedray-coding-platform-resize-handle {
     display: none;
   }
-  
+
   .action-buttons {
     flex-direction: row;
   }
@@ -1135,36 +1168,37 @@
   .io-section {
     flex-direction: column;
   }
-  
+
   .problem-tabs {
     overflow-x: auto;
     scrollbar-width: none;
   }
-  
+
   .problem-tabs::-webkit-scrollbar {
     display: none;
   }
-  
+
   .problem-tab {
     white-space: nowrap;
   }
-  
+
   .guidedray-coding-platform-problem-selector {
     padding: 8px;
   }
-  
+
   .guidedray-coding-platform-problem-tab {
     padding: 8px 12px;
   }
-  
+
   .guidedray-coding-platform-footer {
     flex-direction: column;
     gap: 12px;
     padding: 12px;
     text-align: center;
   }
-  
-  .footer-left, .footer-right {
+
+  .footer-left,
+  .footer-right {
     width: 100%;
     justify-content: center;
   }
@@ -1173,11 +1207,11 @@
     width: 95%;
     max-height: 90vh;
   }
-  
+
   .guidedray-coding-platform-output-popup-header {
     padding: 12px 16px;
   }
-  
+
   .guidedray-coding-platform-output-popup-content {
     padding: 16px;
   }
@@ -1185,39 +1219,40 @@
   .test-case-io {
     grid-template-columns: 1fr;
   }
-  
+
   .test-case-details {
     padding-top: 8px;
   }
-  
+
   .test-case-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
+
   .test-case-visibility {
     align-self: flex-start;
   }
 }
 
 @media (max-width: 480px) {
+
   .guidedray-coding-platform-problem-section,
   .guidedray-coding-platform-coding-section {
     height: 45% !important;
   }
-  
+
   .guidedray-coding-platform-action-buttons {
     flex-direction: column;
     gap: 8px;
     align-items: flex-end;
   }
-  
+
   .action-buttons {
     width: 100%;
     justify-content: flex-end;
   }
-  
+
   .file-info {
     flex-direction: column;
     align-items: flex-start;
@@ -1249,13 +1284,13 @@
 
 /* Dark Mode Specific Styles */
 .dark .guidedray-coding-platform-code-block {
-  background: rgba(30,30,30,0.5);
+  background: rgba(30, 30, 30, 0.5);
   color: #e0e0e0;
 }
 
 .dark .guidedray-coding-platform-code-block::before {
-  background-color: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .dark .guidedray-coding-platform-problem-description {
@@ -1272,7 +1307,7 @@
 
 .dark .problem-tab:hover {
   color: #e0e0e0;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .dark .problem-tab.active {
@@ -1290,7 +1325,7 @@
 
 .dark .language-version {
   color: #b0b0b0;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .dark .font-size-btn {
@@ -1366,11 +1401,11 @@
 }
 
 .dark .test-case-details {
-  border-top-color: rgba(255,255,255,0.05);
+  border-top-color: rgba(255, 255, 255, 0.05);
 }
 
 .dark .io-block {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .dark .io-label {
@@ -1382,12 +1417,12 @@
 }
 
 .dark .error-details {
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .dark .test-case-visibility {
   color: #b0b0b0;
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .dark .test-case-visibility::after {
@@ -1459,13 +1494,13 @@
 
 .loading-line {
   height: 16px;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   animation: pulse 1.5s infinite ease-in-out;
 }
 
 .dark .loading-line {
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .loading-line.short {
@@ -1488,7 +1523,7 @@
   min-width: 18px;
   height: 18px;
   padding: 0 4px;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   font-size: 11px;
   font-weight: 500;
@@ -1497,7 +1532,7 @@
 }
 
 .dark .keyboard-shortcut {
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   color: #e0e0e0;
 }
 
@@ -1519,7 +1554,7 @@
   width: 16px;
   height: 16px;
   margin: -8px 0 0 -8px;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-top-color: currentColor;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -1528,7 +1563,8 @@
 /* Output Section Scroll Fix */
 .guidedray-coding-platform-output-popup-content {
   overflow-y: auto !important;
-  max-height: calc(80vh - 60px); /* Account for header height */
+  max-height: calc(80vh - 60px);
+  /* Account for header height */
 }
 
 .guidedray-coding-platform-output-popup-content::-webkit-scrollbar {
@@ -1552,8 +1588,8 @@
 }
 
 /* Fix for Monaco Editor in Dark Mode */
-.dark .monaco-editor, 
-.dark .monaco-editor-background, 
+.dark .monaco-editor,
+.dark .monaco-editor-background,
 .dark .monaco-editor .inputarea.ime-input {
   background-color: var(--bg-dark) !important;
 }
@@ -1595,7 +1631,7 @@
 
 /* Ensure proper contrast for text in dark mode */
 .dark .guidedray-coding-platform-problem-description {
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .dark .submissions-placeholder,
@@ -1614,28 +1650,28 @@
     padding: 8px 10px;
     font-size: 12px;
   }
-  
+
   .problem-title {
     font-size: 12px;
   }
-  
+
   .difficulty-badge {
     font-size: 9px;
     padding: 2px 6px;
   }
-  
+
   .guidedray-coding-platform-language-selector {
     min-width: 100px;
     font-size: 12px;
   }
-  
+
   .guidedray-coding-platform-run-button,
   .guidedray-coding-platform-test-button,
   .guidedray-coding-platform-submit-button {
     padding: 6px 10px;
     font-size: 12px;
   }
-  
+
   .guidedray-coding-platform-output-popup {
     width: 98%;
     max-height: 95vh;

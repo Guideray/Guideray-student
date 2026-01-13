@@ -5,19 +5,19 @@ import GuideRayPractice from '../../LearnPageComponents/GuideRayPractice';
 import LockedTopic from '../LockedTopic';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
-import API_BASE_URL from '../../../config';
+import axiosInstance from '../../api/axiosInstance';
 
-const GuideRayTopicContent = ({ 
-  topicData, 
-  darkMode, 
-  isLocked, 
-  onComplete, 
-  progressData, 
-  concept, 
-  topic, 
-  topicIndex, 
-  courseId, 
-  userData 
+const GuideRayTopicContent = ({
+  topicData,
+  darkMode,
+  isLocked,
+  onComplete,
+  progressData,
+  concept,
+  topic,
+  topicIndex,
+  courseId,
+  userData
 }) => {
   const [completedSteps, setCompletedSteps] = useState({
     video: false,
@@ -39,31 +39,20 @@ const GuideRayTopicContent = ({
     return null;
   };
 
-  const fetchProgress = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/consistancy/progress/${userData.id}/${courseId}`);
-      const data = await response.json();
-      if (data.success) {
-        const topicProgressData = data.data.t[topicIndex] || { p: 0 };
-        setTopicProgress(topicProgressData.p);
-        
-        setCompletedSteps({
-          video: topicProgressData.p >= 25,
-          cheatsheet: topicProgressData.p >= 50,
-          mcq: topicProgressData.p >= 75,
-          coding: topicProgressData.p >= 100
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching progress:', error);
-    } finally {
+  useEffect(() => {
+    if (progressData) {
+      const topicProgressData = progressData.t[topicIndex] || { p: 0 };
+      setTopicProgress(topicProgressData.p);
+
+      setCompletedSteps({
+        video: topicProgressData.p >= 25,
+        cheatsheet: topicProgressData.p >= 50,
+        mcq: topicProgressData.p >= 75,
+        coding: topicProgressData.p >= 100
+      });
       setLoadingProgress(false);
     }
-  };
-
-  useEffect(() => {
-    fetchProgress();
-  }, [userData.id, courseId, topicIndex, reloadTrigger]);
+  }, [progressData, topicIndex]);
 
   const handleVideoProgress = (progress) => {
     setVideoWatchedPercentage(progress);
@@ -75,15 +64,15 @@ const GuideRayTopicContent = ({
   const handleComplete = async (step) => {
     const updatedSteps = { ...completedSteps, [step]: true };
     setCompletedSteps(updatedSteps);
-    
+
     let newProgress = 0;
     if (updatedSteps.video) newProgress = 25;
     if (updatedSteps.cheatsheet) newProgress = 50;
     if (updatedSteps.mcq) newProgress = 75;
     if (updatedSteps.coding) newProgress = 100;
-    
+
     setTopicProgress(newProgress);
-    
+
     if (onComplete) {
       await onComplete(step);
       setReloadTrigger(prev => !prev);
@@ -101,7 +90,7 @@ const GuideRayTopicContent = ({
       navigate('/login');
       return;
     }
-    
+
     if (topicData.cheatsheet?.link) {
       window.open(topicData.cheatsheet.link, '_blank');
       if (!completedSteps.cheatsheet) {
@@ -136,7 +125,7 @@ const GuideRayTopicContent = ({
                 {completedSteps.video && (
                   <div className="guideray-topic-content-completion-badge">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
-                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                     </svg>
                   </div>
                 )}
@@ -149,9 +138,9 @@ const GuideRayTopicContent = ({
                   <span className="guideray-topic-content-step-completed-label">Completed</span>
                 )}
               </div>
-              <GuidedVideoRecommendation 
-                videoData={topicData.videoRecomendation} 
-                darkMode={darkMode} 
+              <GuidedVideoRecommendation
+                videoData={topicData.videoRecomendation}
+                darkMode={darkMode}
                 onComplete={() => handleComplete('video')}
                 onProgress={handleVideoProgress}
                 isCompleted={completedSteps.video}
@@ -168,12 +157,12 @@ const GuideRayTopicContent = ({
             <div className="guideray-topic-content-step-indicator">
               <div className={`guideray-topic-content-step-icon ${completedSteps.cheatsheet ? 'guideray-topic-content-step-completed' : ''}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
                 </svg>
                 {completedSteps.cheatsheet && (
                   <div className="guideray-topic-content-completion-badge">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
-                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                     </svg>
                   </div>
                 )}
@@ -190,7 +179,7 @@ const GuideRayTopicContent = ({
                 <div className="guideray-topic-content-cheatsheet-card" onClick={handleCheatsheetClick}>
                   <div className="guideray-topic-content-cheatsheet-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
                     </svg>
                   </div>
                   <div className="guideray-topic-content-cheatsheet-info">
@@ -199,7 +188,7 @@ const GuideRayTopicContent = ({
                   </div>
                   <div className="guideray-topic-content-cheatsheet-arrow">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M10 17l5-5-5-5v10z"/>
+                      <path d="M10 17l5-5-5-5v10z" />
                     </svg>
                   </div>
                 </div>
@@ -207,7 +196,7 @@ const GuideRayTopicContent = ({
             </div>
           </li>
         )}
-        
+
         {topicData.practiceMcq && (
           <li className={`guideray-topic-content-path-step ${completedSteps.mcq ? 'guideray-topic-content-completed' : ''}`}>
             <div className="guideray-topic-content-step-indicator">
@@ -218,7 +207,7 @@ const GuideRayTopicContent = ({
                 {completedSteps.mcq && (
                   <div className="guideray-topic-content-completion-badge">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
-                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                     </svg>
                   </div>
                 )}
@@ -235,7 +224,7 @@ const GuideRayTopicContent = ({
                 {!completedSteps.video && (
                   <div className="guideray-topic-content-lock-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7c0-2.757-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3v3H9V7c0-1.654 1.346-3 3-3zm-6 7h12v8H6v-8z"/>
+                      <path d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7c0-2.757-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3v3H9V7c0-1.654 1.346-3 3-3zm-6 7h12v8H6v-8z" />
                     </svg>
                     <p className="guideray-topic-content-lock-message">
                       Complete the video lesson first
@@ -243,11 +232,12 @@ const GuideRayTopicContent = ({
                   </div>
                 )}
                 <div className={`guideray-topic-content-locked-content ${!completedSteps.video ? 'guideray-topic-content-blurred' : ''}`}>
-                  <GuideRayPractice 
-                    data={topicData.practiceMcq} 
-                    darkMode={darkMode} 
+                  <GuideRayPractice
+                    data={topicData.practiceMcq}
+                    darkMode={darkMode}
                     onComplete={() => handleComplete('mcq')}
                     isLocked={!completedSteps.video}
+                    isCompleted={completedSteps.mcq}
                     topicIndex={topicIndex}
                     courseId={courseId}
                     studentId={userData.id}
@@ -255,13 +245,14 @@ const GuideRayTopicContent = ({
                     topic={topic}
                     concept={concept}
                     topicData={topicData}
+                    progressData={progressData}
                   />
                 </div>
               </div>
             </div>
           </li>
         )}
-        
+
         {topicData.codingPractice && (
           <li className={`guideray-topic-content-path-step ${completedSteps.coding ? 'guideray-topic-content-completed' : ''}`}>
             <div className="guideray-topic-content-step-indicator">
@@ -272,7 +263,7 @@ const GuideRayTopicContent = ({
                 {completedSteps.coding && (
                   <div className="guideray-topic-content-completion-badge">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
-                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
                     </svg>
                   </div>
                 )}
@@ -289,7 +280,7 @@ const GuideRayTopicContent = ({
                 {!completedSteps.mcq && (
                   <div className="guideray-topic-content-lock-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7c0-2.757-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3v3H9V7c0-1.654 1.346-3 3-3zm-6 7h12v8H6v-8z"/>
+                      <path d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7c0-2.757-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3v3H9V7c0-1.654 1.346-3 3-3zm-6 7h12v8H6v-8z" />
                     </svg>
                     <p className="guideray-topic-content-lock-message">
                       Complete the MCQ practice first
@@ -297,17 +288,19 @@ const GuideRayTopicContent = ({
                   </div>
                 )}
                 <div className={`guideray-topic-content-locked-content ${!completedSteps.mcq ? 'guideray-topic-content-blurred' : ''}`}>
-                  <GuideRayCodingPracticeComponent 
-                    codingData={topicData.codingPractice} 
-                    darkMode={darkMode} 
+                  <GuideRayCodingPracticeComponent
+                    codingData={topicData.codingPractice}
+                    darkMode={darkMode}
                     onComplete={() => handleComplete('coding')}
                     isLocked={!completedSteps.mcq}
+                    isCompleted={completedSteps.coding}
                     topicIndex={topicIndex}
                     courseId={courseId}
                     studentId={userData.id}
                     studentName={userData.name}
                     topic={topic}
                     concept={concept}
+                    progressData={progressData}
                   />
                 </div>
               </div>

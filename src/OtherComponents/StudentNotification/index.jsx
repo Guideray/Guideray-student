@@ -1,128 +1,99 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import axios from 'axios';
-import { 
-  FiBell, FiCheck, FiTrash2, FiAlertCircle, FiRefreshCw, 
-  FiClock, FiX, FiCheckCircle, FiMail, FiStar, FiAlertTriangle,
-  FiInfo, FiCalendar, FiBookmark, FiAward, FiMessageSquare
+import axiosInstance from '../../api/axiosInstance';
+import {
+  FiChevronDown, FiChevronUp, FiCheck, FiTrash2,
+  FiAlertCircle, FiRefreshCw, FiClock, FiCheckCircle,
+  FiStar, FiAlertTriangle, FiInfo, FiCalendar,
+  FiBookmark, FiMail, FiX, FiBell
 } from 'react-icons/fi';
-import { 
-  IoMdNotificationsOutline, IoMdCheckmarkCircleOutline,
-  IoMdTrash, IoMdAlert, IoMdTime
-} from 'react-icons/io';
-import { 
-  RiNotificationLine, RiNotificationOffLine,
-  RiCheckboxCircleLine, RiDeleteBinLine
-} from 'react-icons/ri';
+import { motion, AnimatePresence } from 'framer-motion';
 import './index.css';
-import API_BASE_URL from '../../../config';
 
-const GuiderayStudentNotification = () => {
+const StudentNotifications = ({ userData }) => {
   const [cookies] = useCookies(['studentToken']);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [studentInfo, setStudentInfo] = useState(null);
   const [selectedNotifications, setSelectedNotifications] = useState([]);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [filter, setFilter] = useState('all');
 
-  // Fetch student data
-  useEffect(() => {
-    const fetchStudentData = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/api/students/me`, {
-          headers: {
-            Authorization: `Bearer ${cookies.studentToken}`
-          }
-        });
-        setStudentInfo(response.data.data);
-      } catch (err) {
-        setError('Failed to fetch student information');
-        console.error(err);
-      }
-    };
+  // Use userData for studentId (Mongo ID expected by backend)
+  const studentId = userData?.id || userData?._id;
 
-    fetchStudentData();
-  }, [cookies.studentToken]);
-
-  // Fetch notifications
   useEffect(() => {
     const fetchNotifications = async () => {
-      if (!studentInfo) return;
-      
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/notifications/${studentInfo.studentId}`);
+        setLoading(true);
+        const response = await axiosInstance.get(`/api/notifications/${studentId}`);
         const notificationsData = response.data.data || [];
         setNotifications(notificationsData);
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch notifications');
+        setError('Failed to fetch notifications. Please try again later.');
         setLoading(false);
         console.error(err);
-        setNotifications([]);
       }
     };
 
     fetchNotifications();
-  }, [studentInfo]);
+  }, [cookies.studentToken, studentId]);
 
   const markAsRead = async (notificationId) => {
     try {
-      await axios.put(`${API_BASE_URL}/api/notifications/${notificationId}/read`, {
-        studentId: studentInfo.studentId
-      }, {
-        headers: {
-          Authorization: `Bearer ${cookies.studentToken}`
-        }
+      await axiosInstance.put(`/api/notifications/${notificationId}/read`, {
+        studentId: studentId
       });
 
-      setNotifications(prevNotifications => 
-        prevNotifications.map(notification => 
-          notification._id === notificationId 
-            ? { 
-                ...notification, 
-                is_seen_by: [...(notification.is_seen_by || []), studentInfo.studentId],
-                is_read: true
-              } 
-            : notification
-        )
-      );
+      setNotifications(prev => prev.map(n =>
+        n._id === notificationId
+          ? { ...n, isSeenBy: [...(n.isSeenBy || []), studentId] }
+          : n
+      ));
     } catch (err) {
       console.error('Error marking notification as read:', err);
     }
   };
 
-  const markSelectedAsRead = () => {
-    selectedNotifications.forEach(id => {
-      const notification = notifications.find(n => n._id === id);
-      if (notification && !notification.is_seen_by?.includes(studentInfo.studentId)) {
-        markAsRead(id);
-      }
-    });
-    setSelectedNotifications([]);
+  const markAllAsRead = async () => {
+    try {
+      const unreadNotifications = notifications.filter(n => !n.isSeenBy?.includes(studentId));
+
+      if (unreadNotifications.length === 0) return;
+
+      // Parallel requests since no bulk endpoint exists
+      await Promise.all(unreadNotifications.map(notification =>
+        axiosInstance.put(`/api/notifications/${notification._id}/read`, {
+          studentId: studentId
+        })
+      ));
+
+      setNotifications(prev => prev.map(n => ({
+        ...n,
+        isSeenBy: [...(n.isSeenBy || []), studentId]
+      })));
+    } catch (err) {
+      console.error('Error marking all as read:', err);
+    }
   };
 
-  const toggleSelectNotification = (id) => {
-    setSelectedNotifications(prev => 
-      prev.includes(id) 
-        ? prev.filter(notificationId => notificationId !== id) 
+  const toggleSelectNotification = (id, e) => {
+    e.stopPropagation();
+    setSelectedNotifications(prev =>
+      prev.includes(id)
+        ? prev.filter(nId => nId !== id)
         : [...prev, id]
     );
   };
 
   const deleteSelectedNotifications = async () => {
     try {
-      await axios.post(`${API_BASE_URL}/api/notifications/delete-selected`, {
+      await axiosInstance.post(`/api/notifications/delete-selected`, {
         ids: selectedNotifications
-      }, {
-        headers: {
-          Authorization: `Bearer ${cookies.studentToken}`
-        }
       });
 
-      setNotifications(prev => prev.filter(notification => 
-        !selectedNotifications.includes(notification._id)
-      ));
+      setNotifications(prev => prev.filter(n => !selectedNotifications.includes(n._id)));
       setSelectedNotifications([]);
       setShowDeleteConfirmation(false);
     } catch (err) {
@@ -131,176 +102,259 @@ const GuiderayStudentNotification = () => {
   };
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const options = {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  const getNotificationIcon = (title) => {
-    if (title.includes('Exam')) return <FiBookmark className="notification-type-icon exam" />;
-    if (title.includes('Alert')) return <FiAlertTriangle className="notification-type-icon alert" />;
-    if (title.includes('Event')) return <FiCalendar className="notification-type-icon event" />;
-    if (title.includes('Important')) return <FiStar className="notification-type-icon important" />;
-    return <FiInfo className="notification-type-icon info" />;
+  const getNotificationIcon = (type) => {
+    switch (type) {
+      case 'exam': return <FiBookmark className="guideray-student-notifications-icon guideray-student-notifications-icon-exam" />;
+      case 'alert': return <FiAlertTriangle className="guideray-student-notifications-icon guideray-student-notifications-icon-alert" />;
+      case 'event': return <FiCalendar className="guideray-student-notifications-icon guideray-student-notifications-icon-event" />;
+      case 'important': return <FiStar className="guideray-student-notifications-icon guideray-student-notifications-icon-important" />;
+      default: return <FiInfo className="guideray-student-notifications-icon guideray-student-notifications-icon-info" />;
+    }
   };
+
+  const filteredNotifications = notifications.filter(notification => {
+    if (filter === 'unread') return !notification.isSeenBy?.includes(studentId);
+    if (filter === 'read') return notification.isSeenBy?.includes(studentId);
+    return true;
+  });
+
+  const unreadCount = notifications.filter(n => !n.isSeenBy?.includes(studentId)).length;
 
   if (loading) {
     return (
-      <div className="guideray-student-notification-loading-container">
-        <div className="guideray-student-notification-spinner">
-          <FiRefreshCw className="spin" />
+      <motion.div
+        className="guideray-student-notifications-loading"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <div className="guideray-student-notifications-spinner">
+          <FiRefreshCw className="guideray-student-notifications-spin" />
         </div>
-        <p>Loading your notifications...</p>
-      </div>
+        <p>Loading your notifications</p>
+      </motion.div>
     );
   }
 
   if (error) {
     return (
-      <div className="guideray-student-notification-error-container">
-        <div className="guideray-student-notification-error-icon">
+      <motion.div
+        className="guideray-student-notifications-error"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        <div className="guideray-student-notifications-error-icon">
           <FiAlertCircle />
         </div>
-        <h3>Oops! Something went wrong</h3>
+        <h3>Error loading notifications</h3>
         <p>{error}</p>
-        <button 
-          onClick={() => window.location.reload()} 
-          className="guideray-student-notification-retry-button"
+        <button
+          onClick={() => window.location.reload()}
+          className="guideray-student-notifications-retry-button"
         >
           <FiRefreshCw /> Try Again
         </button>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="guideray-student-notification-container">
-      <div className="guideray-student-notification-header">
-        <div className="guideray-student-notification-title">
-          <RiNotificationLine className="guideray-student-notification-icon" />
+    <div className="guideray-student-notifications-container">
+      <div className="guideray-student-notifications-header">
+        <div className="guideray-student-notifications-header-title">
+          <FiBell className="guideray-student-notifications-header-icon" />
           <h1>Notifications</h1>
-          {notifications.length > 0 && (
-            <span className="guideray-student-notification-count">
-              {notifications.length} {notifications.length === 1 ? 'notification' : 'notifications'}
+          {unreadCount > 0 && (
+            <span className="guideray-student-notifications-unread-count">
+              {unreadCount} unread
             </span>
           )}
         </div>
-        
-        {selectedNotifications.length > 0 && (
-          <div className="guideray-student-notification-actions">
-            <button 
-              onClick={markSelectedAsRead}
-              className="guideray-student-notification-action-btn guideray-student-notification-mark-read-btn"
+
+        <div className="guideray-student-notifications-header-controls">
+          <div className="guideray-student-notifications-filter-tabs">
+            <button
+              className={`guideray-student-notifications-filter-tab ${filter === 'all' ? 'guideray-student-notifications-active' : ''}`}
+              onClick={() => setFilter('all')}
             >
-              <RiCheckboxCircleLine /> Mark as Read
+              All
             </button>
-            <button 
-              onClick={() => setShowDeleteConfirmation(true)}
-              className="guideray-student-notification-action-btn guideray-student-notification-delete-btn"
+            <button
+              className={`guideray-student-notifications-filter-tab ${filter === 'unread' ? 'guideray-student-notifications-active' : ''}`}
+              onClick={() => setFilter('unread')}
             >
-              <RiDeleteBinLine /> Delete
+              Unread
             </button>
-            <span className="guideray-student-notification-selected-count">
-              {selectedNotifications.length} selected
-            </span>
+            <button
+              className={`guideray-student-notifications-filter-tab ${filter === 'read' ? 'guideray-student-notifications-active' : ''}`}
+              onClick={() => setFilter('read')}
+            >
+              Read
+            </button>
           </div>
-        )}
+
+          <div className="guideray-student-notifications-header-actions">
+            {selectedNotifications.length > 0 ? (
+              <>
+                <button
+                  onClick={() => setShowDeleteConfirmation(true)}
+                  className="guideray-student-notifications-delete-button"
+                >
+                  <FiTrash2 /> Delete
+                </button>
+                <span className="guideray-student-notifications-selected-count">
+                  {selectedNotifications.length} selected
+                </span>
+              </>
+            ) : (
+              <button
+                onClick={markAllAsRead}
+                className="guideray-student-notifications-mark-all-read"
+                disabled={unreadCount === 0}
+              >
+                <FiCheckCircle /> Mark all as read
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
-      {showDeleteConfirmation && (
-        <div className="guideray-student-notification-confirm-modal">
-          <div className="guideray-student-notification-confirm-content">
-            <div className="guideray-student-notification-confirm-icon">
-              <IoMdAlert />
-            </div>
-            <h3>Delete Notifications</h3>
-            <p>Are you sure you want to delete {selectedNotifications.length} selected notification(s)?</p>
-            <div className="guideray-student-notification-confirm-buttons">
-              <button 
-                onClick={deleteSelectedNotifications}
-                className="guideray-student-notification-confirm-btn guideray-student-notification-delete-confirm"
-              >
-                <IoMdTrash /> Delete
-              </button>
-              <button 
-                onClick={() => setShowDeleteConfirmation(false)}
-                className="guideray-student-notification-confirm-btn guideray-student-notification-cancel-btn"
-              >
-                <FiX /> Cancel
-              </button>
-            </div>
+      {filteredNotifications.length === 0 ? (
+        <motion.div
+          className="guideray-student-notifications-empty-state"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <div className="guideray-student-notifications-empty-icon">
+            <FiBell />
           </div>
-        </div>
+          <h3>No notifications found</h3>
+          <p>When you get new notifications, they'll appear here</p>
+        </motion.div>
+      ) : (
+        <motion.div
+          className="guideray-student-notifications-list"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <AnimatePresence>
+            {filteredNotifications.map(notification => (
+              <motion.div
+                key={notification._id}
+                className={`guideray-student-notifications-card ${notification.isSeenBy?.includes(studentId) ? 'guideray-student-notifications-read' : 'guideray-student-notifications-unread'
+                  }`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.2 }}
+                layout
+              >
+                <div
+                  className="guideray-student-notifications-checkbox-container"
+                  onClick={(e) => toggleSelectNotification(notification._id, e)}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedNotifications.includes(notification._id)}
+                    readOnly
+                  />
+                  <span className="guideray-student-notifications-checkmark"></span>
+                </div>
+
+                <div className="guideray-student-notifications-content">
+                  <div className="guideray-student-notifications-card-header">
+                    <div className="guideray-student-notifications-icon-container">
+                      {getNotificationIcon(notification.type)}
+                    </div>
+                    <div className="guideray-student-notifications-title-container">
+                      <h3>{notification.title}</h3>
+                      <span className="guideray-student-notifications-time">
+                        <FiClock /> {formatDate(notification.createdAt)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="guideray-student-notifications-preview-text">
+                    <p>{notification.message}</p>
+                  </div>
+
+                  <div className="guideray-student-notifications-html-content">
+                    <div dangerouslySetInnerHTML={{ __html: notification.html || notification.message }} />
+                  </div>
+
+                  <div className="guideray-student-notifications-card-footer">
+                    {!notification.isSeenBy?.includes(studentId) ? (
+                      <button
+                        className="guideray-student-notifications-mark-read-button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          markAsRead(notification._id);
+                        }}
+                      >
+                        <FiCheckCircle /> Mark as read
+                      </button>
+                    ) : (
+                      <span className="guideray-student-notifications-read-indicator">
+                        <FiCheck /> Read
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       )}
 
-      {notifications.length === 0 ? (
-        <div className="guideray-student-notification-empty-state">
-          <div className="guideray-student-notification-empty-icon">
-            <RiNotificationOffLine />
-          </div>
-          <h3>No notifications yet</h3>
-          <p>Your notifications will appear here when available</p>
-        </div>
-      ) : (
-        <div className="guideray-student-notification-list">
-          {notifications.map((notification) => (
-            <div 
-              key={notification._id} 
-              className={`guideray-student-notification-card ${
-                notification.is_seen_by?.includes(studentInfo?.studentId) 
-                  ? 'guideray-student-notification-read' 
-                  : 'guideray-student-notification-unread'
-              }`}
+      <AnimatePresence>
+        {showDeleteConfirmation && (
+          <motion.div
+            className="guideray-student-notifications-confirmation-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="guideray-student-notifications-modal-content"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
             >
-              <div className="guideray-student-notification-checkbox">
-                <input
-                  type="checkbox"
-                  id={`guideray-student-notification-${notification._id}`}
-                  checked={selectedNotifications.includes(notification._id)}
-                  onChange={() => toggleSelectNotification(notification._id)}
-                />
-                <label htmlFor={`guideray-student-notification-${notification._id}`}></label>
+              <div className="guideray-student-notifications-modal-icon">
+                <FiAlertTriangle />
               </div>
-              
-              <div className="guideray-student-notification-content">
-                <div className="guideray-student-notification-card-header">
-                  <div className="guideray-student-notification-icon-container">
-                    {getNotificationIcon(notification.title)}
-                  </div>
-                  <h3 
-                    className="guideray-student-notification-title-text"
-                    dangerouslySetInnerHTML={{ __html: notification.title }}
-                  ></h3>
-                  <span className="guideray-student-notification-time">
-                    <IoMdTime /> {formatDate(notification.createdAt)}
-                  </span>
-                </div>
-                
-                <div 
-                  className="guideray-student-notification-message"
-                  dangerouslySetInnerHTML={{ __html: notification.message }}
-                ></div>
-                
-                <div className="guideray-student-notification-footer">
-                  {!notification.is_seen_by?.includes(studentInfo?.studentId) ? (
-                    <button
-                      onClick={() => markAsRead(notification._id)}
-                      className="guideray-student-notification-mark-read-btn"
-                    >
-                      <IoMdCheckmarkCircleOutline /> Mark as Read
-                    </button>
-                  ) : (
-                    <span className="guideray-student-notification-read-indicator">
-                      <FiCheckCircle /> Read
-                    </span>
-                  )}
-                </div>
+              <h3>Delete Notifications</h3>
+              <p>Are you sure you want to delete {selectedNotifications.length} selected notification(s)? This action cannot be undone.</p>
+              <div className="guideray-student-notifications-modal-actions">
+                <button
+                  className="guideray-student-notifications-cancel-button"
+                  onClick={() => setShowDeleteConfirmation(false)}
+                >
+                  <FiX /> Cancel
+                </button>
+                <button
+                  className="guideray-student-notifications-confirm-button"
+                  onClick={deleteSelectedNotifications}
+                >
+                  <FiTrash2 /> Delete
+                </button>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
-export default GuiderayStudentNotification;
+export default StudentNotifications;

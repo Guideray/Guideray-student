@@ -1,911 +1,477 @@
-/* Base Styles */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-:root {
-  --guideray-student-login-primary-color: rgb(9, 7, 69);
-  --guideray-student-login-secondary-color: #4a47a3;
-  --guideray-student-login-accent-color: #6c63ff;
-  --guideray-student-login-light-color: #f8f9fa;
-  --guideray-student-login-dark-color: #010daf;
-  --guideray-student-login-success-color: #28a745;
-  --guideray-student-login-warning-color: #ffc107;
-  --guideray-student-login-danger-color: #dc3545;
-  --guideray-student-login-info-color: #17a2b8;
-  --guideray-student-login-text-color: #333;
-  --guideray-student-login-text-light: #6c757d;
-  --guideray-student-login-border-radius: 8px;
-  --guideray-student-login-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  --guideray-student-login-transition: all 0.3s ease;
-  --guideray-student-login-gradient: rgb(5, 0, 152);
-}
+/* Variables inherited from global */
 
 * {
-
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-family: 'Poppins', sans-serif;
 }
-.guideray-student-login-logo img {
-  height: 48px;
-  transition: all 0.3s ease;
-  
-}
 
-.guideray-student-login-logo{
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-
-
-.guideray-student-login-container {
+/* --- MAIN LAYOUT WRAPPER --- */
+.guideray-login-layout-wrapper {
   display: flex;
-  min-height: 100vh;
-  min-width: 100vw;
-  background: var(--guideray-student-login-gradient);
+  width: 100vw;
+  height: 100vh;
+  background-color: #020202;
   position: relative;
   overflow: hidden;
 }
 
-/* .guideray-student-login-container::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-  z-index: 1;
-} */
-
-.guideray-student-login-left-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  overflow: hidden;
-  position: relative;
-  padding-top: 40px;
-  min-width: 50vw;
-  z-index: 2;
-}
-
-.guideray-student-login-right-section {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  position: relative;
-  min-width:50vw;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  z-index: 2;
-}
-
-/* Left Section Styles */
-.guideray-student-login-welcome-content {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1rem;
-  animation: fadeIn 0.8s ease-out;
-  position: relative;
-  z-index: 3;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.guideray-student-login-logo-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-  gap: 1rem;
-}
-
-.guideray-student-login-company-logo {
-  height: 50px;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-}
-
-.guideray-student-login-welcome-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  position: relative;
-  display: inline-block;
-}
-
-.guideray-student-login-welcome-text {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-  max-width: 600px;
-}
-
-.guideray-student-login-features {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.guideray-student-login-feature-item {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  background: rgba(255,255,255,0.1);
-  padding: 0.8rem 1rem;
-  border-radius: var(--guideray-student-login-border-radius);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: var(--guideray-student-login-transition);
-}
-
-.guideray-student-login-feature-item:hover {
-  background: rgba(255,255,255,0.2);
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.guideray-student-login-feature-icon {
-  font-size: 1.5rem;
-  color: var(--guideray-student-login-accent-color);
-  min-width: 24px;
-}
-
-.guideray-student-login-feature-item span {
-  font-weight: 500;
-}
-
-/* Language Scroll Styles */
-.guideray-student-login-language-scroll-container {
-  width: 100%;
-  animation: slideUp 0.8s ease-out;
-  backdrop-filter: blur(5px);
-  position: relative;
-  z-index: 3;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(50px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.guideray-student-login-section-title {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 600;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  position: relative;
-}
-
-.guideray-student-login-languages-scroll-wrapper {
-  overflow-x: auto;
-  white-space: nowrap;
-  position: relative;
-  padding-bottom: 15px;
-  cursor: grab;
-  margin-top: 20px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.guideray-student-login-languages-scroll-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-.guideray-student-login-languages-scroll-wrapper:active {
-  cursor: grabbing;
-}
-
-.guideray-student-login-languages-container {
-  display: inline-flex;
-  gap: 1.5rem;
-  will-change: transform;
-  user-select: none;
-  padding: 10px 0;
-}
-
-.guideray-student-login-language-card {
-  display: inline-block;
-  width: 150px;
-  height: 180px;
-  background: rgba(255,255,255,0.1);
-  border-radius: var(--guideray-student-login-border-radius);
-  overflow: hidden;
-  box-shadow: var(--guideray-student-login-box-shadow);
-  transition: var(--guideray-student-login-transition);
-  position: relative;
-  white-space: normal;
-  color: white;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-
-
-.guideray-student-login-language-image {
-  height: 100px;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.1);
-  padding: 15px;
-}
-
-.guideray-student-login-language-image img {
-  width: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-}
-
-
-.guideray-student-login-language-info {
-  padding: 0.8rem;
-  text-align: center;
-}
-
-.guideray-student-login-language-name {
-  margin: 0;
-  font-size: 1rem;
-  color: white;
-  font-weight: 600;
-  line-height: 1.3;
-  white-space: normal;
-}
-
-/* Right Section Styles */
-.guideray-student-login-form-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 2rem;
-  animation: fadeInRight 0.8s ease-out;
-}
-
-@keyframes fadeInRight {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.guideray-student-login-form-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.guideray-student-login-user-icon {
-  font-size: 3rem;
-  color: var(--guideray-student-login-accent-color);
-  margin-bottom: 1rem;
-}
-
-.guideray-student-login-form-header h2 {
-  font-size: 1.8rem;
-  color: var(--guideray-student-login-dark-color);
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.guideray-student-login-form-header p {
-  color: var(--guideray-student-login-text-light);
-  font-size: 0.9rem;
-}
-
-/* Form Styles */
-.guideray-student-login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.guideray-student-login-error-message {
-  color: var(--guideray-student-login-danger-color);
-  background-color: rgba(220, 53, 69, 0.1);
-  padding: 0.8rem;
-  border-radius: var(--guideray-student-login-border-radius);
-  font-size: 0.9rem;
-  text-align: center;
-  border-left: 4px solid var(--guideray-student-login-danger-color);
-  animation: shake 0.5s ease;
-}
-
-.guideray-student-login-success-message {
-  color: var(--guideray-student-login-success-color);
-  background-color: rgba(40, 167, 69, 0.1);
-  padding: 0.8rem;
-  border-radius: var(--guideray-student-login-border-radius);
-  font-size: 0.9rem;
-  text-align: center;
-  border-left: 4px solid var(--guideray-student-login-success-color);
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
-}
-
-.guideray-student-login-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.guideray-student-login-input-group label {
-  font-size: 0.9rem;
-  color: var(--guideray-student-login-text-color);
-  font-weight: 500;
-}
-
-.guideray-student-login-input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.guideray-student-login-input-icon {
-  position: absolute;
-  left: 1rem;
-  color: var(--guideray-student-login-text-light);
-  font-size: 1.1rem;
-}
-
-.guideray-student-login-input {
-  width: 100%;
-  padding: 0.8rem 1rem 0.8rem 2.5rem;
-  border: 1px solid #ddd;
-  border-radius: var(--guideray-student-login-border-radius);
-  font-size: 0.9rem;
-  transition: var(--guideray-student-login-transition);
-  background-color: #f9f9f9;
-}
-
-.guideray-student-login-input:focus {
-  outline: none;
-  border-color: var(--guideray-student-login-accent-color);
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
-  background-color: white;
-}
-
-/* OTP Styles */
-.guideray-student-login-otp-container {
-  display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  margin: 1.5rem 0;
-}
-
-.guideray-student-login-otp-input {
-  width: 45px;
-  height: 50px;
-  text-align: center;
-  font-size: 1.2rem;
-  border: 1px solid #ddd;
-  border-radius: var(--guideray-student-login-border-radius);
-  transition: var(--guideray-student-login-transition);
-  background-color: #f9f9f9;
-}
-
-.guideray-student-login-otp-input:focus {
-  border-color: var(--guideray-student-login-accent-color);
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
-  outline: none;
-  background-color: white;
-}
-
-.guideray-student-login-otp-resend {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-  color: var(--guideray-student-login-text-light);
-}
-
-.guideray-student-login-resend-button {
-  background: none;
-  border: none;
-  color: var(--guideray-student-login-accent-color);
-  font-weight: 600;
-  margin-left: 0.5rem;
-  cursor: pointer;
-  transition: var(--guideray-student-login-transition);
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-}
-
-.guideray-student-login-resend-button:hover {
-  text-decoration: underline;
-  background-color: rgba(108, 99, 255, 0.1);
-}
-
-.guideray-student-login-resend-button:disabled {
-  color: var(--guideray-student-login-text-light);
-  cursor: not-allowed;
-  text-decoration: none;
-  background-color: transparent;
-}
-
-.guideray-student-login-back-to-email {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
-.guideray-student-login-back-button {
-  background: none;
-  border: none;
-  color: var(--guideray-student-login-accent-color);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--guideray-student-login-transition);
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-}
-
-.guideray-student-login-back-button:hover {
-  text-decoration: underline;
-  background-color: rgba(108, 99, 255, 0.1);
-}
-
-/* Button Styles */
-.guideray-student-login-button {
-  background-color: var(--guideray-student-login-accent-color);
-  color: white;
-  border: none;
-  padding: 1rem;
-  border-radius: var(--guideray-student-login-border-radius);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--guideray-student-login-transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 0.5rem;
-  width: 100%;
-  box-shadow: 0 4px 6px rgba(108, 99, 255, 0.2);
-}
-
-.guideray-student-login-button:hover {
-  background-color: var(--guideray-student-login-secondary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(108, 99, 255, 0.3);
-}
-
-.guideray-student-login-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(108, 99, 255, 0.2);
-}
-
-.guideray-student-login-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.guideray-student-login-arrow-icon {
-  transition: var(--guideray-student-login-transition);
-}
-
-.guideray-student-login-button:hover .guideray-student-login-arrow-icon {
-  transform: translateX(3px);
-}
-
-.guideray-student-login-signup-link {
-  text-align: center;
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  color: var(--guideray-student-login-text-light);
-}
-
-.guideray-student-login-signup-link a {
-  color: var(--guideray-student-login-accent-color);
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--guideray-student-login-transition);
-}
-
-.guideray-student-login-signup-link a:hover {
-  text-decoration: underline;
-}
-
-/* Background Icons Styling */
-.guideray-student-login-icon-background {
+/* BACKGROUND GRID */
+.guideray-login-bg-grid {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  z-index: 1;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  z-index: 0;
   pointer-events: none;
 }
 
-.guideray-student-login-bg-icon {
-  position: absolute;
-  color: rgba(255, 255, 255, 0.1);
-  z-index: 1;
-  animation: float 15s infinite linear;
+/* --- LEFT SIDE (60%) --- */
+.guideray-login-section-left {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 6%;
+  padding-right: 4%;
+  position: relative;
+  z-index: 2;
+  text-align: left;
 }
 
-/* Individual icon positioning and styling */
-/* First set of 16 icons */
-.guideray-student-login-bg-icon-1 {
-  top: 10%;
-  left: 5%;
-  font-size: 22px;
-  opacity: 0.3;
-  animation-delay: 0s;
+.guideray-login-left-content {
+  width: 100%;
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.guideray-student-login-bg-icon-2 {
-  top: 15%;
-  left: 25%;
-  font-size: 28px;
-  opacity: 0.24;
-  animation-delay: 1s;
+.guideray-login-brand-logo {
+  height: 55px;
+  margin-bottom: 40px;
+  display: block;
+  margin-left: 0;
 }
 
-.guideray-student-login-bg-icon-3 {
-  top: 8%;
-  left: 45%;
-  font-size: 24px;
-  opacity: 0.36;
-  animation-delay: 2s;
+.guideray-login-hero-title {
+  font-size: 3.5rem;
+  color: var(--text-white);
+  line-height: 1.15;
+  font-weight: 700;
+  margin-bottom: 20px;
+  white-space: nowrap;
 }
 
-.guideray-student-login-bg-icon-4 {
-  top: 12%;
-  left: 65%;
-  font-size: 31px;
-  opacity: 0.2;
-  animation-delay: 3s;
+.guideray-login-text-highlight {
+  color: var(--brand-primary);
+  font-size: inherit;
 }
 
-.guideray-student-login-bg-icon-5 {
-  top: 30%;
-  left: 10%;
-  font-size: 26px;
-  opacity: 0.26;
-  animation-delay: 4s;
+.guideray-login-hero-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  max-width: 85%;
+  text-align: left;
 }
 
-.guideray-student-login-bg-icon-6 {
-  top: 35%;
-  left: 30%;
-  font-size: 19px;
-  opacity: 0.34;
-  animation-delay: 5s;
+.guideray-login-features-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-.guideray-student-login-bg-icon-7 {
-  top: 28%;
-  left: 50%;
-  font-size: 22px;
-  opacity: 0.28;
-  animation-delay: 6s;
+.guideray-login-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  color: #e0e0e0;
+  font-size: 0.9rem;
 }
 
-.guideray-student-login-bg-icon-8 {
-  top: 32%;
-  left: 70%;
-  font-size: 25px;
-  opacity: 0.22;
-  animation-delay: 7s;
+.guideray-login-f-icon {
+  color: var(--brand-primary);
 }
 
-.guideray-student-login-bg-icon-9 {
-  top: 50%;
-  left: 15%;
-  font-size: 29px;
-  opacity: 0.32;
-  animation-delay: 8s;
+/* Scroller */
+.guideray-login-scroller-container {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
 }
 
-.guideray-student-login-bg-icon-10 {
-  top: 55%;
-  left: 35%;
-  font-size: 16px;
-  opacity: 0.38;
-  animation-delay: 9s;
+.guideray-login-scroller-track {
+  display: flex;
+  gap: 15px;
+  width: max-content;
+  animation: guiderayScroll 30s linear infinite;
 }
 
-.guideray-student-login-bg-icon-11 {
-  top: 48%;
-  left: 55%;
-  font-size: 23px;
-  opacity: 0.24;
-  animation-delay: 10s;
+.guideray-login-tech-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--glass-border);
 }
 
-.guideray-student-login-bg-icon-12 {
-  top: 52%;
-  left: 75%;
-  font-size: 27px;
-  opacity: 0.3;
-  animation-delay: 11s;
+.guideray-login-tech-chip img {
+  height: 20px;
+  width: 20px;
+  object-fit: contain;
 }
 
-.guideray-student-login-bg-icon-13 {
-  top: 70%;
-  left: 20%;
-  font-size: 20px;
-  opacity: 0.28;
-  animation-delay: 12s;
+.guideray-login-tech-chip span {
+  color: #aaa;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
-.guideray-student-login-bg-icon-14 {
-  top: 75%;
-  left: 40%;
-  font-size: 25px;
-  opacity: 0.22;
-  animation-delay: 13s;
-}
-
-.guideray-student-login-bg-icon-15 {
-  top: 68%;
-  left: 60%;
-  font-size: 18px;
-  opacity: 0.34;
-  animation-delay: 14s;
-}
-
-.guideray-student-login-bg-icon-16 {
-  top: 72%;
-  left: 80%;
-  font-size: 30px;
-  opacity: 0.88;
-  animation-delay: 15s;
-}
-
-/* Second set of 16 icons */
-.guideray-student-login-bg-icon-17 {
-  top: 5%;
-  left: 15%;
-  font-size: 20px;
-  opacity: 0.24;
-  animation-delay: 16s;
-}
-
-.guideray-student-login-bg-icon-18 {
-  top: 20%;
-  left: 35%;
-  font-size: 26px;
-  opacity: 0.3;
-  animation-delay: 17s;
-}
-
-.guideray-student-login-bg-icon-19 {
-  top: 12%;
-  left: 55%;
-  font-size: 22px;
-  opacity: 0.36;
-  animation-delay: 18s;
-}
-
-.guideray-student-login-bg-icon-20 {
-  top: 18%;
-  left: 75%;
-  font-size: 28px;
-  opacity: 0.2;
-  animation-delay: 19s;
-}
-
-.guideray-student-login-bg-icon-21 {
-  top: 25%;
-  left: 20%;
-  font-size: 24px;
-  opacity: 0.26;
-  animation-delay: 20s;
-}
-
-.guideray-student-login-bg-icon-22 {
-  top: 40%;
-  left: 40%;
-  font-size: 18px;
-  opacity: 0.34;
-  animation-delay: 21s;
-}
-
-.guideray-student-login-bg-icon-23 {
-  top: 33%;
-  left: 60%;
-  font-size: 21px;
-  opacity: 0.28;
-  animation-delay: 22s;
-}
-
-.guideray-student-login-bg-icon-24 {
-  top: 37%;
-  left: 80%;
-  font-size: 25px;
-  opacity: 0.22;
-  animation-delay: 23s;
-}
-
-.guideray-student-login-bg-icon-25 {
-  top: 45%;
-  left: 25%;
-  font-size: 27px;
-  opacity: 0.32;
-  animation-delay: 24s;
-}
-
-.guideray-student-login-bg-icon-26 {
-  top: 60%;
-  left: 45%;
-  font-size: 15px;
-  opacity: 0.38;
-  animation-delay: 25s;
-}
-
-.guideray-student-login-bg-icon-27 {
-  top: 53%;
-  left: 65%;
-  font-size: 22px;
-  opacity: 0.24;
-  animation-delay: 26s;
-}
-
-.guideray-student-login-bg-icon-28 {
-  top: 57%;
-  left: 85%;
-  font-size: 26px;
-  opacity: 0.3;
-  animation-delay: 27s;
-}
-
-.guideray-student-login-bg-icon-29 {
-  top: 65%;
-  left: 30%;
-  font-size: 19px;
-  opacity: 0.28;
-  animation-delay: 28s;
-}
-
-.guideray-student-login-bg-icon-30 {
-  top: 80%;
-  left: 50%;
-  font-size: 24px;
-  opacity: 0.22;
-  animation-delay: 29s;
-}
-
-.guideray-student-login-bg-icon-31 {
-  top: 73%;
-  left: 70%;
-  font-size: 17px;
-  opacity: 0.34;
-  animation-delay: 30s;
-}
-
-.guideray-student-login-bg-icon-32 {
-  top: 77%;
-  left: 90%;
-  font-size: 29px;
-  opacity: 0.88;
-  animation-delay: 31s;
-}
-
-/* Floating animation */
-@keyframes float {
+@keyframes guiderayScroll {
   0% {
-    transform: translateY(0) rotate(0deg);
+    transform: translateX(0);
   }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
+
   100% {
-    transform: translateY(0) rotate(0deg);
+    transform: translateX(-50%);
   }
 }
 
 
+/* --- RIGHT SIDE (40%) --- */
+.guideray-login-section-right {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  border-left: 1px solid rgba(255, 255, 255, 0.03);
+}
 
-/* Responsive Styles */
+.guideray-login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 45px 40px;
+  background: rgba(5, 5, 5, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* STRICTLY CENTER CHILDREN */
+}
+
+/* Wrapper to stabilize animations */
+.guideray-login-form-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Ensure content inside form wrapper is centered */
+}
+
+.guideray-login-form-wrapper form {
+  width: 100%;
+  /* Force form to take full width */
+}
+
+.guideray-login-header {
+  text-align: center;
+  margin-bottom: 35px;
+  width: 100%;
+}
+
+.guideray-login-icon-circle {
+  width: 55px;
+  height: 55px;
+  /* Blue background with low opacity */
+  background: rgba(0, 110, 231, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  /* Center margin */
+  font-size: 1.6rem;
+  color: var(--brand-primary);
+  border: 1px solid rgba(0, 110, 231, 0.15);
+}
+
+.guideray-login-header h2 {
+  color: #fff;
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.guideray-login-header p {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* Form Elements */
+.guideray-login-input-group {
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.guideray-login-input-group label {
+  display: block;
+  color: #ccc;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.guideray-login-field-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.guideray-login-field-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.guideray-login-field-wrapper input {
+  width: 100%;
+  padding: 16px 16px 16px 48px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+
+.guideray-login-field-wrapper input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  background: rgba(0, 0, 0, 0.8);
+  /* Blue shadow glow */
+  box-shadow: 0 0 0 4px rgba(0, 110, 231, 0.1);
+}
+
+/* --- FIXED CENTER OTP CONTAINER --- */
+.guideray-login-otp-container {
+  display: flex;
+  justify-content: center;
+  /* Horizontally center inputs */
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto 25px auto;
+  /* Top 0, Auto L/R (Centers it), Bottom 25 */
+  width: 100%;
+}
+
+.guideray-login-otp-container input {
+  width: 45px;
+  height: 55px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--brand-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.guideray-login-otp-container input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.guideray-login-resend-block {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.guideray-login-resend-block button {
+  background: none;
+  border: none;
+  color: var(--brand-primary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.guideray-login-resend-block button:disabled {
+  color: #666;
+  cursor: default;
+}
+
+/* Button */
+.guideray-login-action-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--brand-primary);
+  color: #ffffff;
+  /* White text for blue background */
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.guideray-login-action-btn:hover:not(:disabled) {
+  background: var(--brand-dark);
+  /* Darker blue on hover */
+  box-shadow: 0 0 20px rgba(0, 110, 231, 0.4);
+  transform: translateY(-1px);
+}
+
+.guideray-login-action-btn:disabled {
+  background: #1a2233;
+  color: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.guideray-login-bottom-link {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #888;
+  width: 100%;
+}
+
+.guideray-login-bottom-link a,
+.guideray-login-text-btn {
+  color: var(--brand-primary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+}
+
+.guideray-login-bottom-link a:hover,
+.guideray-login-text-btn:hover {
+  text-decoration: underline;
+}
+
+/* Messages */
+.guideray-login-msg-box {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.guideray-login-error {
+  background: rgba(255, 50, 50, 0.1);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 50, 50, 0.15);
+}
+
+.guideray-login-success {
+  background: rgba(0, 110, 231, 0.1);
+  color: var(--brand-primary);
+  border: 1px solid rgba(0, 110, 231, 0.15);
+}
+
+/* Animations */
+.guideray-login-fade-in {
+  animation: guiderayFadeIn 0.4s ease-out forwards;
+}
+
+.guideray-login-slide-up {
+  animation: guideraySlideUp 0.4s ease-out forwards;
+}
+
+@keyframes guiderayFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes guideraySlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
-  .guideray-student-login-container {
+  .guideray-login-layout-wrapper {
     flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+    min-height: 100vh;
   }
 
-  .guideray-student-login-left-section, .guideray-student-login-right-section {
-    flex: none;
+  .guideray-login-section-left {
+    width: 100%;
+    padding: 60px 30px 40px 30px;
+    height: auto;
   }
 
-  .guideray-student-login-left-section {
-    padding: 1.5rem;
+  .guideray-login-hero-title {
+    font-size: 2.8rem;
   }
 
-  .guideray-student-login-language-scroll-container {
-    max-width: 100%;
-  }
-
-  .guideray-student-login-form-container {
-    max-width: 500px;
-    margin: 2rem auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .guideray-student-login-features {
-    grid-template-columns: 1fr;
-  }
-
-  .guideray-student-login-language-card {
-    width: 130px;
-    height: 160px;
-  }
-
-  .guideray-student-login-language-image {
-    height: 90px;
-  }
-
-  .guideray-student-login-welcome-content,
-  .guideray-student-login-language-scroll-container {
-    padding: 1rem;
-  }
-  .guideray-student-login-left-section{
-    order: 2;
-  }
-  .guideray-student-login-right-section{
-    order: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .guideray-student-login-logo-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .guideray-student-login-company-logo {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-
-  .guideray-student-login-otp-container {
-    gap: 0.5rem;
-  }
-
-  .guideray-student-login-otp-input {
-    width: 40px;
-    height: 45px;
-    font-size: 1rem;
-  }
-
-  .guideray-student-login-language-card {
-    width: 110px;
-    height: 140px;
-  }
-
-  .guideray-student-login-language-image {
-    height: 80px;
-    padding: 10px;
-  }
-
-  .guideray-student-login-language-name {
-    font-size: 0.9rem;
-  }
-
-  .guideray-student-login-form-container {
-    padding: 1.5rem;
-  }
-
-  .guideray-student-login-form-header h2 {
-    font-size: 1.5rem;
+  .guideray-login-section-right {
+    width: 100%;
+    height: auto;
+    padding: 20px 30px 60px 30px;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 }

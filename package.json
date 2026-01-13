@@ -4,13 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "vite --mode development",
+    "test": "vite --mode test",
+    "build": "vite build --mode development",
+    "prod": "vite build --mode production",
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@cashfreepayments/cashfree-js": "^1.0.5",
+    "@fortawesome/fontawesome-free": "^7.0.1",
     "@monaco-editor/react": "^4.7.0",
     "antd": "^5.26.6",
     "axios": "^1.10.0",

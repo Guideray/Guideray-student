@@ -1,319 +1,162 @@
-/* Main container - White background theme */
-.guderay-progress-calendar-container {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 22vw;
-        min-width: 22vw;
-
-  margin: 0 auto;
-  min-height: 400px;
+/* GSPC: GuideRay Student Progress Calendar */
+.gspc-widget {
+  width: 100%;
+  height: 100%;
+  background: var(--card-bg);
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  color: #333333;
-    border: 3px solid #f4f4f4;
 }
 
-/* Calendar wrapper */
-.guderay-progress-calendar {
-  flex: 1;
+.gspc-header {
   display: flex;
-  flex-direction: column;
-  padding: 12px;
-  transition: all 0.3s ease;
-}
-
-/* Header styling */
-.guderay-progress-month-header,
-.guderay-progress-year-header {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  height: 40px;
-  margin-bottom: 8px;
-  padding: 0 4px;
-  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--bg-main);
 }
 
-.guderay-progress-month-title,
-.guderay-progress-year-title {
-  margin: 0;
-  font-size: 14px;
+.gspc-title {
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #333333;
-  cursor: pointer;
-  transition: all 0.2s;
-  padding: 6px 12px;
-  border-radius: 6px;
-  letter-spacing: 0.2px;
+  color: var(--text-main);
+  margin: 0;
+  text-align: left;
 }
 
-.guderay-progress-month-title:hover,
-.guderay-progress-year-title:hover {
-  color: #3a5eff;
-  background-color: rgba(58, 94, 255, 0.1);
-}
-
-/* Navigation buttons */
-.guderay-progress-nav-button {
-  background: #f5f5f5;
-  border: none;
-  font-size: 14px;
-  color: #666666;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 50%;
-  transition: all 0.2s;
+.gspc-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
+  gap: 5px;
 }
 
-.guderay-progress-nav-button:hover {
-  color: #333333;
-  background: #e0e0e0;
-  transform: translateY(-1px);
-}
-
-.guderay-progress-nav-button:disabled,
-.guderay-progress-nav-disabled {
-  color: #cccccc !important;
-  cursor: not-allowed;
-  background-color: transparent !important;
-}
-
-/* Weekdays header */
-.guderay-progress-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  height: 24px;
-  margin-bottom: 4px;
+.gspc-month-label {
+  font-size: 0.8rem;
+  color: var(--text-main);
+  font-weight: 600;
+  min-width: 80px;
   text-align: center;
 }
 
-.guderay-progress-weekday {
-  font-size: 11px;
-  font-weight: 600;
-  color: #666666;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  padding: 2px 0;
+.gspc-nav-btn {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-/* Days grid */
-.guderay-progress-days-grid {
-  flex: 1;
+.gspc-nav-btn:hover {
+  background: var(--brand-primary);
+  color: #ffffff;
+  border-color: var(--brand-primary);
+}
+
+/* Grid (Centered Text) */
+.gspc-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 4px;
+  text-align: center;
+  margin-bottom: 6px;
 }
 
-/* Day cell */
-.guderay-progress-day {
-  width: 32px;
-  height: 32px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  font-size: 11px;
-  margin-bottom: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.guderay-progress-day::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.05);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.guderay-progress-day:hover {
-  transform: scale(1.05);
-  z-index: 1;
-}
-
-.guderay-progress-day:hover::before {
-  opacity: 1;
-}
-
-/* Day status colors */
-.guderay-progress-completed {
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
-  color: white;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.guderay-progress-incomplete {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
-  color: white;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.guderay-progress-future {
-  background: #f5f5f5;
-  color: #999999;
-}
-
-.guderay-progress-today {
-  background: rgba(58, 94, 255, 0.1);
-  color: #3a5eff;
-  box-shadow: 0 0 0 1px #3a5eff, 0 2px 8px rgba(58, 94, 255, 0.1);
+.gspc-weekday {
+  font-size: 0.7rem;
+  color: var(--text-muted);
   font-weight: 600;
-  animation: pulse 2s infinite;
+  text-align: center;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(58, 94, 255, 0.2); }
-  70% { box-shadow: 0 0 0 4px rgba(58, 94, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(58, 94, 255, 0); }
-}
-
-.guderay-progress-empty-day {
-  width: 32px;
-  height: 32px;
-  margin: 0 auto;
-}
-
-/* Year view */
-.guderay-progress-year-view {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 8px 2px;
-}
-
-.guderay-progress-months-grid {
-  flex: 1;
+.gspc-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: auto;
+  /* Push legend down */
 }
 
-.guderay-progress-month-cell {
+/* Day Cell (Centered Text) */
+.gspc-day {
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.8rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-weight: 500;
-  font-size: 12px;
-  color: #333333;
-  background: #f5f5f5;
-  position: relative;
-  overflow: hidden;
+  transition: all 0.2s;
+  text-align: center;
 }
 
-.guderay-progress-month-cell::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.05);
-  opacity: 0;
-  transition: opacity 0.2s;
+.gspc-day.inactive {
+  background: #fcfdfe;
+  color: var(--text-muted);
 }
 
-.guderay-progress-month-cell:hover {
-  background: rgba(58, 94, 255, 0.1);
-  transform: translateY(-1px);
+.gspc-day.inactive:hover {
+  background: var(--brand-light);
+  color: var(--brand-primary);
 }
 
-.guderay-progress-month-cell:hover::before {
-  opacity: 1;
+.gspc-day.active {
+  background: #e6ffea;
+  color: #00bf2d;
+  border: 1px solid #ccfcd2;
+  font-weight: 700;
 }
 
-.guderay-progress-current-month {
-  background: rgba(58, 94, 255, 0.2);
-  font-weight: 600;
-  color: #3a5eff;
+.gspc-day.active:hover {
+  transform: scale(1.1);
 }
 
-.guderay-progress-future-month {
-  background: #f9f9f9;
-  color: #cccccc;
-  cursor: not-allowed;
+.gspc-day.today {
+  border: 2px solid var(--brand-primary);
 }
 
-/* Legend */
-.guderay-progress-legend {
+.gspc-day.active.today {
+  border: 2px solid var(--brand-primary);
+  background: var(--color-success);
+  color: #ffffff;
+}
+
+/* Legend (Centered) */
+.gspc-legend {
   display: flex;
-  flex-direction: row;
-  gap: 1px;
   justify-content: center;
-  font-size: 11px;
-  background: #f9f9f9;
-  padding: 8px;
-  border-radius: 8px;
-  margin-top: auto;
-  border: 1px solid #f0f0f0;
+  gap: 15px;
+  padding-top: 10px;
+  border-top: 1px solid var(--bg-main);
 }
 
-.guderay-progress-legend-item {
+.gspc-legend-item {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s;
-  color: #666666;
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
 
-.guderay-progress-legend-item:hover {
-  background: #f0f0f0;
+.gspc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
-.guderay-progress-legend-color {
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
+.gspc-dot.active {
+  background: var(--color-success);
 }
 
-.guderay-progress-legend-color.completed {
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
+.gspc-dot.inactive {
+  background: var(--border-color);
 }
 
-.guderay-progress-legend-color.incomplete {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
-}
-
-.guderay-progress-legend-color.future {
-  background: #e0e0e0;
-}
-
-.guderay-progress-legend-color.today {
-  background: rgba(58, 94, 255, 0.6);
-  box-shadow: 0 0 0 1px #3a5eff;
-}
-
-/* Loading and error states */
-.guderay-progress-loading,
-.guderay-progress-error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  color: #666666;
-  font-size: 14px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  border: 1px solid #f0f0f0;
+.gspc-dot.today {
+  border: 2px solid var(--brand-primary);
+  background: transparent;
 }

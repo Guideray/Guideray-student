@@ -8,14 +8,13 @@ import {
 } from 'react-icons/fa';
 import { MdComputer, MdCloud, MdCode, MdDataUsage } from 'react-icons/md';
 import { IoMdNotificationsOutline, IoMdNotifications } from 'react-icons/io';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import { useCookies } from 'react-cookie';
 import LearningPathModal from '../LearningPathModal';
 import PaymentButton from '../../components/PaymentButton';
 import CourseRecommendations from '../CourseRecommendations';
 import CourseDetails from '../StudentCourseDetails';
 import './index.css';
-import API_BASE_URL from '../../../config';
 
 const CourseCard = ({ course, darkMode, isLocked, onRegisterClick, userData, isRegistered, onNotifyClick, isNotified, onCourseVisit }) => {
   const navigate = useNavigate();
@@ -34,7 +33,7 @@ const CourseCard = ({ course, darkMode, isLocked, onRegisterClick, userData, isR
   };
 
   const getCategoryIcon = () => {
-    switch(course.category) {
+    switch (course.category) {
       case 'Programming': return <MdCode className="guideray-student-courses-card-category-icon" />;
       case 'Data Science': return <MdDataUsage className="guideray-student-courses-card-category-icon" />;
       case 'Web Development': return <FaServer className="guideray-student-courses-card-category-icon" />;
@@ -47,7 +46,7 @@ const CourseCard = ({ course, darkMode, isLocked, onRegisterClick, userData, isR
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
-    
+
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
         stars.push(<FaStar key={i} className="guideray-student-courses-card-star filled" />);
@@ -80,12 +79,12 @@ const CourseCard = ({ course, darkMode, isLocked, onRegisterClick, userData, isR
           <span>{course.category}</span>
         </div>
         {!isLocked && !isRegistered && (
-          <button 
+          <button
             className="guideray-student-courses-card-notify-btn"
             onClick={handleNotify}
           >
-            {isNotified ? 
-              <IoMdNotifications style={{color: '#6e8efb'}} /> : 
+            {isNotified ?
+              <IoMdNotifications style={{ color: '#6e8efb' }} /> :
               <IoMdNotificationsOutline />}
           </button>
         )}
@@ -174,9 +173,11 @@ const StudentCourse = ({ darkMode, userData }) => {
   const [showLearningPath, setShowLearningPath] = useState(false);
   const [initializedCourses, setInitializedCourses] = useState([]);
 
-  axios.defaults.withCredentials = true;
+
 
   useEffect(() => {
+    let controller = new AbortController();
+
     const fetchCourses = async () => {
       try {
         if (!userData || !userData.id) {
@@ -184,48 +185,40 @@ const StudentCourse = ({ darkMode, userData }) => {
         }
 
         setLoading(true);
-        
-        const api = axios.create({
-          baseURL: `${API_BASE_URL}/api`,
-          withCredentials: true,
-          headers: {
-            'Authorization': `Bearer ${cookies.studentToken}`
-          }
-        });
 
         const [registeredRes, availableRes, upcomingRes] = await Promise.all([
-          api.get(`/students/${userData.id}/courses`),
-          api.get('/courses/available'),
-          api.get('/courses/upcoming')
+          axiosInstance.get(`/api/students/${userData.id}/courses`, { signal: controller.signal }),
+          axiosInstance.get('/api/courses/available', { signal: controller.signal }),
+          axiosInstance.get('/api/courses/upcoming', { signal: controller.signal })
         ]);
 
-        setCourses({
-          registered: registeredRes.data?.data || [],
-          available: availableRes.data?.data || [],
-          upcoming: upcomingRes.data?.data || []
-        });
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setCourses({
+            registered: registeredRes.data?.data || [],
+            available: availableRes.data?.data || [],
+            upcoming: upcomingRes.data?.data || []
+          });
+          setLoading(false);
+        }
       } catch (err) {
-        console.error('Error fetching courses:', err);
-        setError(err.response?.data?.error || err.message);
-        setLoading(false);
+        if (err.name !== 'CanceledError' && err.code !== 'ERR_CANCELED') {
+          console.error('Error fetching courses:', err);
+          setError(err.response?.data?.error || err.message);
+          setLoading(false);
+        }
       }
     };
 
     fetchCourses();
-  }, [userData, cookies.studentToken]);
+
+    return () => {
+      controller.abort();
+    };
+  }, [userData?.id]);
 
   const checkCourseInitialized = async (course) => {
     try {
-      const api = axios.create({
-        baseURL: `${API_BASE_URL}`,
-        withCredentials: true,
-        headers: {
-          'Authorization': `Bearer ${cookies.studentToken}`
-        }
-      });
-
-      const response = await api.get(`/api/consistancy/progress/${userData.id}/${course._id}`);
+      const response = await axiosInstance.get(`/api/consistency/progress/${userData.id}/${course._id}`);
       return response.data?.data !== null;
     } catch (error) {
       // If we get a 404, it means the course is not initialized
@@ -245,16 +238,8 @@ const StudentCourse = ({ darkMode, userData }) => {
         return;
       }
 
-      const api = axios.create({
-        baseURL: `${API_BASE_URL}`,
-        withCredentials: true,
-        headers: {
-          'Authorization': `Bearer ${cookies.studentToken}`
-        }
-      });
-
       // Initialize with topicCount 20 (as requested)
-      await api.post(`/api/consistancy/initialize/${userData.id}`, {
+      await axiosInstance.post(`/api/consistency/initialize/${userData.id}`, {
         courses: [{
           courseName: course._id,
           topicCount: 20
@@ -293,15 +278,7 @@ const StudentCourse = ({ darkMode, userData }) => {
         throw new Error('User data not available');
       }
 
-      const api = axios.create({
-        baseURL: `${API_BASE_URL}/api`,
-        withCredentials: true,
-        headers: {
-          'Authorization': `Bearer ${cookies.studentToken}`
-        }
-      });
-
-      const response = await api.post(`/students/${userData.id}/courses`, {
+      const response = await axiosInstance.post(`/api/students/${userData.id}/courses`, {
         courseId: selectedCourse._id
       });
 
@@ -314,7 +291,7 @@ const StudentCourse = ({ darkMode, userData }) => {
         available: prev.available.filter(c => c._id !== selectedCourse._id),
         upcoming: prev.upcoming
       }));
-      
+
       return true;
     } catch (err) {
       setError(err.response?.data?.error || err.message);
@@ -353,7 +330,7 @@ const StudentCourse = ({ darkMode, userData }) => {
         <FaExclamationTriangle className="guideray-student-courses-error-icon" />
         <h3>Oops! Something went wrong</h3>
         <p>{error}</p>
-        <button 
+        <button
           className="guideray-student-courses-error-retry"
           onClick={() => window.location.reload()}
         >
@@ -365,9 +342,9 @@ const StudentCourse = ({ darkMode, userData }) => {
 
   if (showDetails && selectedCourse) {
     return (
-      <CourseDetails 
-        course={selectedCourse} 
-        darkMode={darkMode} 
+      <CourseDetails
+        course={selectedCourse}
+        darkMode={darkMode}
         onBack={() => setShowDetails(false)}
         onEnroll={handleEnroll}
         userData={userData}
@@ -380,9 +357,9 @@ const StudentCourse = ({ darkMode, userData }) => {
   return (
     <div className={`guideray-student-courses-container ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
       {showLearningPath && (
-        <LearningPathModal 
-          darkMode={darkMode} 
-          onClose={() => setShowLearningPath(false)} 
+        <LearningPathModal
+          darkMode={darkMode}
+          onClose={() => setShowLearningPath(false)}
         />
       )}
 
@@ -401,7 +378,7 @@ const StudentCourse = ({ darkMode, userData }) => {
                     className="guideray-student-courses-search-input"
                   />
                 </div>
-                <button 
+                <button
                   className="guideray-student-courses-learning-path-button"
                   onClick={() => setShowLearningPath(true)}
                 >
@@ -447,7 +424,7 @@ const StudentCourse = ({ darkMode, userData }) => {
                 {filteredCourses('registered').length > 0 ? (
                   <div className="guideray-student-courses-grid">
                     {filteredCourses('registered').map(course => (
-                      <CourseCard 
+                      <CourseCard
                         key={course._id}
                         course={course}
                         darkMode={darkMode}
@@ -463,21 +440,21 @@ const StudentCourse = ({ darkMode, userData }) => {
                   </div>
                 ) : (
                   <div className={`guideray-student-courses-empty ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
-                    <img 
-                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png" 
-                      alt="No courses yet" 
+                    <img
+                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png"
+                      alt="No courses yet"
                       className="guideray-student-courses-empty-image"
                     />
                     <h3>Your learning journey starts here</h3>
                     <p>You haven't enrolled in any courses yet. Explore our catalog to find the perfect course for you.</p>
                     <div className="guideray-student-courses-empty-actions">
-                      <button 
+                      <button
                         className="guideray-student-courses-explore-button"
                         onClick={() => setActiveTab('available')}
                       >
                         Browse Available Courses
                       </button>
-                      <button 
+                      <button
                         className={`guideray-student-courses-path-button ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}
                         onClick={() => setShowLearningPath(true)}
                       >
@@ -494,7 +471,7 @@ const StudentCourse = ({ darkMode, userData }) => {
                 {filteredCourses('available').length > 0 ? (
                   <div className="guideray-student-courses-grid">
                     {filteredCourses('available').map(course => (
-                      <CourseCard 
+                      <CourseCard
                         key={course._id}
                         course={course}
                         darkMode={darkMode}
@@ -509,14 +486,14 @@ const StudentCourse = ({ darkMode, userData }) => {
                   </div>
                 ) : (
                   <div className={`guideray-student-courses-empty ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
-                    <img 
-                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png" 
-                      alt="No courses found" 
+                    <img
+                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png"
+                      alt="No courses found"
                       className="guideray-student-courses-empty-image"
                     />
                     <h3>No courses match your search</h3>
                     <p>Try adjusting your search or browse our upcoming courses.</p>
-                    <button 
+                    <button
                       className="guideray-student-courses-explore-button"
                       onClick={() => {
                         setSearchTerm('');
@@ -540,20 +517,20 @@ const StudentCourse = ({ darkMode, userData }) => {
                           <img src={course.image} alt={course.name} className="guideray-student-courses-card-image" />
                           <div className="guideray-student-courses-card-upcoming-badge">Coming Soon</div>
                           <div className="guideray-student-courses-card-category">
-                            {course.category === 'Data Science' ? 
-                              <MdDataUsage className="guideray-student-courses-card-category-icon" /> : 
+                            {course.category === 'Data Science' ?
+                              <MdDataUsage className="guideray-student-courses-card-category-icon" /> :
                               <MdCloud className="guideray-student-courses-card-category-icon" />}
                             <span>{course.category}</span>
                           </div>
-                          <button 
+                          <button
                             className="guideray-student-courses-card-notify-btn"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleNotifyClick(course);
                             }}
                           >
-                            {notifiedCourses.includes(course._id) ? 
-                              <IoMdNotifications style={{color: '#6e8efb'}} /> : 
+                            {notifiedCourses.includes(course._id) ?
+                              <IoMdNotifications style={{ color: '#6e8efb' }} /> :
                               <IoMdNotificationsOutline />}
                           </button>
                         </div>
@@ -563,8 +540,8 @@ const StudentCourse = ({ darkMode, userData }) => {
                             <h3 className="guideray-student-courses-card-title">{course.name}</h3>
                             <div className="guideray-student-courses-card-rating">
                               {[...Array(5)].map((_, i) => (
-                                i < Math.floor(course.rating) ? 
-                                  <FaStar key={i} className="guideray-student-courses-card-star filled" /> : 
+                                i < Math.floor(course.rating) ?
+                                  <FaStar key={i} className="guideray-student-courses-card-star filled" /> :
                                   <FaRegStar key={i} className="guideray-student-courses-card-star" />
                               ))}
                               <span>{course.rating.toFixed(1)}</span>
@@ -586,15 +563,15 @@ const StudentCourse = ({ darkMode, userData }) => {
 
                           <div className="guideray-student-courses-card-footer">
                             <span className="guideray-student-courses-card-students">{course.students.toLocaleString()} interested</span>
-                            <button 
+                            <button
                               className={`guideray-student-courses-card-button ${notifiedCourses.includes(course._id) ? 'notified' : ''}`}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleNotifyClick(course);
                               }}
                             >
-                              {notifiedCourses.includes(course._id) ? 
-                                <IoMdNotifications /> : 
+                              {notifiedCourses.includes(course._id) ?
+                                <IoMdNotifications /> :
                                 <IoMdNotificationsOutline />}
                               {notifiedCourses.includes(course._id) ? ' Notified' : ' Notify Me'}
                             </button>
@@ -605,14 +582,14 @@ const StudentCourse = ({ darkMode, userData }) => {
                   </div>
                 ) : (
                   <div className={`guideray-student-courses-empty ${darkMode ? 'guideray-student-courses-dark-mode' : ''}`}>
-                    <img 
-                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png" 
-                      alt="No upcoming courses" 
+                    <img
+                      src="https://res.cloudinary.com/dx97khgxd/image/upload/v1752329571/Pngtree_not_found_5408094_rhugij.png"
+                      alt="No upcoming courses"
                       className="guideray-student-courses-empty-image"
                     />
                     <h3>No upcoming courses at this time</h3>
                     <p>Check back later for new course announcements or browse our available courses.</p>
-                    <button 
+                    <button
                       className="guideray-student-courses-explore-button"
                       onClick={() => {
                         setSearchTerm('');
@@ -629,9 +606,9 @@ const StudentCourse = ({ darkMode, userData }) => {
         </div>
 
         <div className="guideray-student-courses-sidebar">
-          <CourseRecommendations 
-            courses={courses.available.slice(0, 5)} 
-            darkMode={darkMode} 
+          <CourseRecommendations
+            courses={courses.available.slice(0, 5)}
+            darkMode={darkMode}
             onRegisterClick={handleRegisterClick}
             userData={userData}
           />

@@ -1,4 +1,4 @@
-:root {
+.guideray-course-app-container {
   --primary: #6C5CE7;
   --primary-light: #A29BFE;
   --primary-dark: #4B3FCF;
@@ -191,9 +191,20 @@
 }
 
 @keyframes guideray-course-app-progressLoad {
-  0% { width: 0; transform: translateX(-50%); }
-  50% { width: 100%; transform: translateX(0); }
-  100% { width: 0; transform: translateX(100%); }
+  0% {
+    width: 0;
+    transform: translateX(-50%);
+  }
+
+  50% {
+    width: 100%;
+    transform: translateX(0);
+  }
+
+  100% {
+    width: 0;
+    transform: translateX(100%);
+  }
 }
 
 .guideray-course-app-pulse-animation {
@@ -218,8 +229,17 @@
 }
 
 @keyframes guideray-course-app-pulseScale {
-  0%, 100% { transform: scale(0.8); opacity: 0.5; }
-  50% { transform: scale(1.2); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
 }
 
 .dark-mode .guideray-course-app-content-header {
@@ -235,7 +255,7 @@
     padding: 1.5rem;
     margin-left: 240px;
   }
-  
+
   .guideray-course-app-main-content.sidebar-collapsed {
     margin-left: 70px;
   }
@@ -246,11 +266,11 @@
     margin-left: 0;
     padding: 1.25rem;
   }
-  
+
   .guideray-course-app-content-header {
     font-size: 1.5rem;
   }
-  
+
   .guideray-course-app-sidebar-toggle {
     display: flex;
   }
@@ -260,7 +280,7 @@
   .guideray-course-app-content-header {
     font-size: 1.4rem;
   }
-  
+
   .guideray-course-app-breadcrumb {
     font-size: 1.2rem;
   }
@@ -270,7 +290,7 @@
   .guideray-course-app-content-header {
     font-size: 1.2rem;
   }
-  
+
   .guideray-course-app-breadcrumb {
     font-size: 1rem;
   }

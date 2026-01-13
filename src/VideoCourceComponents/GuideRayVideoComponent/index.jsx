@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  FaPlay, 
-  FaPause, 
-  FaVolumeUp, 
-  FaVolumeMute, 
-  FaExpand, 
+import {
+  FaPlay,
+  FaPause,
+  FaVolumeUp,
+  FaVolumeMute,
+  FaExpand,
   FaCompress,
   FaCheck,
   FaImage
@@ -12,17 +12,17 @@ import {
 import {
   FiCheck
 } from 'react-icons/fi'
-import { 
+import {
   IoMdSkipForward,
   IoMdSkipBackward
 } from 'react-icons/io';
-import { 
+import {
   MdSpeed
 } from 'react-icons/md';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import './index.css';
-import API_BASE_URL from '../../../config';
-const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,courseId }) => {
+
+const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId, courseId }) => {
   // Refs
   const videoRef = useRef(null);
   const playerRef = useRef(null);
@@ -30,7 +30,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
   const volumeRef = useRef(null);
   const containerRef = useRef(null);
   const controlsTimeoutRef = useRef(null);
-  
+
   // State
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -58,8 +58,8 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
   useEffect(() => {
     const fetchProgressData = async () => {
       try {
-        const response = await axios.get(
-          `${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`
+        const response = await axiosInstance.get(
+          `/api/consistency/progress/${studentId}/${courseId}`
         );
         if (response.data.success) {
           setProgressData(response.data.data);
@@ -107,8 +107,8 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
   const markAsCompleted = async () => {
     try {
       const now = new Date().toISOString();
-      const response = await axios.post(
-        `${API_BASE_URL}/api/consistancy/progress/${studentId}`,
+      const response = await axiosInstance.post(
+        `/api/consistency/progress/${studentId}`,
         {
           courseName: courseId,
           topicIndex: topicIndex,
@@ -144,7 +144,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
       tag.src = "https://www.youtube.com/iframe_api";
       const firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      
+
       window.onYouTubeIframeAPIReady = initializePlayer;
     } else {
       initializePlayer();
@@ -161,7 +161,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
   const initializePlayer = () => {
     try {
       const videoId = extractYouTubeId(videoData.link);
-      
+
       playerRef.current = new window.YT.Player(videoRef.current, {
         videoId: videoId,
         playerVars: {
@@ -198,7 +198,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
   };
 
   const onPlayerStateChange = (event) => {
-    switch(event.data) {
+    switch (event.data) {
       case window.YT.PlayerState.PLAYING:
         setIsPlaying(true);
         setIsLoading(false);
@@ -231,7 +231,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
   // Update progress and time
   useEffect(() => {
     let interval;
-    
+
     if (isPlaying && playerReady) {
       interval = setInterval(() => {
         const newTime = playerRef.current.getCurrentTime();
@@ -254,7 +254,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
 
   const togglePlay = () => {
     if (!playerReady) return;
-    
+
     if (isPlaying) {
       playerRef.current.pauseVideo();
     } else {
@@ -268,13 +268,13 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
 
   const handleProgressClick = (e) => {
     if (!playerReady) return;
-    
+
     const progressBar = progressRef.current;
     const clickPosition = e.nativeEvent.offsetX;
     const progressBarWidth = progressBar.clientWidth;
     const percentage = (clickPosition / progressBarWidth) * 100;
     const seekTo = (percentage / 100) * playerRef.current.getDuration();
-    
+
     playerRef.current.seekTo(seekTo, true);
     setProgress(percentage);
     setCurrentTime(seekTo);
@@ -289,7 +289,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
 
   const toggleMute = () => {
     if (!playerReady) return;
-    
+
     if (isMuted) {
       playerRef.current.unMute();
       playerRef.current.setVolume(volume * 100);
@@ -340,8 +340,8 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!playerReady) return;
-      
-      switch(e.key) {
+
+      switch (e.key) {
         case ' ':
           e.preventDefault();
           togglePlay();
@@ -415,28 +415,28 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
 
   return (
     <div className="guideray-video-component-outer-container">
-      <div 
+      <div
         className={`guideray-video-component-container ${isFullscreen ? 'fullscreen' : ''}`}
         ref={containerRef}
         onDoubleClick={toggleFullscreen}
       >
         {/* Video element */}
         <div className="guideray-video-component-video-container">
-          <div 
+          <div
             ref={videoRef}
             className="guideray-video-component-video-iframe"
             onClick={handleVideoClick}
           />
-          
+
           {/* Loading spinner - shown only when buffering */}
           <div className={`guideray-video-component-loading-spinner ${isLoading ? 'show' : ''}`}>
             <div className="guideray-video-component-spinner"></div>
             <div className="guideray-video-component-spinner-text">Loading...</div>
           </div>
-          
+
           {/* Thumbnail overlay - shown when video is not playing and player is ready */}
           {(!hasUserInteracted || !isPlaying) && !isLoading && (
-            <div 
+            <div
               className="guideray-video-component-thumbnail-overlay"
               style={{ backgroundImage: `url(${thumbnailUrl})` }}
               onClick={handlePlayClick}
@@ -452,27 +452,27 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
               )}
             </div>
           )}
-          
+
           {/* Controls overlay */}
           <div className={`guideray-video-component-controls-overlay ${showControls ? 'visible' : ''}`}>
             {/* Top controls */}
             <div className="guideray-video-component-top-controls">
               <h3 className="guideray-video-component-video-title">{videoData.title}</h3>
             </div>
-            
+
             {/* Center controls */}
             <div className="guideray-video-component-center-controls">
-              <button 
-                className="guideray-video-component-control-button guideray-video-component-skip-backward" 
+              <button
+                className="guideray-video-component-control-button guideray-video-component-skip-backward"
                 onClick={skipBackward}
                 data-tooltip="15 seconds back"
               >
                 <IoMdSkipBackward size={28} />
                 <span>15</span>
               </button>
-              
-              <button 
-                className="guideray-video-component-control-button guideray-video-component-play-pause" 
+
+              <button
+                className="guideray-video-component-control-button guideray-video-component-play-pause"
                 onClick={handlePlayClick}
                 data-tooltip={isPlaying ? 'Pause' : 'Play'}
               >
@@ -482,9 +482,9 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
                   <FaPlay size={24} />
                 )}
               </button>
-              
-              <button 
-                className="guideray-video-component-control-button guideray-video-component-skip-forward" 
+
+              <button
+                className="guideray-video-component-control-button guideray-video-component-skip-forward"
                 onClick={skipForward}
                 data-tooltip="30 seconds forward"
               >
@@ -492,37 +492,37 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
                 <span>30</span>
               </button>
             </div>
-            
+
             {/* Bottom controls */}
             <div className="guideray-video-component-bottom-controls">
               {/* Progress bar */}
-              <div 
-                className="guideray-video-component-progress-container" 
+              <div
+                className="guideray-video-component-progress-container"
                 ref={progressRef}
                 onClick={handleProgressClick}
               >
-                <div 
-                  className="guideray-video-component-progress-bar" 
+                <div
+                  className="guideray-video-component-progress-bar"
                   style={{ width: `${progress}%` }}
                 ></div>
-                <div 
+                <div
                   className="guideray-video-component-progress-thumb"
                   style={{ left: `${progress}%` }}
                 ></div>
                 <div className="guideray-video-component-progress-hover"></div>
               </div>
-              
+
               <div className="guideray-video-component-controls-group">
                 {/* Time display */}
                 <div className="guideray-video-component-time-display">
                   {formatTime(currentTime)} / {formatTime(duration)}
                 </div>
-                
+
                 {/* Additional controls */}
                 <div className="guideray-video-component-right-controls">
                   {/* Playback rate */}
                   <div className="guideray-video-component-playback-rate-container">
-                    <button 
+                    <button
                       className="guideray-video-component-control-button guideray-video-component-playback-button"
                       onClick={() => setShowPlaybackMenu(!showPlaybackMenu)}
                       data-tooltip="Playback speed"
@@ -544,11 +544,11 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Volume controls */}
                   <div className="guideray-video-component-volume-controls">
-                    <button 
-                      className="guideray-video-component-control-button guideray-video-component-volume-button" 
+                    <button
+                      className="guideray-video-component-control-button guideray-video-component-volume-button"
                       onClick={toggleMute}
                       data-tooltip={isMuted ? 'Unmute' : 'Mute'}
                     >
@@ -560,7 +560,7 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
                         <FaVolumeUp size={20} />
                       )}
                     </button>
-                    
+
                     <input
                       type="range"
                       className="guideray-video-component-volume-slider"
@@ -572,10 +572,10 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
                       ref={volumeRef}
                     />
                   </div>
-                  
+
                   {/* Fullscreen button */}
-                  <button 
-                    className="guideray-video-component-control-button guideray-video-component-fullscreen-button" 
+                  <button
+                    className="guideray-video-component-control-button guideray-video-component-fullscreen-button"
                     onClick={toggleFullscreen}
                     data-tooltip={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
                   >
@@ -594,24 +594,24 @@ const GuideRayVideoComponent = ({ videoData, topicIndex, courseName, studentId ,
 
       {/* Mark as Read Button */}
       <div className="guideray-video-component-mark-read-container">
-  <button
-    className={`guideray-video-component-mark-read-button ${isMarkedRead ? 'completed' : ''}`}
-    onClick={handleMarkAsRead}
-    disabled={isMarkedRead}
-    data-tooltip={
-      isMarkedRead
-        ? 'Video completed'
-        : isCompleted
-          ? 'Click to mark as read'
-          : 'Complete the video to mark as read'
-    }
-  >
-    <span className="guideray-video-component-mark-read-circle">
-      {isMarkedRead && <FiCheck className="check-icon" />}
-    </span>
-    <span>{isMarkedRead ? 'Marked as Read' : 'Mark as Read'}</span>
-  </button>
-</div>
+        <button
+          className={`guideray-video-component-mark-read-button ${isMarkedRead ? 'completed' : ''}`}
+          onClick={handleMarkAsRead}
+          disabled={isMarkedRead}
+          data-tooltip={
+            isMarkedRead
+              ? 'Video completed'
+              : isCompleted
+                ? 'Click to mark as read'
+                : 'Complete the video to mark as read'
+          }
+        >
+          <span className="guideray-video-component-mark-read-circle">
+            {isMarkedRead && <FiCheck className="check-icon" />}
+          </span>
+          <span>{isMarkedRead ? 'Marked as Read' : 'Mark as Read'}</span>
+        </button>
+      </div>
     </div>
   );
 };

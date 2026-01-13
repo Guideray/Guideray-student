@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FiEdit2, FiSave, FiX, FiUser, FiPhone, FiMail, FiCalendar, FiBook, FiUsers, FiHash, FiLock } from 'react-icons/fi';
-import axios from 'axios';
+import { FiEdit2, FiSave, FiX, FiUser, FiPhone, FiMail, FiCalendar, FiBook, FiUsers, FiHash, FiLock, FiCamera, FiCheckCircle } from 'react-icons/fi';
+import axiosInstance from '../../api/axiosInstance';
 import { useCookies } from 'react-cookie';
-import API_BASE_URL from '../../../config';
 import './index.css';
 
-const StudentProfile = ({ darkMode }) => {
+const StudentProfile = ({ darkMode, userData, onUpdateProfile }) => {
   const [cookies] = useCookies(['studentToken']);
   const [studentData, setStudentData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,41 +12,40 @@ const StudentProfile = ({ darkMode }) => {
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [profilePicFile, setProfilePicFile] = useState(null);
+  const [profilePicPreview, setProfilePicPreview] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  // Fetch student data
+  // Initialize form data from userData prop
   useEffect(() => {
-    const fetchStudentData = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/api/students/me`, {
-          headers: {
-            Authorization: `Bearer ${cookies.studentToken}`
-          }
-        });
-        setStudentData(response.data.data);
-        setFormData({
-          name: response.data.data.name,
-          mobile: response.data.data.mobile,
-          college: response.data.data.college,
-          currentYear: response.data.data.currentYear,
-          department: response.data.data.department,
-          branch: response.data.data.branch,
-          dob: response.data.data.dob.split('T')[0],
-          gender: response.data.data.gender
-        });
-        setLoading(false);
-      } catch (err) {
-        setError(err.response?.data?.message || 'Failed to fetch student data');
-        setLoading(false);
-      }
-    };
-
-    if (cookies.studentToken) {
-      fetchStudentData();
-    } else {
-      setError('Authentication required. Please login.');
+    if (userData) {
+      setStudentData(userData);
+      setFormData({
+        name: userData.name,
+        mobile: userData.mobile,
+        college: userData.college,
+        currentYear: userData.currentYear,
+        department: userData.department,
+        branch: userData.branch,
+        dob: userData.dob?.split('T')[0] || '',
+        gender: userData.gender
+      });
       setLoading(false);
     }
-  }, [cookies.studentToken]);
+  }, [userData]);
+
+  // Handle profile picture change
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePicFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfilePicPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Handle form input changes
   const handleInputChange = (e) => {
@@ -62,19 +60,57 @@ const StudentProfile = ({ darkMode }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
     try {
-      const response = await axios.put(
-        `${API_BASE_URL}/api/students/${studentData.id}`,
-        formData,
+      const formDataToSend = new FormData();
+
+      // Append all form data
+      Object.keys(formData).forEach(key => {
+        if (formData[key] !== null && formData[key] !== undefined) {
+          formDataToSend.append(key, formData[key]);
+        }
+      });
+
+      // Append profile picture if changed
+      if (profilePicFile) {
+        formDataToSend.append('profilePic', profilePicFile);
+      }
+
+      const response = await axiosInstance.put(
+        `/api/students/${studentData.id}`,
+        formDataToSend,
         {
           headers: {
-            Authorization: `Bearer ${cookies.studentToken}`
+            'Content-Type': 'multipart/form-data'
           }
         }
       );
-      setStudentData(response.data.data);
+
+      // Update the student data with the response
+      setStudentData(prev => ({
+        ...response.data.data,
+        // Preserve the mentor data if it exists
+        mentor: prev.mentor
+      }));
+
+      // Update global user data if callback is provided
+      if (onUpdateProfile) {
+        onUpdateProfile(prev => ({
+          ...prev,
+          ...response.data.data
+        }));
+      }
+
+      setProfilePicFile(null);
+      setProfilePicPreview(null);
       setEditMode(false);
       setError(null);
+      setShowSuccessModal(true);
+
+      // Hide success modal after 3 seconds
+      setTimeout(() => {
+        setShowSuccessModal(false);
+      }, 3000);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to update profile');
     } finally {
@@ -107,10 +143,51 @@ const StudentProfile = ({ darkMode }) => {
 
   return (
     <div className={`guideray-student-profile-container ${darkMode ? 'guideray-student-profile-dark' : ''}`}>
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="guideray-student-profile-success-modal">
+          <div className="guideray-student-profile-success-content">
+            <FiCheckCircle className="guideray-student-profile-success-icon" />
+            <h3>Profile Updated Successfully!</h3>
+            <p>Your changes have been saved.</p>
+          </div>
+        </div>
+      )}
+
       {/* Profile Header */}
       <div className="guideray-student-profile-header">
         <div className="guideray-student-profile-avatar-container">
-          {studentData.profilePic ? (
+          {editMode ? (
+            <label className="guideray-student-profile-avatar-upload">
+              {profilePicPreview ? (
+                <img
+                  src={profilePicPreview}
+                  alt="Profile Preview"
+                  className="guideray-student-profile-avatar"
+                />
+              ) : studentData.profilePic ? (
+                <img
+                  src={studentData.profilePic}
+                  alt="Profile"
+                  className="guideray-student-profile-avatar"
+                />
+              ) : (
+                <div className="guideray-student-profile-avatar-fallback">
+                  {studentData.name.charAt(0)}
+                </div>
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfilePicChange}
+                className="guideray-student-profile-avatar-input"
+              />
+              <div className="guideray-student-profile-avatar-overlay">
+                <FiCamera className="guideray-student-profile-avatar-camera-icon" />
+                <span>Change Photo</span>
+              </div>
+            </label>
+          ) : studentData.profilePic ? (
             <img
               src={studentData.profilePic}
               alt="Profile"
@@ -125,7 +202,7 @@ const StudentProfile = ({ darkMode }) => {
             {studentData.isActive ? 'Active' : 'Inactive'}
           </div>
         </div>
-        
+
         <div className="guideray-student-profile-info">
           <div className="guideray-student-profile-name-container">
             <h1 className="guideray-student-profile-name">
@@ -136,16 +213,20 @@ const StudentProfile = ({ darkMode }) => {
               {studentData.studentId}
             </span>
           </div>
-          
+
           <div className="guideray-student-profile-email">
             <FiMail className="guideray-student-profile-email-icon" />
             {studentData.email}
           </div>
         </div>
-        
+
         <button
           className={`guideray-student-profile-edit-btn ${editMode ? 'cancel' : ''}`}
-          onClick={() => setEditMode(!editMode)}
+          onClick={() => {
+            setEditMode(!editMode);
+            setProfilePicFile(null);
+            setProfilePicPreview(null);
+          }}
           disabled={isSubmitting}
         >
           {editMode ? (
@@ -170,7 +251,7 @@ const StudentProfile = ({ darkMode }) => {
             <FiUser className="guideray-student-profile-section-icon" />
             Personal Information
           </h2>
-          
+
           {editMode ? (
             <form onSubmit={handleSubmit} className="guideray-student-profile-form">
               <div className="guideray-student-profile-form-group">
@@ -178,53 +259,52 @@ const StudentProfile = ({ darkMode }) => {
                 <input
                   type="text"
                   name="name"
-                  value={formData.name}
+                  value={formData.name || ''}
                   onChange={handleInputChange}
                   className="guideray-student-profile-form-input"
                   required
                 />
               </div>
-              
+
               <div className="guideray-student-profile-form-group">
                 <label className="guideray-student-profile-form-label">Mobile Number</label>
                 <input
                   type="tel"
                   name="mobile"
-                  value={formData.mobile}
+                  value={formData.mobile || ''}
                   onChange={handleInputChange}
                   className="guideray-student-profile-form-input"
                   required
                 />
               </div>
-              
+
               <div className="guideray-student-profile-form-group">
                 <label className="guideray-student-profile-form-label">Date of Birth</label>
                 <input
                   type="date"
                   name="dob"
-                  value={formData.dob}
+                  value={formData.dob || ''}
                   onChange={handleInputChange}
                   className="guideray-student-profile-form-input"
-                  required
                 />
               </div>
-              
+
               <div className="guideray-student-profile-form-group">
                 <label className="guideray-student-profile-form-label">Gender</label>
                 <select
                   name="gender"
-                  value={formData.gender}
+                  value={formData.gender || ''}
                   onChange={handleInputChange}
                   className="guideray-student-profile-form-input"
-                  required
                 >
+                  <option value="">Select Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
                   <option value="Prefer not to say">Prefer not to say</option>
                 </select>
               </div>
-              
+
               <button
                 type="submit"
                 className="guideray-student-profile-save-btn"
@@ -243,7 +323,7 @@ const StudentProfile = ({ darkMode }) => {
                   <span className="guideray-student-profile-detail-value">{studentData.name}</span>
                 </div>
               </div>
-              
+
               <div className="guideray-student-profile-detail-item">
                 <FiPhone className="guideray-student-profile-detail-icon" />
                 <div>
@@ -251,7 +331,7 @@ const StudentProfile = ({ darkMode }) => {
                   <span className="guideray-student-profile-detail-value">{studentData.mobile || 'Not provided'}</span>
                 </div>
               </div>
-              
+
               <div className="guideray-student-profile-detail-item">
                 <FiCalendar className="guideray-student-profile-detail-icon" />
                 <div>
@@ -265,7 +345,7 @@ const StudentProfile = ({ darkMode }) => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="guideray-student-profile-detail-item">
                 <FiUser className="guideray-student-profile-detail-icon" />
                 <div>
@@ -283,42 +363,95 @@ const StudentProfile = ({ darkMode }) => {
             <FiBook className="guideray-student-profile-section-icon" />
             Academic Information
           </h2>
-          
-          <div className="guideray-student-profile-details-grid">
-            <div className="guideray-student-profile-detail-item">
-              <FiBook className="guideray-student-profile-detail-icon" />
-              <div>
-                <span className="guideray-student-profile-detail-label">College</span>
-                <span className="guideray-student-profile-detail-value">{studentData.college || 'Not provided'}</span>
+
+          {editMode ? (
+            <form onSubmit={handleSubmit} className="guideray-student-profile-form">
+              <div className="guideray-student-profile-form-group">
+                <label className="guideray-student-profile-form-label">College</label>
+                <input
+                  type="text"
+                  name="college"
+                  value={formData.college || ''}
+                  onChange={handleInputChange}
+                  className="guideray-student-profile-form-input"
+                />
+              </div>
+
+              <div className="guideray-student-profile-form-group">
+                <label className="guideray-student-profile-form-label">Current Year</label>
+                <select
+                  name="currentYear"
+                  value={formData.currentYear || ''}
+                  onChange={handleInputChange}
+                  className="guideray-student-profile-form-input"
+                >
+                  <option value="">Select Year</option>
+                  <option value="1">First Year</option>
+                  <option value="2">Second Year</option>
+                  <option value="3">Third Year</option>
+                  <option value="4">Fourth Year</option>
+                </select>
+              </div>
+
+              <div className="guideray-student-profile-form-group">
+                <label className="guideray-student-profile-form-label">Department</label>
+                <input
+                  type="text"
+                  name="department"
+                  value={formData.department || ''}
+                  onChange={handleInputChange}
+                  className="guideray-student-profile-form-input"
+                />
+              </div>
+
+              <div className="guideray-student-profile-form-group">
+                <label className="guideray-student-profile-form-label">Branch</label>
+                <input
+                  type="text"
+                  name="branch"
+                  value={formData.branch || ''}
+                  onChange={handleInputChange}
+                  className="guideray-student-profile-form-input"
+                />
+              </div>
+            </form>
+          ) : (
+            <div className="guideray-student-profile-details-grid">
+              <div className="guideray-student-profile-detail-item">
+                <FiBook className="guideray-student-profile-detail-icon" />
+                <div>
+                  <span className="guideray-student-profile-detail-label">College</span>
+                  <span className="guideray-student-profile-detail-value">{studentData.college || 'Not provided'}</span>
+                </div>
+              </div>
+
+              <div className="guideray-student-profile-detail-item">
+                <FiBook className="guideray-student-profile-detail-icon" />
+                <div>
+                  <span className="guideray-student-profile-detail-label">Current Year</span>
+                  <span className="guideray-student-profile-detail-value">
+                    {studentData.currentYear ? `Year ${studentData.currentYear}` : 'Not provided'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="guideray-student-profile-detail-item">
+                <FiBook className="guideray-student-profile-detail-icon" />
+                <div>
+                  <span className="guideray-student-profile-detail-label">Department</span>
+                  <span className="guideray-student-profile-detail-value">{studentData.department || 'Not provided'}</span>
+                </div>
+              </div>
+
+              <div className="guideray-student-profile-detail-item">
+                <FiBook className="guideray-student-profile-detail-icon" />
+                <div>
+                  <span className="guideray-student-profile-detail-label">Branch</span>
+                  <span className="guideray-student-profile-detail-value">{studentData.branch || 'Not provided'}</span>
+                </div>
               </div>
             </div>
-            
-            <div className="guideray-student-profile-detail-item">
-              <FiBook className="guideray-student-profile-detail-icon" />
-              <div>
-                <span className="guideray-student-profile-detail-label">Current Year</span>
-                <span className="guideray-student-profile-detail-value">
-                  {studentData.currentYear ? `Year ${studentData.currentYear}` : 'Not provided'}
-                </span>
-              </div>
-            </div>
-            
-            <div className="guideray-student-profile-detail-item">
-              <FiBook className="guideray-student-profile-detail-icon" />
-              <div>
-                <span className="guideray-student-profile-detail-label">Department</span>
-                <span className="guideray-student-profile-detail-value">{studentData.department || 'Not provided'}</span>
-              </div>
-            </div>
-            
-            <div className="guideray-student-profile-detail-item">
-              <FiBook className="guideray-student-profile-detail-icon" />
-              <div>
-                <span className="guideray-student-profile-detail-label">Branch</span>
-                <span className="guideray-student-profile-detail-value">{studentData.branch || 'Not provided'}</span>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Mentor Information Section */}
@@ -328,22 +461,22 @@ const StudentProfile = ({ darkMode }) => {
               <FiUsers className="guideray-student-profile-section-icon" />
               Mentor Information
             </h2>
-            
+
             <div className="guideray-student-profile-mentor-card">
               <div className="guideray-student-profile-mentor-avatar">
                 {studentData.mentor.name.charAt(0)}
               </div>
-              
+
               <div className="guideray-student-profile-mentor-info">
                 <h3 className="guideray-student-profile-mentor-name">
                   {studentData.mentor.name}
                 </h3>
-                
+
                 <div className="guideray-student-profile-mentor-email">
                   <FiMail className="guideray-student-profile-mentor-email-icon" />
                   {studentData.mentor.email}
                 </div>
-                
+
                 <a
                   href={`mailto:${studentData.mentor.email}`}
                   className="guideray-student-profile-mentor-contact"

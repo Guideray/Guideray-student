@@ -1,471 +1,301 @@
-/* Base Container Styles */
-.gscp-container {
-    margin: 0 auto;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    min-height: 80vh;
-    overflow: auto;
+/* =========================================
+   GuideRay Modern Compact UI
+   Theme: Compact, White Grid Header, Minimal
+   ========================================= */
+
+/* --- Main Layout --- */
+.gr-main-wrapper {
+    background-color: #ffffff;
     border-radius: 12px;
+    padding: 16px; /* Minimized Padding */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     width: 100%;
-    max-width: 1200px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding-left: 10px;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Inter', sans-serif;
 }
 
-/* Loading State Styles */
-.gscp-loading-state {
+/* --- Loading & Messages --- */
+.gr-loading-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 300px;
+    min-height: 150px;
 }
 
-.gscp-loader {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3d5afe;
+.gr-spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #006ee7;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: gscp-spin 1s linear infinite;
+    animation: spin 1s linear infinite;
 }
 
-@keyframes gscp-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Title Styles */
-.gscp-main-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.2rem;
-    color: #1a237e;
-    font-weight: 700;
+.gr-message-box {
+    padding: 20px;
     text-align: center;
-    position: relative;
-    padding-bottom: 0.6rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: #64748b;
 }
 
-.gscp-main-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(to right, #3d5afe, #1a237e);
-    border-radius: 3px;
+.gr-message-box.error {
+    background: #fff5f5;
+    color: #e53e3e;
 }
 
-/* Tabs Styles */
-.gscp-course-tabs {
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* --- Tabs (Compact) --- */
+.gr-tabs-wrapper {
     display: flex;
-    gap: 8px;
+    gap: 4px;
+    background: #f1f5f9;
+    padding: 3px;
+    border-radius: 8px;
+    margin-bottom: 16px;
     overflow-x: auto;
-    padding-bottom: 8px;
-    margin-top: 10px;
 }
 
-.gscp-course-tabs::-webkit-scrollbar {
-    height: 5px;
-}
-
-.gscp-course-tabs::-webkit-scrollbar-track {
-    background: #e8eaf6;
-    border-radius: 8px;
-}
-
-.gscp-course-tabs::-webkit-scrollbar-thumb {
-    background-color: #7986cb;
-    border-radius: 8px;
-    border: 2px solid #e8eaf6;
-}
-
-.gscp-course-tab {
-    padding: 10px 20px;
-    background-color: #e8eaf6;
+.gr-tab-btn {
+    flex: 1;
+    padding: 6px 12px; /* Smaller padding */
     border: none;
+    background: transparent;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 0.75rem; /* Smaller font */
     border-radius: 6px;
     cursor: pointer;
-    font-weight: 600;
-    color: #3d5afe;
+    transition: all 0.2s ease;
     white-space: nowrap;
-    transition: all 0.3s ease;
-    font-size: 0.85rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    text-transform: capitalize;
 }
 
-.gscp-course-tab:hover {
-    background-color: #d1d9ff;
-    transform: translateY(-2px);
+.gr-tab-btn.active {
+    background: #ffffff;
+    color: #1b2559;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.gscp-course-tab.active {
-    background-color: #3d5afe;
-    color: white;
-    box-shadow: 0 3px 6px rgba(61, 90, 254, 0.2);
+/* --- Course Module Card --- */
+.gr-module-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-/* Course Content Styles */
-.gscp-course-content {
-    border-radius: 12px;
+/* --- HEADER: Compact, White Grid, Navy BG --- */
+.gr-module-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px; /* Reduced Padding */
+    
+    /* Base Navy */
+    background-color: #1b2559;
+    
+    /* White Grid Overlay */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 20px 20px;
+    
+    color: #ffffff;
 }
 
-.gscp-course-header {
-    margin-bottom: 25px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #e8eaf6;
-}
-
-.gscp-course-header h3 {
-    font-size: 1.3rem;
-    color: #283593;
+.gr-module-title {
     margin: 0;
+    color: #ffffff;
+    font-size: 0.9rem; /* Minimized Font */
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
-/* Course Parts Container */
-.gscp-course-parts-container {
+.gr-module-stats {
+    font-size: 0.7rem; /* Minimized Font */
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 4px;
+    display: block;
+    font-weight: 400;
+}
+
+/* Compact Circular Chart */
+.gr-circular-progress {
+    position: relative;
+    width: 40px; /* Smaller Chart */
+    height: 40px;
+    justify-self: end; 
+}
+
+.gr-circular-chart {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.gr-circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 3;
+}
+
+.gr-circle {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dasharray 1s ease-out;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+.gr-circle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* --- Topic List (Compact Rows) --- */
+.gr-topic-list {
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    
 }
 
-/* Course Part Styles */
-.gscp-course-part {
-    background: linear-gradient(90deg, #0486ff91 0%, #8480fe60 50%);
-    border-radius: 30px;
-    padding-top: 10px;
-    margin-top: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.gscp-part-header {
-    padding: 16px;
-    border-radius: 8px 8px 0 0;
-    margin-bottom: 0;
-}
-
-.gscp-part-header-content {
+.gr-topic-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 45px;
-    gap: 12px;
+    padding: 12px 16px; /* Minimized Padding */
+    border-bottom: 1px solid #f1f5f9;
+    border-left: 3px solid transparent; /* Thinner border */
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.1s ease;
 }
 
-.gscp-part-title {
-    font-size: 1.1rem;
-    color: rgb(0, 0, 0);
-    margin: 0;
-    font-weight: 600;
+.gr-topic-row:last-child {
+    border-bottom: none;
 }
 
-.gscp-part-progress-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+/* Row Status Colors */
+.gr-topic-row.status-pending {
+    border-left-color: #cbd5e0;
+}
+.gr-topic-row.status-inprogress {
+    border-left-color: #006ee7; 
+    background-color: #fbfdff;
+}
+.gr-topic-row.status-completed {
+    border-left-color: #00bf2d; 
 }
 
-.gscp-part-progress-text {
-    font-size: 0.8rem;
-    color: rgb(0, 0, 0);
-    font-weight: 500;
-}
-
-.gscp-progress-bar {
-    width: 120px;
-    height: 6px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.gscp-progress-fill {
-    height: 100%;
-    background-color: white;
-    border-radius: 3px;
-    transition: width 0.5s ease;
-}
-
-/* Topics Container */
-.gscp-topics-container {
-    padding: 20px;
-    position: relative;
-    border: 1px solid rgba(232, 232, 232, 0);
-    border-radius: 8px;
-    border-top: none;
-    border-radius: 30px;
-    background-color: white;
-}
-
-/* Improved Timeline Styles */
-.gscp-topic-item {
-    margin-bottom: 20px;
-    position: relative;
-    padding-left: 24px;
-}
-
-.gscp-topic-header {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 8px;
-    position: relative;
-}
-
-.gscp-topic-marker {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: calc(100% + 20px);
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    align-items: center;
-}
-
-.gscp-marker-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 2px solid white;
-    box-shadow: 0 0 0 2px #3d5afe;
-    z-index: 2;
-    position: relative;
-    background-color: #e0e0e0;
-}
-
-.gscp-marker-dot.not-started {
-    background-color: #e0e0e0;
-}
-
-.gscp-marker-dot.video-completed {
-    background-color: #3d5afe;
-}
-
-.gscp-marker-dot.mcq-completed {
-    background-color: #ff8f00;
-}
-
-.gscp-marker-dot.coding-completed {
-    background-color: #ff8f00;
-}
-
-.gscp-marker-dot.completed {
-    background-color: #009b08;
-}
-
-.gscp-marker-line {
-    position: absolute;
-    left: 8px;
-    top: 18px;
-    bottom: 0;
-    width: 2px;
-    background-color: #e0e0e0;
-    z-index: 1;
-}
-
-.gscp-topic-item:last-child .gscp-marker-line {
-    display: none;
-}
-
-.gscp-topic-content {
+/* Topic Content */
+.gr-topic-main {
     flex: 1;
-    padding-bottom: 20px;
-    padding-left: 40px;
+    padding-right: 12px;
 }
 
-.gscp-topic-title {
-    font-size: 0.95rem;
-    color: #1a237e;
-    font-weight: 600;
+.gr-topic-name {
     margin: 0;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    padding: 6px 0;
+    font-size: 0.8rem; /* Minimized Font */
+    font-weight: 600;
+    color: #2d3748;
+    line-height: 1.3;
+}
+
+.gr-topic-status-text {
+    font-size: 0.65rem; /* Minimized Font */
+    color: #94a3b8;
+    font-weight: 500;
+    margin-top: 2px;
+    display: block;
+}
+
+.gr-topic-row.status-completed .gr-topic-name {
+    color: #1b2559;
+}
+.gr-topic-row.status-completed .gr-topic-status-text {
+    color: #00bf2d;
+}
+
+/* --- Action Area (Buttons) --- */
+.gr-topic-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.gr-step-badge {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
+    padding: 4px 8px; /* Compact Button */
+    border-radius: 6px;
+    font-size: 0.65rem; /* Smaller Font */
+    font-weight: 500;
+    transition: none;
 }
 
-.gscp-topic-title:hover {
-    color: #3d5afe;
-}
-
-.gscp-topic-title.not-started {
-    color: #9e9e9e;
-}
-
-.gscp-topic-title.video-completed {
-    color: #1565c0;
-}
-
-.gscp-topic-title.mcq-completed {
-    color: #2e7d32;
-}
-
-.gscp-topic-title.coding-completed {
-    color: #ff8f00;
-}
-
-.gscp-topic-title.completed {
-    color: #2e7d32;
-}
-
-/* Topic Steps */
-.gscp-topic-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-left: 16px;
-    margin-top: 12px;
-}
-
-.gscp-step {
+.gr-step-icon {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
-    color: #546e7a;
-    padding: 6px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    font-size: 0.75rem; /* Smaller Icon */
 }
 
-.gscp-step:hover {
-    background-color: #f5f5f5;
+/* Step States */
+.gr-step-badge.step-completed {
+    background-color: #dcfce7;
+    color: #008f22;
 }
 
-.gscp-step.completed {
-    color: #2e7d32;
-    background-color: #ffffff00;
+.gr-step-badge.step-active {
+    background-color: #ebf8ff;
+    color: #006ee7;
+    border: 1px solid rgba(0, 110, 231, 0.1);
 }
 
-.gscp-status-icon {
-    font-size: 1.1rem;
-    min-width: 16px;
+.gr-step-badge.step-pending {
+    background-color: #f1f5f9;
+    color: #94a3b8;
 }
 
-.gscp-status-icon.completed {
-    color: #2e7d32;
-}
-
-.gscp-status-icon.pending {
-    color: #9e9e9e;
-    font-size: 0.9rem;
-}
-
-/* Status Message Styles */
-.gscp-error-message, .gscp-empty-message {
-    text-align: center;
-    padding: 1.5rem;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    margin: 1.2rem 0;
-    font-size: 0.85rem;
-    color: #546e7a;
-    border: 1px solid #eceff1;
-}
-
-.gscp-error-message {
-    color: #d32f2f;
-    background: linear-gradient(to right, #ffebee, #ffffff);
-    border-left: 3px solid #f44336;
-}
-
-.gscp-empty-message {
-    background: linear-gradient(to right, #e8f5e9, #ffffff);
-    border-left: 3px solid #4caf50;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .gscp-main-title {
-        font-size: 1.3rem;
-    }
-    
-    .gscp-course-header h3 {
-        font-size: 1.1rem;
-    }
-    
-    .gscp-part-header-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .gscp-part-progress-container {
-        width: 100%;
-    }
-    
-    .gscp-progress-bar {
-        flex: 1;
-    }
-    
-    .gscp-topic-steps {
-        flex-direction: column;
-    }
-    
-    .gscp-topics-container {
-        padding-left: 12px;
-    }
-    
-    .gscp-topic-marker {
-        left: -12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .gscp-course-tabs {
-        gap: 4px;
-    }
-    
-    .gscp-course-tab {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-    }
-    
-    .gscp-main-title {
-        font-size: 1.1rem;
-    }
-    
-    .gscp-course-content {
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .gr-main-wrapper {
         padding: 12px;
     }
-    
-    .gscp-part-title {
-        font-size: 0.95rem;
+
+    .gr-module-header {
+        padding: 12px 16px;
     }
-    
-    .gscp-topic-title {
-        font-size: 0.85rem;
+
+    .gr-topic-row {
+        padding: 12px;
     }
-    
-    .gscp-part-progress-text {
-        font-size: 0.75rem;
+
+    .gr-topic-main {
+        margin-bottom: 8px;
     }
-    
-    .gscp-progress-bar {
-        width: 80px;
+
+    .gr-topic-actions {
+        width: 100%;
+        justify-content: flex-start;
     }
-    
-    .gscp-topic-item {
-        padding-left: 20px;
-    }
-    
-    .gscp-topic-marker {
-        left: -10px;
-    }
-    
-    .gscp-marker-dot {
-        width: 16px;
-        height: 16px;
-    }
-    
-    .gscp-marker-line {
-        left: 7px;
-        top: 16px;
+
+    .gr-step-badge {
+        flex: 1;
+        justify-content: center;
+        padding: 6px;
     }
 }

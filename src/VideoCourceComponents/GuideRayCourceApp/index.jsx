@@ -3,9 +3,8 @@ import courseData from '../CourceData.json';
 import GuideRaySidebar from '../GuideRaySidebar';
 import GuideRayTopicContent from '../GuideRayTopicContent';
 import './index.css';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import { useParams, useLocation } from 'react-router-dom';
-import API_BASE_URL from '../../../config';
 
 const GuideRayApp = ({ darkMode, userData }) => {
   const { courseId } = useParams();
@@ -35,7 +34,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
       if (location.state?.topicIndex !== undefined && location.state?.partName) {
         const partName = location.state.partName;
         const topicIndex = location.state.topicIndex;
-        
+
         // Safely navigate through the data structure
         if (courseData[courseId][partName]) {
           const concepts = Object.keys(courseData[courseId][partName]);
@@ -54,7 +53,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
           }
         }
       }
-      
+
       // Fallback to default initialization
       const concepts = Object.keys(courseData[courseId]);
       if (concepts.length > 0) {
@@ -73,16 +72,16 @@ const GuideRayApp = ({ darkMode, userData }) => {
     const fetchProgress = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(
-          `${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`
+        const response = await axiosInstance.get(
+          `/api/consistency/progress/${studentId}/${courseId}`
         );
         if (response.data.success) {
           setProgressData(response.data.data);
-          
+
           if (!location.state?.topicIndex && response.data.data?.lastAccessed) {
             const lastConcept = response.data.data.lastAccessed.concept;
             const lastTopic = response.data.data.lastAccessed.topic;
-            
+
             if (courseData[courseId]?.[lastConcept]?.[lastTopic]) {
               setSelectedConcept(lastConcept);
               setSelectedTopic(lastTopic);
@@ -95,7 +94,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
         setIsLoading(false);
       }
     };
-    
+
     if (courseId && courseData[courseId] && studentId) {
       fetchProgress();
     }
@@ -103,8 +102,8 @@ const GuideRayApp = ({ darkMode, userData }) => {
 
   const updateTopicProgress = async (studentId, concept, topicIndex, completionType) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}/api/consistancy/progress/${studentId}`,
+      const response = await axiosInstance.post(
+        `/api/consistency/progress/${studentId}`,
         {
           courseName: concept,
           topicIndex: topicIndex,
@@ -126,10 +125,10 @@ const GuideRayApp = ({ darkMode, userData }) => {
 
   const handleSelection = (concept, topic) => {
     if (!concept || !topic || !courseData[courseId]?.[concept]?.[topic]) return;
-    
+
     setIsLoading(true);
     setHeaderVisible(false);
-    
+
     if (progressData) {
       setProgressData(prev => ({
         ...prev,
@@ -139,7 +138,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
         }
       }));
     }
-    
+
     setTimeout(() => {
       setSelectedConcept(concept);
       setSelectedTopic(topic);
@@ -150,28 +149,28 @@ const GuideRayApp = ({ darkMode, userData }) => {
   const handleTopicComplete = async (step) => {
     try {
       if (!selectedConcept || !selectedTopic || !topicData) return;
-      
+
       const topics = Object.keys(courseData[courseId][selectedConcept]);
       const topicIndex = topics.indexOf(selectedTopic);
-      
+
       const updatedData = await updateTopicProgress(
         studentId,
         selectedConcept,
         topicIndex,
-        step === 'video' ? 'video' : 
-        step === 'mcq' ? 'practice' : 
-        'coding'
+        step === 'video' ? 'video' :
+          step === 'mcq' ? 'practice' :
+            'coding'
       );
-      
+
       if (updatedData) {
         setProgressData(updatedData);
       }
-      
-      const allStepsCompleted = 
+
+      const allStepsCompleted =
         (!topicData.videoComponent || step === 'video') &&
         (!topicData.practiceMcq || step === 'mcq') &&
         (!topicData.codingPractice || step === 'coding');
-      
+
       if (allStepsCompleted) {
         const finalUpdate = await updateTopicProgress(
           studentId,
@@ -192,36 +191,36 @@ const GuideRayApp = ({ darkMode, userData }) => {
     if (!progressData || !courseId || !selectedConcept || !selectedTopic || !courseData[courseId]?.[selectedConcept]) {
       return false;
     }
-    
-    if (selectedConcept === Object.keys(courseData[courseId])[0] && 
-        selectedTopic === Object.keys(courseData[courseId][selectedConcept])[0]) {
+
+    if (selectedConcept === Object.keys(courseData[courseId])[0] &&
+      selectedTopic === Object.keys(courseData[courseId][selectedConcept])[0]) {
       return false;
     }
-    
+
     const concepts = Object.keys(courseData[courseId]);
     const conceptIndex = concepts.indexOf(selectedConcept);
-    
+
     if (conceptIndex > 0) {
       const prevConcept = concepts[conceptIndex - 1];
       const prevConceptTopics = Object.keys(courseData[courseId][prevConcept] || {});
       const lastTopicPrevConcept = prevConceptTopics[prevConceptTopics.length - 1];
-      
+
       const prevTopicIndex = prevConceptTopics.indexOf(lastTopicPrevConcept);
       if (progressData.t?.[prevTopicIndex]?.p < 75) {
         return true;
       }
     }
-    
+
     const topics = Object.keys(courseData[courseId][selectedConcept]);
     const topicIndex = topics.indexOf(selectedTopic);
-    
+
     if (topicIndex > 0) {
       const prevTopicIndex = topicIndex - 1;
       if (progressData.t?.[prevTopicIndex]?.p < 75) {
         return true;
       }
     }
-    
+
     return false;
   };
 
@@ -245,9 +244,9 @@ const GuideRayApp = ({ darkMode, userData }) => {
   return (
     <div className={`guideray-course-app-container ${darkMode ? 'dark-mode' : ''}`}>
       <div className="guideray-course-app-background-pattern"></div>
-      
-      <GuideRaySidebar 
-        courseData={courseData[courseId]} 
+
+      <GuideRaySidebar
+        courseData={courseData[courseId]}
         selectedConcept={selectedConcept}
         selectedTopic={selectedTopic}
         onSelect={handleSelection}
@@ -257,7 +256,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
         progressData={progressData}
         collapsed={sidebarCollapsed}
       />
-      
+
       <div className={`guideray-course-app-main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
         {selectedConcept && selectedTopic && topicData ? (
           <>
@@ -270,12 +269,12 @@ const GuideRayApp = ({ darkMode, userData }) => {
                     </div>
                   </h1>
                 </div>
-                
+
                 <div className="guideray-course-app-user-profile-container">
                   <div className="guideray-course-app-user-profile-content">
-                    <img 
-                      src={userData.profilePic} 
-                      alt="Profile" 
+                    <img
+                      src={userData.profilePic}
+                      alt="Profile"
                       className="guideray-course-app-user-profile-pic"
                     />
                     <div className="guideray-course-app-user-profile-info">
@@ -286,7 +285,7 @@ const GuideRayApp = ({ darkMode, userData }) => {
                 </div>
               </div>
             </div>
-            
+
             {isLoading ? (
               <div className="guideray-course-app-loading-state">
                 <div className="guideray-course-app-progress-bar">
@@ -299,8 +298,8 @@ const GuideRayApp = ({ darkMode, userData }) => {
                 </div>
               </div>
             ) : (
-              <GuideRayTopicContent 
-                topicData={topicData} 
+              <GuideRayTopicContent
+                topicData={topicData}
                 darkMode={darkMode}
                 isLocked={isTopicLocked()}
                 onComplete={handleTopicComplete}

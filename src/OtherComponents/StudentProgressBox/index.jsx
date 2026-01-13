@@ -1,214 +1,98 @@
 import React, { useState, useEffect } from 'react';
-import './index.css';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import API_BASE_URL from '../../../config';
+import './index.css';
 
-const GuideRayStudentProgressCalendar = ({ studentId }) => {
+const GuideRayStudentProgressCalendar = ({ consistencyData }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [viewMode, setViewMode] = useState('month');
-  const [progressData, setProgressData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProgressData = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/consistancy/${studentId}`);
-        const data = await response.json();
-        if (data.success) {
-          setProgressData(data.data);
-        }
-      } catch (error) {
-        console.error('Error fetching progress data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const getDaysInMonth = (date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const days = new Date(year, month + 1, 0).getDate();
+    return Array.from({ length: days }, (_, i) => i + 1);
+  };
 
-    fetchProgressData();
-  }, [studentId]);
+  const getFirstDayOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  };
 
-  const getProgressForDate = (date) => {
-    if (!progressData || !progressData.dp) return 'incomplete';
+  const changeMonth = (offset) => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(newDate.getMonth() + offset);
+    setCurrentDate(newDate);
+  };
+
+  const checkActivity = (day) => {
+    if (!consistencyData || !consistencyData.dp) return false;
     
-    const dateStr = date.toISOString().split('T')[0];
-    const progressDay = progressData.dp.find(day => {
-      const dayStr = new Date(day.d).toISOString().split('T')[0];
-      return dayStr === dateStr;
+    // Construct date string YYYY-MM-DD manually to avoid timezone issues
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const dayStr = String(day).padStart(2, '0');
+    const checkDateStr = `${year}-${month}-${dayStr}`;
+
+    return consistencyData.dp.some(d => {
+      // Assuming d.d is ISO format like "2023-10-25T00:00:00.000Z"
+      const dataDateStr = d.d.split('T')[0];
+      return dataDateStr === checkDateStr;
     });
-    
-    return progressDay ? 'completed' : 'incomplete';
   };
 
-  const navigateMonth = (direction) => {
-    const newDate = new Date(currentDate);
-    newDate.setMonth(currentDate.getMonth() + direction);
-    setCurrentDate(newDate);
-  };
-
-  const navigateYear = (direction) => {
-    const newDate = new Date(currentDate);
-    newDate.setFullYear(currentDate.getFullYear() + direction);
-    setCurrentDate(newDate);
-  };
-
-  const toggleViewMode = () => {
-    setViewMode(viewMode === 'month' ? 'year' : 'month');
-  };
-
-  const renderMonthView = () => {
-    if (loading) return <div className="guderay-progress-loading">Loading...</div>;
-    if (!progressData) return <div className="guderay-progress-error">No data available</div>;
-
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const monthName = currentDate.toLocaleString('default', { month: 'long' });
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
-    const today = new Date();
-
-    // Create empty cells for days before the 1st of the month
-    const emptyCells = [];
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      emptyCells.push(<div key={`empty-${i}`} className="guderay-progress-empty-day"></div>);
-    }
-
-    return (
-      <div className="guderay-progress-month-view">
-        <div className="guderay-progress-month-header">
-          <button 
-            onClick={() => navigateMonth(-1)}
-            className="guderay-progress-nav-button"
-          >
-            <FiChevronLeft />
-          </button>
-          <h2 onClick={toggleViewMode} className="guderay-progress-month-title">
-            {monthName} {year}
-          </h2>
-          <button 
-            onClick={() => {
-              const nextMonth = new Date(year, month + 1, 1);
-              if (nextMonth <= today) navigateMonth(1);
-            }}
-            className={`guderay-progress-nav-button ${
-              new Date(year, month + 1, 1) > today ? 'guderay-progress-nav-disabled' : ''
-            }`}
-            disabled={new Date(year, month + 1, 1) > today}
-          >
-            <FiChevronRight />
-          </button>
-        </div>
-
-        <div className="guderay-progress-weekdays">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="guderay-progress-weekday">{day}</div>
-          ))}
-        </div>
-
-        <div className="guderay-progress-days-grid">
-          {emptyCells}
-          {Array.from({ length: daysInMonth }).map((_, day) => {
-            const date = new Date(year, month, day + 1);
-            const isToday = date.toDateString() === today.toDateString();
-            const dayStatus = date > today ? 'future' : getProgressForDate(date);
-
-            return (
-              <div
-                key={`day-${day}`}
-                className={`guderay-progress-day 
-                  guderay-progress-${dayStatus}
-                  ${isToday ? 'guderay-progress-today' : ''}
-                `}
-                title={`${monthName} ${day + 1}, ${year} - ${dayStatus}`}
-              >
-                {day + 1}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  const renderYearView = () => {
-    const year = currentDate.getFullYear();
-    const today = new Date();
-
-    return (
-      <div className="guderay-progress-year-view">
-        <div className="guderay-progress-year-header">
-          <button 
-            onClick={() => navigateYear(-1)}
-            className="guderay-progress-nav-button"
-          >
-            <FiChevronLeft />
-          </button>
-          <h2 onClick={toggleViewMode} className="guderay-progress-year-title">
-            {year}
-          </h2>
-          <button 
-            onClick={() => {
-              if (year < today.getFullYear()) navigateYear(1);
-            }}
-            className={`guderay-progress-nav-button ${
-              year >= today.getFullYear() ? 'guderay-progress-nav-disabled' : ''
-            }`}
-            disabled={year >= today.getFullYear()}
-          >
-            <FiChevronRight />
-          </button>
-        </div>
-
-        <div className="guderay-progress-months-grid">
-          {Array.from({ length: 12 }).map((_, month) => {
-            const monthDate = new Date(year, month, 1);
-            const isCurrentMonth = month === today.getMonth() && year === today.getFullYear();
-            const isFuture = monthDate > today;
-
-            return (
-              <div
-                key={`month-${month}`}
-                className={`guderay-progress-month-cell 
-                  ${isCurrentMonth ? 'guderay-progress-current-month' : ''}
-                  ${isFuture ? 'guderay-progress-future-month' : ''}
-                `}
-                onClick={() => {
-                  if (!isFuture) {
-                    setCurrentDate(new Date(year, month, 1));
-                    setViewMode('month');
-                  }
-                }}
-              >
-                {new Date(year, month, 1).toLocaleString('default', { month: 'short' })}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
+  const days = getDaysInMonth(currentDate);
+  const firstDay = getFirstDayOfMonth(currentDate);
+  const monthName = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+  const today = new Date();
 
   return (
-    <div className="guderay-progress-calendar-container">
-      <div className="guderay-progress-calendar">
-        {viewMode === 'month' ? renderMonthView() : renderYearView()}
+    <div className="gspc-widget">
+      {/* Header */}
+      <div className="gspc-header">
+        <h3 className="gspc-title">My Activity</h3>
+        <div className="gspc-nav">
+          <button className="gspc-nav-btn" onClick={() => changeMonth(-1)}><FiChevronLeft /></button>
+          <span className="gspc-month-label">{monthName}</span>
+          <button className="gspc-nav-btn" onClick={() => changeMonth(1)}><FiChevronRight /></button>
+        </div>
       </div>
 
-      <div className="guderay-progress-legend">
-        <div className="guderay-progress-legend-item">
-          <div className="guderay-progress-legend-color completed"></div>
-          <span>Completed</span>
+      {/* Weekdays */}
+      <div className="gspc-weekdays">
+        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
+          <div key={i} className="gspc-weekday">{d}</div>
+        ))}
+      </div>
+
+      {/* Days Grid */}
+      <div className="gspc-grid">
+        {Array.from({ length: firstDay }).map((_, i) => <div key={`empty-${i}`} />)}
+        
+        {days.map(day => {
+           const isActive = checkActivity(day);
+           const isToday = today.getDate() === day && 
+                           today.getMonth() === currentDate.getMonth() && 
+                           today.getFullYear() === currentDate.getFullYear();
+           
+           return (
+             <div 
+               key={day} 
+               className={`gspc-day ${isActive ? 'active' : 'inactive'} ${isToday ? 'today' : ''}`}
+             >
+               {day}
+             </div>
+           );
+        })}
+      </div>
+
+      {/* Legend */}
+      <div className="gspc-legend">
+        <div className="gspc-legend-item">
+          <span className="gspc-dot active"></span> Active
         </div>
-        <div className="guderay-progress-legend-item">
-          <div className="guderay-progress-legend-color incomplete"></div>
-          <span>Incomplete</span>
+        <div className="gspc-legend-item">
+          <span className="gspc-dot inactive"></span> Inactive
         </div>
-        <div className="guderay-progress-legend-item">
-          <div className="guderay-progress-legend-color future"></div>
-          <span>Future</span>
-        </div>
-        <div className="guderay-progress-legend-item">
-          <div className="guderay-progress-legend-color today"></div>
-          <span>Today</span>
+        <div className="gspc-legend-item">
+          <span className="gspc-dot today"></span> Today
         </div>
       </div>
     </div>

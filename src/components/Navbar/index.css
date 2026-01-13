@@ -15,6 +15,7 @@
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   transform: translateX(0);
+  text-align: left;
 }
 
 .guideray-student-navbar.collapsed {
@@ -94,7 +95,15 @@ padding-top: 20px;
 }
 
 .guideray-student-navbar-logo-text {
-  font-size: 20px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  transition: all 0.3s ease;
+  background: linear-gradient(90deg, #ffffff, #e0e7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
   font-weight: 700;
   color: white;
   transition: all 0.3s ease;

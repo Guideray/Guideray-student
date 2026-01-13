@@ -1,104 +1,84 @@
-/* Main container styles */
-.guideray-student-auth-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* StudentAuth.css */
+/* Variables inherited from global */
+
+/* THE CARD CONTAINER */
+.guideray-student-auth-card {
+  /* Premium Dark Gradient with Navy Tint */
+  background: linear-gradient(180deg, rgba(3, 45, 98, 0.95) 0%, rgba(2, 11, 26, 0.98) 100%);
+  border: 1px solid var(--brand-primary);
+  box-shadow: 0 0 40px rgba(0, 110, 231, 0.3), inset 0 0 20px rgba(0, 110, 231, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
 }
 
-.guideray-student-auth-card {
-  background: white;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 600px;
-  padding: 30px;
-  text-align: center;
-  transition: all 0.3s ease;
+/* Scanner Line Animation */
+.guideray-student-auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--brand-primary);
+  box-shadow: 0 0 10px var(--brand-primary);
+  animation: scanDown 3s linear infinite;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes scanDown {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
 }
 
 .guideray-student-auth-title {
-  color: #2c3e50;
-  margin-bottom: 24px;
+  color: #fff;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
   font-weight: 600;
-  font-size: 24px;
-}
-
-/* Status message styles */
-.guideray-student-auth-status-container {
-  margin: 20px 0;
-  min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.guideray-student-auth-status {
-  padding: 16px;
-  border-radius: 8px;
-  margin: 10px 0;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.guideray-student-auth-status-message {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.guideray-student-auth-status-waiting {
-  background-color: #e3f2fd;
-  color: #1976d2;
-  border-left: 4px solid #1976d2;
-}
-
-.guideray-student-auth-status-processing {
-  background-color: #fff8e1;
-  color: #ff8f00;
-  border-left: 4px solid #ff8f00;
-}
-
-.guideray-student-auth-status-success {
-  background-color: #e8f5e9;
-  color: #388e3c;
-  border-left: 4px solid #388e3c;
-}
-
-.guideray-student-auth-status-error {
-  background-color: #ffebee;
-  color: #d32f2f;
-  border-left: 4px solid #d32f2f;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Video container styles */
-.guideray-student-auth-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .guideray-student-auth-video-container {
-  position: relative;
-  width: 380px;
-  height: 220px;
+  width: 100%;
+  height: 300px;
+  background: #000;
   border-radius: 12px;
+  border: 2px solid var(--glass-border);
+  position: relative;
   overflow: hidden;
-  background-color: #f0f0f0;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .guideray-student-auth-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scaleX(-1); /* Mirror effect for user-facing camera */
+  transform: scaleX(-1);
 }
 
 .guideray-student-auth-video-overlay {
@@ -107,126 +87,95 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Progress bar styles */
-.guideray-student-auth-progress-container {
-  margin: 10px 0;
-}
-
-.guideray-student-auth-progress-bar {
-  height: 8px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-
-.guideray-student-auth-progress {
-  height: 100%;
-  transition: width 0.3s ease, background-color 0.3s ease;
-}
-
-.guideray-student-auth-countdown {
-  font-size: 14px;
-  color: #555;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
 }
 
-.guideray-student-auth-countdown-icon {
-  font-size: 16px;
+/* Status Badges */
+.guideray-student-auth-status {
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-/* Button styles */
+.guideray-student-auth-status-waiting {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ccc;
+  border: 1px solid #444;
+}
+
+.guideray-student-auth-status-processing {
+  background: rgba(0, 110, 231, 0.15);
+  color: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
+}
+
+.guideray-student-auth-status-success {
+  background: rgba(0, 191, 45, 0.15);
+  color: #00bf2d;
+  border: 1px solid #00bf2d;
+}
+
+.guideray-student-auth-status-error {
+  background: rgba(255, 50, 50, 0.15);
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+}
+
+/* Auth Buttons */
 .guideray-student-auth-button-group {
   display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin-top: 15px;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 }
 
 .guideray-student-auth-button {
   padding: 12px 24px;
-  border: none;
   border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
+  border: none;
+  transition: 0.3s;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 .guideray-student-auth-primary-button {
-  background-color: #4285f4;
-  color: white;
+  background: var(--brand-primary);
+  color: #fff;
+  width: 100%;
 }
 
-.guideray-student-auth-primary-button:hover {
-  background-color: #3367d6;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.guideray-student-auth-primary-button:hover:not(:disabled) {
+  background: #005bbd;
+  box-shadow: 0 0 15px rgba(0, 110, 231, 0.5);
 }
 
-.guideray-student-auth-secondary-button {
-  background-color: #f1f3f4;
-  color: #3c4043;
-}
-
-.guideray-student-auth-secondary-button:hover {
-  background-color: #e0e0e0;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.guideray-student-auth-primary-button:disabled {
+  background: #1a2233;
+  color: #555;
+  cursor: not-allowed;
 }
 
 .guideray-student-auth-retry-button {
-  background-color: #fbbc05;
-  color: #202124;
-  padding: 10px 20px;
-  font-size: 14px;
-  align-self: center;
+  background: transparent;
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
+  margin-top: 10px;
 }
 
 .guideray-student-auth-retry-button:hover {
-  background-color: #f9ab00;
-}
-
-.guideray-student-auth-button-disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-/* Loader animations */
-.guideray-student-auth-loader {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: currentColor;
-  animation: guideray-student-auth-spin 1s ease-in-out infinite;
-}
-
-.guideray-student-auth-video-loader {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: white;
-  animation: guideray-student-auth-spin 1s ease-in-out infinite;
-}
-
-@keyframes guideray-student-auth-spin {
-  to { transform: rotate(360deg); }
+  background: rgba(255, 50, 50, 0.1);
 }

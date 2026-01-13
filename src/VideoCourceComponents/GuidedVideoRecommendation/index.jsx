@@ -1,21 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  FaPlay, 
-  FaPause, 
-  FaVolumeUp, 
-  FaVolumeMute, 
-  FaExpand, 
+import {
+  FaPlay,
+  FaPause,
+  FaVolumeUp,
+  FaVolumeMute,
+  FaExpand,
   FaCompress,
   FaImage
 } from 'react-icons/fa';
 import { FiCheck } from 'react-icons/fi';
 import { IoMdSkipForward, IoMdSkipBackward } from 'react-icons/io';
 import { MdSpeed } from 'react-icons/md';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import './index.css';
-import API_BASE_URL from '../../../config';
 
-const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, studentId }) => {
+const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, studentId, isCompleted, onComplete }) => {
   // Refs
   const videoRef = useRef(null);
   const playerRef = useRef(null);
@@ -23,7 +22,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
   const volumeRef = useRef(null);
   const containerRef = useRef(null);
   const controlsTimeoutRef = useRef(null);
-  
+
   // State
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -40,8 +39,6 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
   const [showPlaybackMenu, setShowPlaybackMenu] = useState(false);
   const [thumbnailError, setThumbnailError] = useState(false);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
-  const [isMarkedRead, setIsMarkedRead] = useState(false);
-  const [progressData, setProgressData] = useState(null);
 
   // Extract YouTube ID from URL
   function getVideoId(url) {
@@ -50,74 +47,16 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
     return (match && match[2].length === 11) ? match[2] : null;
   }
 
-  // Fetch progress data on mount
-  useEffect(() => {
-    const fetchProgressData = async () => {
-      try {
-        const response = await axios.get(
-          `${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`
-        );
-        if (response.data.success) {
-          setProgressData(response.data.data);
-          // Check if this topic is already marked as completed
-          const topicProgress = response.data.data.t.find(t => t.t === topicIndex);
-          if (topicProgress && topicProgress.p > 0) {
-            setIsMarkedRead(true);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching progress data:', error);
-      }
-    };
-
-    if (studentId && courseId) {
-      fetchProgressData();
-    }
-  }, [studentId, courseId, topicIndex]);
-
-  // Handle thumbnail loading error
-  const handleThumbnailError = () => {
-    setThumbnailError(true);
-    setThumbnailUrl('https://via.placeholder.com/1280x720/333333/ffffff?text=Video+Preview');
-  };
-
   // Check if video is completed (watched 95% or more) and mark as read automatically
   useEffect(() => {
-    if (progress >= 95 && duration > 0 && !isMarkedRead) {
+    if (progress >= 95 && duration > 0 && !isCompleted) {
       markAsCompleted();
     }
-  }, [progress, duration]);
+  }, [progress, duration, isCompleted]);
 
   // Mark video as completed
-  const markAsCompleted = async () => {
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}/api/consistancy/progress/${studentId}`,
-        {
-          courseName: courseId,
-          topicIndex: topicIndex,
-          completionType: "video",
-          date: new Date().toISOString()
-        }
-      );
-
-      if (response.data.success) {
-        setIsMarkedRead(true);
-        // Update local progress data
-        if (progressData) {
-          const updatedProgressData = { ...progressData };
-          const topicToUpdate = updatedProgressData.t.find(t => t.t === topicIndex);
-          if (topicToUpdate) {
-            topicToUpdate.p = 100;
-          } else {
-            updatedProgressData.t.push({ t: topicIndex, p: 100 });
-          }
-          setProgressData(updatedProgressData);
-        }
-      }
-    } catch (error) {
-      console.error('Error marking video as completed:', error);
-    }
+  const markAsCompleted = () => {
+    onComplete();
   };
 
   // Manual mark as read handler
@@ -132,7 +71,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
       tag.src = "https://www.youtube.com/iframe_api";
       const firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      
+
       window.onYouTubeIframeAPIReady = initializePlayer;
     } else {
       initializePlayer();
@@ -148,7 +87,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
 
   const initializePlayer = () => {
     const videoId = getVideoId(videoData.link);
-    
+
     playerRef.current = new window.YT.Player(videoRef.current, {
       videoId: videoId,
       playerVars: {
@@ -174,7 +113,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
   };
 
   const onPlayerStateChange = (event) => {
-    switch(event.data) {
+    switch (event.data) {
       case window.YT.PlayerState.PLAYING:
         setIsPlaying(true);
         setIsLoading(false);
@@ -187,7 +126,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
         setIsPlaying(false);
         setIsLoading(false);
         setProgress(100);
-        setIsMarkedRead(true);
+        markAsCompleted();
         break;
       case window.YT.PlayerState.BUFFERING:
         setIsLoading(true);
@@ -201,7 +140,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
   // Update progress and time
   useEffect(() => {
     let interval;
-    
+
     if (isPlaying && playerReady) {
       interval = setInterval(() => {
         const newTime = playerRef.current.getCurrentTime();
@@ -217,7 +156,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
   // Player controls
   const togglePlay = () => {
     if (!playerReady) return;
-    
+
     if (isPlaying) {
       playerRef.current.pauseVideo();
     } else {
@@ -228,13 +167,13 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
 
   const handleProgressClick = (e) => {
     if (!playerReady) return;
-    
+
     const progressBar = progressRef.current;
     const clickPosition = e.nativeEvent.offsetX;
     const progressBarWidth = progressBar.clientWidth;
     const percentage = (clickPosition / progressBarWidth) * 100;
     const seekTo = (percentage / 100) * playerRef.current.getDuration();
-    
+
     playerRef.current.seekTo(seekTo, true);
     setProgress(percentage);
     setCurrentTime(seekTo);
@@ -249,7 +188,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
 
   const toggleMute = () => {
     if (!playerReady) return;
-    
+
     if (isMuted) {
       playerRef.current.unMute();
       playerRef.current.setVolume(volume * 100);
@@ -296,7 +235,7 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
 
   // Auto-hide controls
   useEffect(() => {
-    
+
     const resetControlsTimeout = () => {
       clearTimeout(controlsTimeoutRef.current);
       setShowControls(true);
@@ -331,26 +270,26 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
         <p className="guidedVideoRecommendation-subtitle">{videoData.title || 'Video Lesson'}</p>
       </div>
 
-      <div 
+      <div
         className="guidedVideoRecommendation-video-container"
         ref={containerRef}
       >
         <div className="guidedVideoRecommendation-video-wrapper">
-          <div 
+          <div
             ref={videoRef}
             className="guidedVideoRecommendation-video"
           />
-          
+
           {/* Loading spinner */}
           {isLoading && (
             <div className="guidedVideoRecommendation-loading">
               <div className="guidedVideoRecommendation-spinner"></div>
             </div>
           )}
-          
+
           {/* Thumbnail overlay */}
           {(!hasUserInteracted || !isPlaying) && !isLoading && (
-            <div 
+            <div
               className="guidedVideoRecommendation-thumbnail"
               style={{ backgroundImage: `url(${thumbnailUrl})` }}
               onClick={togglePlay}
@@ -366,48 +305,48 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
               )}
             </div>
           )}
-          
+
           {/* Video controls */}
           <div className={`guidedVideoRecommendation-controls ${showControls ? 'visible' : ''}`}>
             {/* Progress bar */}
-            <div 
+            <div
               className="guidedVideoRecommendation-progress"
               ref={progressRef}
               onClick={handleProgressClick}
             >
-              <div 
+              <div
                 className="guidedVideoRecommendation-progress-filled"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
-            
+
             <div className="guidedVideoRecommendation-controls-bottom">
               <div className="guidedVideoRecommendation-controls-left">
-                <button 
+                <button
                   className="guidedVideoRecommendation-control-button"
                   onClick={togglePlay}
                 >
                   {isPlaying ? <FaPause /> : <FaPlay />}
                 </button>
-                
-                <button 
+
+                <button
                   className="guidedVideoRecommendation-control-button"
                   onClick={skipBackward}
                 >
                   <IoMdSkipBackward />
                   <span>15</span>
                 </button>
-                
-                <button 
+
+                <button
                   className="guidedVideoRecommendation-control-button"
                   onClick={skipForward}
                 >
                   <IoMdSkipForward />
                   <span>30</span>
                 </button>
-                
+
                 <div className="guidedVideoRecommendation-volume">
-                  <button 
+                  <button
                     className="guidedVideoRecommendation-control-button"
                     onClick={toggleMute}
                   >
@@ -423,22 +362,22 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
                     ref={volumeRef}
                   />
                 </div>
-                
+
                 <div className="guidedVideoRecommendation-time">
                   {formatTime(currentTime)} / {formatTime(duration)}
                 </div>
               </div>
-              
+
               <div className="guidedVideoRecommendation-controls-right">
                 <div className="guidedVideoRecommendation-playback-rate">
-                  <button 
+                  <button
                     className="guidedVideoRecommendation-control-button"
                     onClick={() => setShowPlaybackMenu(!showPlaybackMenu)}
                   >
                     <MdSpeed />
                     <span>{playbackRate}x</span>
                   </button>
-                  
+
                   {showPlaybackMenu && (
                     <div className="guidedVideoRecommendation-playback-menu">
                       {[0.5, 0.75, 1, 1.25, 1.5, 2].map(rate => (
@@ -453,8 +392,8 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
                     </div>
                   )}
                 </div>
-                
-                <button 
+
+                <button
                   className="guidedVideoRecommendation-control-button"
                   onClick={toggleFullscreen}
                 >
@@ -469,10 +408,10 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
       {/* Mark as Read button */}
       <div className="guidedVideoRecommendation-mark-read-container">
         <button
-          className={`guidedVideoRecommendation-mark-read-button ${isMarkedRead ? 'completed' : ''}`}
-          disabled={isMarkedRead}
+          className={`guidedVideoRecommendation-mark-read-button ${isCompleted ? 'completed' : ''}`}
+          disabled={isCompleted}
           data-tooltip={
-            isMarkedRead
+            isCompleted
               ? 'Video completed'
               : progress >= 95
                 ? 'Click to mark as read'
@@ -480,9 +419,9 @@ const GuidedVideoRecommendation = ({ videoData, darkMode, topicIndex, courseId, 
           }
         >
           <span className="guidedVideoRecommendation-mark-read-circle">
-            {isMarkedRead && <FiCheck className="guidedVideoRecommendation-check-icon" />}
+            {isCompleted && <FiCheck className="guidedVideoRecommendation-check-icon" />}
           </span>
-          <span>{isMarkedRead ? 'Marked as Read' : 'Mark as Read'}</span>
+          <span>{isCompleted ? 'Marked as Read' : 'Mark as Read'}</span>
         </button>
       </div>
 

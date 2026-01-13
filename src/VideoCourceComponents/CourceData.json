@@ -1,224 +1,17 @@
 {
   "guideray_python_programming": {
-    "Python Basics": {
-      "Python Introduction": {
-        "videoRecomendation": {
-          "link": "https://youtu.be/lRDk2AIMCxA?si=VmQNZX9T5V1yoWDQ",
-          "title": "Introduction to Python Programming",
-          "credits": "@TeluguSoft"
-        },
-        "cheetsheet": {
-          "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
-        },
-        "practiceMcq": {
-          "title": "Practice",
-          "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
-          "time": 15,
-          "quizQuestions": [
-            {
-              "id": 1,
-              "text": "What is Python primarily known for?",
-              "options": [
-                "Writing complex hardware drivers",
-                "Being easy to read and learn",
-                "Only used for mobile apps",
-                "Requiring no internet connection"
-              ],
-              "correctAnswer": "Being easy to read and learn",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 2,
-              "text": "Who created Python?",
-              "options": [
-                "Bill Gates",
-                "Mark Zuckerberg",
-                "Guido van Rossum",
-                "Linus Torvalds"
-              ],
-              "correctAnswer": "Guido van Rossum",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 3,
-              "text": "Python is named after:",
-              "options": [
-                "A snake",
-                "A programming term",
-                "A comedy show (Monty Python)",
-                "A scientist"
-              ],
-              "correctAnswer": "A comedy show (Monty Python)",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 4,
-              "text": "Python was first released in:",
-              "options": [
-                "1980",
-                "1991",
-                "2005",
-                "2010"
-              ],
-              "correctAnswer": "1991",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 5,
-              "text": "Which of these fields uses Python?",
-              "options": [
-                "Web development",
-                "Data science",
-                "Game development",
-                "All of the above"
-              ],
-              "correctAnswer": "All of the above",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 6,
-              "text": "Python files are saved with the extension:",
-              "options": [
-                ".pyc",
-                ".py",
-                ".pyh",
-                ".python"
-              ],
-              "correctAnswer": ".py",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 7,
-              "text": "True or False: Python is only for professional programmers.",
-              "options": [
-                "True",
-                "False"
-              ],
-              "correctAnswer": "False",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 8,
-              "text": "Which company does NOT use Python?",
-              "options": [
-                "Google",
-                "NASA",
-                "Netflix",
-                "None (all use Python)"
-              ],
-              "correctAnswer": "None (all use Python)",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 9,
-              "text": "Python is a:",
-              "options": [
-                "Low-level language",
-                "High-level language",
-                "Hardware language",
-                "Binary language"
-              ],
-              "correctAnswer": "High-level language",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 10,
-              "text": "What makes Python beginner-friendly?",
-              "options": [
-                "Complex syntax",
-                "Simple English-like commands",
-                "No documentation needed",
-                "Works only on Windows"
-              ],
-              "correctAnswer": "Simple English-like commands",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 11,
-              "text": "Python is commonly used in:",
-              "options": [
-                "Artificial Intelligence",
-                "Building cars",
-                "Designing clothes",
-                "Farming"
-              ],
-              "correctAnswer": "Artificial Intelligence",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 12,
-              "text": "True or False: Python is an old language with no updates.",
-              "options": [
-                "True",
-                "False"
-              ],
-              "correctAnswer": "False",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 13,
-              "text": "Which of these is NOT a Python feature?",
-              "options": [
-                "Easy to learn",
-                "Requires expensive software",
-                "Free to use",
-                "Large community support"
-              ],
-              "correctAnswer": "Requires expensive software",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 14,
-              "text": "Python is good for beginners because:",
-              "options": [
-                "It has fewer rules",
-                "It looks like English",
-                "It’s used everywhere",
-                "All of the above"
-              ],
-              "correctAnswer": "All of the above",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 15,
-              "text": "What is the latest Python version (as of 2025)?",
-              "options": [
-                "Python 2.7",
-                "Python 3.0",
-                "Python 3.13",
-                "Python 4.0"
-              ],
-              "correctAnswer": "Python 3.11",
-              "selectedAnswer": null,
-              "status": "unseen"
-            }
-          ]
-        }
+  "Python Basics": {
+    "Python Introduction": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/hEgO047GxaQ?si=TMavXjhbgHsJjIRw",
+        "title": "Introduction to Python Programming",
+        "credits": "@TeluguSoft"
       },
-      "Python Indentation": {
-        "videoRecomendation": {
-          "link": "https://youtu.be/Vx1MUOFJQ4I?si=YDOvYRazNPRn3dCm",
-          "title": "Python Indentation",
-          "credits": "@SaiGopi"
-        },
-        "cheetsheet": {
-          "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
-        },
-        "practiceMcq": {
+      "cheetsheet": {
+        "course" : "Python",
+        "topic" : "Python Introduction"
+      },
+              "practiceMcq": {
           "title": "Practice",
           "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
           "time": 10,
@@ -460,1382 +253,432 @@
   
 }
     },
-      "Python Comments": {
-        "videoRecomendation": {
-          "link": "https://youtu.be/0gnZ-KzhXhU?si=YvEN2YsvyuwWIdM9",
-          "title": "Python Comments",
-          "credits": "@PythonLife"
-        },
-        "cheetsheet": {
-          "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
-        },
-        "practiceMcq": {
-          "title": "Practice",
-          "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
-          "time": 10,
+    "Installing Python & IDEs": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/CScxy0294SE?si=qzh6qrgEOU0eJpAF",
+        "title": "Installing Python & IDEs",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    },
+    "Syntax,Indentation & Comments": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/Vx1MUOFJQ4I?si=YDOvYRazNPRn3dCm",
+        "title": "Python Indentation",
+        "credits": "@SaiGopi"
+      },
+      "cheetsheet": {
+        "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+      }
+    },
+  
+    "Python Variables": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/_NOGsr_5Muc?si=WDEeKc6TwPbIndIe",
+        "title": "Python Variables",
+        "credits": "@PythonLife"
+      },
+      "cheetsheet": {
+        "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+      }
+    },
     
-  "quizQuestions": [
-    {
-      "id": 1,
-      "text": "What symbol is used for single-line comments in Python?",
-      "options": [
-        "//",
-        "#",
-        "--",
-        "/*"
-      ],
-      "correctAnswer": "#",
-      "selectedAnswer": null,
-      "status": "unseen"
+    "Data Types & Type Conversion": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/ApZ751un7t8?si=Qp43cqjuoKzT0Ktn",
+        "title": "Python Datatypes & Type Conversions",
+        "credits": "@PythonLife"
+      },
+      "cheetsheet": {
+        "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+      }
     },
-    {
-      "id": 2,
-      "text": "What will happen when this code runs?",
-      "code": "# print('Hello')\nprint('World')",
-      "options": [
-        "Both 'Hello' and 'World' will print",
-        "Only 'Hello' will print",
-        "Only 'World' will print",
-        "Nothing will print"
-      ],
-      "correctAnswer": "Only 'World' will print",
-      "selectedAnswer": null,
-      "status": "unseen"
+    "Input & Output": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/RWi8A0zpX5w?si=VoMfASYzr8BbVnQ4",
+        "title": "Python Input & Output",
+        "credits": "@arunreddytech4u807"
+      },
+      "cheetsheet": {
+        "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+      }
     },
-    {
-      "id": 3,
-      "text": "How would you properly comment this line?",
-      "code": "x = 5  # TODO: Change this value later",
-      "options": [
-        "// x = 5  # TODO: Change this value later",
-        "/* x = 5  # TODO: Change this value later */",
-        "x = 5  # TODO: Change this value later",
-        "-- x = 5  # TODO: Change this value later"
-      ],
-      "correctAnswer": "x = 5  # TODO: Change this value later",
-      "selectedAnswer": null,
-      "status": "unseen"
+    "Operators": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/VdEfCoYaxfI?si=tAYDAitw7I_pGujv",
+        "title": "Python Operators",
+        "credits": "@arunreddytech4u807"
+      },
+      "cheetsheet": {
+        "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+      },
+      "codingPractice": {
+        "title": "Python Operators Practice",
+        "description": "Practice problems focusing on different Python operators",
+        "problems": []
+      }
     },
-    {
-      "id": 4,
-      "text": "What is wrong with this comment?",
-      "code": "print('Hello')  #This comment needs a space",
-      "options": [
-        "Missing space after #",
-        "Comment should be above the line",
-        "Too short",
-        "Nothing is wrong"
-      ],
-      "correctAnswer": "Missing space after #",
-      "selectedAnswer": null,
-      "status": "unseen"
+    "Strings & Formatting": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/iANRWoFTmHs?si=GayDLsHU7e6yhB5V",
+        "title": "Python Strings",
+        "credits": "@arunreddytech4u807"
+      },
+      "cheetsheet": {
+        "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
+      }
     },
-    {
-      "id": 5,
-      "text": "How do you temporarily disable this code?",
-      "code": "print('Temporary code')",
-      "options": [
-        "Delete the line",
-        "# print('Temporary code')",
-        "''' print('Temporary code') '''",
-        "Both b and c"
-      ],
-      "correctAnswer": "Both b and c",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 6,
-      "text": "What is this an example of?",
-      "code": "\"\"\"\nThis function adds two numbers\nInput: a, b\nOutput: sum\n\"\"\"",
-      "options": [
-        "Regular comment",
-        "Docstring",
-        "Multiline string",
-        "Both b and c"
-      ],
-      "correctAnswer": "Both b and c",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 7,
-      "text": "What will this code output?",
-      "code": "\"\"\"This looks like a comment\"\"\"\nprint('Hello')",
-      "options": [
-        "This looks like a comment",
-        "Hello",
-        "Both lines",
-        "Nothing"
-      ],
-      "correctAnswer": "Hello",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 8,
-      "text": "How would you add a comment to this code?",
-      "code": "radius = 5",
-      "options": [
-        "// radius = 5  # circle radius",
-        "# radius = 5  # circle radius",
-        "/* radius = 5  # circle radius */",
-        "radius = 5  # circle radius"
-      ],
-      "correctAnswer": "radius = 5  # circle radius",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 9,
-      "text": "What's the best way to comment multiple lines?",
-      "code": "line1 = 'Hello'\nline2 = 'World'",
-      "options": [
-        "Put # before each line",
-        "Wrap in triple quotes",
-        "Use IDE shortcut to comment block",
-        "All of the above"
-      ],
-      "correctAnswer": "All of the above",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 10,
-      "text": "What is wrong with this comment?",
-      "code": "x = x + 1  # Increment x by 1",
-      "options": [
-        "Too obvious",
-        "Wrong syntax",
-        "Should be above the line",
-        "Nothing is wrong"
-      ],
-      "correctAnswer": "Too obvious",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 11,
-      "text": "How would you document this function?",
-      "code": "def add(a, b):",
-      "options": [
-        "# Adds two numbers\n# Returns sum",
-        "\"\"\"Adds two numbers\nReturns sum\"\"\"",
-        "/* Adds two numbers\nReturns sum */",
-        "Both a and b"
-      ],
-      "correctAnswer": "Both a and b",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 12,
-      "text": "What will happen if you run this?",
-      "code": "'''\nprint('Commented')\n'''\nprint('Active')",
-      "options": [
-        "Both will print",
-        "Only 'Commented'",
-        "Only 'Active'",
-        "Error"
-      ],
-      "correctAnswer": "Only 'Active'",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 13,
-      "text": "Which is a good comment for this code?",
-      "code": "if temperature > 100:",
-      "options": [
-        "# If hot",
-        "# Check for boiling point (100°C)",
-        "# Temperature check",
-        "# If temperature > 100"
-      ],
-      "correctAnswer": "# Check for boiling point (100°C)",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 14,
-      "text": "How do you comment out this code?",
-      "code": "print('Old version')",
-      "options": [
-        "// print('Old version')",
-        "# print('Old version')",
-        "-- print('Old version')",
-        "All of the above"
-      ],
-      "correctAnswer": "# print('Old version')",
-      "selectedAnswer": null,
-      "status": "unseen"
-    },
-    {
-      "id": 15,
-      "text": "What is the output of this code?",
-      "code": "# print(1)\nprint(2)\n# print(3)",
-      "options": [
-        "1\n2\n3",
-        "2",
-        "1\n3",
-        "Nothing"
-      ],
-      "correctAnswer": "2",
-      "selectedAnswer": null,
-      "status": "unseen"
+    "Escape Characters": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/WggPY2Y2Qx0?si=FutoEJd2iaT-X11G",
+        "title": "Python Escape Characters",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
     }
-  ]
 
-        },
-         "codingPractice": {
-                    "title": "Coding Practice",
-                    "discription": "You will have three levl codes u have to answer those",
-                    "problems": [
-                        {
-                            "id": 1,
-                            "title": "Sum of Two Numbers",
-                            "description": "Write a program that takes two numbers as input and prints their sum.",
-                            "difficulty": "Easy",
-                            "constraints": [
-                                "Input numbers will be between -1000 and 1000",
-                                "Time limit: 1 second",
-                                "Memory limit: 256 MB"
-                            ],
-                            "sampleInput": "5 7",
-                            "sampleOutput": "12",
-                            "explanation": "The sum of 5 and 7 is 12.",
-                            "testCases": [
-                                {
-                                    "input": "3 4",
-                                    "output": "7",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "-2 8",
-                                    "output": "6",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "0 0",
-                                    "output": "0",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "1000 1000",
-                                    "output": "2000",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "-1000 -1000",
-                                    "output": "-2000",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "999 1",
-                                    "output": "1000",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "500 -300",
-                                    "output": "200",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "123 456",
-                                    "output": "579",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "-500 500",
-                                    "output": "0",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "42 58",
-                                    "output": "100",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "0 42",
-                                    "output": "42",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "-123 -456",
-                                    "output": "-579",
-                                    "isPublic": false
-                                }
-                            ]
-                        },
-                        {
-                            "id": 2,
-                            "title": "Factorial Calculation",
-                            "description": "Write a program to calculate the factorial of a given number. Factorial of n is the product of all positive integers less than or equal to n.",
-                            "difficulty": "Medium",
-                            "constraints": [
-                                "0 ≤ n ≤ 20",
-                                "Time limit: 1 second",
-                                "Memory limit: 256 MB"
-                            ],
-                            "sampleInput": "5",
-                            "sampleOutput": "120",
-                            "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120",
-                            "testCases": [
-                                {
-                                    "input": "0",
-                                    "output": "1",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "1",
-                                    "output": "1",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "3",
-                                    "output": "6",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "6",
-                                    "output": "720",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "10",
-                                    "output": "3628800",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "12",
-                                    "output": "479001600",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "15",
-                                    "output": "1307674368000",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "18",
-                                    "output": "6402373705728000",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "20",
-                                    "output": "2432902008176640000",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "7",
-                                    "output": "5040",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "8",
-                                    "output": "40320",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "9",
-                                    "output": "362880",
-                                    "isPublic": false
-                                }
-                            ]
-                        },
-                        {
-                            "id": 3,
-                            "title": "Fibonacci Sequence",
-                            "description": "Write a program to print the first n numbers of the Fibonacci sequence. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1.",
-                            "difficulty": "Medium",
-                            "constraints": [
-                                "1 ≤ n ≤ 20",
-                                "Time limit: 1 second",
-                                "Memory limit: 256 MB"
-                            ],
-                            "sampleInput": "5",
-                            "sampleOutput": "0 1 1 2 3",
-                            "explanation": "The first 5 Fibonacci numbers are 0, 1, 1, 2, 3.",
-                            "testCases": [
-                                {
-                                    "input": "1",
-                                    "output": "0",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "2",
-                                    "output": "0 1",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "3",
-                                    "output": "0 1 1",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "7",
-                                    "output": "0 1 1 2 3 5 8",
-                                    "isPublic": true
-                                },
-                                {
-                                    "input": "10",
-                                    "output": "0 1 1 2 3 5 8 13 21 34",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "12",
-                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "15",
-                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "18",
-                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "20",
-                                    "output": "0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "4",
-                                    "output": "0 1 1 2",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "6",
-                                    "output": "0 1 1 2 3 5",
-                                    "isPublic": false
-                                },
-                                {
-                                    "input": "8",
-                                    "output": "0 1 1 2 3 5 8 13",
-                                    "isPublic": false
-                                }
-                            ]
-                        }
-                    ]
-                  }
+  },
+
+  "Control Flow": {
+    "If, Elif and Else": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/hEgO047GxaQ?si=TMavXjhbgHsJjIRw",
+        "title": "Introduction to Python Programming",
+        "credits": "@TeluguSoft"
       },
-      "Python Variables": {
-        "videoRecomendation": {
-          "link": "https://youtu.be/_NOGsr_5Muc?si=WDEeKc6TwPbIndIe",
-          "title": "Python Variables",
-          "credits": "@PythonLife"
-        },
-        "cheetsheet": {
-          "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
-        },
-        "practiceMcq": {
-          "title": "Practice",
-          "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
-          "time": 10,
-          "quizQuestions": [
-            {
-              "id": 1,
-              "text": "Which of these is a valid Python variable name?",
-              "options": [
-                "123var",
-                "_var1",
-                "my-var",
-                "def"
-              ],
-              "correctAnswer": "_var1",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 2,
-              "text": "What makes a variable name invalid in Python?",
-              "options": [
-                "Starting with a letter",
-                "Containing an underscore",
-                "Starting with a number",
-                "Being all lowercase"
-              ],
-              "correctAnswer": "Starting with a number",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 3,
-              "text": "Which symbol is allowed in Python variable names?",
-              "options": [
-                "@",
-                "_",
-                "#",
-                "&"
-              ],
-              "correctAnswer": "_",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 4,
-              "text": "What happens if you use a Python keyword as a variable name?",
-              "options": [
-                "It works fine",
-                "You get a SyntaxError",
-                "The keyword gets redefined",
-                "It creates a special system variable"
-              ],
-              "correctAnswer": "You get a SyntaxError",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 5,
-              "text": "Can Python variable names contain non-English characters?",
-              "options": [
-                "No, only ASCII characters are allowed",
-                "Yes, but only in Python 2",
-                "Yes, Unicode characters are allowed",
-                "Only in comment lines"
-              ],
-              "correctAnswer": "Yes, Unicode characters are allowed",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 6,
-              "text": "What's wrong with this variable assignment?",
-              "code": "1st_place = 'gold'",
-              "options": [
-                "Nothing is wrong",
-                "Contains an underscore",
-                "Starts with a number",
-                "Uses single quotes"
-              ],
-              "correctAnswer": "Starts with a number",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 7,
-              "text": "Which of these will NOT create a valid variable?",
-              "code": "",
-              "options": [
-                "my_var = 10",
-                "_var = 20",
-                "var@name = 30",
-                "var_name = 40"
-              ],
-              "correctAnswer": "var@name = 30",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 8,
-              "text": "What is the output of this code?",
-              "code": "for = 5\nprint(for)",
-              "options": [
-                "5",
-                "for",
-                "SyntaxError",
-                "None"
-              ],
-              "correctAnswer": "SyntaxError",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 9,
-              "text": "Which of these variable names follows Python's basic rules?",
-              "options": [
-                "my-var",
-                "my var",
-                "my_var",
-                "99var"
-              ],
-              "correctAnswer": "my_var",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 10,
-              "text": "What makes this variable assignment invalid?",
-              "code": "class = 'Computer Science'",
-              "options": [
-                "Using quotes",
-                "Using a reserved keyword",
-                "Being too long",
-                "Using spaces"
-              ],
-              "correctAnswer": "Using a reserved keyword",
-              "selectedAnswer": null,
-              "status": "unseen"
-            }
-          ]
-        }
+      "cheetsheet": {
+        "course": "Python Programming",
+        "topic": "Python Introduction"
+      }
+    },
+    "Nested If": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/hEgO047GxaQ?si=TMavXjhbgHsJjIRw",
+        "title": "Introduction to Python Programming",
+        "credits": "@TeluguSoft"
       },
-      "Python Datatypes & Type Conversions": {
-        "videoRecomendation": {
-          "link": "https://youtu.be/ApZ751un7t8?si=Qp43cqjuoKzT0Ktn",
-          "title": "Python Datatypes & Type Conversions",
-          "credits": "@PythonLife"
-        },
-        "cheetsheet": {
-          "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
-        },
-        "practiceMcq": {
-          "title": "Practice",
-          "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
-          "time": 10,
-          "quizQuestions": [
-            {
-              "id": 1,
-              "text": "What does type(5) return?",
-              "options": [
-                "<class 'float'>",
-                "<class 'int'>",
-                "<class 'number'>",
-                "<class 'str'>"
-              ],
-              "correctAnswer": "<class 'int'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 2,
-              "text": "Which function converts a string to a float?",
-              "options": [
-                "str_to_float()",
-                "float()",
-                "parse_float()",
-                "to_float()"
-              ],
-              "correctAnswer": "float()",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 3,
-              "text": "What is the output of type(True)?",
-              "options": [
-                "<class 'bool'>",
-                "<class 'int'>",
-                "<class 'true'>",
-                "<class 'bit'>"
-              ],
-              "correctAnswer": "<class 'bool'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 4,
-              "text": "How do you convert an integer to a string?",
-              "options": [
-                "string()",
-                "str()",
-                "to_string()",
-                "parse_str()"
-              ],
-              "correctAnswer": "str()",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 5,
-              "text": "What does type(3.14) return?",
-              "options": [
-                "<class 'decimal'>",
-                "<class 'float'>",
-                "<class 'double'>",
-                "<class 'number'>"
-              ],
-              "correctAnswer": "<class 'float'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 6,
-              "text": "Which conversion will raise an error?",
-              "options": [
-                "int('123')",
-                "float('3.14')",
-                "str(100)",
-                "int('hello')"
-              ],
-              "correctAnswer": "int('hello')",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 7,
-              "text": "What is type(None)?",
-              "options": [
-                "<class 'null'>",
-                "<class 'None'>",
-                "<class 'NoneType'>",
-                "<class 'void'>"
-              ],
-              "correctAnswer": "<class 'NoneType'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 8,
-              "text": "How do you check if a variable is an integer?",
-              "options": [
-                "type(x) == int",
-                "x.is_integer()",
-                "is_int(x)",
-                "x.type() == int"
-              ],
-              "correctAnswer": "type(x) == int",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 9,
-              "text": "What does bool(0) return?",
-              "options": [
-                "True",
-                "False",
-                "None",
-                "Error"
-              ],
-              "correctAnswer": "False",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 10,
-              "text": "What is the output of type('hello')?",
-              "options": [
-                "<class 'text'>",
-                "<class 'string'>",
-                "<class 'str'>",
-                "<class 'char'>"
-              ],
-              "correctAnswer": "<class 'str'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 11,
-              "text": "Which converts a float to an integer by truncating?",
-              "options": [
-                "int()",
-                "round()",
-                "floor()",
-                "truncate()"
-              ],
-              "correctAnswer": "int()",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 12,
-              "text": "What is type([1, 2, 3])?",
-              "options": [
-                "<class 'array'>",
-                "<class 'list'>",
-                "<class 'sequence'>",
-                "<class 'tuple'>"
-              ],
-              "correctAnswer": "<class 'list'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 13,
-              "text": "How do you convert a string to a boolean?",
-              "options": [
-                "bool()",
-                "boolean()",
-                "str_to_bool()",
-                "parse_bool()"
-              ],
-              "correctAnswer": "bool()",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 14,
-              "text": "What does type({'a': 1}) return?",
-              "options": [
-                "<class 'map'>",
-                "<class 'dict'>",
-                "<class 'hash'>",
-                "<class 'object'>"
-              ],
-              "correctAnswer": "<class 'dict'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 15,
-              "text": "Which converts a number to its hexadecimal string?",
-              "options": [
-                "hex()",
-                "to_hex()",
-                "format_hex()",
-                "convert_hex()"
-              ],
-              "correctAnswer": "hex()",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 16,
-              "text": "What is type((1, 2, 3))?",
-              "options": [
-                "<class 'list'>",
-                "<class 'tuple'>",
-                "<class 'sequence'>",
-                "<class 'array'>"
-              ],
-              "correctAnswer": "<class 'tuple'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 17,
-              "text": "How do you convert a boolean to an integer?",
-              "options": [
-                "int()",
-                "bool_to_int()",
-                "convert_int()",
-                "parse_int()"
-              ],
-              "correctAnswer": "int()",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 18,
-              "text": "What does type(set()) return?",
-              "options": [
-                "<class 'collection'>",
-                "<class 'frozenset'>",
-                "<class 'set'>",
-                "<class 'hashset'>"
-              ],
-              "correctAnswer": "<class 'set'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 19,
-              "text": "Which function converts a value to its string representation?",
-              "options": [
-                "string()",
-                "repr()",
-                "str()",
-                "Both b and c"
-              ],
-              "correctAnswer": "Both b and c",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 20,
-              "text": "What is type(range(5))?",
-              "options": [
-                "<class 'generator'>",
-                "<class 'range'>",
-                "<class 'sequence'>",
-                "<class 'iterator'>"
-              ],
-              "correctAnswer": "<class 'range'>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            }
-          ]
-        }
+      "cheetsheet": {
+        "course": "Python Programming",
+        "topic": "Python Introduction"
+      }
+    },
+    "For Loop": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/hEgO047GxaQ?si=TMavXjhbgHsJjIRw",
+        "title": "Introduction to Python Programming",
+        "credits": "@TeluguSoft"
       },
-      "Python Operators": {
-        "videoRecomendation": {
-          "link": "https://youtu.be/VdEfCoYaxfI?si=tAYDAitw7I_pGujv",
-          "title": "Python Operators",
-          "credits": "@arunreddytech4u807"
-        },
-        "cheetsheet": {
-          "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
-        },
-        "practiceMcq": {
-          "title": "Practice",
-          "description": "Practice is key to mastering Python. Start with these beginner exercises to gain hands-on experience.",
-          "time": 10,
-          "quizQuestions": [
-            {
-              "id": 1,
-              "text": "Which operator is used for exponentiation in Python?",
-              "options": [
-                "^",
-                "**",
-                "^^",
-                "*"
-              ],
-              "correctAnswer": "**",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 2,
-              "text": "What does the // operator do in Python?",
-              "options": [
-                "Regular division",
-                "Floor division",
-                "Modulus operation",
-                "Integer division"
-              ],
-              "correctAnswer": "Floor division",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 3,
-              "text": "Which operator is used for modulus operation?",
-              "options": [
-                "%",
-                "//",
-                "/",
-                "mod"
-              ],
-              "correctAnswer": "%",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 4,
-              "text": "What does the '==' operator check?",
-              "options": [
-                "Memory address equality",
-                "Value equality",
-                "Type equality",
-                "Both b and c"
-              ],
-              "correctAnswer": "Value equality",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 5,
-              "text": "Which operator performs bitwise AND?",
-              "options": [
-                "&",
-                "&&",
-                "and",
-                "AND"
-              ],
-              "correctAnswer": "&",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 6,
-              "text": "What does the 'is' operator check?",
-              "options": [
-                "Value equality",
-                "Memory address identity",
-                "Type compatibility",
-                "Object size"
-              ],
-              "correctAnswer": "Memory address identity",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 7,
-              "text": "Which operator performs logical OR?",
-              "options": [
-                "||",
-                "or",
-                "|",
-                "OR"
-              ],
-              "correctAnswer": "or",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 8,
-              "text": "What does the '^' operator do in Python?",
-              "options": [
-                "Exponentiation",
-                "Bitwise XOR",
-                "Logical NOT",
-                "Power operation"
-              ],
-              "correctAnswer": "Bitwise XOR",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 9,
-              "text": "Which operator performs bitwise NOT?",
-              "options": [
-                "!",
-                "~",
-                "not",
-                "NOT"
-              ],
-              "correctAnswer": "~",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 10,
-              "text": "What does the '<<' operator do?",
-              "options": [
-                "Left shift",
-                "Less than comparison",
-                "Stream output",
-                "Bitwise rotation"
-              ],
-              "correctAnswer": "Left shift",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 11,
-              "text": "Which operator performs right shift?",
-              "options": [
-                ">>",
-                "<<",
-                ">>>",
-                "rshift"
-              ],
-              "correctAnswer": ">>",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 12,
-              "text": "What does the ':=' operator do?",
-              "options": [
-                "Type declaration",
-                "Assignment expression (walrus)",
-                "Bitwise assignment",
-                "Range operator"
-              ],
-              "correctAnswer": "Assignment expression (walrus)",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 13,
-              "text": "Which operator performs augmented addition assignment?",
-              "options": [
-                "=+",
-                "+=",
-                "++",
-                "add="
-              ],
-              "correctAnswer": "+=",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 14,
-              "text": "What does the '!=' operator check?",
-              "options": [
-                "Value inequality",
-                "Type inequality",
-                "Memory inequality",
-                "Both a and b"
-              ],
-              "correctAnswer": "Value inequality",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 15,
-              "text": "Which operator performs bitwise OR?",
-              "options": [
-                "|",
-                "||",
-                "or",
-                "OR"
-              ],
-              "correctAnswer": "|",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 16,
-              "text": "What does the '>' operator check?",
-              "options": [
-                "Greater than",
-                "Right shift",
-                "Output redirection",
-                "Type comparison"
-              ],
-              "correctAnswer": "Greater than",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 17,
-              "text": "Which operator performs logical AND?",
-              "options": [
-                "&&",
-                "and",
-                "&",
-                "AND"
-              ],
-              "correctAnswer": "and",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 18,
-              "text": "What does the '<=' operator check?",
-              "options": [
-                "Less than",
-                "Less than or equal",
-                "Left shift assignment",
-                "Bitwise comparison"
-              ],
-              "correctAnswer": "Less than or equal",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 19,
-              "text": "Which operator performs augmented multiplication assignment?",
-              "options": [
-                "*=",
-                "=*",
-                "**=",
-                "x="
-              ],
-              "correctAnswer": "*=",
-              "selectedAnswer": null,
-              "status": "unseen"
-            },
-            {
-              "id": 20,
-              "text": "What does the 'not' operator do?",
-              "options": [
-                "Bitwise NOT",
-                "Logical NOT",
-                "Negates numbers",
-                "Inverts strings"
-              ],
-              "correctAnswer": "Logical NOT",
-              "selectedAnswer": null,
-              "status": "unseen"
-            }
-          ]
-        }
+      "cheetsheet": {
+        "course": "Python Programming",
+        "topic": "Python Introduction"
+      }
+    },
+    "While Loop": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/hEgO047GxaQ?si=TMavXjhbgHsJjIRw",
+        "title": "Introduction to Python Programming",
+        "credits": "@TeluguSoft"
       },
-      "Python Input & Output": {
-        "videoRecomendation": {
-          "link": "https://youtu.be/RWi8A0zpX5w?si=VoMfASYzr8BbVnQ4",
-          "title": "Python Operators",
-          "credits": "@arunreddytech4u807"
-        },
-        "cheetsheet": {
-          "link": "https://guideray.in/python/cheetsheet/syntaxandintentation.html"
-        },
-        "quizQuestions": [
-          {
-            "id": 1,
-            "text": "Which function is used to display output in Python?",
-            "options": [
-              "display()",
-              "show()",
-              "print()",
-              "output()"
-            ],
-            "correctAnswer": "print()",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 2,
-            "text": "What does the input() function do?",
-            "options": [
-              "Displays text on screen",
-              "Reads user input from keyboard",
-              "Calculates mathematical operations",
-              "Creates a new file"
-            ],
-            "correctAnswer": "Reads user input from keyboard",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 3,
-            "text": "How do you print 'Hello World' in Python?",
-            "options": [
-              "print Hello World",
-              "print('Hello World')",
-              "echo 'Hello World'",
-              "display('Hello World')"
-            ],
-            "correctAnswer": "print('Hello World')",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 4,
-            "text": "What is the output of print(2 + 3)?",
-            "options": [
-              "2 + 3",
-              "5",
-              "23",
-              "Error"
-            ],
-            "correctAnswer": "5",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 5,
-            "text": "How do you ask for user's name and store it in a variable?",
-            "options": [
-              "name = input('Enter your name: ')",
-              "name = get_input('Enter your name: ')",
-              "input(name = 'Enter your name: ')",
-              "name = read('Enter your name: ')"
-            ],
-            "correctAnswer": "name = input('Enter your name: ')",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 6,
-            "text": "What does print('Python', 'is', 'fun') output?",
-            "options": [
-              "Python is fun",
-              "Pythonisfun",
-              "Python,is,fun",
-              "Error"
-            ],
-            "correctAnswer": "Python is fun",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 7,
-            "text": "How do you print multiple lines using one print() statement?",
-            "options": [
-              "print('Line1' \\n 'Line2')",
-              "print('Line1\\nLine2')",
-              "print('Line1', 'Line2')",
-              "print('Line1' + 'Line2')"
-            ],
-            "correctAnswer": "print('Line1\\nLine2')",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 8,
-            "text": "What is the output of print(input('Enter: ')) if user enters 'Hello'?",
-            "options": [
-              "Enter: Hello",
-              "Hello",
-              "input('Hello')",
-              "None"
-            ],
-            "correctAnswer": "Hello",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 9,
-            "text": "How do you print a variable's value?",
-            "options": [
-              "print(variable)",
-              "print('variable')",
-              "print(var=variable)",
-              "print{variable}"
-            ],
-            "correctAnswer": "print(variable)",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 10,
-            "text": "What is the output of print(10, 20, 30)?",
-            "options": [
-              "10 20 30",
-              "10,20,30",
-              "102030",
-              "(10, 20, 30)"
-            ],
-            "correctAnswer": "10 20 30",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 11,
-            "text": "How to get a number input from user?",
-            "options": [
-              "number = int(input())",
-              "number = input(int)",
-              "number = input_number()",
-              "number = get_number()"
-            ],
-            "correctAnswer": "number = int(input())",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 12,
-            "text": "What does print() with no arguments do?",
-            "options": [
-              "Prints 'None'",
-              "Prints a space",
-              "Prints a blank line",
-              "Causes error"
-            ],
-            "correctAnswer": "Prints a blank line",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 13,
-            "text": "How to print text and a variable together?",
-            "options": [
-              "print('Text' + variable)",
-              "print('Text', variable)",
-              "print(f'Text {variable}')",
-              "All of the above"
-            ],
-            "correctAnswer": "All of the above",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 14,
-            "text": "What is the default type of input() value?",
-            "options": [
-              "Integer",
-              "Float",
-              "String",
-              "Boolean"
-            ],
-            "correctAnswer": "String",
-            "selectedAnswer": null,
-            "status": "unseen"
-          },
-          {
-            "id": 15,
-            "text": "How to print special characters like quotes?",
-            "options": [
-              "print('\\'Hello\\'')",
-              "print('\"Hello\"')",
-              "print('''Hello''')",
-              "All of the above"
-            ],
-            "correctAnswer": "All of the above",
-            "selectedAnswer": null,
-            "status": "unseen"
-          }
-        ]
+      "cheetsheet": {
+        "course": "Python Programming",
+        "topic": "Python Introduction"
+      }
+    },
+    "Break, Continue, Pass": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/hEgO047GxaQ?si=TMavXjhbgHsJjIRw",
+        "title": "Introduction to Python Programming",
+        "credits": "@TeluguSoft"
+      },
+      "cheetsheet": {
+        "course": "Python Programming",
+        "topic": "Python Introduction"
+      }
+    },
+
+    "Switch Case (match-case)": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/hEgO047GxaQ?si=TMavXjhbgHsJjIRw&t=1530",
+        "title": "Python match-case Statement (Switch Case Alternative)",
+        "credits": "@TeluguSoft"
+      },
+      "cheetsheet": {
+        "course": "Python Programming",
+        "topic": "Control Flow"
       }
     }
   },
+
+
+  "Data Structures": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/m9n2f9lhtrw?si=rZaCAFzbramI0P7I",
+        "title": "Data Structures Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Functions": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/89cGQjB5R4M?si=xrwuchLWjWhG7iyS",
+        "title": "Functions Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Modules and Packages": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/15HeafqxL1k?si=rhiMgzPK3eTEuRR1",
+        "title": "Modules and Packages Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Exception Handling": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/6SPDvPK38tw?si=h_cMt1-bQ1chXe6O",
+        "title": "Exception Handling Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "File Handling": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/aequTxAvQq4?si=z23bHrVUxKyuzBMn",
+        "title": "File Handling Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Object-Oriented Programming": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/gZwPdqC2Os0?si=3vbwjukJAbdUnLf2",
+        "title": "Object-Oriented Programming Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Testing & Debugging": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/Cyh92YuY5ZY?si=DWEous7iEbeguDl7",
+        "title": "Testing & Debugging Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Standard Libraries & Utilities": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/o06MyVhYte4?si=t28qT7kzI7HyuFkx",
+        "title": "Standard Libraries & Utilities Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Advanced Python Concepts": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "",
+        "title": "Advanced Python Concepts Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Functional Programming": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/dAPL7MQGjyM?si=WFmW7IlB22jbphXv",
+        "title": "Functional Programming Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Concurrency and Parallelism": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/olYdb0DdGtM?si=QS0QFMGNZIHbvalk",
+        "title": "Concurrency and Parallelism Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Type System": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/0Y1l0LRKZVw?si=1mulwNZZjj9uX9a9",
+        "title": "Type System Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Data Persistence": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/j8hhOWuQ88g?si=2GHGxq91vPVJGONf",
+        "title": "Data Persistence Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Web Development": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "",
+        "title": "Web Development Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "APIs & Web Scraping": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/1227R6KY8Ts?si=nRU1J_flccp59idu",
+        "title": "APIs & Web Scraping Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "GUI Development": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/MOItX2aKTGc?si=pxHJQ3HZAfwD5Ucd",
+        "title": "GUI Development Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Data Science": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/-Rf4fZDQ0yw?si=-Y6c6kLBFNPO_qTF",
+        "title": "Data Science Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Machine Learning (Intro)": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/ukzFI9rgwfU?si=wnF7VNOklvPq6iqR",
+        "title": "Machine Learning (Intro) Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Automation & Scripting": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/j9MAMgyNpAU?si=z2CBXb-osVmAWel0",
+        "title": "Automation & Scripting Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Design Patterns": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/tAuRQs_d9F8?si=R5YPfSc7HUHH1uMl",
+        "title": "Design Patterns Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Packaging & Deployment": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/2kIZLDSX7fk?si=dMHXTkqCDT5u4O3h",
+        "title": "Packaging & Deployment Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  },
+  "Real-World Projects": {
+    "Overview": {
+      "videoRecomendation": {
+        "link": "https://youtu.be/yVl_G-F7m8c?si=mKspc4QgU7Q5oR8k",
+        "title": "Real-World Projects Overview",
+        "credits": "N/A"
+      },
+      "cheetsheet": {
+        "link": "Add Resource"
+      }
+    }
+  }
+},
   "guideray_javascript_mastery": {
     "JavaScript Basics": {
       "JavaScript Introduction": {

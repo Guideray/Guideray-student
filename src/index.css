@@ -1,14 +1,179 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* =========================
+     COLOR PALETTE
+     ========================= */
+
+  /* Brand Core */
+  --brand-primary: #006ee7;
+  /* Bright Blue */
+  --brand-dark: #0050a0;
+  /* Darker Blue */
+  --brand-darker: #020b1a;
+  /* Navy Background (Sidebar) */
+  --brand-light: #eef5ff;
+  /* Very Light Blue */
+  --brand-primary-dim: rgba(0, 110, 231, 0.1);
+
+  /* Accents */
+  --color-indigo: #4f46e5;
+  /* Used in Notifications */
+  --color-success: #00bf2d;
+  /* Success Green */
+  --color-error: #ef4444;
+  /* Error Red */
+  --color-warning: #f59e0b;
+  /* Warning Amber */
+  --color-purple: #8b5cf6;
+  /* Exams/Misc */
+
+  /* UI Surfaces */
+  --bg-main: #f4f7fe;
+  /* Main Dashboard Background */
+  --card-bg: #ffffff;
+  /* Card Background */
+  --border-color: #e6eff5;
+  /* Subtle Border */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  /* Dark Mode/Sidebar Border */
+
+  /* Text Colors */
+  --text-main: #1b2559;
+  /* Dark Navy - Primary Text */
+  --text-secondary: #4a5568;
+  /* Grey - Secondary Text */
+  --text-muted: #a3aed0;
+  /* Light Grey - Muted Text */
+  --text-white: #ffffff;
+  /* White Text */
+
+  /* =========================
+     LAYOUT & SPACING 
+     ========================= */
+  --gap: 10px;
+  --dashboard-padding: 20px;
+
+  /* Border Radius */
+  --radius: 20px;
+  /* Large cards */
+  --radius-sm: 12px;
+  /* Smaller elements */
+  --radius-xs: 8px;
+  /* Buttons/Inputs */
+
+  /* Sidebar Dimensions */
+  --sidebar-width: 240px;
+  --sidebar-width-collapsed: 72px;
+  --dash-right-col-width: 340px;
+
+  /* =========================
+     SHADOWS
+     ========================= */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 10px 25px rgba(112, 144, 176, 0.15);
+  --shadow-glow: 0 4px 15px rgba(0, 110, 231, 0.3);
+}
+
+/* =========================
+   GLOBAL RESET
+   ========================= */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Poppins', 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Scrollbar Hiding (Global preference) */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  text-align: left;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* =========================
+   TYPOGRAPHY
+   ========================= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p,
+a,
+li,
+td,
+th,
+span {
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+/* =========================
+   UTILITIES
+   ========================= */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

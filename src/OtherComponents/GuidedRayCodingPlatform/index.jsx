@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './index.css';
 import Editor from '@monaco-editor/react';
-import API_BASE_URL from '../../../config';
+import axiosInstance from '../../api/axiosInstance';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { 
-  FiAlertCircle, 
-  FiCheckCircle, 
-  FiXCircle, 
-  FiPlay, 
-  FiBook, 
+import {
+  FiAlertCircle,
+  FiCheckCircle,
+  FiXCircle,
+  FiPlay,
+  FiBook,
   FiMessageSquare,
   FiFile,
   FiEdit2,
@@ -28,7 +28,7 @@ import {
 const GuidedRayCodingPlatform = ({ darkMode }) => {
   const location = useLocation();
   const problems = location.state || {};
-  
+
   const {
     topicIndex,
     courseId,
@@ -64,12 +64,12 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
   const [statusType, setStatusType] = useState('');
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [userProgress, setUserProgress] = useState(null);
-  
+
   const editorRef = useRef(null);
   const problemSectionRef = useRef(null);
   const outputPopupRef = useRef(null);
   const statusModalRef = useRef(null);
-  
+
   const [currentProblem, setCurrentProblem] = useState(0);
 
   // Supported languages with templates
@@ -105,60 +105,60 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
   };
 
   function getDefaultCode(problemId) {
-    switch(problemId) {
+    switch (problemId) {
       case 1: // Sum of Two Numbers
-        return selectedLanguage === 'python' ? 
+        return selectedLanguage === 'python' ?
           `num1, num2 = map(int, input().split())\nprint(num1 + num2)` :
           selectedLanguage === 'javascript' ?
-          `const [a, b] = readline().split(' ').map(Number);\nconsole.log(a + b);` :
-          selectedLanguage === 'java' ?
-          `Scanner sc = new Scanner(System.in);\nint a = sc.nextInt();\nint b = sc.nextInt();\nSystem.out.println(a + b);` :
-          selectedLanguage === 'c' ?
-          `int a, b;\nscanf("%d %d", &a, &b);\nprintf("%d", a + b);` :
-          selectedLanguage === 'cpp' ?
-          `int a, b;\ncin >> a >> b;\ncout << a + b;` :
-          selectedLanguage === 'kotlin' ?
-          `val (a, b) = readLine()!!.split(" ").map { it.toInt() }\nprintln(a + b)` :
-          `-- SQLite doesn't support standard input like this\n-- This problem requires an imperative language`;
-      
+            `const [a, b] = readline().split(' ').map(Number);\nconsole.log(a + b);` :
+            selectedLanguage === 'java' ?
+              `Scanner sc = new Scanner(System.in);\nint a = sc.nextInt();\nint b = sc.nextInt();\nSystem.out.println(a + b);` :
+              selectedLanguage === 'c' ?
+                `int a, b;\nscanf("%d %d", &a, &b);\nprintf("%d", a + b);` :
+                selectedLanguage === 'cpp' ?
+                  `int a, b;\ncin >> a >> b;\ncout << a + b;` :
+                  selectedLanguage === 'kotlin' ?
+                    `val (a, b) = readLine()!!.split(" ").map { it.toInt() }\nprintln(a + b)` :
+                    `-- SQLite doesn't support standard input like this\n-- This problem requires an imperative language`;
+
       case 2: // Factorial
         return selectedLanguage === 'python' ?
           `n = int(input())\nfact = 1\nfor i in range(1, n+1):\n    fact *= i\nprint(fact)` :
           selectedLanguage === 'javascript' ?
-          `let n = parseInt(readline());\nlet fact = 1;\nfor(let i = 1; i <= n; i++) fact *= i;\nconsole.log(fact);` :
-          selectedLanguage === 'java' ?
-          `Scanner sc = new Scanner(System.in);\nint n = sc.nextInt();\nint fact = 1;\nfor(int i = 1; i <= n; i++) fact *= i;\nSystem.out.println(fact);` :
-          selectedLanguage === 'c' ?
-          `int n, fact = 1;\nscanf("%d", &n);\nfor(int i = 1; i <= n; i++) fact *= i;\nprintf("%d", fact);` :
-          selectedLanguage === 'cpp' ?
-          `int n, fact = 1;\ncin >> n;\nfor(int i = 1; i <= n; i++) fact *= i;\ncout << fact;` :
-          selectedLanguage === 'kotlin' ?
-          `val n = readLine()!!.toInt()\nvar fact = 1\nfor (i in 1..n) fact *= i\nprintln(fact)` :
-          `-- SQLite doesn't support loops like this\n-- This problem requires an imperative language`;
-      
+            `let n = parseInt(readline());\nlet fact = 1;\nfor(let i = 1; i <= n; i++) fact *= i;\nconsole.log(fact);` :
+            selectedLanguage === 'java' ?
+              `Scanner sc = new Scanner(System.in);\nint n = sc.nextInt();\nint fact = 1;\nfor(int i = 1; i <= n; i++) fact *= i;\nSystem.out.println(fact);` :
+              selectedLanguage === 'c' ?
+                `int n, fact = 1;\nscanf("%d", &n);\nfor(int i = 1; i <= n; i++) fact *= i;\nprintf("%d", fact);` :
+                selectedLanguage === 'cpp' ?
+                  `int n, fact = 1;\ncin >> n;\nfor(int i = 1; i <= n; i++) fact *= i;\ncout << fact;` :
+                  selectedLanguage === 'kotlin' ?
+                    `val n = readLine()!!.toInt()\nvar fact = 1\nfor (i in 1..n) fact *= i\nprintln(fact)` :
+                    `-- SQLite doesn't support loops like this\n-- This problem requires an imperative language`;
+
       case 3: // Fibonacci
         return selectedLanguage === 'python' ?
           `n = int(input())\na, b = 0, 1\nfor _ in range(n):\n    print(a, end=' ')\n    a, b = b, a + b` :
           selectedLanguage === 'javascript' ?
-          `let n = parseInt(readline());\nlet a = 0, b = 1;\nlet res = [];\nfor(let i = 0; i < n; i++) {\n    res.push(a);\n    [a, b] = [b, a + b];\n}\nconsole.log(res.join(' '));` :
-          selectedLanguage === 'java' ?
-          `Scanner sc = new Scanner(System.in);\nint n = sc.nextInt();\nint a = 0, b = 1;\nfor(int i = 0; i < n; i++) {\n    System.out.print(a + " ");\n    int temp = a;\n    a = b;\n    b = temp + b;\n}` :
-          selectedLanguage === 'c' ?
-          `int n, a = 0, b = 1;\nscanf("%d", &n);\nfor(int i = 0; i < n; i++) {\n    printf("%d ", a);\n    int temp = a;\n    a = b;\n    b = temp + b;\n}` :
-          selectedLanguage === 'cpp' ?
-          `int n, a = 0, b = 1;\ncin >> n;\nfor(int i = 0; i < n; i++) {\n    cout << a << " ";\n    int temp = a;\n    a = b;\n    b = temp + b;\n}` :
-          selectedLanguage === 'kotlin' ?
-          `val n = readLine()!!.toInt()\nvar a = 0\nvar b = 1\nfor (i in 1..n) {\n    print("$a ")\n    val temp = a\n    a = b\n    b += temp\n}` :
-          `-- SQLite doesn't support loops like this\n-- This problem requires an imperative language`;
-      
+            `let n = parseInt(readline());\nlet a = 0, b = 1;\nlet res = [];\nfor(let i = 0; i < n; i++) {\n    res.push(a);\n    [a, b] = [b, a + b];\n}\nconsole.log(res.join(' '));` :
+            selectedLanguage === 'java' ?
+              `Scanner sc = new Scanner(System.in);\nint n = sc.nextInt();\nint a = 0, b = 1;\nfor(int i = 0; i < n; i++) {\n    System.out.print(a + " ");\n    int temp = a;\n    a = b;\n    b = temp + b;\n}` :
+              selectedLanguage === 'c' ?
+                `int n, a = 0, b = 1;\nscanf("%d", &n);\nfor(int i = 0; i < n; i++) {\n    printf("%d ", a);\n    int temp = a;\n    a = b;\n    b = temp + b;\n}` :
+                selectedLanguage === 'cpp' ?
+                  `int n, a = 0, b = 1;\ncin >> n;\nfor(int i = 0; i < n; i++) {\n    cout << a << " ";\n    int temp = a;\n    a = b;\n    b = temp + b;\n}` :
+                  selectedLanguage === 'kotlin' ?
+                    `val n = readLine()!!.toInt()\nvar a = 0\nvar b = 1\nfor (i in 1..n) {\n    print("$a ")\n    val temp = a\n    a = b\n    b += temp\n}` :
+                    `-- SQLite doesn't support loops like this\n-- This problem requires an imperative language`;
+
       default:
         return selectedLanguage === 'python' ? 'print("Hello World!")' :
-               selectedLanguage === 'javascript' ? 'console.log("Hello World!")' :
-               selectedLanguage === 'java' ? 'System.out.println("Hello World!");' :
-               selectedLanguage === 'c' ? 'printf("Hello World!\\n");' :
-               selectedLanguage === 'cpp' ? 'cout << "Hello World!" << endl;' :
-               selectedLanguage === 'kotlin' ? 'println("Hello World!")' :
-               'SELECT "Hello World!";';
+          selectedLanguage === 'javascript' ? 'console.log("Hello World!")' :
+            selectedLanguage === 'java' ? 'System.out.println("Hello World!");' :
+              selectedLanguage === 'c' ? 'printf("Hello World!\\n");' :
+                selectedLanguage === 'cpp' ? 'cout << "Hello World!" << endl;' :
+                  selectedLanguage === 'kotlin' ? 'println("Hello World!")' :
+                    'SELECT "Hello World!";';
     }
   }
 
@@ -168,14 +168,14 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
       try {
         setIsLoading(true);
         const response = await axios.get('https://emkc.org/api/v2/piston/runtimes');
-        
+
         // Filter to only include our supported languages
         const supportedLanguages = ['python', 'javascript', 'java', 'c', 'cpp', 'kotlin', 'sqlite'];
         const filteredLanguages = response.data.filter(lang => supportedLanguages.includes(lang.language));
-        
+
         setLanguages(filteredLanguages || []);
         setError(null);
-        
+
         if (filteredLanguages && filteredLanguages.length > 0) {
           const lang = filteredLanguages.find(l => l.language === selectedLanguage);
           if (lang) setSelectedVersion(lang.version);
@@ -195,13 +195,13 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
   useEffect(() => {
     const fetchUserProgress = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/consistancy/progress/${studentId}/${courseId}`);
+        const response = await axiosInstance.get(`/api/consistency/progress/${studentId}/${courseId}`);
         setUserProgress(response.data.data);
       } catch (error) {
         console.error('Error fetching user progress:', error);
       }
     };
-    
+
     if (studentId && courseId) {
       fetchUserProgress();
     }
@@ -211,10 +211,10 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
   useEffect(() => {
     if (selectedLanguage && languageData[selectedLanguage]) {
       setCode(languageData[selectedLanguage].template);
-      
+
       const lang = languages.find(l => l.language === selectedLanguage);
       if (lang) setSelectedVersion(lang.version);
-      
+
       setFileName(selectedLanguage === 'java' ? 'Main' : 'main');
     }
   }, [selectedLanguage, languages, currentProblem]);
@@ -222,7 +222,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
   // Handle editor mount
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
-    
+
     // Define custom themes
     monaco.editor.defineTheme('guidedray-dark', {
       base: 'vs-dark',
@@ -250,7 +250,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
         'editor.lineHighlightBorder': 'rgba(108, 92, 231, 0.3)'
       }
     });
-    
+
     monaco.editor.defineTheme('guidedray-light', {
       base: 'vs',
       inherit: true,
@@ -277,10 +277,10 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
         'editor.lineHighlightBorder': 'rgba(108, 92, 231, 0.2)'
       }
     });
-    
+
     // Set the theme based on current mode
     monaco.editor.setTheme(darkMode ? 'guidedray-dark' : 'guidedray-light');
-    
+
     // Configure editor settings
     editor.updateOptions({
       autoClosingBrackets: 'always',
@@ -330,7 +330,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
     setOutput('Executing...\n');
     setTestResults([]);
     setPopupTitle('Run Output');
-    
+
     try {
       const fileExtension = languageData[selectedLanguage].extension;
       const files = [{
@@ -356,7 +356,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
       } else {
         setOutput(response.data?.run?.output || 'No output');
       }
-      
+
       setError(null);
       setShowOutputPopup(true);
     } catch (err) {
@@ -380,7 +380,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
     setOutput('Running test cases...\n');
     setTestResults([]);
     setPopupTitle('Test Results');
-    
+
     try {
       const fileExtension = languageData[selectedLanguage].extension;
       const files = [{
@@ -434,10 +434,10 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
       }
 
       setTestResults(results);
-      setOutput(allPassed ? 
-        '🎉 All public test cases passed!' : 
+      setOutput(allPassed ?
+        '🎉 All public test cases passed!' :
         'Some test cases failed. Please check your code.');
-      
+
       setError(null);
       setShowOutputPopup(true);
     } catch (err) {
@@ -461,7 +461,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
     setOutput('Running all test cases...\n');
     setTestResults([]);
     setPopupTitle('Submission Results');
-    
+
     try {
       const fileExtension = languageData[selectedLanguage].extension;
       const files = [{
@@ -517,20 +517,20 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
       }
 
       setTestResults(results);
-      
+
       const percentage = Math.round((passedCount / totalTests) * 100);
       setCompletionPercentage(percentage);
       const allPassed = percentage === 100;
-      
-      setOutput(allPassed ? 
-        '🎉 All test cases passed! Your solution is correct!' : 
+
+      setOutput(allPassed ?
+        '🎉 All test cases passed! Your solution is correct!' :
         percentage >= 70 ?
-        `Good job! You passed ${percentage}% of test cases. Keep practicing to reach 100%!` :
-        `Your answer didn't meet the requirements (${percentage}% passed). Please try again.`);
-      
+          `Good job! You passed ${percentage}% of test cases. Keep practicing to reach 100%!` :
+          `Your answer didn't meet the requirements (${percentage}% passed). Please try again.`);
+
       setError(null);
       setShowOutputPopup(true);
-      
+
       // Show status modal based on results
       if (percentage >= 70) {
         if (percentage === 100) {
@@ -541,7 +541,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
           setStatusType('partial');
         }
         setShowStatusModal(true);
-        
+
         // Update progress if needed
         await updateProgress(percentage);
       } else {
@@ -560,13 +560,13 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
   // Update user progress with correct problem ID
   const updateProgress = async (percentage) => {
     if (!studentId || !courseId) return;
-    
+
     try {
       const questionId = problems.problems[currentProblem].id; // Use the actual problem ID
-      
+
       // Check if we need to update based on existing progress
       let shouldUpdate = true;
-      
+
       if (userProgress && userProgress.cp && userProgress.cp.length > 0) {
         const courseProgress = userProgress.cp.find(cp => cp.n === courseId);
         if (courseProgress && courseProgress.t && courseProgress.t.length > topicIndex) {
@@ -579,7 +579,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
           }
         }
       }
-      
+
       if (shouldUpdate) {
         const payload = {
           courseName: courseId,
@@ -590,8 +590,8 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
             p: percentage
           }
         };
-        
-        await axios.post(`${API_BASE_URL}/api/consistancy/progress/${studentId}`, payload);
+
+        await axiosInstance.post(`/api/consistency/progress/${studentId}`, payload);
       }
     } catch (error) {
       console.error('Error updating progress:', error);
@@ -671,7 +671,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
 
         <div className="guidedray-coding-platform-main">
           {/* Problem Section */}
-          <aside 
+          <aside
             className="guidedray-coding-platform-problem-section"
             style={{ width: `${sidebarWidth}%` }}
             ref={problemSectionRef}
@@ -703,23 +703,23 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                   )}
                 </div>
               </div>
-              
+
               <div className="problem-tabs">
-                <button 
+                <button
                   className={`problem-tab ${activeTab === 'problem' ? 'active' : ''}`}
                   onClick={() => setActiveTab('problem')}
                 >
                   <FiBook size={16} />
                   Problem
                 </button>
-                <button 
+                <button
                   className={`problem-tab ${activeTab === 'submissions' ? 'active' : ''}`}
                   onClick={() => setActiveTab('submissions')}
                 >
                   <FiFile size={16} />
                   Submissions
                 </button>
-                <button 
+                <button
                   className={`problem-tab ${activeTab === 'discuss' ? 'active' : ''}`}
                   onClick={() => setActiveTab('discuss')}
                 >
@@ -731,7 +731,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
               {activeTab === 'problem' && (
                 <div className="guidedray-coding-platform-problem-description">
                   <p>{problems.problems?.[currentProblem]?.description}</p>
-                  
+
                   <h3>Constraints</h3>
                   <ul className="guidedray-coding-platform-constraints">
                     {problems.problems?.[currentProblem]?.constraints?.map((constraint, index) => (
@@ -741,7 +741,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                       </li>
                     ))}
                   </ul>
-                  
+
                   <div className="io-section">
                     <div className="io-block">
                       <h3>Sample Input</h3>
@@ -749,7 +749,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                         <pre>{problems.problems?.[currentProblem]?.sampleInput}</pre>
                       </div>
                     </div>
-                    
+
                     <div className="io-block">
                       <h3>Sample Output</h3>
                       <div className="guidedray-coding-platform-code-block">
@@ -757,7 +757,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <h3>Explanation</h3>
                   <p>{problems.problems?.[currentProblem]?.explanation}</p>
                 </div>
@@ -786,13 +786,13 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
           </aside>
 
           {/* Resize handle */}
-          <div 
+          <div
             className="guidedray-coding-platform-resize-handle"
             onMouseDown={startResizing}
           ></div>
 
           {/* Coding Section */}
-          <main 
+          <main
             className="guidedray-coding-platform-coding-section"
             style={{ width: `${100 - sidebarWidth}%` }}
           >
@@ -806,11 +806,11 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                     {selectedLanguage.charAt(0).toUpperCase() + selectedLanguage.slice(1)} {selectedVersion}
                   </span>
                 </div>
-                
+
                 <div className="guidedray-coding-platform-action-buttons">
                   <div className="guidedray-coding-platform-controls">
-                    <select 
-                      value={selectedLanguage} 
+                    <select
+                      value={selectedLanguage}
                       onChange={(e) => setSelectedLanguage(e.target.value)}
                       className="guidedray-coding-platform-language-selector"
                       disabled={isLoading}
@@ -821,9 +821,9 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                         </option>
                       ))}
                     </select>
-                    
+
                     <div className="font-size-control">
-                      <button 
+                      <button
                         onClick={() => setFontSize(Math.max(12, fontSize - 1))}
                         disabled={fontSize <= 12}
                         className="font-size-btn"
@@ -831,7 +831,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                         <FiMinus size={12} />
                       </button>
                       <span className="font-size-display">{fontSize}px</span>
-                      <button 
+                      <button
                         onClick={() => setFontSize(Math.min(24, fontSize + 1))}
                         disabled={fontSize >= 24}
                         className="font-size-btn"
@@ -840,10 +840,10 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                       </button>
                     </div>
                   </div>
-                  
+
                   <div className="action-buttons">
-                    <button 
-                      onClick={executeCode} 
+                    <button
+                      onClick={executeCode}
                       disabled={isLoading}
                       className="guidedray-coding-platform-run-button"
                     >
@@ -859,8 +859,8 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                         </>
                       )}
                     </button>
-                    <button 
-                      onClick={runTestCases} 
+                    <button
+                      onClick={runTestCases}
                       disabled={isLoading || isRunningTests}
                       className="guidedray-coding-platform-test-button"
                     >
@@ -876,8 +876,8 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                         </>
                       )}
                     </button>
-                    <button 
-                      onClick={submitCode} 
+                    <button
+                      onClick={submitCode}
                       disabled={isLoading || isSubmitting}
                       className="guidedray-coding-platform-submit-button"
                     >
@@ -964,13 +964,13 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
         {/* Output Popup */}
         {showOutputPopup && (
           <div className="guidedray-coding-platform-output-popup-overlay">
-            <div 
+            <div
               className="guidedray-coding-platform-output-popup"
               ref={outputPopupRef}
             >
               <div className="guidedray-coding-platform-output-popup-header">
                 <h3>{popupTitle}</h3>
-                <button 
+                <button
                   onClick={() => setShowOutputPopup(false)}
                   className="guidedray-coding-platform-output-popup-close"
                 >
@@ -986,7 +986,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                       <h4>Completion Percentage</h4>
                     </div>
                     <div className="completion-meter">
-                      <div 
+                      <div
                         className="completion-meter-fill"
                         style={{ width: `${completionPercentage}%` }}
                       ></div>
@@ -1016,14 +1016,14 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                 )}
 
                 {output && (
-                  <pre 
-                    className="guidedray-coding-platform-output" 
+                  <pre
+                    className="guidedray-coding-platform-output"
                     style={{ fontSize: `${fontSize - 2}px` }}
                   >
                     {output}
                   </pre>
                 )}
-                
+
                 {testResults.length > 0 && (
                   <div className="test-results">
                     <div className="test-results-summary">
@@ -1031,7 +1031,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                       {testResults.filter(r => r.status === 'failed').length} failed,{' '}
                       {testResults.filter(r => r.status === 'error').length} errors
                     </div>
-                    
+
                     <div className="test-cases">
                       {testResults.map((result, index) => (
                         <div key={index} className={`test-case ${result.status}`}>
@@ -1053,7 +1053,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                               </span>
                             )}
                           </div>
-                          
+
                           <div className="test-case-details">
                             {result.status === 'error' ? (
                               <div className="test-case-error">
@@ -1098,7 +1098,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
         {/* Status Modal */}
         {showStatusModal && (
           <div className="guidedray-coding-platform-status-modal-overlay">
-            <div 
+            <div
               className={`guidedray-coding-platform-status-modal ${statusType}`}
               ref={statusModalRef}
             >
@@ -1111,21 +1111,21 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                   <FiXCircle size={24} className="status-icon" />
                 )}
                 <h3>
-                  {statusType === 'success' ? 'Success!' : 
-                   statusType === 'partial' ? 'Almost There!' : 'Try Again'}
+                  {statusType === 'success' ? 'Success!' :
+                    statusType === 'partial' ? 'Almost There!' : 'Try Again'}
                 </h3>
               </div>
               <div className="status-modal-content">
                 <p>{statusMessage}</p>
                 {statusType === 'fail' && (
                   <div className="status-modal-actions">
-                    <button 
+                    <button
                       className="try-again-button"
                       onClick={() => setShowStatusModal(false)}
                     >
                       Try Again
                     </button>
-                    <button 
+                    <button
                       className="review-button"
                       onClick={() => navigate(`/video-courses/${courseId}`)}
                     >
@@ -1134,7 +1134,7 @@ const GuidedRayCodingPlatform = ({ darkMode }) => {
                   </div>
                 )}
                 {(statusType === 'success' || statusType === 'partial') && (
-                  <button 
+                  <button
                     className="continue-button"
                     onClick={() => setShowStatusModal(false)}
                   >
